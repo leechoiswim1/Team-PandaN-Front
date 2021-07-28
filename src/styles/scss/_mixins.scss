@@ -20,7 +20,6 @@ $browser-context: 16;
   @return ($pixels / $context) * 1rem;
 }
 
-
 /*
  * Text
  */
@@ -49,7 +48,7 @@ $browser-context: 16;
     position: absolute;
     right: 0;
     bottom: 0;
-    content: '...';
+    content: "...";
   }
 
   &::after {
@@ -58,14 +57,12 @@ $browser-context: 16;
     width: 1em;
     height: 1em;
     margin-top: 0.2em;
-    content: '';
+    content: "";
     background: $bgColor;
   }
 }
 
-
 @mixin text-color($color: primary, $effect: none) {
-
   @if ($color == primary) {
     color: red;
 
