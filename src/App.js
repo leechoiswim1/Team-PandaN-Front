@@ -1,5 +1,5 @@
-// import './App.css'; global css 적용 시 수정할 것
 import Router from "./components/Router";
+import "./styles/scss/pandan.scss";
 
 const App = () => {
   return (
