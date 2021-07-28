@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
 
 const ProjectModal = () => {
   const [lgShow, setLgShow] = useState(false);
-  const [ProTitle, setProTitle] = useState('');
+  const [ProTitle, setProTitle] = useState("");
   const [ProDesc, setProDesc] = useState();
 
   const CreateProject = () => {
-    if (ProTitle === '') {
-      window.alert('프로젝트 이름을 입력해주세요!');
+    if (ProTitle === "") {
+      window.alert("프로젝트 이름을 입력해주세요!");
       return;
     }
   };
@@ -31,7 +31,7 @@ const ProjectModal = () => {
       >
         <Modal.Header closeButton>
           <Modal.Title
-            style={{ margin: 'auto' }}
+            style={{ margin: "auto" }}
             id="example-modal-sizes-title-lg"
           >
             프로젝트생성하기
@@ -39,17 +39,17 @@ const ProjectModal = () => {
         </Modal.Header>
 
         <Modal.Body>
-          <form style={{ margin: '1vh 3vw 2vh 3vw' }}>
+          <form style={{ margin: "1vh 3vw 2vh 3vw" }}>
             <h4>프로젝트 제목ㅎㅎ</h4>
             <input
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
               type="text"
               placeholder="프로젝트 제목"
               onChange={changeProTitle}
             />
             <h4>프로젝트 내용 (선택사항)</h4>
             <textarea
-              style={{ width: '100%', height: '30vh' }}
+              style={{ width: "100%", height: "30vh" }}
               type="text"
               placeholder="프로젝트 내용"
               onChange={changeProDesc}
@@ -58,7 +58,7 @@ const ProjectModal = () => {
               onClick={() => {
                 CreateProject();
               }}
-              style={{ width: '30%', margin: 'auto' }}
+              style={{ width: "30%", margin: "auto" }}
             >
               등록하기
             </Button>

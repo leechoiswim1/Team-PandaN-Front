@@ -1,10 +1,10 @@
-import React from 'react';
-import Header from './Header';
-import Sidebar from './Sidebar';
+import React from "react";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 // import { Container, Row, Col, Button, Alert, Breadcrumb, Card, Form } from 'react-bootstrap';
-import { Button, Accordion, Card } from 'react-bootstrap';
-import '../styles/scss/pandan.scss';
+import { Button, Accordion, Card } from "react-bootstrap";
+import "../styles/scss/pandan.scss";
 
 const Template = ({ history }) => {
   return (

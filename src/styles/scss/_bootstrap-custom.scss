@@ -3,10 +3,10 @@
  */
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
-@import '~bootstrap/scss/bootstrap-grid';
-@import '~bootstrap/scss/variables';
-@import '~bootstrap/scss/mixins/breakpoints';
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/bootstrap-grid";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/breakpoints";
 
 $theme-colors: (
   primary: red,
@@ -62,7 +62,7 @@ $sizes: (
 
 //== Typography
 
-$font-family-base: 'Noto Sans Korean', 'Roboto', Arial, Dotum, sans-serif;
+$font-family-base: "Noto Sans Korean", "Roboto", Arial, Dotum, sans-serif;
 
 //$font-size-sm:                rem(15);
 //$font-size-lg:                rem(16);
@@ -93,7 +93,7 @@ $border-radius-lg: rem(10);
 
 //== Breadcrumbs
 
-$breadcrumb-divider: quote('>');
+$breadcrumb-divider: quote(">");
 
 //== Buttons + Forms
 
