@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 /* elements */
-import { Button } from "../elements";
 import { useDispatch } from "react-redux";
 
 const Login = ({ history }) => {
@@ -41,7 +40,7 @@ const Container = styled.div`
   text-align: center;
 `;
 
-const GoogleBtn = styled(Button)`
+const GoogleBtn = styled.button`
   background-image: url();
 `;
 export default Login;
