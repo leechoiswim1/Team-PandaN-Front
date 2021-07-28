@@ -1,6 +1,8 @@
 module.exports = {
   // 홀따옴표(') 사용
   singleQuote: true,
+  // jsx 홀따옴표(') 사용
+  jsxSingleQuote: true,
   // 코드 마지막에 세미콜론 사용
   semi: true,
   // 탭의 사용을 금하고 스페이스바 사용으로 대체
@@ -8,9 +10,9 @@ module.exports = {
   // 들여쓰기 너비는 2칸
   tabWidth: 2,
   // 객체나 배열을 작성 할 때, 원소 혹은 key-value의 맨 뒤에 있는 것에도 쉼표를 붙임
-  trailingComma: "all",
+  trailingComma: 'all',
   // 코드 한줄이 maximum 80칸
   printWidth: 80,
   // 화살표 함수가 하나의 매개변수를 받을 때 괄호 생략
-  arrowParens: "avoid",
+  arrowParens: 'avoid',
 };

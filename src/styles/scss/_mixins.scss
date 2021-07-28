@@ -1,0 +1,110 @@
+/*
+ * functions
+ */
+
+// Function to convert px value into rem
+// USAGE:
+// body { margin: rem(20); }
+
+$browser-context: 16;
+
+@function rem($pixels, $context: $browser-context) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+
+  @return ($pixels / $context) * 1rem;
+}
+
+
+/*
+ * Text
+ */
+
+// 한 줄 자르기
+
+@mixin text-truncate {
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 여러 줄 자르기 스타일 (multiline)
+// ex: @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 3, $bgColor: white);
+
+@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white) {
+  position: relative;
+  max-height: $lineHeight * $lineCount;
+  padding-right: 1em;
+  margin-right: -1em;
+  overflow: hidden;
+  line-height: $lineHeight;
+  text-align: justify;
+
+  &::before {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    content: '...';
+  }
+
+  &::after {
+    position: absolute;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    content: '';
+    background: $bgColor;
+  }
+}
+
+
+@mixin text-color($color: primary, $effect: none) {
+
+  @if ($color == primary) {
+    color: red;
+
+    @if ($effect == hover) {
+      &:hover {
+        color: darkred;
+      }
+    }
+
+    /* This class denotes a color scheme */
+    .dark-theme & {
+      color: gray;
+
+      @if ($effect == hover) {
+        &:hover {
+          color: black;
+        }
+      }
+    }
+  }
+
+  @if ($color == secondary) {
+    color: blueviolet;
+
+    @if ($effect == hover) {
+      &:hover {
+        color: indigo;
+      }
+    }
+
+    /* This class denotes a color scheme */
+    .dark-theme & {
+      color: blueviolet;
+
+      @if ($effect == hover) {
+        &:hover {
+          color: indigo;
+        }
+      }
+    }
+  }
+}
