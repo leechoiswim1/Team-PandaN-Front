@@ -7,7 +7,7 @@ import store from './modules/configStore';
 
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from './modules/configStore';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 ReactDOM.render(
 	<Provider store={store}>
 		<ConnectedRouter history={history}>
