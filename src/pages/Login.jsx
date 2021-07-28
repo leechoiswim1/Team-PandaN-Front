@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 /* elements */
-import { Button } from '../elements';
-import { useDispatch } from 'react-redux';
+import { Button } from "../elements";
+import { useDispatch } from "react-redux";
 
 const Login = ({ history }) => {
   const dispatch = useDispatch();
@@ -16,10 +16,8 @@ const Login = ({ history }) => {
           세상에서 제일 쉬운 협업툴 <br />
           PandaN을 만나보세요!
         </h3>
-        <form action='http://blossomwhale.shop/oauth2/authorization/google'>
-          <GoogleBtn type='submit'>
-            구글 계정으로 로그인
-          </GoogleBtn>
+        <form action="http://blossomwhale.shop/oauth2/authorization/google">
+          <GoogleBtn type="submit">구글 계정으로 로그인</GoogleBtn>
         </form>
       </Container>
     </Wrapper>
@@ -45,5 +43,5 @@ const Container = styled.div`
 
 const GoogleBtn = styled(Button)`
   background-image: url();
-`
+`;
 export default Login;
