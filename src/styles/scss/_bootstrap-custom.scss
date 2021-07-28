@@ -3,21 +3,18 @@
  */
 
 // Bootstrap
-@import "~bootstrap/scss/bootstrap";
-@import "~bootstrap/scss/bootstrap-grid";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
-
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/bootstrap-grid';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins/breakpoints';
 
 $theme-colors: (
-  primary: red
+  primary: red,
 );
 
 /**
  * Set the overriding Bootstrap variables
  */
-
-
 
 // Non-responsive
 // $grid-breakpoints: (
@@ -28,7 +25,6 @@ $theme-colors: (
 //   xl: map-get($breakpoints, 'xl')// Extra large screen / wide desktop
 // );
 
-
 // lg 이전 컨테이너 너비 100%로...
 // @media (max-width: map-get($grid-breakpoints, 'xl')) {
 //   .container {
@@ -36,16 +32,15 @@ $theme-colors: (
 //   }
 // }
 
-
 // Spacing rules
 
-$spacer: 1rem;
-$spacers: ( 0:0 );
-@for $i from 1 through 150 {
-  $spacers: map-merge($spacers, (
-    $i: ($i * $spacer) / 16
-  ));
-}
+// $spacer: 1rem;
+// $spacers: ( 0:0 );
+// @for $i from 1 through 150 {
+//   $spacers: map-merge($spacers, (
+//     $i: ($i * $spacer) / 16
+//   ));
+// }
 
 // This variable affects the `.h-*` and `.w-*` classes.
 $sizes: (
@@ -62,9 +57,8 @@ $sizes: (
   80: 80%,
   90: 90%,
   100: 100%,
-  auto: auto
+  auto: auto,
 );
-
 
 //== Typography
 
@@ -73,26 +67,25 @@ $font-family-base: 'Noto Sans Korean', 'Roboto', Arial, Dotum, sans-serif;
 //$font-size-sm:                rem(15);
 //$font-size-lg:                rem(16);
 
-$font-weight-bold:            500;
-$font-weight-bolder:          700;
+$font-weight-bold: 500;
+$font-weight-bolder: 700;
 
-$h1-font-size:                rem(60);
-$h2-font-size:                rem(40);
-$h3-font-size:                rem(32);
-$h4-font-size:                rem(24);
-$h5-font-size:                rem(18);
-$h6-font-size:                rem(16);
+$h1-font-size: rem(60);
+$h2-font-size: rem(40);
+$h3-font-size: rem(32);
+$h4-font-size: rem(24);
+$h5-font-size: rem(18);
+$h6-font-size: rem(16);
 
 //$headings-margin-bottom:      $spacer / 2 !default;
 
 // $text-muted:                  $gray-300;
 
-
 //== Components
-$border-color:                #c6d2de;
-$border-radius:               rem(8);
-$border-radius-sm:            rem(5);
-$border-radius-lg:            rem(10);
+$border-color: #c6d2de;
+$border-radius: rem(8);
+$border-radius-sm: rem(5);
+$border-radius-lg: rem(10);
 
 //== Alert
 
@@ -129,11 +122,11 @@ $breadcrumb-divider: quote('>');
 // $btn-padding-x-lg:            $input-btn-padding-x-lg;
 // $btn-font-size-lg:            $input-btn-font-size-lg;
 
-$btn-border-radius:             rem(5);
-$btn-border-radius-sm:          rem(5);
+$btn-border-radius: rem(5);
+$btn-border-radius-sm: rem(5);
 
 // Card
-$card-border-radius:            $border-radius;
+$card-border-radius: $border-radius;
 
 // $text-muted:                    #a1b4c7;
 
@@ -155,15 +148,15 @@ $card-border-radius:            $border-radius;
 // $input-padding-x-lg:                    $input-btn-padding-x-lg;
 // $input-font-size-lg:                    $input-btn-font-size-lg;
 
-$input-height:                          rem(42);
-$input-height-sm:                       rem(36);
-$input-height-lg:                       rem(52);
+$input-height: rem(42);
+$input-height-sm: rem(36);
+$input-height-lg: rem(52);
 //$input-height:                          add($input-line-height * 1em, add($input-padding-y * 2, $input-height-border, false));
 //$input-height-sm:                       add($input-line-height-sm * 1em, add($input-padding-y-sm * 2, $input-height-border, false));
 //$input-height-lg:                       add($input-line-height-lg * 1em, add($input-padding-y-lg * 2, $input-height-border, false));
 
-$input-disabled-bg:                     #ebeff3 !important;
-$input-disabled-border-color:           #ebeff3 !important;
+$input-disabled-bg: #ebeff3 !important;
+$input-disabled-border-color: #ebeff3 !important;
 
 $input-color: #2f3e4e;
 $input-focus-color: $input-color;
@@ -173,12 +166,10 @@ $input-border-radius-lg: rem(5);
 $input-placeholder-color: #7e97b1;
 //$input-plaintext-color:                 $body-color;
 
-
 // Buttons
 //
 // For each of Bootstrap's buttons, define text, background, and border color.
 $btn-font-size-lg: rem(20);
-
 
 // $form-group-margin-bottom: rem(30);
 
