@@ -7,5 +7,6 @@ import Modals from "./Modals";
 import SubHeader from "./SubHeader";
 /* kanban */
 import KanbanList from "./KanbanList";
+import KanbanCard from "./KanbanCard";
 
-export { Header, ProjectModal, Router, Sidebar, Template, Modals, KanbanList, SubHeader, };
+export { Header, ProjectModal, Router, Sidebar, Template, Modals, KanbanList, KanbanCard, SubHeader, };

@@ -1,14 +1,16 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { t } from "../util/remConverter";
+/* components */
+import { KanbanCard } from "../components";
 
 const KanbanList = ({ history }) => {
   return (
     <List>
       <h4>노트 상태</h4>
-      <h4>note 1</h4>
-      <h4>note 2</h4>
-      <h4>note 3</h4>
+      <KanbanCard />
+      <KanbanCard />
+      <KanbanCard />
     </List>     
   );
 };
