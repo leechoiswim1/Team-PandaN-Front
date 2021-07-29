@@ -3,32 +3,23 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { AlignRight } from 'react-feather';
 import { t } from "../util/remConverter";
-import { Container, Nav, Button } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import Modals from "./Modals";
 
 const Header = ({ history }) => {
   return (
-    <>
-      <Headers>
-        <Container>
-          <Nav>
-            <AlignRight />
-          </Nav>
-        </Container>
-      </Headers>
-      <div style={{ fontSize: "2.0rem" }}>Header</div>
-      <Modals
-        buttonTitle="멤버초대"
-        Title="멤버초대"
-        Content="코드받기로넣어줄코드~"
-        Close="Close"
-      />
-    </>
+    <header className="header" id="header">
+      <Container fluid>
+        <AlignRight />
+        <Modals
+          buttonTitle="멤버초대"
+          Title="멤버초대"
+          Content="코드받기로넣어줄코드~"
+          Close="Close"
+        />
+      </Container>
+    </header>
   );
 };
-
-const Headers = styled.div(...t`
-  background-color: red;
-`,);
 
 export default Header;
