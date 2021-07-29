@@ -2,12 +2,13 @@ import React from "react";
 import Template from "../components/Template";
 
 /* components */
-import { KanbanList } from "../components";
+import { KanbanList, SubHeader } from "../components";
 
 const NoteKanban = ({ history }) => {
   return (
     <React.Fragment>
-      <Template />
+      {/* <Template /> */}
+      <SubHeader />
       <KanbanList />
     </React.Fragment>
   );
