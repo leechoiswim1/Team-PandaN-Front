@@ -34,13 +34,13 @@ $theme-colors: (
 
 // Spacing rules
 
-// $spacer: 1rem;
-// $spacers: ( 0:0 );
-// @for $i from 1 through 150 {
-//   $spacers: map-merge($spacers, (
-//     $i: ($i * $spacer) / 16
-//   ));
-// }
+$spacer: 1rem;
+$spacers: ( 0:0 );
+@for $i from 1 through 150 {
+  $spacers: map-merge($spacers, (
+    $i: ($i * $spacer) / 16
+  ));
+}
 
 // This variable affects the `.h-*` and `.w-*` classes.
 $sizes: (
