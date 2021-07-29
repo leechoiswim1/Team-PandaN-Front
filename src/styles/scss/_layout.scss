@@ -12,3 +12,63 @@ body {
   overflow-x: hidden;
   line-height: 1.5;
 }
+
+#root,
+.col-wrap,
+.col-left,
+.col-right,
+.sidebar {
+  height: 100%;
+}
+
+// == layout
+$sidebar-width: rem(380);
+$header-height: rem(120);
+
+.col-wrap {
+  background-color: #E5E5E5;
+}
+.col-left,
+.col-right {
+  position: relative;
+  float: left;
+}
+
+.col-left {
+  width: $sidebar-width;
+  background-color: #ffffff;
+  border-top-right-radius: rem(30);
+  border-bottom-right-radius: rem(30);
+  box-shadow: 4px 0px 10px rgba(215, 215, 215, 0.15);
+}
+.col-right {
+  width: calc(100% - #{$sidebar-width});
+}
+
+.menu {
+  padding-left: 0;
+}
+
+.header {
+  // border-bottom: 1px solid #CACACA;
+  .container-fluid {
+    height: $header-height;
+    border-bottom: 1px solid #CACACA;
+
+    // &:after {
+    //   content: '';
+    //   display: block;
+    //   width: 100%;
+    //   height: 1px;
+    //   background-color: #CACACA;
+    // }
+  }
+}
+.footer {
+  positoin: absolute;
+  bottom: 0;
+}
+
+.content {
+  height: calc(100% - #{$header-height});
+}
