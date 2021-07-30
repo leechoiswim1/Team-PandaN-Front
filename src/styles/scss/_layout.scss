@@ -14,6 +14,7 @@ body {
 }
 
 // == layout
+// --------------------------------
 $sidebar-width: rem(360);
 $header-height: rem(100);
 
@@ -49,6 +50,9 @@ $header-height: rem(100);
   padding-left: 0;
 }
 
+
+// == header
+// --------------------------------
 .header {
   // border-bottom: 1px solid #CACACA;
   .container-fluid {
@@ -70,8 +74,11 @@ $header-height: rem(100);
     }
   }
 }
+
+// == footer
+// --------------------------------
 .footer {
-  positoin: absolute;
+  position: absolute;
   bottom: 0;
 }
 
