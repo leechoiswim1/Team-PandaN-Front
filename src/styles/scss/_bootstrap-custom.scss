@@ -2,35 +2,9 @@
  * Bootstrap Custom
  */
 
-// Bootstrap
-@import "~bootstrap/scss/bootstrap";
-@import "~bootstrap/scss/bootstrap-grid";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins/breakpoints";
-
 $theme-colors: (
-  primary: red,
+  primary: #387E4B,
 );
-
-/**
- * Set the overriding Bootstrap variables
- */
-
-// Non-responsive
-// $grid-breakpoints: (
-//   xs: 0,     // Extra small screen / phone
-//   sm: 1px, // Small screen / phone
-//   md: 1px, // Medium screen / tablet
-//   lg: 1px, // Large screen / desktop
-//   xl: map-get($breakpoints, 'xl')// Extra large screen / wide desktop
-// );
-
-// lg 이전 컨테이너 너비 100%로...
-// @media (max-width: map-get($grid-breakpoints, 'xl')) {
-//   .container {
-//     max-width: 100% !important;
-//   }
-// }
 
 // Spacing rules
 
@@ -60,9 +34,24 @@ $sizes: (
   auto: auto,
 );
 
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+
+$grid-columns:                15;
+$grid-gutter-width:           1.875rem;
+
+$gutters: $spacers;
+
+// Container padding
+
+$container-padding-x: $grid-gutter-width;
+
+
 //== Typography
 
-$font-family-base: "Noto Sans Korean", "Roboto", Arial, Dotum, sans-serif;
+$font-family-base: "Noto Sans Korean", "Roboto", Arial, Dotum, sans-serif !important;
 
 //$font-size-sm:                rem(15);
 //$font-size-lg:                rem(16);
