@@ -14,9 +14,8 @@ body {
 }
 
 // == layout
-$sidebar-width: rem(300);
-$header-height: rem(80);
-$container-padding-x: rem(30);
+$sidebar-width: rem(360);
+$header-height: rem(100);
 
 #root,
 .col-wrap,
@@ -26,13 +25,8 @@ $container-padding-x: rem(30);
   height: 100%;
 }
 
-.container-fluid {
-  padding-right: $container-padding-x !important;
-  padding-left: $container-padding-x !important;
-}
-
 .col-wrap {
-  background-color: #E5E5E5;
+  background-color: #F5F5F5;
 }
 .col-left,
 .col-right {
