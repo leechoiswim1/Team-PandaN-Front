@@ -1,11 +1,10 @@
 /*
  * pandan
  */
-
 @import "bootstrap-custom";
+@import "~bootstrap/scss/bootstrap";
 @import "mixins";
 
 @import "../fonts/notosanskr/notosanskr.css";
-
 @import "base";
 @import "layout";
