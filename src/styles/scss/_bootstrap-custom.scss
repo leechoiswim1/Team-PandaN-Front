@@ -32,6 +32,7 @@ $theme-colors: (
 //   }
 // }
 
+
 // Spacing rules
 
 $spacer: 1rem;
@@ -60,9 +61,24 @@ $sizes: (
   auto: auto,
 );
 
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+
+$grid-columns:                rem(15);
+$grid-gutter-width:           rem(30);
+
+$gutters: $spacers;
+
+// Container padding
+
+$container-padding-x: rem(30);
+
+
 //== Typography
 
-$font-family-base: "Noto Sans Korean", "Roboto", Arial, Dotum, sans-serif;
+$font-family-base: "Noto Sans Korean", "Roboto", Arial, Dotum, sans-serif !important;
 
 //$font-size-sm:                rem(15);
 //$font-size-lg:                rem(16);
