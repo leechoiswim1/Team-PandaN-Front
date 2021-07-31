@@ -4,9 +4,11 @@ import Router from "./Router";
 import Sidebar from "./Sidebar";
 import Template from "./Template";
 import Modals from "./Modals";
+import SubHeader from "./SubHeader";
 import EditorModal from "./EditorModal";
 /* kanban */
 import KanbanList from "./KanbanList";
+import KanbanCard from "./KanbanCard";
 
 export {
   Header,
@@ -16,5 +18,7 @@ export {
   Template,
   Modals,
   KanbanList,
+  KanbanCard,
   EditorModal,
+  SubHeader,
 };
