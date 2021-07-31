@@ -35,30 +35,37 @@ $header-height: rem(100);
   float: left;
 }
 
+// == col-left
+// --------------------------------
 .col-left {
+  display: none;
   width: $sidebar-width;
   background-color: #ffffff;
   border-top-right-radius: rem(30);
   border-bottom-right-radius: rem(30);
   box-shadow: 4px 0px 10px rgba(215, 215, 215, 0.15);
-}
-.col-right {
-  width: calc(100% - #{$sidebar-width});
+  
+  @media (min-width: 1200px){
+    display: block;
+  }
 }
 
-.menu {
-  padding-left: 0;
+// == col-right
+// --------------------------------
+.col-right {
+  width: 100%;
+
+  @media (min-width: 1200px){
+    width: calc(100% - #{$sidebar-width});
+  }
 }
 
 
 // == header
 // --------------------------------
 .header {
-  // border-bottom: 1px solid #CACACA;
   .container-fluid {
     position: relative;
-    height: $header-height;
-    // border-bottom: 1px solid #CACACA;
 
     &:after {
       position: absolute;
@@ -75,13 +82,88 @@ $header-height: rem(100);
   }
 }
 
+
+// == sidebar
+// --------------------------------
+.sidebar {
+  .sidebar-logo {
+    display: block;
+    padding-top: rem(24);
+    padding-bottom: rem(40);
+  }
+
+  .menu {
+    padding-left: 0;
+
+    .menu-item {
+      position: relative;
+
+      &.active {
+        &:after {
+          position: absolute;
+          top: 0;
+          right: rem(-30);
+          content: '';
+          display: block;
+          width: rem(4);
+          height: rem(40);
+          background-color: $primary;
+          margin-top: rem(10);
+        }
+
+        .menu-link {
+          color: $primary;
+
+          .menu-icon {
+            fill: $primary;
+          }
+        }
+      }
+    }
+
+    .menu-link {
+      display: block;
+      color: #9A9A9A;
+      font-size: rem(20);
+      font-weight: 700;
+      text-decoration: none;
+      padding-top: rem(10);
+      padding-bottom: rem(10);
+
+      .menu-icon {
+        margin-top: -2px;
+      }
+
+      &:hover {
+        color: $primary;
+
+        .menu-icon {
+          fill: $primary;
+        }
+      }
+
+      &:after {
+        content: '';
+        width: 2px;
+        height: 100%;
+        background-color: $primary;
+      }
+    }
+  }
+}
+
+
 // == footer
 // --------------------------------
 .footer {
   position: absolute;
   bottom: 0;
-}
+  width: 100%;
+  text-align: center;
 
-.content {
-  height: calc(100% - #{$header-height});
+  .copyright {
+    color: #AEAEAE;
+    padding-top: rem(15);
+    padding-bottom: rem(40);
+  }
 }
