@@ -49,7 +49,7 @@ const __getKanbanNotes =
   () =>
   async (dispatch, getState, { history }) => {
     try {
-      const { data } = await noteApi.getKanbanNotes.get("/api/projects/60/kanbans");
+      const { data } = await noteApi.getKanbanNotes();
       dispatch(getKanbanNotes(data.projects))
     } catch (e) {
       console.log(e);
