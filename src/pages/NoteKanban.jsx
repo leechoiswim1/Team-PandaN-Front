@@ -1,29 +1,29 @@
 import React from "react";
-import styled, { css } from "styled-components";
-import { t } from "../util/remConverter";
-/* components */
-import { Template, KanbanList, SubHeader } from "../components";
+/* == Library - style */
+import styled from "styled-components";
+import { t }  from "../util/remConverter";
+/* == Custom - Component */
+import { Template, SubHeader, InnerHeader, KanbanBoard } from "../components";
 
+// * == ( NoteKanban ) -------------------- * //
 const NoteKanban = ({ history }) => {
   return (
-    <>
-      {/* <Template /> */}
-      <SubHeader />
-      <Wrapper>
-        <KanbanList />
-        <KanbanList />
-        <KanbanList />
-        <KanbanList />
-        <KanbanList />
-      </Wrapper>
-    </>
+    <Template>
+      <div className="content">
+        <SubHeader />
+        <InnerHeader />
+        <Container>
+          <KanbanBoard />
+        </Container>
+      </div>
+    </Template>
   );
 };
 
-const Wrapper = styled.div(...t`
+const Container = styled.div(...t`
   width: 100%;
-  height: 100%;
-  padding: 0 16px;
+  height: calc( 100% - 120px );
+  padding: 0 36px;
   white-space: nowrap;
   overflow-x: scroll;
   display: flex;
