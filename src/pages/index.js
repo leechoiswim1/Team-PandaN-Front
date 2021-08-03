@@ -1,5 +1,5 @@
 import Home from "./Home";
 import Login from "./Login";
-import NoteKanban from "./NoteKanban";
+import Kanban from "./notes/Kanban";
 
-export { Home, Login, NoteKanban };
+export { Home, Login, Kanban };

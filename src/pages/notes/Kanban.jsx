@@ -1,12 +1,12 @@
 import React from "react";
 /* == Library - style */
 import styled from "styled-components";
-import { t }  from "../util/remConverter";
+import { t }  from "../../util/remConverter";
 /* == Custom - Component */
-import { Template, SubHeader, InnerHeader, KanbanBoard } from "../components";
+import { Template, SubHeader, InnerHeader, KanbanBoard } from "../../components";
 
-// * == ( NoteKanban ) -------------------- * //
-const NoteKanban = ({ history }) => {
+// * == ( note - Kanban ) -------------------- * //
+const Kanban = ({ history }) => {
   return (
     <Template>
       <div className="content">
@@ -30,4 +30,4 @@ const Container = styled.div(...t`
   flex-direction: row;
 `)
 
-export default NoteKanban;
+export default Kanban;
