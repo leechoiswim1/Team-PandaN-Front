@@ -11,6 +11,8 @@ import InnerHeader      from "./notes/InnerHeader";
 import KanbanCard       from "./notes/KanbanCard";
 import KanbanList       from "./notes/KanbanList";
 import KanbanBoard      from "./notes/KanbanBoard";
+/* == Note - detail */
+import NoteDetail       from "./notes/NoteDetail";
 
 export {
   Header,
@@ -26,4 +28,6 @@ export {
   KanbanCard,
   KanbanList,
   KanbanBoard,
+  /* == Note - kanban */
+  NoteDetail,
 };

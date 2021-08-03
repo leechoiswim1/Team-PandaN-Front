@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { t }  from "../../util/remConverter";
 
 // * == ( kanban / Note ) -------------------- * //
-const Note = ({ note, ...rest }) => {
+const KanbanCard = ({ note, ...rest }) => {
   return (
     <>
       <h4>{note.title}</h4>
@@ -14,4 +14,4 @@ const Note = ({ note, ...rest }) => {
   );
 };
 
-export default Note;
+export default KanbanCard;
