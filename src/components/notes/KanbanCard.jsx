@@ -9,7 +9,7 @@ const KanbanCard = ({ note, ...rest }) => {
     <>
       <h4>{note.title}</h4>
       <p>{note.content}</p>
-      <p>{note.deadline} 까지</p>
+      <p>{note.deadline}</p>
     </>
   );
 };

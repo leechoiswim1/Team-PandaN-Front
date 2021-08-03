@@ -9,15 +9,9 @@ const initialState = {
       "notes": [
         {
           "noteId": 1,
-          "title": "dnd 로직 적용하기",
-          "content": "적용 후 테스트 하기",
-          "deadline": "2021-08-10"
-        },
-        {
-          "noteId": 2,
-          "title": "api 테스트 페이지 만들기",
-          "content": "서버 연동 후 api 테스트 준비하기",
-          "deadline": "2021-08-01"
+          "title": "",
+          "content": "",
+          "deadline": ""
         },
       ]
     },
@@ -34,15 +28,24 @@ const initialState = {
     "notes": []
     }
     ],
+  detail: {
+    "content": "",
+    "deadline": "",
+    "noteId": 0,
+    "step": "",
+    "title": "",
+  }
 };
 
 /* == action */
 const SET_KANBAN_STEP =  "note/SET_KANBAN_STEP";
 const GET_KANBAN_NOTES = "note/GET_KANBAN_NOTES";
+const GET_NOTE_DETAIL = "note/GET_NOTE_DETAIL";
 
 /* == action creator */
 const setKanbanStep =  createAction(SET_KANBAN_STEP, newState => ({ newState }));
 const getKanbanNotes = createAction(GET_KANBAN_NOTES, data => ({ data }));
+const getNoteDetail = createAction(GET_NOTE_DETAIL, note => ({ note }));
 
 /* == thunk function */
 const __getKanbanNotes =
@@ -51,6 +54,17 @@ const __getKanbanNotes =
     try {
       const { data } = await noteApi.getKanbanNotes();
       dispatch(getKanbanNotes(data.projects))
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+const __getNoteDetail =
+  (noteId) =>
+  async (dispatch, getState, { history }) => {
+    try {
+      const { data } = await noteApi.getNoteDetail(noteId);
+      dispatch(getNoteDetail(data))
     } catch (e) {
       console.log(e);
     }
@@ -71,6 +85,12 @@ const note = handleActions(
         list: action.payload.data, 
       };
     },
+    [GET_NOTE_DETAIL]: (state, action) => {
+      return {
+        ...state,
+        detail: action.payload.note, 
+      };
+    },
   },
   initialState, 
 );
@@ -79,6 +99,7 @@ const note = handleActions(
 export const noteActions = {
   setKanbanStep,
   __getKanbanNotes,
+  __getNoteDetail,
 };
 
 export default note;

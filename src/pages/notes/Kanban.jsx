@@ -13,7 +13,7 @@ const Kanban = ({ history }) => {
         <SubHeader />
         <InnerHeader />
         <Container>
-          <KanbanBoard />
+          <KanbanBoard history={ history }/>
         </Container>
       </div>
     </Template>

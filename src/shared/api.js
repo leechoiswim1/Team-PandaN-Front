@@ -14,5 +14,6 @@ export const projectApi = {
 /* == API - note */
 export const noteApi = {
   getKanbanNotes: () => instance.get("/api/projects/60/kanbans"), // 현재 projectId 60에 해당하는 노트들 고정으로 가져옴
+  getNoteDetail: (noteId) => instance.get(`/api/notes/${noteId}`)
 };
 

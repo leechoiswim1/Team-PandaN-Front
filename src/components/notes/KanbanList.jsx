@@ -8,7 +8,7 @@ import { Draggable } from "react-beautiful-dnd";
 import { KanbanCard } from "..";
 
 // * == ( kanban / NoteList ) -------------------- * //
-const KanbanList = ({ notes }) => { 
+const KanbanList = ({ notes, history, ...rest }) => {
   return (
     <React.Fragment>
       {notes.map((note, index) => {
@@ -21,9 +21,10 @@ const KanbanList = ({ notes }) => {
                   ref={provided.innerRef}                   
                   isDragging={snapshot.isDragging}
                   {...provided.draggableProps}
-                  {...provided.dragHandleProps}     
+                  {...provided.dragHandleProps}
+                  onClick={() => {history.push(`/projects/60/notes/${noteId}`)}}
                 >
-                  <KanbanCard note={note}/>
+                  <KanbanCard note={note} />
                 </CardWrapper>
               );
             }}       

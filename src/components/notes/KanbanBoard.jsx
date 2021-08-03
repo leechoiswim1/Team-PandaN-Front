@@ -5,13 +5,13 @@ import { t }  from "../../util/remConverter";
 /* == Library - drag & drop */
 import { DragDropContext, Droppable}  from "react-beautiful-dnd";
 /* == Custom - Component */
-import { KanbanList } from "..";
+import { KanbanList, EditorModal } from "..";
 /* == Redux - actions */
 import { useSelector, useDispatch }   from 'react-redux';
 import { noteActions }                from '../../modules/note';
 
 // * == ( kanban / Board ) -------------------- * //
-const KanbanBoard = (props) => {
+const KanbanBoard = ({ history }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -91,13 +91,14 @@ const KanbanBoard = (props) => {
               {(provided, snapshot) => {
                 return ( 
                   <StepColumn> 
-                  <h4>{project.step}</h4>    
+                  <h4>{project.step}</h4>
+                  <EditorModal />
                   <ListWrapper
                     ref={provided.innerRef}
                     isDraggingOver={snapshot.isDraggingOver}
                     {...provided.droppableProps}                    
                   >  
-                    <KanbanList notes={project.notes}/>
+                    <KanbanList notes={project.notes} history={history}/>
                     {provided.placeholder}
                   </ListWrapper>                   
                   </StepColumn>

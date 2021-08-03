@@ -6,14 +6,14 @@ import { t }  from "../../util/remConverter";
 import { Template, SubHeader, InnerHeader, NoteDetail } from "../../components";
 
 // * == ( note - Detail ) -------------------- * //
-const Detail = ({ history }) => {
+const Detail = ({ history, match, ...rest }) => {
   return (
     <Template>
       <div className="content">
         <SubHeader />
         <InnerHeader />
         <Container>
-          <NoteDetail />
+          <NoteDetail history={history} match={match}/>
         </Container>
       </div>
     </Template>
