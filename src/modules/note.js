@@ -41,11 +41,13 @@ const initialState = {
 const SET_KANBAN_STEP =  "note/SET_KANBAN_STEP";
 const GET_KANBAN_NOTES = "note/GET_KANBAN_NOTES";
 const GET_NOTE_DETAIL = "note/GET_NOTE_DETAIL";
+const EDIT_NOTE = "note/EDIT_NOTE";
 
 /* == action creator */
 const setKanbanStep =  createAction(SET_KANBAN_STEP, newState => ({ newState }));
 const getKanbanNotes = createAction(GET_KANBAN_NOTES, data => ({ data }));
 const getNoteDetail = createAction(GET_NOTE_DETAIL, note => ({ note }));
+const editNote = createAction(EDIT_NOTE, note => ({ note }));
 
 /* == thunk function */
 const __getKanbanNotes =
@@ -65,6 +67,25 @@ const __getNoteDetail =
     try {
       const { data } = await noteApi.getNoteDetail(noteId);
       dispatch(getNoteDetail(data))
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+const __editNote =
+  (noteId, modifiedNote) =>
+  async (dispatch, getState, { history }) => {
+    try {
+      console.log(modifiedNote)
+      const newNote ={
+        "title" : modifiedNote.title,
+        "content" : modifiedNote.content,
+        "deadline" : modifiedNote.deadline,
+        "step": modifiedNote.step
+      }
+      const { data } = await noteApi.editNote(noteId, newNote);
+      console.log(data)
+      // dispatch(getNoteDetail(data))
     } catch (e) {
       console.log(e);
     }
@@ -100,6 +121,7 @@ export const noteActions = {
   setKanbanStep,
   __getKanbanNotes,
   __getNoteDetail,
+  __editNote,
 };
 
 export default note;
