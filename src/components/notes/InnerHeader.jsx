@@ -1,18 +1,15 @@
 import React from "react";
 /* == Library - style */
 import styled from "styled-components";
-import { t }  from "../util/remConverter";
+import { t }  from "../../util/remConverter";
 
-const SubHeader = ({ history }) => {
+const InnerHeader = ({ history }) => {
   return (
-    <Wrapper> 
-      <div>
-        프로젝트 제목 / 프로젝트 설명
-      </div>
-      <div>
-        <Tab href="javascript:void(0);">멤버 초대</Tab>
-        <Tab href="javascript:void(0);">참여 멤버</Tab>
-      </div>
+    <Wrapper fluid> 
+      <nav>
+        <Tab href="javascript:void(0);">칸반</Tab>
+        <Tab href="javascript:void(0);">목록</Tab>
+      </nav>
     </Wrapper>
   );
 };
@@ -31,8 +28,8 @@ const Wrapper = styled.div(...t`
 const Tab = styled.a(...t`
   text-decoration: none;
   position: relative;
-  margin: 0 0 0 20px;
+  margin: 0 20px 0 0;
   cursor: pointer;   
 `)
 
-export default SubHeader;
+export default InnerHeader;
