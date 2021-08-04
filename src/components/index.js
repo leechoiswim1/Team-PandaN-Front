@@ -13,6 +13,10 @@ import KanbanList       from "./notes/KanbanList";
 import KanbanBoard      from "./notes/KanbanBoard";
 /* == Note - detail */
 import NoteDetail       from "./notes/NoteDetail";
+/* == Note - detail - Comment */
+import CommentCard      from "./comments/CommentCard";
+import CommentList      from "./comments/CommentList";
+import CommentInput     from "./comments/CommentInput";
 
 export {
   Header,
@@ -30,4 +34,8 @@ export {
   KanbanBoard,
   /* == Note - kanban */
   NoteDetail,
+  /* == Note - detail - Comment */
+  CommentCard,
+  CommentList,
+  CommentInput
 };
