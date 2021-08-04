@@ -20,7 +20,8 @@ const NoteKanban = ({ history }) => {
   );
 };
 
-const Wrapper = styled.div(...t`
+const Wrapper = styled.div(
+  ...t`
   width: 100%;
   height: 100%;
   padding: 0 16px;
@@ -28,6 +29,7 @@ const Wrapper = styled.div(...t`
   overflow-x: scroll;
   display: flex;
   flex-direction: row;
-`)
+`,
+);
 
 export default NoteKanban;

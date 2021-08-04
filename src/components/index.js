@@ -1,11 +1,24 @@
-import Header from "./Header";
-import ProjectModal from "./ProjectModal";
+/*Router */
 import Router from "./Router";
+
+/*Templates*/
+import Header from "./Header";
 import Sidebar from "./Sidebar";
-import Template from "./Template";
-import Modals from "./Modals";
 import SubHeader from "./SubHeader";
-import EditorModal from "./EditorModal";
+
+/* Modal*/
+import Modals from "./Modals";
+import ProjectModal from "./ProjectModal";
+import NoteModal from "./NoteModal";
+/* project */
+
+import EmptyProject from "./EmptyProject";
+import ProjectList from "./ProjectList";
+import ProjectHeader from "./ProjectHeader";
+import ProjectCardList from "./ProjectCardList";
+
+import Contents from "./Contents";
+
 /* kanban */
 import KanbanList from "./KanbanList";
 import KanbanCard from "./KanbanCard";
@@ -15,10 +28,14 @@ export {
   ProjectModal,
   Router,
   Sidebar,
-  Template,
+  NoteModal,
   Modals,
+  Contents,
+  SubHeader,
   KanbanList,
   KanbanCard,
-  EditorModal,
-  SubHeader,
+  ProjectList,
+  ProjectHeader,
+  ProjectCardList,
+  EmptyProject,
 };

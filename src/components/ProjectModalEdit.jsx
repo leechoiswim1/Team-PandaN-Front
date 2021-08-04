@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { actionCreators as projectActions } from "../modules/project";
-import { history } from "../modules/configStore";
-const ProjectModal = () => {
+import { useSelector } from "react-redux";
+
+const ProjectModalEdit = props => {
   const dispatch = useDispatch();
+  const project_list = useSelector(state => state.project.list);
 
+  //   const [modifiedProject, setModifiedProject] = useState(project_list)
+  const id = window.location.pathname.split("/projects/")[1];
   const [lgShow, setLgShow] = useState(false);
-  const [ProTitle, setProTitle] = useState("");
-  const [ProDesc, setProDesc] = useState("");
+  //   const [ProTitle, setProTitle] = useState("");
+  //   const [ProDesc, setProDesc] = useState("");
 
-  const CreateProject = () => {
+  const EditProject = () => {
     if (ProTitle === "") {
       window.alert("프로젝트 이름을 입력해주세요!");
       return;
@@ -19,8 +23,7 @@ const ProjectModal = () => {
       title: ProTitle,
       detail: ProDesc,
     };
-    dispatch(projectActions.__postProject(project));
-    setLgShow(false);
+    dispatch(projectActions.__putProject(project));
   };
 
   const changeProTitle = e => {
@@ -52,7 +55,7 @@ const ProjectModal = () => {
 
         <Modal.Body>
           <form style={{ margin: "1vh 3vw 2vh 3vw" }}>
-            <h4>프로젝트 제목</h4>
+            <h4>프로젝트 제목ㅎㅎ</h4>
             <input
               style={{ width: "100%" }}
               type="text"
@@ -66,13 +69,8 @@ const ProjectModal = () => {
               placeholder="프로젝트 내용"
               onChange={changeProDesc}
             ></textarea>
-            <Button
-              onClick={() => {
-                CreateProject();
-              }}
-              style={{ width: "30%", margin: "auto" }}
-            >
-              등록하기
+            <Button onClick={() => {}} style={{ width: "30%", margin: "auto" }}>
+              수정하기
             </Button>
           </form>
         </Modal.Body>
@@ -81,4 +79,4 @@ const ProjectModal = () => {
   );
 };
 
-export default ProjectModal;
+export default ProjectModalEdit;

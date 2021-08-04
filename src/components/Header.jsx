@@ -4,21 +4,17 @@ import styled, { css } from "styled-components";
 import { AlignRight } from "react-feather";
 import { t } from "../util/remConverter";
 import { Container, Button } from "react-bootstrap";
-import { Modals, EditorModal } from "./";
+import { Modals } from "./";
 
 const Header = ({ history }) => {
   return (
     <header className="header" id="header">
       <Container fluid>
         <div>
-          <h3>ProjectTitle</h3>
-          <h6>여기에 프로젝트 설명을씁니다 하하하하</h6>
-        </div>
-        <div>
+          <Button>모바일버전</Button>
+          <input placeholder="SelectBox" />
           <input placeholder="검색" />
-          <EditorModal />
           <Button>프로필</Button>
-          <Button>문서작성</Button>
           <Modals
             buttonTitle="멤버초대"
             Title="멤버초대"

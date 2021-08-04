@@ -4,36 +4,81 @@ import { projectApi } from "../shared/api"; // 필요한 api 함수 불러 올 �
 
 const SET_PROJECT = "SET_PROJECT";
 const ADD_PROJECT = "ADD_PROJECT";
-const EDIT_PROJECT = "EDIT_PROJECT";
 const DELETE_PROJECT = "DELETE_PROJECT";
-const LOADING_PROJECT = "LOADING_PROJECT";
+const EDIT_PROJECT = "EDIT_PROJECT";
 
 const setProject = createAction(SET_PROJECT, project_list => ({
   project_list,
 }));
+
 const addProject = createAction(ADD_PROJECT, project => ({ project }));
-const editProject = createAction(EDIT_PROJECT, (project_id, project) => ({
-  project_id,
+
+const deleteProject = createAction(DELETE_PROJECT, projectId => ({
+  projectId,
+}));
+
+const editProject = createAction(EDIT_PROJECT, (projectId, project) => ({
+  projectId,
   project,
-}));
-const deleteProject = createAction(DELETE_PROJECT, project_id => ({
-  project_id,
-}));
-const loadingProject = createAction(LOADING_PROJECT, is_loading => ({
-  is_loading,
 }));
 
 const initialState = {
   list: [],
 };
 
-// Thunk function
-export const __getSomething =
+const __setProject =
   () =>
   async (dispatch, getState, { history }) => {
     try {
-      const { data } = await projectApi.getSomething();
+      const data = await projectApi.getProject();
       console.log(data);
+      dispatch(setProject(data.data.projects));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+const __setOneProject =
+  projectId =>
+  async (dispatch, getState, { history }) => {
+    console.log(projectId);
+    try {
+      const { data } = await projectApi.getOneProject(projectId);
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+const __postProject =
+  project =>
+  async (dispatch, getState, { history }) => {
+    try {
+      const { data } = await projectApi.postProject(project);
+      dispatch(addProject(data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+const __deleteProject =
+  projectId =>
+  async (dispatch, getState, { history }) => {
+    console.log(projectId);
+    try {
+      const { data } = await projectApi.deleteProject(projectId);
+      dispatch(deleteProject(data.projectId));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+const __editProject =
+  projectId =>
+  async (dispatch, getState, { history }) => {
+    try {
+      const { data } = await projectApi.editProject(projectId);
+      dispatch(editProject(data.projectId));
     } catch (e) {
       console.log(e);
     }
@@ -41,28 +86,27 @@ export const __getSomething =
 
 export default handleActions(
   {
+    [SET_PROJECT]: (state, action) =>
+      produce(state, draft => {
+        draft.list = [...action.payload.project_list];
+      }),
     [ADD_PROJECT]: (state, action) =>
       produce(state, draft => {
         // 데이터를 배열 맨 앞에 넣어줍니다.
         draft.list.unshift(action.payload.project);
       }),
-
     [DELETE_PROJECT]: (state, action) =>
       produce(state, draft => {
-        console.log(draft.list);
-        let idx = draft.list.findIndex(p => p.id === action.payload.project_id);
-        console.log(action.payload.project_id);
-
+        let idx = draft.list.findIndex(
+          p => p.projectId === action.payload.projectId,
+        );
+        console.log(idx);
         if (idx !== -1) {
           // 배열에서 idx 위치의 요소 1개를 지웁니다.
           draft.list.splice(idx, 1);
         }
       }),
-    [LOADING_PROJECT]: (state, action) =>
-      produce(state, draft => {
-        //   데이터를 가져오는 중인 지 여부를 작성합니다.
-        draft.is_loading = action.payload.is_loading;
-      }),
+    [EDIT_PROJECT]: (state, action) => produce(state.draft),
   },
   initialState,
 );
@@ -70,9 +114,11 @@ export default handleActions(
 const actionCreators = {
   setProject,
   addProject,
-  editProject,
-  loadingProject,
   deleteProject,
+  __postProject,
+  __setProject,
+  __setOneProject,
+  __deleteProject,
 };
 
 export { actionCreators };
