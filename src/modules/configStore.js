@@ -1,32 +1,30 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-
-// import user from './user'; // 리듀서
-// middleware
+/* == Redux - middleware */
 import thunk from "redux-thunk";
 import logger from "redux-logger";
-// redux router
+/* == Redux - router */
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
-
-import Project from "./project";
+/* == Redux - reducer */
+import project from "./project";
+import note from "./note";
 
 export const history = createBrowserHistory();
-
+/* == Main - Root reducer */
 const rootReducer = combineReducers({
-  project: Project,
-
+  project,
+  note,
   router: connectRouter(history),
 });
 
-//init middleware
+/* == initialize middlewares */
 const middlewares = [thunk.withExtraArgument({ history: history })];
 
+/* == set up logger & redux dev tools */
 const env = process.env.NODE_ENV;
 if (env === "development") {
   middlewares.push(logger);
 }
-
-//redux devTools
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({

@@ -19,9 +19,14 @@ import ProjectCardList from "./ProjectCardList";
 
 import Contents from "./Contents";
 
-/* kanban */
-import KanbanList from "./KanbanList";
-import KanbanCard from "./KanbanCard";
+/* == Note - kanban */
+import InnerHeader from "./notes/InnerHeader";
+import KanbanCard from "./notes/KanbanCard";
+import KanbanList from "./notes/KanbanList";
+import KanbanBoard from "./notes/KanbanBoard";
+
+/* == Note - detail */
+import NoteDetail from "./notes/NoteDetail";
 
 export {
   Header,
@@ -32,10 +37,15 @@ export {
   Modals,
   Contents,
   SubHeader,
-  KanbanList,
-  KanbanCard,
   ProjectList,
   ProjectHeader,
   ProjectCardList,
   EmptyProject,
+  /* == Note - kanban */
+  InnerHeader,
+  KanbanList,
+  KanbanCard,
+  KanbanBoard,
+  /* == Note - kanban */
+  NoteDetail,
 };

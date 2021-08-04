@@ -1,6 +1,15 @@
 import Home from "./Home";
 import Login from "./Login";
-import NoteKanban from "./NoteKanban";
 import Projects from "./Projects";
+/* == Note */
+import Kanban from "./notes/Kanban";
+import Detail from "./notes/Detail";
 
-export { Home, Login, NoteKanban, Projects };
+export {
+  Home,
+  Login,
+  Projects,
+  /* == Note */
+  Kanban,
+  Detail,
+};
