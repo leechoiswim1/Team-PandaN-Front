@@ -17,4 +17,9 @@ export const noteApi = {
   getNoteDetail: (noteId) => instance.get(`/api/notes/${noteId}`),
   editNote: (noteId, newNote) => instance.put(`/api/notes/${noteId}`, newNote),
 };
+/* == API - comment */
+export const commentApi = {
+  getCommentList: () => instance.get(""), 
+};
+
 
