@@ -17,17 +17,39 @@ const NoteDetail = ({ match, ...rest }) => {
   }, []);
 
   const note = useSelector((state) => state.note.detail)
-  console.log(note)
+  
+  const addBookmark = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(noteActions.__addBookmark(noteId));
+  }
+  const deleteBookmark = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const result = window.confirm("북마크에서 삭제하시겠습니까?");
+    if (result) {
+      dispatch(noteActions.__deleteBookmark(noteId));
+    } else return;
+    
+  }
 
   return (
     <div style={{display: "flex", flexDirection: "column"}}>
       <div style={{display: "flex", justifyContent: "space-between"}}>
         <div>
           <span>{note.step}</span>
-          <span style={{marginLeft: "24px"}}>{note.deadline}까지</span>
+          <span style={{marginLeft: "16px"}}>{note.deadline}까지</span>
         </div>
         <div>
-          <Bookmark />
+
+          {/* {!isBookmark ?  :  } */}
+          <button type="button" onClick={addBookmark}>
+            <Bookmark/>  
+          </button>
+          <button type="button" onClick={deleteBookmark}>
+            <Bookmark fill="#387E4B" stroke="#387E4B"/>  
+          </button> 
+          
         </div>
       </div>
       <div style={{display: "flex", padding: "16px 0"}}>
