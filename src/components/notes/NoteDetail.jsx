@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 /* == Library - style */
 import styled from "styled-components";
 import { t }  from "../../util/remConverter";
+import { Bookmark, Edit } from "react-feather";
 /* == Redux - actions */
 import { useDispatch, useSelector }   from 'react-redux';
 import { noteActions }                from '../../modules/note';
@@ -20,12 +21,26 @@ const NoteDetail = ({ match, ...rest }) => {
 
   return (
     <div style={{display: "flex", flexDirection: "column"}}>
-      <h4>{note.title}</h4>
-
-      <p>해당 글 수정 삭제, 북마크 , 댓글 목록, 댓글 작성/수정/삭제</p>
-      <p>{note.step}</p>
-      <p>{note.deadline} 까지</p>
-      <p>{note.content}</p>      
+      <div style={{display: "flex", justifyContent: "space-between"}}>
+        <div>
+          <span>{note.step}</span>
+          <span style={{marginLeft: "24px"}}>{note.deadline}까지</span>
+        </div>
+        <div>
+          <Bookmark />
+        </div>
+      </div>
+      <div style={{display: "flex", padding: "16px 0"}}>
+        <div>
+          <h2>{note.title}</h2>    
+        </div>
+        <div style={{marginLeft: "16px"}}>
+          <Edit />
+        </div>
+      </div>
+      <div>
+        <p>{note.content}</p>      
+      </div>
     </div>
   );
 };

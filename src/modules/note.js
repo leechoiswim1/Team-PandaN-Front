@@ -29,11 +29,11 @@ const initialState = {
     }
     ],
   detail: {
-    "content": "",
-    "deadline": "",
+    "content": "실전 프로젝트 마무리 및 항해 완주",
+    "deadline": "2021-09-10",
     "noteId": 0,
-    "step": "",
-    "title": "",
+    "step": "TODO",
+    "title": "항해 완주",
   }
 };
 
