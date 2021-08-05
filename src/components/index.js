@@ -11,6 +11,9 @@ import InnerHeader      from "./notes/InnerHeader";
 import KanbanCard       from "./notes/KanbanCard";
 import KanbanList       from "./notes/KanbanList";
 import KanbanBoard      from "./notes/KanbanBoard";
+/* == Note - issue list; card */
+import IssueCard        from "./notes/IssueCard";
+import IssueList        from "./notes/IssueList";
 /* == Note - detail */
 import NoteDetail       from "./notes/NoteDetail";
 /* == Note - detail - Comment */
@@ -32,7 +35,10 @@ export {
   KanbanCard,
   KanbanList,
   KanbanBoard,
-  /* == Note - kanban */
+  /* == Note - list */
+  IssueCard,
+  IssueList,
+  /* == Note - detail */
   NoteDetail,
   /* == Note - detail - Comment */
   CommentCard,
