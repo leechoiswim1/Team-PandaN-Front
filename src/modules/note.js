@@ -46,8 +46,10 @@ const GET_PROJECT_ISSUE       = "note/GET_PROJECT_ISSUE";
 const GET_PROJECT_MY_ISSUE    = "note/GET_PROJECT_MY_ISSUE";
 /* note - detail */
 const GET_NOTE_DETAIL         = "note/GET_NOTE_DETAIL";
+/* note - CRUD */
 const EDIT_NOTE               = "note/EDIT_NOTE";
 /* bookmark */
+const GET_BOOKMARK            = "note/GET_BOOKMARK";
 const ADD_BOOKMARK            = "note/ADD_BOOKMARK";
 const DELETE_BOOKMARK         = "note/DELETE_BOOKMARK";
 
@@ -60,24 +62,27 @@ const getProjectIssue         = createAction(GET_PROJECT_ISSUE, issueNotes => ({
 const getProjectMyIssue       = createAction(GET_PROJECT_MY_ISSUE, myNoteList => ({ myNoteList }));
 /* note - detail */
 const getNoteDetail           = createAction(GET_NOTE_DETAIL, note => ({ note }));
+/* note - CRUD */
 const editNote                = createAction(EDIT_NOTE, note => ({ note }));
 /* bookmark */
+const getBookmark             = createAction(GET_BOOKMARK, myBookmarkNoteList => ({ myBookmarkNoteList }));
 const addBookmark             = createAction(ADD_BOOKMARK, noteId => ({ noteId }));
 const deleteBookmark          = createAction(DELETE_BOOKMARK, noteId => ({ noteId }));
 
 /* == thunk function */
+/* project issue */
 const __getKanbanNotes =
-  () =>
+  (projectId) =>
   async (dispatch, getState, { history }) => {
     try {
-      const { data } = await noteApi.getKanbanNotes();
+      const { data } = await noteApi.getKanbanNotes(projectId);
       dispatch(getKanbanNotes(data.projects));
     } catch (e) {
       console.log(e);
     }
   };
 
-/* == thunk function - project issue */
+/* project - issue */
 const __getProjectIssue =
   (projectId) =>
   async (dispatch, getState, { history }) => {
@@ -94,7 +99,6 @@ const __getProjectMyIssue =
 async (dispatch, getState, { history }) => {
   try {
     const { data } = await noteApi.getProjectMyIssue(projectId);
-    console.log(data)
     dispatch(getProjectMyIssue(data.myNoteList));
   } catch (e) {
     console.log(e);
@@ -102,7 +106,7 @@ async (dispatch, getState, { history }) => {
 };
 
 
-
+/* note - detail */
 const __getNoteDetail =
   noteId =>
   async (dispatch, getState, { history }) => {
@@ -114,6 +118,7 @@ const __getNoteDetail =
     }
   };
 
+/* note - CRUD */
 const __editNote =
   (noteId, modifiedNote) =>
   async (dispatch, getState, { history }) => {
@@ -133,7 +138,18 @@ const __editNote =
     }
   };
 
-/* == thunk function - bookmark */
+/* bookmark */
+const __getBookmark =
+  () =>
+  async (dispatch, getState, { history }) => {
+    try {
+      const { data } = await noteApi.getBookmark();
+      dispatch(getBookmark(data.myBookmarkNoteList));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
 const __addBookmark =
   noteId =>
   async (dispatch, getState, { history }) => {
@@ -189,19 +205,30 @@ const note = handleActions(
         detail: action.payload.note,
       };
     },
+    [GET_BOOKMARK]: (state, action) => {
+      return {
+        ...state,
+        list: action.payload.myBookmarkNoteList,
+      };
+    },
   },
   initialState,
 );
 
 /* == export actions */
 export const noteActions = {
+  /* project - kanban */
   setKanbanStep,
   __getKanbanNotes,
+  /* project - issue */
   __getProjectIssue,
   __getProjectMyIssue,
+  /* note - detail */
   __getNoteDetail,
+  /* note - CRUD */
   __editNote,
   /* bookmark */
+  __getBookmark,
   __addBookmark,
   __deleteBookmark,
 };

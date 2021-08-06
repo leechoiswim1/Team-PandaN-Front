@@ -13,12 +13,16 @@ export const projectApi = {
 }
 /* == API - note */
 export const noteApi = {
-  getKanbanNotes: (projectId) => instance.get("/api/projects/60/kanbans"), // 현재 projectId 60에 해당하는 노트들 고정으로 가져옴
+  getKanbanNotes: (projectId) => instance.get(`/api/projects/${projectId}/kanbans`),
+  /* project issue */
   getProjectIssue: (projectId) => instance.get(`/api/projects/${projectId}/issues`),
   getProjectMyIssue: (projectId) => instance.get(`/api/projects/${projectId}/mynotes`),
+  /* detail */
   getNoteDetail: (noteId) => instance.get(`/api/notes/${noteId}`),
+  /* note */
   editNote: (noteId, newNote) => instance.put(`/api/notes/${noteId}`, newNote),
   /* bookmark */
+  getBookmark: () => instance.get("/api/notes/mybookmark"),
   addBookmark: (noteId) => instance.post(`/api/notes/${noteId}/bookmark`),
   deleteBookmark: (noteId) => instance.delete(`/api/notes/${noteId}/unbookmark`),
 };
