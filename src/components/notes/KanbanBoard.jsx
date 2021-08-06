@@ -13,14 +13,10 @@ import { noteActions }                from '../../modules/note';
 // * == ( kanban / Board ) -------------------- * //
 const KanbanBoard = ({ history }) => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(noteActions.__getKanbanNotes());
-  }, []);
-  
+    
   /* == function */
   const onDragEnd = (result, projects) => {
-    const { source, destination } = result;
+    const { source, destination, draggableId } = result;
     // droppable 영역 밖에다 떨어뜨렸을 경우, 시작한 위치로 돌아올 경우
     // destination 이 null 일 경우 return;
     if (!destination) return;
@@ -73,10 +69,11 @@ const KanbanBoard = ({ history }) => {
           notes: _destinationNoteList
         }
       }
-
-      //배열로 만들고 store 저장
+      
+      // 배열로 만들고 store 저장
       const _newState = Object.values(newState)
       dispatch(noteActions.setKanbanStep(_newState))
+      dispatch(noteActions.__editNote(draggableId, newNote))
     }  }
 
   const projects = useSelector((state) => state.note.list)

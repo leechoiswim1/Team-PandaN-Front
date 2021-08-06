@@ -43,13 +43,13 @@ const Sidebar = ({ history }) => {
           <Container fluid>
             <ul className="menu">
               <li className="menu-item active">
-                <Link to="" className="menu-link">
+                <Link to="/bookmark" className="menu-link">
                   <IconBookMark width="40" height="40" fill="#9A9A9A" className="menu-icon"/> 
                   <span className="menu-text">북마크</span>
                 </Link>
               </li>
               <li className="menu-item">
-                <Link to="" className="menu-link">
+                <Link to="/mynote" className="menu-link">
                   <IconDocument width="40" height="40" fill="#9A9A9A" className="menu-icon"/>
                   <span className="menu-text">내가 작성한 문서</span>
                 </Link>

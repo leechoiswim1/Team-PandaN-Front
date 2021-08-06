@@ -3,12 +3,13 @@ import React from "react";
 import styled from "styled-components";
 import { t }  from "../../util/remConverter";
 
-const InnerHeader = ({ history }) => {
+const InnerHeader = ({ history, match, projectId, ...rest }) => {
   return (
     <Wrapper fluid> 
       <nav>
-        <Tab href="javascript:void(0);">칸반</Tab>
-        <Tab href="javascript:void(0);">목록</Tab>
+        <Tab href={`/projects/${projectId}`}>KANBAN</Tab>
+        <Tab href={`/projects/${projectId}/issue`}>ISSUE</Tab>
+        <Tab href={`/projects/${projectId}/myissue`}>MY ISSUE</Tab>
       </nav>
     </Wrapper>
   );
