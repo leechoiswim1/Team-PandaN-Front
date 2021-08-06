@@ -6,12 +6,13 @@ import { t }  from "../../util/remConverter";
 import { Template, SubHeader, InnerHeader, KanbanBoard } from "../../components";
 
 // * == ( note - Kanban ) -------------------- * //
-const Kanban = ({ history }) => {
+const Kanban = ({ history, match, ...rest }) => {
+  const projectId = match.params.projectId;
   return (
     <Template>
       <div className="content">
         <SubHeader />
-        <InnerHeader />
+        <InnerHeader history={history} match={match} projectId={projectId}/>
         <Container>
           <KanbanBoard history={ history }/>
         </Container>

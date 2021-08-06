@@ -7,15 +7,16 @@ import { Template, SubHeader, InnerHeader, NoteDetail, CommentList } from "../..
 
 // * == ( note - Detail ) -------------------- * //
 const Detail = ({ history, match, ...rest }) => {
+  const projectId = match.params.projectId;
   return (
     <Template>
       <div className="content">
         <SubHeader />
-        <InnerHeader />
+        <InnerHeader projectId={projectId}/>
         <Container>
           <div style={{width: "100%", display: "flex", justifyContent:"center"}}>
             <div style={{width: "500px"}}>
-            <NoteDetail history={history} match={match}/>
+            <NoteDetail history={history} match={match} projectId={projectId}/>
             </div>
           </div>
           <div>
