@@ -19,18 +19,18 @@ const Kanban = ({ history, match, ...rest }) => {
   
   return (
     <Template>
-      <div className="content">
+      <main className="content" id="content">
         <SubHeader />
         <InnerHeader history={history} match={match} projectId={projectId}/>
         <Container>
           <KanbanBoard history={ history }/>
         </Container>
-      </div>
+      </main>
     </Template>
   );
 };
 
-const Container = styled.div(...t`
+const Container = styled.main(...t`
   width: 100%;
   height: calc( 100% - 120px );
   padding: 0 36px;

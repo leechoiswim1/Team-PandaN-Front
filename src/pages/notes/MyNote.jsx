@@ -20,7 +20,7 @@ const MyNote = ({ history, match, ...rest }) => {
 
   return (
     <Template>
-      <div className="content">
+      <div className="content" id="content">
         <Container>
           <IssueList history={history} notes={myNoteList} type="myNote"/>
         </Container>

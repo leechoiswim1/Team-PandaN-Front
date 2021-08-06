@@ -60,11 +60,11 @@ const Wrapper = styled.div(...t`
 
 const NoteDesc = styled.div(...t`
   padding: 0 16px;
-  & a{
+  a {
     font-weight: 500;
     text-decoration: none;
-  }; 
-  & div span:last-child {
+  }
+  div span:last-child {
     margin-left: 16px;
     color: #888;
   }

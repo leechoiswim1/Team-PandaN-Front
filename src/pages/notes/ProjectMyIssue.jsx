@@ -20,7 +20,7 @@ const ProjectMyIssue = ({ history, match, ...rest }) => {
 
   return (
     <Template>
-      <div className="content">
+      <div className="content" id="content">
         <SubHeader />
         <InnerHeader history={history} match={match} projectId={projectId}/>
         <Container>

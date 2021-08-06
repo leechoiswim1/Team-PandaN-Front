@@ -2,6 +2,7 @@ import React  from "react";
 /* == Library - style */
 import styled from "styled-components";
 import { t }  from "../../util/remConverter";
+import { Accordion } from "react-bootstrap";
 /* == Custom - Component */
 import { Template, SubHeader, InnerHeader, NoteDetail, CommentList } from "../../components";
 
@@ -10,7 +11,7 @@ const Detail = ({ history, match, ...rest }) => {
   const projectId = match.params.projectId;
   return (
     <Template>
-      <div className="content">
+      <div className="content" id="content">
         <SubHeader />
         <InnerHeader projectId={projectId}/>
         <Container>
@@ -20,7 +21,14 @@ const Detail = ({ history, match, ...rest }) => {
             </div>
           </div>
           <div>
-            <CommentList />
+            {/* <Accordion>
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>댓글</Accordion.Header>
+                  <Accordion.Body> */}
+                    <CommentList />
+                  {/* </Accordion.Body>
+              </Accordion.Item>
+            </Accordion> */}
           </div>
         </Container>
       </div>

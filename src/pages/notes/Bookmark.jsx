@@ -20,7 +20,7 @@ const Bookmark = ({ history, match, ...rest }) => {
 
   return (
     <Template>
-      <div className="content">
+      <div className="content" id="content">
         <Container>
           <IssueList history={history} notes={bookmarkList} type="bookmark"/>
         </Container>
