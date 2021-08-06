@@ -4,6 +4,7 @@ import Login  from "./Login";
 import Kanban from "./notes/Kanban";
 import Detail from "./notes/Detail";
 import ProjectIssue from "./notes/ProjectIssue";
+import ProjectMyIssue from "./notes/ProjectMyIssue";
 
 export { 
   Home, 
@@ -12,4 +13,5 @@ export {
   Kanban, 
   Detail,
   ProjectIssue,
+  ProjectMyIssue,
 };
