@@ -13,7 +13,7 @@ const ProjectIssue = ({ history, match, ...rest }) => {
   const dispatch = useDispatch();
   const projectId = match.params.projectId;
   useEffect(() => {
-    dispatch(noteActions.__getProjectIssueNotes(projectId));
+    dispatch(noteActions.__getProjectIssue(projectId));
   }, []);
 
   const issueNotes = useSelector((state) => state.note.list)

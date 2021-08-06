@@ -13,10 +13,10 @@ const ProjectMyIssue = ({ history, match, ...rest }) => {
   const dispatch = useDispatch();
   const projectId = match.params.projectId;
   useEffect(() => {
-    dispatch(noteActions.__getProjectIssueNotes(projectId));
+    dispatch(noteActions.__getProjectMyIssue(projectId));
   }, []);
 
-  const issueNotes = useSelector((state) => state.note.list)
+  const myNotes = useSelector((state) => state.note.list)
 
   return (
     <Template>
@@ -24,7 +24,7 @@ const ProjectMyIssue = ({ history, match, ...rest }) => {
         <SubHeader />
         <InnerHeader history={history} match={match} projectId={projectId}/>
         <Container>
-          <IssueList history={history} notes={issueNotes} type="projectMyIssue"/>
+          <IssueList history={history} notes={myNotes} projectId={projectId} type="projectMyIssue"/>
         </Container>
       </div>
     </Template>
