@@ -7,6 +7,7 @@ import {
   Login,
   Home, 
   Bookmark, 
+  MyNote,
   Kanban, 
   Detail, 
   ProjectIssue, 
@@ -19,6 +20,7 @@ const Router = () => {
       <Route path="/login" component={Auth(Login, false)} exact />
       <Route path="/" component={Auth(Home, false)} exact />
       <Route path="/bookmark" component={Auth(Bookmark, false)} exact />
+      <Route path="/mynote" component={Auth(MyNote, false)} exact />
       <Route path="/projects/:projectId" component={Auth(Kanban, false)} exact />
       <Route path="/projects/:projectId/notes/:noteId" component={Auth(Detail, false)} exact />
       <Route path="/projects/:projectId/issue" component={Auth(ProjectIssue, false)} exact />

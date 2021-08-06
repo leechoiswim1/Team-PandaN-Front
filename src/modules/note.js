@@ -52,6 +52,8 @@ const EDIT_NOTE               = "note/EDIT_NOTE";
 const GET_BOOKMARK            = "note/GET_BOOKMARK";
 const ADD_BOOKMARK            = "note/ADD_BOOKMARK";
 const DELETE_BOOKMARK         = "note/DELETE_BOOKMARK";
+/* my note */
+const GET_MY_NOTE             = "note/GET_MY_NOTE";
 
 /* == action creator */
 /* project - kanban */
@@ -68,6 +70,8 @@ const editNote                = createAction(EDIT_NOTE, note => ({ note }));
 const getBookmark             = createAction(GET_BOOKMARK, myBookmarkNoteList => ({ myBookmarkNoteList }));
 const addBookmark             = createAction(ADD_BOOKMARK, noteId => ({ noteId }));
 const deleteBookmark          = createAction(DELETE_BOOKMARK, noteId => ({ noteId }));
+/* my note */
+const getMyNote               = createAction(GET_MY_NOTE, myNoteList => ({ myNoteList }));
 
 /* == thunk function */
 /* project issue */
@@ -172,6 +176,18 @@ const __deleteBookmark =
     }
   };
 
+/* my note */
+const __getMyNote =
+() =>
+async (dispatch, getState, { history }) => {
+  try {
+    const { data } = await noteApi.getMyNote();
+    dispatch(getMyNote(data.myNoteList));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 /* == reducer */
 const note = handleActions(
   {
@@ -231,6 +247,8 @@ export const noteActions = {
   __getBookmark,
   __addBookmark,
   __deleteBookmark,
+  /* my note */
+  __getMyNote,  
 };
 
 export default note;

@@ -12,12 +12,12 @@ const Sidebar = ({ history }) => {
     <nav className="sidebar" id="sidebar">
       <Container fluid>
         {/* == 로고 */}
-        <Link to="{/}"><img src={Logo} /></Link>
+        <Link to="/"><img src={Logo} /></Link>
 
         {/* == 메뉴 */}
         <ul className="menu">
-          <li><Link to=""><img src={IconBookMark} />북마크</Link></li>
-          <li><Link to=""><img src={IconDocument} />내가 작성한 문서</Link></li>
+          <li><Link to="/bookmark"><img src={IconBookMark} />북마크</Link></li>
+          <li><Link to="/mynote"><img src={IconDocument} />내가 작성한 문서</Link></li>
           <li><ProjectModal /></li>
           <li><Link to=""><img src={IconDocument} />프로젝트</Link></li>
         </ul>
