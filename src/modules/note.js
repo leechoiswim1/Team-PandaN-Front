@@ -38,22 +38,30 @@ const initialState = {
 };
 
 /* == action */
-const SET_KANBAN_STEP = "note/SET_KANBAN_STEP";
-const GET_KANBAN_NOTES = "note/GET_KANBAN_NOTES";
-const GET_NOTE_DETAIL = "note/GET_NOTE_DETAIL";
-const EDIT_NOTE = "note/EDIT_NOTE";
-/* == action - bookmark */
-const ADD_BOOKMARK = "note/ADD_BOOKMARK";
-const DELETE_BOOKMARK = "note/DELETE_BOOKMARK";
+/* project - kanban */
+const SET_KANBAN_STEP         = "note/SET_KANBAN_STEP";
+const GET_KANBAN_NOTES        = "note/GET_KANBAN_NOTES";
+/* project - issue */
+const GET_PROJECT_ISSUE_NOTES = "note/GET_PROJECT_ISSUE_NOTES";
+/* note - detail */
+const GET_NOTE_DETAIL         = "note/GET_NOTE_DETAIL";
+const EDIT_NOTE               = "note/EDIT_NOTE";
+/* bookmark */
+const ADD_BOOKMARK            = "note/ADD_BOOKMARK";
+const DELETE_BOOKMARK         = "note/DELETE_BOOKMARK";
 
 /* == action creator */
-const setKanbanStep = createAction(SET_KANBAN_STEP, newState => ({ newState }));
-const getKanbanNotes = createAction(GET_KANBAN_NOTES, data => ({ data }));
-const getNoteDetail = createAction(GET_NOTE_DETAIL, note => ({ note }));
-const editNote = createAction(EDIT_NOTE, note => ({ note }));
-/* == action creator - bookmark */
-const addBookmark = createAction(ADD_BOOKMARK, noteId => ({ noteId }));
-const deleteBookmark = createAction(DELETE_BOOKMARK, noteId => ({ noteId }));
+/* project - kanban */
+const setKanbanStep           = createAction(SET_KANBAN_STEP, newState => ({ newState }));
+const getKanbanNotes          = createAction(GET_KANBAN_NOTES, kanbanNotes => ({ kanbanNotes }));
+/* project - issue */
+const getProjectIssueNotes    = createAction(GET_PROJECT_ISSUE_NOTES, issueNotes => ({ issueNotes }));
+/* note - detail */
+const getNoteDetail           = createAction(GET_NOTE_DETAIL, note => ({ note }));
+const editNote                = createAction(EDIT_NOTE, note => ({ note }));
+/* bookmark */
+const addBookmark             = createAction(ADD_BOOKMARK, noteId => ({ noteId }));
+const deleteBookmark          = createAction(DELETE_BOOKMARK, noteId => ({ noteId }));
 
 /* == thunk function */
 const __getKanbanNotes =
@@ -62,6 +70,18 @@ const __getKanbanNotes =
     try {
       const { data } = await noteApi.getKanbanNotes();
       dispatch(getKanbanNotes(data.projects));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+/* == thunk function - bookmark */
+const __getProjectIssueNotes =
+  (projectId) =>
+  async (dispatch, getState, { history }) => {
+    try {
+      const { data } = await noteApi.getProjectIssueNotes(projectId);
+      dispatch(getProjectIssueNotes(data.notes));
     } catch (e) {
       console.log(e);
     }
@@ -132,7 +152,13 @@ const note = handleActions(
     [GET_KANBAN_NOTES]: (state, action) => {
       return {
         ...state,
-        list: action.payload.data,
+        list: action.payload.kanbanNotes,
+      };
+    },
+    [GET_PROJECT_ISSUE_NOTES]: (state, action) => {
+      return {
+        ...state,
+        list: action.payload.issueNotes,
       };
     },
     [GET_NOTE_DETAIL]: (state, action) => {
@@ -149,6 +175,7 @@ const note = handleActions(
 export const noteActions = {
   setKanbanStep,
   __getKanbanNotes,
+  __getProjectIssueNotes,
   __getNoteDetail,
   __editNote,
   /* bookmark */

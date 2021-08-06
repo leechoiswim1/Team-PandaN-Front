@@ -5,21 +5,22 @@ import { t }  from "../../util/remConverter";
 import { CheckSquare } from "react-feather";
 
 // * == ( IssueCard / Note ) -------------------- * //
-const IssueCard = ({projectId, noteId, title, content, deadline, step, ...rest}) => {
+const IssueCard = (props) => {
+  const {projectId, noteId, title, content, deadline, step, ...rest} = props;   
   return (
     <Wrapper>
       <div>
         <CheckSquare />
+        {step}
       </div>
       <NoteDesc>
-        {/* {projectId}{noteId} */}
-        <a href="/projects/60/notes/10">글제목{title}{step}</a>
+        <a href={`/projects/${projectId}/notes/${noteId}`}>{title}</a>
         <div>
           { rest.projectTitle ? 
             <span className="text-primary">프로젝트 이름</span> :
             <span className="text-primary">작성자</span>
           }         
-          <span>일정{deadline}</span>
+          <span>{deadline}</span>
         </div>
       </NoteDesc>
     </Wrapper>

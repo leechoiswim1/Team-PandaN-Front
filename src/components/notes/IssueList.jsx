@@ -6,23 +6,23 @@ import { t }  from "../../util/remConverter";
 import { IssueCard } from "..";
 
 // * == ( IssueList / Note ) -------------------- * //
-const IssueList = ({ history, ...rest }) => {
+const IssueList = ({ history, notes, projectId, ...rest }) => {
   return (
     <>
-      <IssueCard />
-      <IssueCard />
-      <IssueCard />
-      <IssueCard />
-      <IssueCard />
-      <IssueCard />
-      <IssueCard />
-      <IssueCard />
-      <IssueCard />
-      <IssueCard />
-      <IssueCard />
-      <IssueCard />
-      <IssueCard />
-      <IssueCard />
+      {notes.map((note, index) => {
+        return (
+          <IssueCard
+            key={index}             
+            projectId={projectId}
+            noteId={note.noteId}
+            title={note.title}
+            content={note.content}
+            deadline={note.deadline}
+            step={note.step}
+            type={rest.type}
+          />
+        );
+      })}
     </>
   );
 };

@@ -13,7 +13,8 @@ export const projectApi = {
 }
 /* == API - note */
 export const noteApi = {
-  getKanbanNotes: () => instance.get("/api/projects/60/kanbans"), // 현재 projectId 60에 해당하는 노트들 고정으로 가져옴
+  getKanbanNotes: (projectId) => instance.get("/api/projects/60/kanbans"), // 현재 projectId 60에 해당하는 노트들 고정으로 가져옴
+  getProjectIssueNotes: (projectId) => instance.get(`/api/projects/${projectId}/issues`),
   getNoteDetail: (noteId) => instance.get(`/api/notes/${noteId}`),
   editNote: (noteId, newNote) => instance.put(`/api/notes/${noteId}`, newNote),
   /* bookmark */
