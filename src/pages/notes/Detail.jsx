@@ -2,18 +2,34 @@ import React  from "react";
 /* == Library - style */
 import styled from "styled-components";
 import { t }  from "../../util/remConverter";
+import { Accordion } from "react-bootstrap";
 /* == Custom - Component */
-import { Template, SubHeader, InnerHeader, NoteDetail } from "../../components";
+import { Template, SubHeader, InnerHeader, NoteDetail, CommentList } from "../../components";
 
 // * == ( note - Detail ) -------------------- * //
 const Detail = ({ history, match, ...rest }) => {
+  const projectId = match.params.projectId;
   return (
     <Template>
-      <div className="content">
+      <div className="content" id="content">
         <SubHeader />
-        <InnerHeader />
+        <InnerHeader projectId={projectId}/>
         <Container>
-          <NoteDetail history={history} match={match}/>
+          <div style={{width: "100%", display: "flex", justifyContent:"center"}}>
+            <div style={{width: "500px"}}>
+            <NoteDetail history={history} match={match} projectId={projectId}/>
+            </div>
+          </div>
+          <div>
+            {/* <Accordion>
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>댓글</Accordion.Header>
+                  <Accordion.Body> */}
+                    <CommentList />
+                  {/* </Accordion.Body>
+              </Accordion.Item>
+            </Accordion> */}
+          </div>
         </Container>
       </div>
     </Template>
@@ -28,6 +44,7 @@ const Container = styled.div(...t`
   overflow-x: scroll;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 `)
 
 export default Detail;

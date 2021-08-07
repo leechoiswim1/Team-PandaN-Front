@@ -2,8 +2,18 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Auth from "../shared/auth";
 
-/* pages */
-import { Home, Login, Kanban, Projects, Detail } from "../pages";
+/* == Pages */
+import {
+  Login,
+  Home,
+  Projects,
+  Bookmark,
+  MyNote,
+  Kanban,
+  Detail,
+  ProjectIssue,
+  ProjectMyIssue,
+} from "../pages";
 
 // * == ( Ruter ) -------------------- * //
 const Router = () => {
@@ -11,9 +21,16 @@ const Router = () => {
     <Switch>
       <Route path="/login" component={Auth(Login, false)} exact />
       <Route path="/" component={Auth(Home, false)} exact />
-      <Route
+      {/* <Route
         path="/projects/:projectId"
         component={Auth(Projects, false)}
+        exact
+      /> */}
+      <Route path="/bookmark" component={Auth(Bookmark, false)} exact />
+      <Route path="/mynote" component={Auth(MyNote, false)} exact />
+      <Route
+        path="/projects/:projectId"
+        component={Auth(Kanban, false)}
         exact
       />
       <Route
@@ -22,8 +39,13 @@ const Router = () => {
         exact
       />
       <Route
-        path="/projects/:projectId/kanban"
-        component={Auth(Kanban, false)}
+        path="/projects/:projectId/issue"
+        component={Auth(ProjectIssue, false)}
+        exact
+      />
+      <Route
+        path="/projects/:projectId/myissue"
+        component={Auth(ProjectMyIssue, false)}
         exact
       />
     </Switch>

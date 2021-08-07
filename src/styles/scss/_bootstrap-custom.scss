@@ -2,8 +2,10 @@
  * Bootstrap Custom
  */
 
+$primary: #387E4B;
+
 $theme-colors: (
-  primary: #387E4B,
+  primary: $primary,
 );
 
 // Spacing rules
@@ -39,7 +41,6 @@ $sizes: (
 //
 // Set the number of columns and specify the width of the gutters.
 
-$grid-columns:                15;
 $grid-gutter-width:           1.875rem;
 
 $gutters: $spacers;
