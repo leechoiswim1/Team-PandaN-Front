@@ -13,8 +13,16 @@ export const projectApi = {
   getOneProject: projectId => instance.get(`/api/projects/${projectId}`),
   postProject: project => instance.post("/api/projects", project),
   deleteProject: projectId => instance.delete(`/api/projects/${projectId}`),
-  putProject: projectId => instance.put(`/api/projects/${projectId}`),
+  putProject: (projectId, project) =>
+    instance.put(`/api/projects/${projectId}`, project),
+  getinviteProject: projectId =>
+    instance.get(`/api/projects/${projectId}/invites`),
+  postJoinProject: inviteCode =>
+    instance.post("/api/projects/invites", inviteCode),
+  getProjectCrews: projectId =>
+    instance.get(`/api/projects/${projectId}/crews`),
 };
+
 /* == API - note */
 export const noteApi = {
   /* project kanban */

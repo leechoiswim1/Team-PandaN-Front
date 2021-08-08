@@ -1,5 +1,8 @@
 import React from "react";
-import { Modals, ProjectModal } from "..";
+
+import { ProjectModal } from "..";
+
+import ProjectInvite from "../modals/ProjectInvite";
 
 const EmptyProject = () => {
   return (
@@ -11,12 +14,7 @@ const EmptyProject = () => {
       ></img>
       <br />
       <ProjectModal />
-      <Modals
-        buttonTitle="프로젝트 초대코드 등록"
-        Title="초대코드를 등록해주세요! "
-        Content={<input placeholder="어쩌고 저쩌고" />}
-        Summit="등록"
-      />
+      <ProjectInvite />
     </div>
   );
 };

@@ -4,20 +4,21 @@ import Router from "./Router";
 /*Templates*/
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import SubHeader from "./SubHeader";
 import Template from "./Template";
+import Contents from "./Contents";
 /* Modal*/
-import Modals from "./Modals";
-import ProjectModal from "./ProjectModal";
-import NoteModal from "./NoteModal";
+import Modals from "./modals/Modals";
+import ProjectModal from "./modals/ProjectModal";
+import NoteModal from "./modals/NoteModal";
+import ProjectModalEdit from "./modals/ProjectModalEdit";
+import ProjectInvite from "./modals/ProjectInvite";
+import ProjectJoin from "./modals/ProjectJoin";
 /* project */
 
-import EmptyProject from "./EmptyProject";
-import ProjectList from "./ProjectList";
-import ProjectHeader from "./ProjectHeader";
-import ProjectCardList from "./ProjectCardList";
-
-import Contents from "./Contents";
+import EmptyProject from "./projects/EmptyProject";
+import ProjectList from "./projects/ProjectList";
+import ProjectHeader from "./projects/ProjectHeader";
+import ProjectCardList from "./projects/ProjectCardList";
 
 /* == Note - kanban */
 import InnerHeader from "./notes/InnerHeader";
@@ -35,19 +36,23 @@ import CommentList from "./comments/CommentList";
 import CommentInput from "./comments/CommentInput";
 
 export {
-  Header,
-  ProjectModal,
   Router,
+  Header,
   Sidebar,
   Template,
+  Contents,
+  /* == Modal */
   NoteModal,
   Modals,
-  Contents,
-  SubHeader,
+  ProjectModal,
+  ProjectModalEdit,
+  /* == Project */
   ProjectList,
   ProjectHeader,
   ProjectCardList,
   EmptyProject,
+  ProjectInvite,
+  ProjectJoin,
   /* == Note - kanban */
   InnerHeader,
   KanbanList,

@@ -1,6 +1,8 @@
 import React from "react";
+
 import styled, { css } from "styled-components";
 import { t } from "../../util/remConverter";
+
 import { useSelector } from "react-redux";
 import { history } from "../../modules/configStore";
 
@@ -17,8 +19,8 @@ const ProjectCardList = () => {
               history.push(`/projects/${p.projectId}/kanban`);
             }}
           >
-            <p>{p.title}</p>
-            <p>{p.detail}</p>
+            <Title>{p.title}</Title>
+            <Detail>{p.detail}</Detail>
           </Item>
         );
       })}
@@ -28,25 +30,54 @@ const ProjectCardList = () => {
 
 const Item = styled.div(
   ...t`
-  width:30%; 
-  height:200px;
-  margin: 10px auto;
-  padding: 10px;
+   
+  
+  height:180px;
+  margin: 20px;
+  padding: 20px;
   background-color: #fff; 
   overflow:hidden;
+  box-sizing: border-box;
+  border-radius:20px;
+  align-content: space-between;
+  width: 20%;
+  @media (max-width: 1360px) {
+    width: 20%;
+  }
+  @media (max-width: 900px) {
+    width: 43%;
+  }
+  @media (max-width: 720px) {
+    width: 90%;
+  }
 `,
 );
 
 const Wrap = styled.div(
   ...t`
   width:100%;
-  height:auto;
+  height:100%;
   overflow:hidden;
-  margin:auto;
-  padding:10px;
+  margin:20px 30px ;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
+  
+`,
+);
+
+const Title = styled.p(
+  ...t`
+  font-size:20px;
+  font-weight:700;
+`,
+);
+
+const Detail = styled.p(
+  ...t`
+  padding:10px 0;
+  font-size:15px;
+  color: #9A9A9A;
 `,
 );
 export default ProjectCardList;

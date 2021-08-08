@@ -20,7 +20,6 @@ import {
 import { AlignRight } from "react-feather";
 
 /* == Custom - Component */
-import { Modals, EditorModal } from "./";
 
 /* == Custom - Icon */
 import { ReactComponent as IconSearch } from "../styles/images/ico-search.svg";

@@ -1,7 +1,7 @@
 import Router from "./components/Router";
 import { React, useEffect } from "react";
 import "./styles/scss/pandan.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actionCreators as projectActions } from "./modules/project";
 const App = () => {
   const dispatch = useDispatch();

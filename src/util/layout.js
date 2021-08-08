@@ -46,7 +46,6 @@ function mainHeight() {
   const header = document.getElementById("header");
   const main = document.getElementById("content");
   const sidebar = document.getElementById("sidebar");
-
   const headerH = header.getBoundingClientRect().height || 0;
   const mainH = main.getBoundingClientRect().height || 0;
   const sidebarH = sidebar.getBoundingClientRect().height || 0;

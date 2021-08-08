@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+
 /* components & elements */
 import { Header, Sidebar, ProjectHeader, Contents } from "../components";
+
+import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as projectActions } from "../modules/project";
+
 const Projects = props => {
   const dispatch = useDispatch();
   console.log(props);

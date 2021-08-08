@@ -21,15 +21,11 @@ const Router = () => {
     <Switch>
       <Route path="/login" component={Auth(Login, false)} exact />
       <Route path="/" component={Auth(Home, false)} exact />
-      {/* <Route
-        path="/projects/:projectId"
-        component={Auth(Projects, false)}
-        exact
-      /> */}
+      <Route path="/projects/" component={Auth(Projects, false)} exact />
       <Route path="/bookmark" component={Auth(Bookmark, false)} exact />
       <Route path="/mynote" component={Auth(MyNote, false)} exact />
       <Route
-        path="/projects/:projectId"
+        path="/projects/:projectId/kanban"
         component={Auth(Kanban, false)}
         exact
       />
