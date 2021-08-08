@@ -37,3 +37,57 @@
     background-color: $primary;
   }
 }
+
+// == note: kanban - card
+// --------------------------------
+.card-wrapper {
+  min-height: rem(50);
+  margin: rem(20);
+  padding: rem(20) rem(20) rem(12);
+  border-radius: rem(20);
+  box-shadow: rem(2) rem(4) rem(20) rgba(25, 25, 25, 0.1);
+  user-select: none;
+  cursor: grab;
+}
+
+.kanban-card {
+  h1 {
+    font-weight: bold;
+    font-size: rem(16);
+    line-height: rem(24);
+    letter-spacing: -0.03rem;
+    color: #191919;
+    margin-bottom: rem(8);
+  }
+  p {
+    font-size: rem(12);
+    line-height: rem(18);
+    letter-spacing: -0.03rem;
+    color: #BCBCBC;
+  }
+  
+  p:last-of-type {
+    font-weight: bold;
+    color: #767676;
+  }
+  hr {
+    margin: rem(10) 0;
+    height: rem(2);
+    background-color: #BCBCBC;
+  }  
+}
+
+.kanban-card-tag {
+  height: rem(24);
+  border-radius: rem(24);  
+  display: inline-block;
+  margin: rem(16) 0 rem(6);
+  padding: 0 rem(20);
+  text-align: center;
+  vertical-align: middle;
+  color: #FFFFFF;
+  font-size: rem(12);
+  line-height: rem(24);
+  font-weight: bold;
+  letter-spacing: -0.03rem;
+}
