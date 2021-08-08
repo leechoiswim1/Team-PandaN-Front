@@ -1,0 +1,39 @@
+// == note: inner header
+// --------------------------------
+.innerheader {
+  width: 100%;
+  height: rem(36);
+  padding: 0 rem(30);
+  display: flex;
+  align-items: center;
+  position: relative;
+  box-sizing : border-box;
+  li {
+    margin-right: rem(30);
+    line-height: rem(30);
+    font-size: rem(18);
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    color: #9A9A9A;
+    float: left;
+  }
+  a {
+    text-decoration: none;
+    &:hover {
+    color: $primary;
+    }
+  }
+}
+
+.innerheader-menu-active {
+  color: $primary;
+  &:after {
+    position: relative;
+    bottom: 0;
+    content: "";
+    display: block;
+    width: auto;
+    height: rem(2);
+    background-color: $primary;
+  }
+}

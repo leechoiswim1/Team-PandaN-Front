@@ -1,36 +1,31 @@
 import React from "react";
-/* == Library - style */
-import styled from "styled-components";
-import { t }  from "../../util/remConverter";
+/* == Library */
+import { NavLink } from "react-router-dom";
 
 const InnerHeader = ({ history, match, projectId, ...rest }) => {
   return (
-    <Wrapper fluid> 
+    <div className="innerheader"> 
       <nav>
-        <Tab href={`/projects/${projectId}`}>KANBAN</Tab>
-        <Tab href={`/projects/${projectId}/issue`}>ISSUE</Tab>
-        <Tab href={`/projects/${projectId}/myissue`}>MY ISSUE</Tab>
+        <ul>
+          <li>
+            <NavLink to={`/projects/${projectId}/issue`} exact activeClassName="innerheader-menu-active">
+              전체 문서
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={`/projects/${projectId}`} exact activeClassName="innerheader-menu-active">
+              칸반
+            </NavLink>
+          </li>        
+          <li>
+            <NavLink to={`/projects/${projectId}/myissue`} exact activeClassName="innerheader-menu-active">
+              내가 작성한 문서
+            </NavLink>
+          </li>
+        </ul>
       </nav>
-    </Wrapper>
+    </div>
   );
 };
-
-const Wrapper = styled.div(...t`
-  width: 100%;
-  height: 60px;
-  padding: 0 36px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  box-sizing : border-box;
-`)
-
-const Tab = styled.a(...t`
-  text-decoration: none;
-  position: relative;
-  margin: 0 20px 0 0;
-  cursor: pointer;   
-`)
 
 export default InnerHeader;
