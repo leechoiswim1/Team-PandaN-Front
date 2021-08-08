@@ -13,25 +13,25 @@ import { ReactComponent as Done } from "../styles/images/ico-kanban-step-done.sv
 const IconSteps = ({ type }) => {
   if (type === "STORAGE") {
     return (
-      <Storage fill="#767676" style={{marginTop: "-4px"}}/>
+      <Storage fill="#767676" />
     )
   }
 
   if (type === "TODO") {
     return (
-      <Todo fill="#767676"style={{marginTop: "-4px"}}/>
+      <Todo fill="#767676" />
     )
   }
 
   if (type === "PROCESSING") {
     return (
-      <Processing fill="#767676" style={{marginTop: "-4px"}}/>
+      <Processing fill="#767676" />
     )
   }
 
   if (type === "DONE") {
     return (
-      <Done fill="#767676" style={{marginTop: "-4px"}}/>
+      <Done fill="#767676" />
     )
   }
 }

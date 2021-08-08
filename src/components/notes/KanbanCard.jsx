@@ -1,7 +1,6 @@
 import React  from "react";
 /* == Library - style */
 import styled, { css } from "styled-components";
-import { t }  from "../../util/remConverter";
 import moment from "moment";
 import "moment/locale/ko";
 
