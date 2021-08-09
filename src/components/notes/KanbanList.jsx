@@ -25,9 +25,8 @@ const KanbanList = ({ notes, history, ...rest }) => {
                   isDragging={snapshot.isDragging}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  onClick={() => {
-                    history.push(`/projects/60/notes/${noteId}`);
-                  }}
+                  onClick={() => {history.push(`/projects/60/notes/${noteId}`)}}
+                  className="card-wrapper"
                 >
                   <KanbanCard note={note} />
                 </CardWrapper>
@@ -40,18 +39,9 @@ const KanbanList = ({ notes, history, ...rest }) => {
   );
 };
 
-const CardWrapper = styled.div(
-  ...t`
-  min-height: 50px;
-  padding: 16px;
-  margin-bottom: 8px;
-  user-select: none;
-  cursor: grab;
-  border: 
-    ${props => (props.isDragging ? "1px solid #b2c0b6" : "1px solid #ddd")};
+const CardWrapper = styled.div(...t`
   background-color: 
-    ${props => (props.isDragging ? "#eee" : "#fff")};
-`,
-);
+  ${(props) => props.isDragging ? "#f7f7f7" : "#fff"};
+`);
 
 export default KanbanList;

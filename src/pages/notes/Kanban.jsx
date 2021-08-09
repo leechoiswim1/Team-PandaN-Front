@@ -32,25 +32,13 @@ const Kanban = ({ history, match, ...rest }) => {
     <Template>
       <main className="content" id="content">
         <ProjectHeader projectId={projectId} />
-        <InnerHeader history={history} match={match} projectId={projectId} />
-        <Container>
-          <KanbanBoard history={history} />
-        </Container>
+        <InnerHeader history={history} match={match} projectId={projectId}/>
+        <div className="note-container">
+          <KanbanBoard history={history}/>
+        </div>
       </main>
     </Template>
   );
 };
-
-const Container = styled.main(
-  ...t`
-  width: 100%;
-  height: calc( 100% - 120px );
-  padding: 0 36px;
-  white-space: nowrap;
-  overflow-x: scroll;
-  display: flex;
-  flex-direction: row;
-`,
-);
 
 export default Kanban;

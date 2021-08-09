@@ -1,30 +1,32 @@
-/*Router */
-import Router from "./Router";
+/* Router */
+import Router           from "./Router";
 
-/*Templates*/
-import Header from "./Header";
-import Sidebar from "./Sidebar";
-import Template from "./Template";
-import Contents from "./Contents";
-/* Modal*/
-import Modals from "./modals/Modals";
-import ProjectModal from "./modals/ProjectModal";
-import NoteModal from "./modals/NoteModal";
+/* Templates */
+import Header           from "./Header";
+import Sidebar          from "./Sidebar";
+import Template         from "./Template";
+import Contents         from "./Contents";
+
+/* Modal */
+import Modals           from "./modals/Modals";
+import ProjectModal     from "./modals/ProjectModal";
+import NoteModal        from "./modals/NoteModal";
 import ProjectModalEdit from "./modals/ProjectModalEdit";
-import ProjectInvite from "./modals/ProjectInvite";
-import ProjectJoin from "./modals/ProjectJoin";
-/* project */
+import ProjectInvite    from "./modals/ProjectInvite";
+import ProjectJoin      from "./modals/ProjectJoin";
 
-import EmptyProject from "./projects/EmptyProject";
-import ProjectList from "./projects/ProjectList";
-import ProjectHeader from "./projects/ProjectHeader";
-import ProjectCardList from "./projects/ProjectCardList";
+/* project */
+import EmptyProject     from "./projects/EmptyProject";
+import ProjectList      from "./projects/ProjectList";
+import ProjectHeader    from "./projects/ProjectHeader";
+import ProjectCardList  from "./projects/ProjectCardList";
 
 /* == Note - kanban */
 import InnerHeader      from "./notes/InnerHeader";
 import KanbanCard       from "./notes/KanbanCard";
 import KanbanList       from "./notes/KanbanList";
 import KanbanBoard      from "./notes/KanbanBoard";
+import WritingNoteModal from "./notes/WritingNoteModal";
 /* == Note - issue list; card */
 import IssueCard        from "./notes/IssueCard";
 import IssueList        from "./notes/IssueList";
@@ -58,6 +60,7 @@ export {
   KanbanList,
   KanbanCard,
   KanbanBoard,
+  WritingNoteModal,
   /* == Note - list */
   IssueCard,
   IssueList,
