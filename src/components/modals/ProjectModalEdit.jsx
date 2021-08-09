@@ -102,7 +102,11 @@ const ProjectModalEdit = props => {
         </Modal.Body>
         <ModalFooterWrap>
           <Modal.Footer
-            style={{ width: "50%", border: "1px solid #EDEDED" }}
+            style={{
+              width: "50%",
+              border: "1px solid #EDEDED",
+              cursor: "pointer",
+            }}
             onClick={() => {
               editProject();
             }}
@@ -110,7 +114,11 @@ const ProjectModalEdit = props => {
             <EditBtn>수정</EditBtn>
           </Modal.Footer>
           <Modal.Footer
-            style={{ width: "50%", border: "1px solid #EDEDED" }}
+            style={{
+              width: "50%",
+              border: "1px solid #EDEDED",
+              cursor: "pointer",
+            }}
             onClick={() => {
               deleteProject();
             }}
