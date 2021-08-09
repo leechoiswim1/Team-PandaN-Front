@@ -1,0 +1,245 @@
+// == layout
+// --------------------------------
+$inner-header-height: rem(36);
+// == text
+// --------------------------------
+$note-heading:        rem(18);  // heading font-size
+$letter-spacing:      -0.03rem;
+// == color
+// --------------------------------
+$note-heading-black:  #191919;
+$note-heading-gray:   #767676;
+
+// == note: inner header
+// --------------------------------
+.innerheader {
+  width: 100%;
+  height: $inner-header-height;
+  padding: 0 rem(30);
+  display: flex;
+  align-items: center;
+  position: relative;
+  box-sizing : border-box;
+
+  li {
+    margin-right: rem(30);
+    line-height: rem(30);
+    font-size: rem(18);
+    letter-spacing: $letter-spacing;
+    font-weight: 700;
+    color: #9A9A9A;
+    float: left;
+  }
+
+  a {
+    text-decoration: none;
+    &:hover {
+    color: $primary;
+    }
+  }
+}
+
+.innerheader-menu-active {
+  color: $primary;
+  &:after {
+    position: relative;
+    bottom: 0;
+    content: "";
+    display: block;
+    width: auto;
+    height: rem(2);
+    background-color: $primary;
+  }
+}
+
+// == note: note container
+// --------------------------------
+.note-container {
+  width: 100%;
+  height: 100%;
+  padding: rem(38) rem(30);
+  white-space: nowrap;
+  overflow-x: scroll;
+  display: flex;
+  flex-direction: row;
+}
+
+// == note: kanban - column
+// --------------------------------
+.kanban-column {
+  width: rem(320);
+  height: 100%;
+  margin-right: rem(28);
+  display: flex;
+  flex-direction: column;
+  border-radius: rem(20);
+  background-color: #eee;
+  // background-color: #F3F3F3;
+
+  .kanban-col-header {
+    margin: rem(20) rem(20) 0;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+
+    & span {
+      margin-left: rem(12);
+      font-weight: bold;
+      font-size: $note-heading;
+      letter-spacing: $letter-spacing;
+      color: $note-heading-gray;
+    }
+
+    .kanban-col-title {
+      display: flex; 
+      align-items: center;
+      
+      .kanban-col-badge {
+        width: rem(24);
+        margin-left: rem(10);
+        border-radius: rem(18);  
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        color: #FFFFFF;
+        font-size: rem(12);
+        line-height: rem(18);
+        font-weight: bold;
+        letter-spacing: $letter-spacing;
+      }
+    }
+  }
+
+  .kanban-col-content{
+    height: rem(600);
+    margin-top: 8px;
+    user-select: none;
+    white-space: nowrap;
+    overflow-y: auto;
+  }
+
+  .kanban-col-footer {
+    height: rem(60);
+    border-radius: 0 0 rem(20) rem(20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }  
+}
+
+// == note: kanban - card
+// --------------------------------
+.card-wrapper {
+  min-height: rem(50);
+  margin: rem(20);
+  padding: rem(20) rem(20) rem(12);
+  border-radius: rem(20);
+  box-shadow: rem(2) rem(4) rem(20) rgba(25, 25, 25, 0.1);
+  user-select: none;
+  cursor: grab;
+}
+
+.kanban-card {
+  h1 {
+    font-weight: bold;
+    font-size: rem(16);
+    line-height: rem(24);
+    letter-spacing: $letter-spacing;
+    color: $note-heading-black;
+    margin-bottom: rem(8);
+  }
+  p {
+    font-size: rem(12);
+    line-height: rem(18);
+    letter-spacing: $letter-spacing;
+    color: #BCBCBC;
+  }  
+  p:last-of-type {
+    font-weight: bold;
+    color: $note-heading-gray;
+  }
+  hr {
+    margin: rem(10) 0;
+    height: rem(2);
+    background-color: #BCBCBC;
+  } 
+  .kanban-card-tag {
+    height: rem(24);
+    border-radius: rem(24);  
+    display: inline-block;
+    margin: rem(16) 0 rem(6);
+    padding: 0 rem(20);
+    text-align: center;
+    vertical-align: middle;
+    color: #FFFFFF;
+    font-size: rem(12);
+    line-height: rem(24);
+    font-weight: bold;
+    letter-spacing: $letter-spacing;
+  }
+}
+
+// == note: modal
+// --------------------------------
+.note-modal-label {
+  font-weight: bold;
+  font-size: $note-heading;
+  line-height: rem(24);
+  letter-spacing: $letter-spacing;
+  margin: rem(32) 0 rem(8);
+  color: $primary;
+}
+
+.note-modal-container {
+  box-sizing: border-box;
+  position: relative;
+  background-color: #fff;
+  border-radius: rem(40);
+  width: rem(720);
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 auto; 
+
+  .note-modal-header {
+    padding: rem(64) rem(64) 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .note-modal-title {
+      display: flex; 
+      flex-direction: row;
+      align-items: center;
+
+      & h1 {
+        font-weight: bold;
+        font-size: rem(24);
+        color: $note-heading-black;
+        letter-spacing: $letter-spacing;
+      }
+    }
+    svg {
+      fill: $note-heading-black;
+      margin-top: 4px;    
+    }    
+  }
+  .note-modal-content {
+    padding: 0 rem(64) rem(64);
+  }
+
+  .note-modal-button {
+    height: rem(96);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #C2C2C2;
+    cursor: pointer;
+    & h1 {
+      font-weight: bold;
+      font-size: rem(24);
+      color: $note-heading-gray;
+      letter-spacing: $letter-spacing;
+    }
+  }
+}

@@ -1,14 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState }   from "react";
+
 /* == Library - style */
-import styled from "styled-components";
-import { t } from "../../util/remConverter";
+import styled, { css }                  from "styled-components";
+import { t }                            from "../../util/remConverter";
+
 /* == Library - drag & drop */
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable}    from "react-beautiful-dnd";
+
 /* == Custom - Component */
-import { KanbanList, NoteModal } from "..";
+import { KanbanList, WritingNoteModal } from "..";
+
+/* == Custom - Icon */
+import { ReactComponent as Write }      from "../../styles/images/ico-kanban-write.svg";
+import { ReactComponent as Arrow }      from "../../styles/images/ico-kanban-col-footer-arrow.svg";
+import IconSteps                        from "../../elements/IconSteps";
+
 /* == Redux - actions */
-import { useSelector, useDispatch } from "react-redux";
-import { noteActions } from "../../modules/note";
+import { useSelector, useDispatch }     from "react-redux";
+import { noteActions }                  from "../../modules/note";
 
 // * == ( kanban / Board ) -------------------- * //
 const KanbanBoard = ({ history }) => {
@@ -76,29 +85,62 @@ const KanbanBoard = ({ history }) => {
     }
   };
 
-  const projects = useSelector(state => state.note.list);
+  const projects = useSelector((state) => state.note.list)
+  const [modalVisible, setModalVisible] = useState(false)
+  const openModal = () => {
+    setModalVisible(true)
+  }
+  const closeModal = () => {
+    setModalVisible(false)
+  }
 
   return (
-    <DragDropContext onDragEnd={result => onDragEnd(result, projects)}>
+    <DragDropContext onDragEnd={(result) => onDragEnd(result, projects)}>
       {/* {Object.entries(steps).map(([stepsId, step], index) => { */}
       {projects.map((project, index) => {
         return (
-          <div key={project.step}>
+          <div key={index}>
             <Droppable droppableId={String(index)}>
               {(provided, snapshot) => {
-                return (
-                  <StepColumn>
-                    <h4>{project.step}</h4>
-                    <NoteModal />
-                    <ListWrapper
-                      ref={provided.innerRef}
-                      isDraggingOver={snapshot.isDraggingOver}
-                      {...provided.droppableProps}
-                    >
-                      <KanbanList notes={project.notes} history={history} />
-                      {provided.placeholder}
-                    </ListWrapper>
-                  </StepColumn>
+                return ( 
+                  <div className="kanban-column"> 
+                    <div className="kanban-col-header">
+                      <div className="kanban-col-title">
+                        <IconSteps type={project.step}/> 
+                        <span>{project.step}</span>
+                        <Badge className="kanban-col-badge" type={project.step}>
+                          {project.notes?.length}
+                        </Badge>
+                      </div>
+                      <div>
+                        <Write 
+                          fill="#767676"
+                          onClick={openModal}
+                          width="20"
+                          height="20"
+                        />
+                          { modalVisible && 
+                            <WritingNoteModal 
+                              visible={modalVisible}
+                              closable={true}
+                              maskClosable={true}
+                              onClose={closeModal} />
+                          }                        
+                      </div>
+                    </div>
+                  
+                  <div className="kanban-col-content"
+                    ref={provided.innerRef}
+                    isdraggingover={snapshot.isdraggingover}
+                    {...provided.droppableProps}                    
+                  >  
+                    <KanbanList notes={project.notes} history={history}/>
+                    {provided.placeholder}
+                  </div>
+                  <ColFooter className="kanban-col-footer" type={project.step}>
+                    <Arrow type={project.step} width="24" height="24"/>
+                  </ColFooter>                   
+                  </div>
                 );
               }}
             </Droppable>
@@ -109,24 +151,60 @@ const KanbanBoard = ({ history }) => {
   );
 };
 
-const StepColumn = styled.div(
-  ...t`
-  height: auto;
-  margin-right: 16px;
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  background-color: #ffffff;
-`,
-);
+const Badge = styled.div`
+${(props) => (props.type === "STORAGE") && 
+  css`  
+    background-color: #E1D3F8;
+  `}
+${(props) => (props.type === "TODO") && 
+  css`  
+    background-color: #CCE4F8;
+  `}
+${(props) => (props.type === "PROCESSING") && 
+css`  
+  background-color: #FFE3B0;
+`}
+${(props) => (props.type === "DONE") && 
+  css`  
+    background-color: #F9CDE5;
+  `}
+`
 
-const ListWrapper = styled.div(
-  ...t`
-  width: 360px;
-  min-height: 50px; 
-  margin-top: 8px;
-  user-select: none;
-`,
-);
+const ColFooter = styled.div`
+${(props) => (props.type === "STORAGE") && 
+  css`  
+    background-color: rgba(225, 211, 248, 0.3);
+  `}
+${(props) => (props.type === "TODO") && 
+  css`  
+    background-color: rgba(204, 228, 248, 0.3);
+  `}
+${(props) => (props.type === "PROCESSING") && 
+css`  
+  background-color: rgba(255, 227, 176, 0.3);
+`}
+${(props) => (props.type === "DONE") && 
+  css`  
+    background-color: rgba(249, 205, 229, 0.3);
+  `}
+  & svg {
+    ${(props) => (props.type === "STORAGE") && 
+      css`  
+       fill: #B88FFB;
+      `}
+    ${(props) => (props.type === "TODO") && 
+      css`  
+        fill: #76BEFB;
+      `}
+    ${(props) => (props.type === "PROCESSING") && 
+    css`  
+      fill: #F9C35D;
+    `}
+    ${(props) => (props.type === "DONE") && 
+      css`  
+        fill: #F888C8;
+      `}
+  }
+`
 
 export default KanbanBoard;
