@@ -2,32 +2,32 @@ window.addEventListener("DOMContentLoaded", runFunction);
 
 // * == Run!!!! ======== * //
 function runFunction(){
-  mainHeight();
+  // mainHeight();
   sidebar();
   resizingTimeoutFunction();
-  readDeviceOrientation();
+  // readDeviceOrientation();
 }
 
 // * == (Read device orientation) ======== * //
-function readDeviceOrientation() {
-  window.addEventListener("orientationchange", function() {
-    setTimeOutF(mainHeight);
-  }, false);
-}
+// function readDeviceOrientation() {
+//   window.addEventListener("orientationchange", function() {
+//     setTimeOutF(mainHeight);
+//   }, false);
+// }
 
 // * == (Resizing) ======== * //
 function resizingTimeoutFunction(){
   setTimeOutF(resizing);
 
   function resizing(){
-    window.onresize = resizeAll;
+    window.onresize = sidebar;
   }
 }
 
-function resizeAll(){
-  mainHeight();
-  sidebar();
-}
+// function resizeAll(){
+//   // mainHeight();
+//   sidebar();
+// }
 
 // * == (SetTimeOut) ======== * //
 function setTimeOutF(rsto){
@@ -38,27 +38,26 @@ function setTimeOutF(rsto){
 }
 
 // * == (Detect main height) ======== * //
-function mainHeight(){
-  const header           = document.getElementById("header");
-  const main             = document.getElementById("content");
-  const sidebar          = document.getElementById("sidebar");
+// function mainHeight(){
+//   const header           = document.getElementById("header");
+//   const main             = document.getElementById("content");
+//   const sidebar          = document.getElementById("sidebar");
 
-  const headerH          = header.getBoundingClientRect().height || 0;
-  const mainH            = main.getBoundingClientRect().height || 0;
-  const sidebarH         = sidebar.getBoundingClientRect().height || 0;
-  const windowH          = window.innerHeight ||
-                          document.documentElement.clientHeight ||
-                          document.body.clientHeight;
+//   const headerH          = header.getBoundingClientRect().height || 0;
+//   const mainH            = main.getBoundingClientRect().height || 0;
+//   const windowH          = window.innerHeight ||
+//                           document.documentElement.clientHeight ||
+//                           document.body.clientHeight;
 
-  const mainMinH         = windowH - headerH;
+//   const mainMinH         = windowH - headerH;
 
-  main.style.minHeight = mainMinH + "px";
-  sidebar.style.minHeight = mainMinH + "px";
+//   main.style.minHeight = mainMinH + "px";
+//   sidebar.style.minHeight = mainMinH + "px";
 
-  if (mainH < mainMinH) {
-    main.style.minHeight = mainMinH + "px";
-  }
-}
+//   if (mainH < mainMinH) {
+//     main.style.minHeight = mainMinH + "px";
+//   }
+// }
 
 // * == (Mobile sidebar) ======== * //
 function sidebar(){
@@ -98,8 +97,4 @@ function sidebar(){
     body.classList.remove(...body.classList);
     body.classList.add("screen-sm");
   }
-}
-
-function screenWidth(){
-  
 }
