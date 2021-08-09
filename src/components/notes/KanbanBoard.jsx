@@ -13,7 +13,6 @@ import { noteActions } from "../../modules/note";
 // * == ( kanban / Board ) -------------------- * //
 const KanbanBoard = ({ history }) => {
   const dispatch = useDispatch();
-
   /* == function */
   const onDragEnd = (result, projects) => {
     const { source, destination, draggableId } = result;

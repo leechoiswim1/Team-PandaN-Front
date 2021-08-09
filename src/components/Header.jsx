@@ -27,7 +27,6 @@ import { ReactComponent as IconMemberAdd } from "../styles/images/ico-member-add
 import { ReactComponent as IconProfile } from "../styles/images/ico-profile.svg";
 
 // * == (Header) -------------------- * //
-
 const Header = ({ history }) => {
   return (
     <header className="header" id="header">
