@@ -57,6 +57,7 @@ $header-height: rem(80);
 // --------------------------------
 .col-right {
   width: 100%;
+  min-height: 100vh;
   transition: padding-left 0.3s;
 }
 
