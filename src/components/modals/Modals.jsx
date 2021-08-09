@@ -22,7 +22,7 @@ const Modals = props => {
         <Modal.Header closeButton>
           <Modal.Title>{props.Title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{props.Content}</Modal.Body>
+        <Modal.Body width="100%">{props.Content}</Modal.Body>
         <Modal.Footer>
           {props.Close == null ? null : (
             <Button variant="secondary" onClick={handleClose}>
@@ -30,7 +30,7 @@ const Modals = props => {
             </Button>
           )}
           {props.Summit == null ? null : (
-            <Button variant="primary" onClick={props.clicked}>
+            <Button variant="primary" onClick={props.Clicked}>
               {props.Summit}
             </Button>
           )}

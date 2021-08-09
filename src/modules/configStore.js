@@ -1,20 +1,19 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 /* == Redux - middleware */
-import thunk   from "redux-thunk";
-import logger  from "redux-logger";
+import thunk from "redux-thunk";
+import logger from "redux-logger";
 /* == Redux - router */
 import { createBrowserHistory } from "history";
-import { connectRouter }        from "connected-react-router";
+import { connectRouter } from "connected-react-router";
 /* == Redux - reducer */
 import project from "./project";
-import note    from "./note";
+import note from "./note";
 
-/* == export history */
 export const history = createBrowserHistory();
 /* == Main - Root reducer */
 const rootReducer = combineReducers({
-  note,
   project,
+  note,
   router: connectRouter(history),
 });
 
