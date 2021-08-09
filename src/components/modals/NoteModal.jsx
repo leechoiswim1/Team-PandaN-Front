@@ -1,34 +1,34 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 
-const EditorModal = () => {
+const NoteModal = () => {
   const [lgShow, setLgShow] = useState(false);
-  const [PostTitle, setPostTitle] = useState("");
-  const [PostDesc, setPostDesc] = useState();
+  const [NoteTitle, setNoteTitle] = useState("");
+  const [NoteDesc, setNoteDesc] = useState();
 
-  const editorModal = () => {
-    if (PostTitle === "" && PostDesc === "") {
+  const noteModal = () => {
+    if (NoteTitle === "" && NoteDesc === "") {
       window.alert("제목,내용을 입력해주세요!! ");
       return;
     }
 
-    if (PostTitle === "") {
+    if (NoteTitle === "") {
       window.alert("제목을 입력해주세요!");
       return;
     }
 
-    if (PostDesc === "") {
+    if (NoteDesc === "") {
       window.alert("내용을 입력해주세요!");
       return;
     }
   };
 
-  const changePostTitle = e => {
-    setPostTitle(e.target.value);
+  const changeNoteTitle = e => {
+    setNoteTitle(e.target.value);
   };
 
-  const changePostDesc = e => {
-    setPostDesc(e.target.value);
+  const changeNoteDesc = e => {
+    setNoteDesc(e.target.value);
   };
 
   return (
@@ -56,18 +56,18 @@ const EditorModal = () => {
               style={{ width: "100%" }}
               type="text"
               placeholder="할 일 제목"
-              onChange={changePostTitle}
+              onChange={changeNoteTitle}
             />
             <h4>내용을 입력해주세요!</h4>
             <textarea
               style={{ width: "100%", height: "30vh" }}
               type="text"
               placeholder="할 일 내용"
-              onChange={changePostDesc}
+              onChange={changeNoteDesc}
             ></textarea>
             <Button
               onClick={() => {
-                editorModal();
+                noteModal();
               }}
               style={{ width: "30%", margin: "auto" }}
             >
@@ -80,4 +80,4 @@ const EditorModal = () => {
   );
 };
 
-export default EditorModal;
+export default NoteModal;

@@ -3,15 +3,23 @@ import React from "react";
 /* == Library */
 import styled, { css } from "styled-components";
 import { t } from "../util/remConverter";
-import { Container, Col, Row, InputGroup, 
-Form, FormControl, Button, Dropdown, DropdownButton } from "react-bootstrap";
+import {
+  Container,
+  Col,
+  Row,
+  InputGroup,
+  Form,
+  FormControl,
+  Button,
+  Dropdown,
+  DropdownButton,
+} from "react-bootstrap";
 
 /* == Library - Icon (react-feather) */
 // https://feathericons.com/
 import { AlignRight } from "react-feather";
 
 /* == Custom - Component */
-import { Modals, EditorModal } from "./";
 
 /* == Custom - Icon */
 import { ReactComponent as IconSearch } from "../styles/images/ico-search.svg";
@@ -19,7 +27,6 @@ import { ReactComponent as IconMemberAdd } from "../styles/images/ico-member-add
 import { ReactComponent as IconProfile } from "../styles/images/ico-profile.svg";
 
 // * == (Header) -------------------- * //
-
 const Header = ({ history }) => {
   return (
     <header className="header" id="header">
@@ -27,7 +34,9 @@ const Header = ({ history }) => {
         <Row>
           <Col>
             {/* == 햄버거 메뉴 */}
-            <Button id="btn-hamburger"><AlignRight/></Button>
+            <Button id="btn-hamburger">
+              <AlignRight />
+            </Button>
           </Col>
           <Col className="d-inline-flex justify-content-end">
             {/* == 검색창 */}
@@ -57,14 +66,21 @@ const Header = ({ history }) => {
 
               <Dropdown.Menu className="dropdown-group">
                 <Dropdown.ItemText className="text-center">
-                  <IconProfile width="40" height="40" fill="#ffffff" className="dropdown-profile"/>
+                  <IconProfile
+                    width="40"
+                    height="40"
+                    fill="#ffffff"
+                    className="dropdown-profile"
+                  />
                   <p className="dropdown-name">User Name</p>
                   <p className="dropdown-email">UserId_123456789@gmail.com</p>
                 </Dropdown.ItemText>
-                <Dropdown.Divider style={{height: "0"}}/>
+                <Dropdown.Divider style={{ height: "0" }} />
                 <Dropdown.ItemText>
                   {/* == 로그아웃 */}
-                  <Button variant="primary" size="sm" className="d-block w-100">로그아웃</Button>
+                  <Button variant="primary" size="sm" className="d-block w-100">
+                    로그아웃
+                  </Button>
                 </Dropdown.ItemText>
               </Dropdown.Menu>
             </Dropdown>
