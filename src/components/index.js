@@ -5,12 +5,12 @@ import Sidebar          from "./Sidebar";
 import Template         from "./Template";
 import Modals           from "./Modals";
 import SubHeader        from "./SubHeader";
-import EditorModal      from "./EditorModal";
 /* == Note - kanban */
 import InnerHeader      from "./notes/InnerHeader";
 import KanbanCard       from "./notes/KanbanCard";
 import KanbanList       from "./notes/KanbanList";
 import KanbanBoard      from "./notes/KanbanBoard";
+import WritingNoteModal from "./notes/WritingNoteModal";
 /* == Note - issue list; card */
 import IssueCard        from "./notes/IssueCard";
 import IssueList        from "./notes/IssueList";
@@ -28,13 +28,13 @@ export {
   Sidebar,
   Template,
   Modals,
-  EditorModal,
   SubHeader,
   /* == Note - kanban */
   InnerHeader,
   KanbanCard,
   KanbanList,
   KanbanBoard,
+  WritingNoteModal,
   /* == Note - list */
   IssueCard,
   IssueList,

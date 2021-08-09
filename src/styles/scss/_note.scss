@@ -1,6 +1,14 @@
 // == layout
 // --------------------------------
 $inner-header-height: rem(36);
+// == text
+// --------------------------------
+$note-heading:        rem(18);  // heading font-size
+$letter-spacing:      -0.03rem;
+// == color
+// --------------------------------
+$note-heading-black:  #191919;
+$note-heading-gray:   #767676;
 
 // == note: inner header
 // --------------------------------
@@ -17,7 +25,7 @@ $inner-header-height: rem(36);
     margin-right: rem(30);
     line-height: rem(30);
     font-size: rem(18);
-    letter-spacing: -0.03em;
+    letter-spacing: $letter-spacing;
     font-weight: 700;
     color: #9A9A9A;
     float: left;
@@ -77,9 +85,9 @@ $inner-header-height: rem(36);
     & span {
       margin-left: rem(12);
       font-weight: bold;
-      font-size: rem(18);
-      letter-spacing: -0.03rem;
-      color: #767676;
+      font-size: $note-heading;
+      letter-spacing: $letter-spacing;
+      color: $note-heading-gray;
     }
 
     .kanban-col-title {
@@ -97,7 +105,7 @@ $inner-header-height: rem(36);
         font-size: rem(12);
         line-height: rem(18);
         font-weight: bold;
-        letter-spacing: -0.03rem;
+        letter-spacing: $letter-spacing;
       }
     }
   }
@@ -118,6 +126,7 @@ $inner-header-height: rem(36);
     justify-content: center;
   }  
 }
+
 // == note: kanban - card
 // --------------------------------
 .card-wrapper {
@@ -135,19 +144,19 @@ $inner-header-height: rem(36);
     font-weight: bold;
     font-size: rem(16);
     line-height: rem(24);
-    letter-spacing: -0.03rem;
-    color: #191919;
+    letter-spacing: $letter-spacing;
+    color: $note-heading-black;
     margin-bottom: rem(8);
   }
   p {
     font-size: rem(12);
     line-height: rem(18);
-    letter-spacing: -0.03rem;
+    letter-spacing: $letter-spacing;
     color: #BCBCBC;
   }  
   p:last-of-type {
     font-weight: bold;
-    color: #767676;
+    color: $note-heading-gray;
   }
   hr {
     margin: rem(10) 0;
@@ -166,6 +175,71 @@ $inner-header-height: rem(36);
     font-size: rem(12);
     line-height: rem(24);
     font-weight: bold;
-    letter-spacing: -0.03rem;
+    letter-spacing: $letter-spacing;
+  }
+}
+
+// == note: modal
+// --------------------------------
+.note-modal-label {
+  font-weight: bold;
+  font-size: $note-heading;
+  line-height: rem(24);
+  letter-spacing: $letter-spacing;
+  margin: rem(32) 0 rem(8);
+  color: $primary;
+}
+
+.note-modal-container {
+  box-sizing: border-box;
+  position: relative;
+  background-color: #fff;
+  border-radius: rem(40);
+  width: rem(720);
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 auto; 
+
+  .note-modal-header {
+    padding: rem(64) rem(64) 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .note-modal-title {
+      display: flex; 
+      flex-direction: row;
+      align-items: center;
+
+      & h1 {
+        font-weight: bold;
+        font-size: rem(24);
+        color: $note-heading-black;
+        letter-spacing: $letter-spacing;
+      }
+    }
+    svg {
+      fill: $note-heading-black;
+      margin-top: 4px;    
+    }    
+  }
+  .note-modal-content {
+    padding: 0 rem(64) rem(64);
+  }
+
+  .note-modal-button {
+    height: rem(96);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #C2C2C2;
+    cursor: pointer;
+    & h1 {
+      font-weight: bold;
+      font-size: rem(24);
+      color: $note-heading-gray;
+      letter-spacing: $letter-spacing;
+    }
   }
 }

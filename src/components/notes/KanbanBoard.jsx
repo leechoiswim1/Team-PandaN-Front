@@ -8,7 +8,7 @@ import { t }  from "../../util/remConverter";
 import { DragDropContext, Droppable}  from "react-beautiful-dnd";
 
 /* == Custom - Component */
-import { KanbanList, EditorModal } from "..";
+import { KanbanList, WritingNoteModal } from "..";
 
 /* == Custom - Icon */
 import { ReactComponent as Write } from "../../styles/images/ico-kanban-write.svg";
@@ -86,6 +86,13 @@ const KanbanBoard = ({ history }) => {
     }  }
 
   const projects = useSelector((state) => state.note.list)
+  const [modalVisible, setModalVisible] = useState(false)
+  const openModal = () => {
+    setModalVisible(true)
+  }
+  const closeModal = () => {
+    setModalVisible(false)
+  }
 
   return (
     <DragDropContext onDragEnd={(result) => onDragEnd(result, projects)}>
@@ -106,7 +113,18 @@ const KanbanBoard = ({ history }) => {
                         </Badge>
                       </div>
                       <div>
-                        <Write fill="#767676" style={{marginTop: "-5px"}}/> 
+                        <Write 
+                          fill="#767676" 
+                          style={{marginTop: "-5px"}} 
+                          onClick={openModal} 
+                        />
+                          { modalVisible && 
+                            <WritingNoteModal 
+                              visible={modalVisible}
+                              closable={true}
+                              maskClosable={true}
+                              onClose={closeModal} />
+                          }                        
                       </div>
                     </div>
                   
