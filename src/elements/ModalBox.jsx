@@ -48,7 +48,7 @@ const ModalBox = ( props ) => {
         <div tabIndex="0" className="note-modal-container">
           <div className="note-modal-header">
             <div className="note-modal-title">
-              <Add width="40" height="40" style={{marginLeft: "-8px"}}/>
+              <Add width="24" height="24" style={{marginRight: "8px"}}/>
               <h1>{heading}</h1>
             </div>
             <Close onClick={close} />

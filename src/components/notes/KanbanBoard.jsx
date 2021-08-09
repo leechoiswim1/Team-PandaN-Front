@@ -99,7 +99,7 @@ const KanbanBoard = ({ history }) => {
       {/* {Object.entries(steps).map(([stepsId, step], index) => { */}
       {projects.map((project, index) => {
         return (
-          <div key={project.step}>
+          <div key={index}>
             <Droppable droppableId={String(index)}>
               {(provided, snapshot) => {
                 return ( 
@@ -114,9 +114,10 @@ const KanbanBoard = ({ history }) => {
                       </div>
                       <div>
                         <Write 
-                          fill="#767676" 
-                          style={{marginTop: "-5px"}} 
-                          onClick={openModal} 
+                          fill="#767676"
+                          onClick={openModal}
+                          width="20"
+                          height="20"
                         />
                           { modalVisible && 
                             <WritingNoteModal 
@@ -137,7 +138,7 @@ const KanbanBoard = ({ history }) => {
                     {provided.placeholder}
                   </div>
                   <ColFooter className="kanban-col-footer" type={project.step}>
-                    <Arrow type={project.step}/>
+                    <Arrow type={project.step} width="24" height="24"/>
                   </ColFooter>                   
                   </div>
                 );

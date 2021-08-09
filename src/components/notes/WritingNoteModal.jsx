@@ -33,15 +33,15 @@ const WritingNoteModal = (props) => {
       btntext="할 일 만들기">
       <Form>
         <Form.Group controlId="noteTitle">
-          <Form.Label className="note-modal-label" htmlFor="noteTitle">할 일</Form.Label>
-          <Form.Control type="text" placeholder="" id="noteTitle"/>
+          <Form.Label className="note-modal-label" >할 일</Form.Label>
+          <Form.Control type="text" placeholder=""/>
         </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label className="note-modal-label">할 일에 대한 설명</Form.Label>
-          <Form.Control type="text" placeholder="" />
+        <Form.Group controlId="noteDetail">
+          <Form.Label className="note-modal-label" >할 일에 대한 설명</Form.Label>
+          <Form.Control type="text" placeholder=""/>
         </Form.Group>
-        <Form.Group controlId="formBasicCheckbox">
-          <Form.Label className="note-modal-label">진행 단계</Form.Label>
+        <Form.Group controlId="noteStep">
+          <Form.Label className="note-modal-label" >진행 단계</Form.Label>
           <Form.Select placeholder="">
             <option>진행 단계</option>
             <option value="1">STORAGE</option>
@@ -50,9 +50,9 @@ const WritingNoteModal = (props) => {
             <option value="4">DONE</option>
           </Form.Select>
         </Form.Group>
-        <Form.Group controlId="formBasicCheckbox">
-          <Form.Label className="note-modal-label">언제까지 끝내야 하나요?</Form.Label>
-          <Form.Control type="date" placeholder="" />
+        <Form.Group controlId="noteDeadline">
+          <Form.Label className="note-modal-label" >언제까지 끝내야 하나요?</Form.Label>
+          <Form.Control type="date" placeholder=""/>
         </Form.Group>
       </Form>
     </ModalBox>
