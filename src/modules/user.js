@@ -1,14 +1,73 @@
 import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
-import { projectApi } from "../shared/api"; // 필요한 api 함수 불러 올 것
+import { userApi } from "../shared/api"; 
 
+/* == User - initial state */
 const initialState = {
-  user: null,
-  is_login: false,
+  user: {
+    name : "",
+    email : "",
+    picture : "",
+  },
+  isLoggedIn: false,
 };
 
-export default handleActions({}, initialState);
+/* == action */
+const LOGOUT = "user/LOGOUT";
+const GET_USER_DETAIL = "user/GET_USER_DETAIL"
 
-const actionCreators = {};
+/* == action creator */
+const logout = createAction(LOGOUT, () => ({}));
+const getUserDetail = createAction(GET_USER_DETAIL, ( user ) => ({ user }));
 
-export { actionCreators };
+/* == thunk function */
+const __logout =
+  () =>
+  async (dispatch, getState, { history }) => {
+    try {
+      await userApi.logout();
+      dispatch(logout());
+		  history.push("/login");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+const __getUserDetail =
+  () =>
+  async (dispatch, getState, { history }) => {
+    try {
+      const { data } = await userApi.getUserDetail();
+      console.log(data);
+      // dispatch(getUserDetail(data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+/* == reducer */
+const user = handleActions(
+  {
+    [LOGOUT]: (state, action) => {
+			return {
+				...state,
+				isLoggedIn: false,
+			};
+		},
+    [GET_USER_DETAIL]: (state, action) => {
+			return {
+				...state,
+				user: action.payload.user,
+        isLoggedIn: true,
+			};
+		},
+  },
+  initialState,
+);
+
+/* == export actions */
+export const userActions = {
+  __logout,
+  __getUserDetail,
+};
+
+export default user;

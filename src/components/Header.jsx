@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 /* == Library */
 import styled, { css } from "styled-components";
@@ -26,8 +26,21 @@ import { ReactComponent as IconSearch } from "../styles/images/ico-search.svg";
 import { ReactComponent as IconMemberAdd } from "../styles/images/ico-member-add.svg";
 import { ReactComponent as IconProfile } from "../styles/images/ico-profile.svg";
 
+/* == Redux - actions */
+import { useDispatch } from "react-redux";
+import { userActions } from "../modules/user";
+
 // * == (Header) -------------------- * //
 const Header = ({ history }) => {
+  const dispatch = useDispatch();
+  const logout = () => {
+    // dispatch(userActions.__logout());
+  }
+
+  useEffect(() => {
+    // dispatch(userActions.__getUserDetail());
+  }, []);
+
   return (
     <header className="header" id="header">
       <Container fluid>
@@ -78,7 +91,7 @@ const Header = ({ history }) => {
                 <Dropdown.Divider style={{ height: "0" }} />
                 <Dropdown.ItemText>
                   {/* == 로그아웃 */}
-                  <Button variant="primary" size="sm" className="d-block w-100">
+                  <Button variant="primary" size="sm" className="d-block w-100" onClick={logout}>
                     로그아웃
                   </Button>
                 </Dropdown.ItemText>

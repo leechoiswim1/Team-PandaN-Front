@@ -7,6 +7,12 @@ const instance = axios.create({
   withCredentials: true,
 });
 
+/* == API - user */
+export const userApi = {
+  logout: () => instance.get("/logout"),
+  getUserDetail: () => instance.get("/api/users/details"),
+}
+
 /* == API - project */
 export const projectApi = {
   getProject: () => instance.get("/api/projects"),
@@ -41,6 +47,7 @@ export const noteApi = {
   /* my issue */  
   getMyNote: () => instance.get("/api/notes/mynotes"),
 };
+
 /* == API - comment */
 export const commentApi = {
   getCommentList: () => instance.get(""), 
