@@ -24,26 +24,10 @@ const Router = () => {
       <Route path="/projects/" component={Auth(Projects, false)} exact />
       <Route path="/bookmark" component={Auth(Bookmark, false)} exact />
       <Route path="/mynote" component={Auth(MyNote, false)} exact />
-      <Route
-        path="/projects/:projectId/kanban"
-        component={Auth(Kanban, false)}
-        exact
-      />
-      <Route
-        path="/projects/:projectId/notes/:noteId"
-        component={Auth(Detail, false)}
-        exact
-      />
-      <Route
-        path="/projects/:projectId/issue"
-        component={Auth(ProjectIssue, false)}
-        exact
-      />
-      <Route
-        path="/projects/:projectId/myissue"
-        component={Auth(ProjectMyIssue, false)}
-        exact
-      />
+      <Route path="/projects/:projectId/kanban" component={Auth(Kanban, false)} exact />
+      <Route path="/projects/:projectId/notes/:noteId" component={Auth(Detail, false)} exact />
+      <Route path="/projects/:projectId/issue" component={Auth(ProjectIssue, false)} exact />
+      <Route path="/projects/:projectId/myissue" component={Auth(ProjectMyIssue, false)} exact />
     </Switch>
   );
 };

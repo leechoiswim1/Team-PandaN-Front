@@ -109,7 +109,7 @@ const KanbanBoard = ({ history }) => {
                         <IconSteps type={project.step}/> 
                         <span>{project.step}</span>
                         <Badge className="kanban-col-badge" type={project.step}>
-                          {project.notes.length}
+                          {project.notes?.length}
                         </Badge>
                       </div>
                       <div>

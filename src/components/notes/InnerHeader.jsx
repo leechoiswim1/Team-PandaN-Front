@@ -13,7 +13,7 @@ const InnerHeader = ({ history, match, projectId, ...rest }) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to={`/projects/${projectId}`} exact activeClassName="innerheader-menu-active">
+            <NavLink to={`/projects/${projectId}/kanban`} exact activeClassName="innerheader-menu-active">
               칸반
             </NavLink>
           </li>        
