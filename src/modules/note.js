@@ -171,8 +171,8 @@ const __deleteNote =
   async (dispatch, getState, { history }) => {
     try {  
       const { data } = await noteApi.deleteNote(noteId);
-      // console.log("delete note, response", data);
       dispatch(deleteNote(noteId));
+      history.goBack();
     } catch (e) {
       console.log(e);
     }
@@ -308,6 +308,7 @@ const note = handleActions(
         detail: {...state.detail, isBookmark: false}
       };
     },
+    /* my note */
     [GET_MY_NOTES]: (state, action) => {
       return {
         ...state,

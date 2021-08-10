@@ -39,7 +39,6 @@ const NoteDetail = ({ history, match, ...rest }) => {
     const result = window.confirm("노트를 삭제하시겠습니까?");
     if (result) {
       dispatch(noteActions.__deleteNote(noteId));
-      history.goBack();
     } else return;  
   };
 
