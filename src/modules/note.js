@@ -181,7 +181,7 @@ const __getBookmark =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await noteApi.getBookmark();
-      dispatch(getBookmark(data.myBookmarkNoteList));
+      dispatch(getBookmark(data.noteList));
     } catch (e) {
       console.log(e);
     }

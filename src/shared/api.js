@@ -43,7 +43,7 @@ export const noteApi = {
   editNote:           (noteId, newNote) => instance.put(`/api/notes/${noteId}`, newNote),
   deleteNote:         (noteId)          => instance.delete(`/api/notes/${noteId}`),
   /* bookmark */
-  getBookmark:        ()                => instance.get("/api/notes/mybookmark"),
+  getBookmark:        ()                => instance.get("/api/notes/mybookmarks"),
   addBookmark:        (noteId)          => instance.post(`/api/notes/${noteId}/bookmark`),
   deleteBookmark:     (noteId)          => instance.delete(`/api/notes/${noteId}/unbookmark`),
   /* my issue */  

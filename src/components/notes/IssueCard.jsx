@@ -17,7 +17,17 @@ import { noteActions }                from '../../modules/note';
 // * == ( IssueCard / Note ) -------------------- * //
 const IssueCard = (props) => {
   const dispatch = useDispatch();
-  const { projectId, noteId, title, content, deadline, step, createdAt, ...rest } = props; 
+  const { 
+    projectId, 
+    projectTitle,
+    noteId, 
+    title, 
+    content, 
+    writer,
+    deadline, 
+    step, 
+    createdAt, 
+    ...rest } = props; 
   const created = moment(createdAt).format("작성일: YYYY년 M월 D일");
 
   const deleteBookmark = (e) => {
@@ -38,8 +48,8 @@ const IssueCard = (props) => {
         <NoteDesc>
           <a href={`/projects/${projectId}/notes/${noteId}`}>{title}</a>
           <div>
-            { rest.projectTitle && <span className="text-primary">프로젝트 이름</span> }
-            { rest.author && <span className="text-primary">작성자</span> }
+            { projectTitle && <span className="text-primary">{projectTitle}</span> }
+            { writer && <span>{writer}</span> }
             { createdAt && <span>{created}</span> }
           </div>          
         </NoteDesc>
@@ -69,8 +79,11 @@ const NoteDesc = styled.div(...t`
     font-weight: 500;
     text-decoration: none;
   }
+  span {
+    margin-right: 16px;
+  }
   div :last-child {
-    margin-rifgt: 16px;
+    margin-right: 16px;
     color: #888;
   }
 `)
