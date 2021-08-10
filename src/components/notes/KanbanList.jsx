@@ -8,7 +8,7 @@ import { Draggable } from "react-beautiful-dnd";
 import { KanbanCard } from "..";
 
 // * == ( kanban / NoteList ) -------------------- * //
-const KanbanList = ({ notes, history, step, ...rest }) => {
+const KanbanList = ({ notes, history, projectId, step, ...rest }) => {
   if (!notes) {
     return (<div></div>);
   }
@@ -25,7 +25,7 @@ const KanbanList = ({ notes, history, step, ...rest }) => {
                   isDragging={snapshot.isDragging}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  onClick={() => {history.push(`/projects/60/notes/${noteId}`)}}
+                  onClick={() => {history.push(`/projects/${projectId}/notes/${noteId}`)}}
                   className="card-wrapper"
                 >
                   <KanbanCard note={note} step={step} />

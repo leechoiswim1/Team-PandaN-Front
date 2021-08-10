@@ -33,14 +33,7 @@ const Detail = ({ history, match, ...rest }) => {
             </div>
           </div>
           <div>
-            {/* <Accordion>
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>댓글</Accordion.Header>
-                  <Accordion.Body> */}
-            <CommentList />
-            {/* </Accordion.Body>
-              </Accordion.Item>
-            </Accordion> */}
+            {/* <CommentList /> */}
           </div>
         </Container>
       </div>

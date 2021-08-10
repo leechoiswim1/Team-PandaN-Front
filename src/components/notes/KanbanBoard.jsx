@@ -136,7 +136,7 @@ const KanbanBoard = ({ history, match }) => {
                     isdraggingover={snapshot.isdraggingover}
                     {...provided.droppableProps}                    
                   >  
-                    <KanbanList notes={project.notes} step={project.step} history={history} />
+                    <KanbanList notes={project.notes} step={project.step} history={history} projectId={projectId}/>
                     {provided.placeholder}
                   </div>
                   <ColFooter className="kanban-col-footer" type={project.step}>
