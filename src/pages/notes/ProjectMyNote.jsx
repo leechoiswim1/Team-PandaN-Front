@@ -13,15 +13,15 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { noteActions } from "../../modules/note";
 
-// * == ( Project MyIssue - Note ) -------------------- * //
-const ProjectMyIssue = ({ history, match, ...rest }) => {
+// * == ( Project MyNote - Note ) -------------------- * //
+const ProjectMyNote = ({ history, match, ...rest }) => {
   const dispatch = useDispatch();
   const projectId = match.params.projectId;
   useEffect(() => {
-    dispatch(noteActions.__getProjectMyIssue(projectId));
+    dispatch(noteActions.__getProjectMyNotes(projectId));
   }, []);
 
-  const myNotes = useSelector(state => state.note.list);
+  const myNote = useSelector(state => state.note.list);
 
   return (
     <Template>
@@ -31,9 +31,9 @@ const ProjectMyIssue = ({ history, match, ...rest }) => {
         <Container>
           <IssueList
             history={history}
-            notes={myNotes}
+            notes={myNote}
             projectId={projectId}
-            type="projectMyIssue"
+            type="projectMyNote"
           />
         </Container>
       </div>
@@ -50,4 +50,4 @@ const Container = styled.div(
 `,
 );
 
-export default ProjectMyIssue;
+export default ProjectMyNote;

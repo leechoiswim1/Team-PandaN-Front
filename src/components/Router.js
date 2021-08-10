@@ -12,7 +12,7 @@ import {
   Kanban,
   Detail,
   ProjectIssue,
-  ProjectMyIssue,
+  ProjectMyNote,
 } from "../pages";
 
 // * == ( Ruter ) -------------------- * //
@@ -27,7 +27,7 @@ const Router = () => {
       <Route path="/projects/:projectId/kanban" component={Auth(Kanban, false)} exact />
       <Route path="/projects/:projectId/notes/:noteId" component={Auth(Detail, false)} exact />
       <Route path="/projects/:projectId/issue" component={Auth(ProjectIssue, false)} exact />
-      <Route path="/projects/:projectId/myissue" component={Auth(ProjectMyIssue, false)} exact />
+      <Route path="/projects/:projectId/mynote" component={Auth(ProjectMyNote, false)} exact />
     </Switch>
   );
 };

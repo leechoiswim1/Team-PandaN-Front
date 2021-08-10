@@ -2,10 +2,12 @@ import React from "react";
 /* == Library - style */
 import styled from "styled-components";
 import { t } from "../../util/remConverter";
+
 /* == Custom - Component */
 import {
   Template,
   ProjectHeader,
+  InnerHeader,
   NoteDetail,
   CommentList,
 } from "../../components";
@@ -17,6 +19,7 @@ const Detail = ({ history, match, ...rest }) => {
     <Template>
       <div className="content" id="content">
         <ProjectHeader />
+        <InnerHeader projectId={projectId} />
         <Container>
           <div
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
@@ -29,6 +32,9 @@ const Detail = ({ history, match, ...rest }) => {
               />
             </div>
           </div>
+          <div>
+            {/* <CommentList /> */}
+          </div>
         </Container>
       </div>
     </Template>
@@ -38,7 +44,7 @@ const Detail = ({ history, match, ...rest }) => {
 const Container = styled.div(
   ...t`
   width: 100%;
-  height: calc( 100% - 120px );
+  height: calc( 100vh - 120px );
   padding: 0 36px;
   white-space: nowrap;
   overflow-x: scroll;

@@ -5,14 +5,14 @@ import moment from "moment";
 import "moment/locale/ko";
 
 // * == ( kanban / Note ) -------------------- * //
-const KanbanCard = ({ note, ...rest }) => {
+const KanbanCard = ({ note, step, ...rest }) => {
   const deadline = moment(note.deadline).toNow();
   return (
     <div className="kanban-card">
       <h1>{note.title}</h1>
       <p>{note.content}</p>
-      <Tag className="kanban-card-tag" type={note.step}>
-        {note.step}
+      <Tag className="kanban-card-tag" type={step}>
+        {step}
       </Tag>
       <hr />
       <p>{deadline}</p>

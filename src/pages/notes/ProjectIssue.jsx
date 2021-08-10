@@ -22,7 +22,6 @@ const ProjectIssue = ({ history, match, ...rest }) => {
   }, []);
 
   const issueNotes = useSelector(state => state.note.list);
-  console.log(projectId);
   return (
     <Template>
       <div className="content" id="content">

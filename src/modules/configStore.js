@@ -6,14 +6,16 @@ import logger from "redux-logger";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 /* == Redux - reducer */
-import project from "./project";
-import note from "./note";
+import project  from "./project";
+import note     from "./note";
+import user     from "./user";
 
 export const history = createBrowserHistory();
 /* == Main - Root reducer */
 const rootReducer = combineReducers({
   project,
   note,
+  user,
   router: connectRouter(history),
 });
 
