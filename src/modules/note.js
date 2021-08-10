@@ -273,7 +273,6 @@ const note = handleActions(
 					}
 				}),
 			};
-
     },
     [DELETE_NOTE]: (state, action) => {
       return {
@@ -285,6 +284,12 @@ const note = handleActions(
       return {
         ...state,
         list: action.payload.myBookmarkNoteList,
+      };
+    },
+    [GET_MY_NOTES]: (state, action) => {
+      return {
+        ...state,
+        list: action.payload.myNoteList,
       };
     },
   },
