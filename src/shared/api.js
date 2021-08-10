@@ -26,7 +26,7 @@ export const projectApi = {
 /* == API - user */
 export const userApi = {
   logout:             ()                => instance.get("/logout"),
-  getUserDetail:      ()                => instance.get("/api/users/details"),
+  getUserDetail:      ()                => instance.get("/api/user/detail"),
 }
 
 /* == API - note */

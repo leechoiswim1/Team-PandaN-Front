@@ -3,11 +3,9 @@ import { userApi } from "../shared/api";
 
 /* == User - initial state */
 const initialState = {
-  user: {
-    name : "",
-    email : "",
-    picture : "",
-  },
+  name : "",
+  email : "",
+  picture : "",
   isLoggedIn: false,
 };
 
@@ -35,10 +33,11 @@ const __logout =
 const __getUserDetail =
   () =>
   async (dispatch, getState, { history }) => {
-    try {
+    const isLoggedIn = getState().user.isLoggedIn
+    try {      
+      if (isLoggedIn) return;
       const { data } = await userApi.getUserDetail();
-      console.log(data);
-      // dispatch(getUserDetail(data));
+      dispatch(getUserDetail(data));
     } catch (e) {
       console.log(e);
     }
@@ -56,7 +55,9 @@ const user = handleActions(
     [GET_USER_DETAIL]: (state, action) => {
 			return {
 				...state,
-				user: action.payload.user,
+				name: action.payload.user.name,
+        email: action.payload.user.email,
+        picture: action.payload.user.picture,
         isLoggedIn: true,
 			};
 		},

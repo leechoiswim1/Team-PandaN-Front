@@ -27,7 +27,7 @@ import { ReactComponent as IconMemberAdd } from "../styles/images/ico-member-add
 import { ReactComponent as IconProfile } from "../styles/images/ico-profile.svg";
 
 /* == Redux - actions */
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../modules/user";
 
 // * == (Header) -------------------- * //
@@ -38,8 +38,10 @@ const Header = ({ history }) => {
   }
 
   useEffect(() => {
-    // dispatch(userActions.__getUserDetail());
+    dispatch(userActions.__getUserDetail());
   }, []);
+
+  const user = useSelector((state) => state.user);
 
   return (
     <header className="header" id="header">
@@ -85,8 +87,8 @@ const Header = ({ history }) => {
                     fill="#ffffff"
                     className="dropdown-profile"
                   />
-                  <p className="dropdown-name">User Name</p>
-                  <p className="dropdown-email">UserId_123456789@gmail.com</p>
+                  <p className="dropdown-name">{user.name}</p>
+                  <p className="dropdown-email">{user.email}</p>
                 </Dropdown.ItemText>
                 <Dropdown.Divider style={{ height: "0" }} />
                 <Dropdown.ItemText>
