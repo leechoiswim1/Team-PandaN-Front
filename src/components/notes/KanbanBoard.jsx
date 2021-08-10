@@ -20,7 +20,7 @@ import { useSelector, useDispatch }     from "react-redux";
 import { noteActions }                  from "../../modules/note";
 
 // * == ( kanban / Board ) -------------------- * //
-const KanbanBoard = ({ history }) => {
+const KanbanBoard = ({ history, match }) => {
   const dispatch = useDispatch();
   /* == function */
   const onDragEnd = (result, projects) => {
@@ -86,6 +86,8 @@ const KanbanBoard = ({ history }) => {
   };
 
   const projects = useSelector((state) => state.note.list)
+  const projectId = match.params.projectId;
+
   const [modalVisible, setModalVisible] = useState(false)
   const openModal = () => {
     setModalVisible(true)
@@ -134,7 +136,7 @@ const KanbanBoard = ({ history }) => {
                     isdraggingover={snapshot.isdraggingover}
                     {...provided.droppableProps}                    
                   >  
-                    <KanbanList notes={project.notes} history={history}/>
+                    <KanbanList notes={project.notes} step={project.step} history={history} />
                     {provided.placeholder}
                   </div>
                   <ColFooter className="kanban-col-footer" type={project.step}>
