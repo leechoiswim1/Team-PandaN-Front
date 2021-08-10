@@ -2,7 +2,7 @@ import React from "react";
 /* == Library - style */
 import styled from "styled-components";
 import { t } from "../../util/remConverter";
-import { Accordion } from "react-bootstrap";
+
 /* == Custom - Component */
 import {
   Template,
@@ -44,7 +44,7 @@ const Detail = ({ history, match, ...rest }) => {
 const Container = styled.div(
   ...t`
   width: 100%;
-  height: calc( 100% - 120px );
+  height: calc( 100vh - 120px );
   padding: 0 36px;
   white-space: nowrap;
   overflow-x: scroll;
