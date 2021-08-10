@@ -29,11 +29,12 @@ const initialState = {
     },
   ],
   detail: {
-    content: "실전 프로젝트 마무리 및 항해 완주",
-    deadline: "2021-09-10",
+    content: "",
+    deadline: "",
     noteId: 0,
-    step: "TODO",
-    title: "항해 완주",
+    step: "",
+    title: "",
+    isBookmark: false,
   },
 };
 
@@ -116,7 +117,7 @@ async (dispatch, getState, { history }) => {
 
 /* note - detail */
 const __getNoteDetail =
-  noteId =>
+  (noteId) =>
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await noteApi.getNoteDetail(noteId);
@@ -188,22 +189,22 @@ const __getBookmark =
   };
 
 const __addBookmark =
-  noteId =>
+  (noteId) =>
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await noteApi.addBookmark(noteId);
-      console.log(data);
+      dispatch(addBookmark(noteId))
     } catch (e) {
       console.log(e);
     }
   };
 
 const __deleteBookmark =
-  noteId =>
+  (noteId) =>
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await noteApi.deleteBookmark(noteId);
-      console.log(data);
+      dispatch(deleteBookmark(noteId))
     } catch (e) {
       console.log(e);
     }
@@ -280,10 +281,23 @@ const note = handleActions(
         list: state.list.filter((note) => note.noteId !== action.payload.noteId)  
       };
     },
+    /* Bookmark */
     [GET_BOOKMARK]: (state, action) => {
       return {
         ...state,
         list: action.payload.myBookmarkNoteList,
+      };
+    },
+    [ADD_BOOKMARK]: (state, action) => {
+      return {
+        ...state,
+        detail: {...state.detail, isBookmark: true}
+      };     
+    },
+    [DELETE_BOOKMARK]: (state, action) => {
+      return {
+        ...state,
+        detail: {...state.detail, isBookmark: false}
       };
     },
     [GET_MY_NOTES]: (state, action) => {
