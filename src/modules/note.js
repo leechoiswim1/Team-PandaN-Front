@@ -53,6 +53,7 @@ const EDIT_NOTE               = "note/EDIT_NOTE";
 const DELETE_NOTE             = "note/DELETE_NOTE";
 /* bookmark */
 const GET_BOOKMARK            = "note/GET_BOOKMARK";
+const SET_BOOKMARK            = "note/SET_BOOKMARK";
 const ADD_BOOKMARK            = "note/ADD_BOOKMARK";
 const DELETE_BOOKMARK         = "note/DELETE_BOOKMARK";
 /* my note */
@@ -73,6 +74,7 @@ const editNote                = createAction(EDIT_NOTE, noteId => ({ noteId }));
 const deleteNote              = createAction(DELETE_NOTE, noteId => ({ noteId }));
 /* bookmark */
 const getBookmark             = createAction(GET_BOOKMARK, myBookmarkNoteList => ({ myBookmarkNoteList }));
+const setBookmark             = createAction(SET_BOOKMARK, noteId => ({ noteId }));
 const addBookmark             = createAction(ADD_BOOKMARK, noteId => ({ noteId }));
 const deleteBookmark          = createAction(DELETE_BOOKMARK, noteId => ({ noteId }));
 /* my note */
@@ -288,6 +290,12 @@ const note = handleActions(
         list: action.payload.myBookmarkNoteList,
       };
     },
+    [SET_BOOKMARK]: (state, action) => {
+      return {
+        ...state,
+        list: state.list.filter((note) => note.noteId !== action.payload.noteId)
+      };
+    },
     [ADD_BOOKMARK]: (state, action) => {
       return {
         ...state,
@@ -325,6 +333,7 @@ export const noteActions = {
   __editNote,
   __deleteNote,
   /* bookmark */
+  setBookmark,
   __getBookmark,
   __addBookmark,
   __deleteBookmark,

@@ -36,6 +36,7 @@ const IssueCard = (props) => {
     const result = window.confirm("북마크에서 삭제하시겠습니까?");
     if (result) {
       dispatch(noteActions.__deleteBookmark(noteId));
+      dispatch(noteActions.setBookmark(noteId));
     } else return; 
   }
   
@@ -56,7 +57,7 @@ const IssueCard = (props) => {
       </div>
       <div>
         { rest.type === "bookmark" &&  
-          <button type="button">
+          <button type="button" onClick={deleteBookmark}>
             <Bookmark fill="#387E4B" stroke="#387E4B"/>  
           </button> 
         }        
