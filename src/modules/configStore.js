@@ -6,9 +6,9 @@ import logger from "redux-logger";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 /* == Redux - reducer */
-import project  from "./project";
-import note     from "./note";
-import user     from "./user";
+import project from "./project";
+import note from "./note";
+import user from "./user";
 
 export const history = createBrowserHistory();
 /* == Main - Root reducer */
@@ -36,5 +36,5 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 
-let store = initialStore => createStore(rootReducer, enhancer);
+let store = (initialStore) => createStore(rootReducer, enhancer);
 export default store();

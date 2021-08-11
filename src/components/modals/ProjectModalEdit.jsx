@@ -13,13 +13,15 @@ import { history } from "../../modules/configStore";
 /* == Custom - Icon */
 import { ReactComponent as IconProjectEdit } from "../../styles/images/icon-project-edit.svg";
 
-const ProjectModalEdit = props => {
+const ProjectModalEdit = (props) => {
   const dispatch = useDispatch();
 
   const id = props.projectId;
+  const title = props.title;
+  const detail = props.detail;
 
-  const [ProTitle, setProTitle] = useState(props.title);
-  const [ProDesc, setProDesc] = useState(props.detail);
+  const [ProTitle, setProTitle] = useState(title);
+  const [ProDesc, setProDesc] = useState(detail);
   const [lgShow, setLgShow] = useState(false);
 
   const deleteProject = () => {
@@ -47,62 +49,39 @@ const ProjectModalEdit = props => {
     setLgShow(false);
   };
 
-  const changeProTitle = e => {
+  const changeProTitle = (e) => {
     setProTitle(e.target.value);
   };
 
-  const changeProDesc = e => {
+  const changeProDesc = (e) => {
     setProDesc(e.target.value);
   };
 
   return (
     <>
-      <IconProjectEdit
-        cursor="pointer"
-        width="25"
-        height="25"
-        fill="#E1EDE4"
-        className="menu-icon"
-        onClick={() => setLgShow(true)}
-      />
-      <Modal
-        show={lgShow}
-        onHide={() => setLgShow(false)}
-        aria-labelledby="example-custom-modal-styling-title"
-      >
+      <IconProjectEdit cursor="pointer" width="25" height="25" fill="#E1EDE4" className="menu-icon" onClick={() => setLgShow(true)} />
+      <Modal show={lgShow} onHide={() => setLgShow(false)} aria-labelledby="example-custom-modal-styling-title">
         <Modal.Header closeButton>
           <Modal.Title id="example-custom-modal-styling-title">
-            <p
-              style={{ fontWeight: "700", color: "#000000", fontSize: "15px" }}
-            >
-              프로젝트수정하기
-            </p>
+            <p style={{ fontWeight: "700", color: "#000000", fontSize: "15px" }}>프로젝트수정하기</p>
           </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
           <form style={{ margin: "1vh 3vw 2vh 3vw" }}>
             <P>프로젝트 이름</P>
-            <Input
-              type="text"
-              placeholder="프로젝트 제목"
-              onChange={changeProTitle}
-              defaultValue={ProTitle}
-              maxLength="30"
-            />
+            <Input type="text" placeholder="프로젝트 제목" onChange={changeProTitle} defaultValue={title} maxLength="30" />
             <P>프로젝트 내용 (선택사항)</P>
-            <TextArea
-              type="text"
-              placeholder="프로젝트 내용"
-              onChange={changeProDesc}
-              defaultValue={ProDesc}
-              maxLength="50"
-            />
+            <TextArea type="text" placeholder="프로젝트 내용" onChange={changeProDesc} defaultValue={detail} maxLength="50" />
           </form>
         </Modal.Body>
         <ModalFooterWrap>
           <Modal.Footer
-            style={{ width: "50%", border: "1px solid #EDEDED" }}
+            style={{
+              width: "50%",
+              border: "1px solid #EDEDED",
+              cursor: "pointer",
+            }}
             onClick={() => {
               editProject();
             }}
@@ -110,7 +89,11 @@ const ProjectModalEdit = props => {
             <EditBtn>수정</EditBtn>
           </Modal.Footer>
           <Modal.Footer
-            style={{ width: "50%", border: "1px solid #EDEDED" }}
+            style={{
+              width: "50%",
+              border: "1px solid #EDEDED",
+              cursor: "pointer",
+            }}
             onClick={() => {
               deleteProject();
             }}

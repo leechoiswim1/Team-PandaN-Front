@@ -15,21 +15,14 @@ import ProjectModalEdit from "../modals/ProjectModalEdit";
 import ProjectInvite from "../modals/ProjectInvite";
 import MemberToggle from "../modals/MemberToggle";
 
-const ProjectHeader = props => {
+const ProjectHeader = (props) => {
   // const projectId = props.projectId;
 
-  const projectId = window.location.pathname.split("/")[2];
-  console.log(projectId);
-  const project_list = useSelector(state => state.project.list);
+  const project_detail_list = props.project_detail_list;
 
-  const index = project_list.findIndex(
-    p => p.projectId === parseInt(projectId),
-  );
-
-  if (index == -1) {
-    return <div />;
+  if (!project_detail_list) {
+    return <div></div>;
   }
-
   return (
     <div
       style={{
@@ -42,23 +35,19 @@ const ProjectHeader = props => {
       <div style={{ display: "flex", flexWrap: "nowrap" }}>
         <div>
           <div style={{ display: "flex", flexWrap: "nowrap" }}>
-            <h3>{project_list[index].title} </h3>
+            <h3>{project_detail_list.title} </h3>
             <div style={{ marginLeft: "10px" }}>
-              <ProjectModalEdit
-                projectId={projectId}
-                title={project_list[index].title}
-                detail={project_list[index].detail}
-              />
+              <ProjectModalEdit projectId={project_detail_list.projectId} title={project_detail_list.title} detail={project_detail_list.detail} />
             </div>
           </div>
-          <h5>{project_list[index].detail}</h5>
+          <h5>{project_detail_list.detail}</h5>
         </div>
       </div>
       <div style={{ display: "flex", flexWrap: "nowrap" }}>
         <div>
-          <ProjectInvite projectId={projectId} />
+          <ProjectInvite projectId={project_detail_list.projectId} />
         </div>
-        <MemberToggle projectId={projectId} />
+        <MemberToggle projectId={project_detail_list.projectId} />
       </div>
     </div>
   );

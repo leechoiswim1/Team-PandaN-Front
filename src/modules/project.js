@@ -5,49 +5,45 @@ import { configure } from "@testing-library/react";
 
 const SET_PROJECT = "SET_PROJECT";
 const SET_DETAIL_PROJECT = "SET_DETAIL_PROJECT";
+const SET_SIDE_PROJECT = "SET_SIDE_PROJECT";
 const ADD_PROJECT = "ADD_PROJECT";
 const EDIT_PROJECT = "EDIT_PROJECT";
 const DELETE_PROJECT = "DELETE_PROJECT";
 const INVITE_PROJECT = "INVITE_PROJECT";
 const CHECK_PROJECT_CREWS = "CHECK_PROJECT_CREWS";
 
-const setProject = createAction(SET_PROJECT, project_list => ({
+const setProject = createAction(SET_PROJECT, (project_list) => ({
   project_list,
 }));
 
-const setDetailProject = createAction(
-  SET_PROJECT,
-  (projectId, project_detail_list) => ({
-    projectId,
-    project_detail_list,
-  }),
-);
+const setDetailProject = createAction(SET_DETAIL_PROJECT, (projectDetail) => ({
+  projectDetail,
+}));
 
-const addProject = createAction(ADD_PROJECT, project => ({ project }));
+const setSideProject = createAction(SET_SIDE_PROJECT, (projects) => ({ projects }));
+const addProject = createAction(ADD_PROJECT, (project) => ({ project }));
 
-const deleteProject = createAction(DELETE_PROJECT, projectId => ({
+const deleteProject = createAction(DELETE_PROJECT, (projectId) => ({
   projectId,
 }));
 
-const editProject = createAction(EDIT_PROJECT, Project => ({
+const editProject = createAction(EDIT_PROJECT, (Project) => ({
   Project,
 }));
 
-const inviteProject = createAction(INVITE_PROJECT, InviteCode => ({
+const inviteProject = createAction(INVITE_PROJECT, (InviteCode) => ({
   InviteCode,
 }));
 
-const checkProjectCrews = createAction(
-  CHECK_PROJECT_CREWS,
-  (crews, projectId) => ({
-    crews,
-    projectId,
-  }),
-);
+const checkProjectCrews = createAction(CHECK_PROJECT_CREWS, (crews, projectId) => ({
+  crews,
+  projectId,
+}));
 
 const initialState = {
   list: [],
   detailList: [],
+  sideList: [],
   inviteCodeList: [],
   projectCrews: [],
 };
@@ -65,19 +61,31 @@ const __setProject =
   };
 
 const __setDetailProject =
-  projectId =>
+  (projectId) =>
   async (dispatch, getState, { history }) => {
     try {
-      const data = await projectApi.getDetailProject(projectId);
-      console.log(data);
-      dispatch(setDetailProject(data.data));
+      const data = await projectApi.getOneProject(projectId);
+      const projectDetail = data.data;
+      dispatch(setDetailProject(projectDetail));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+const __setSideProject =
+  () =>
+  async (dispatch, getState, { history }) => {
+    try {
+      const data = await projectApi.getSideProejct();
+      console.log(data.data);
+      dispatch(setSideProject(data.data.projects));
     } catch (e) {
       console.log(e);
     }
   };
 
 const __postProject =
-  project =>
+  (project) =>
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await projectApi.postProject(project);
@@ -88,7 +96,7 @@ const __postProject =
   };
 
 const __deleteProject =
-  projectId =>
+  (projectId) =>
   async (dispatch, getState, { history }) => {
     console.log(projectId);
     try {
@@ -111,7 +119,7 @@ const __editProject =
   };
 
 const __inviteProject =
-  projectId =>
+  (projectId) =>
   async (dispatch, getState, { history }) => {
     try {
       const data = await projectApi.getinviteProject(projectId);
@@ -122,7 +130,7 @@ const __inviteProject =
   };
 
 const __joinProject =
-  inviteCode =>
+  (inviteCode) =>
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await projectApi.postJoinProject(inviteCode);
@@ -133,10 +141,9 @@ const __joinProject =
   };
 
 const __checkProjectCrews =
-  projectId =>
+  (projectId) =>
   async (dispatch, getState, { history }) => {
     try {
-      console.log(projectId);
       const data = await projectApi.getProjectCrews(projectId);
 
       dispatch(checkProjectCrews(data.data));
@@ -148,24 +155,29 @@ const __checkProjectCrews =
 export default handleActions(
   {
     [SET_PROJECT]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         draft.list = [...action.payload.project_list];
       }),
 
     [SET_DETAIL_PROJECT]: (state, action) =>
-      produce(state, draft => {
-        draft.detailList = [...action.payload.project_detail_list];
+      produce(state, (draft) => {
+        draft.detailList = [action.payload.projectDetail];
       }),
+
+    [SET_SIDE_PROJECT]: (state, action) =>
+      produce(state, (draft) => {
+        console.log(action.payload);
+        draft.sideList = [...action.payload.projects];
+      }),
+
     [ADD_PROJECT]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         // 데이터를 배열 맨 앞에 넣어줍니다.
         draft.list.unshift(action.payload.project);
       }),
     [DELETE_PROJECT]: (state, action) =>
-      produce(state, draft => {
-        let idx = draft.list.findIndex(
-          p => p.projectId === action.payload.projectId,
-        );
+      produce(state, (draft) => {
+        let idx = draft.list.findIndex((p) => p.projectId === action.payload.projectId);
         console.log(idx);
         if (idx !== -1) {
           // 배열에서 idx 위치의 요소 1개를 지웁니다.
@@ -173,26 +185,23 @@ export default handleActions(
         }
       }),
     [EDIT_PROJECT]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         // 배열의 몇 번째에 있는 지 찾습니다.
-        let idx = draft.list.findIndex(
-          p => p.projectId === action.payload.Project.projectId,
-        );
+        let idx = draft.list.findIndex((p) => p.projectId === action.payload.Project.projectId);
         // 해당 위치에 넣어줍니다.
         draft.list[idx] = { ...action.payload.Project };
       }),
 
     [INVITE_PROJECT]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         const inviteCode = action.payload.InviteCode;
-        console.log(inviteCode);
+
         draft.inviteCodeList = inviteCode;
       }),
 
     [CHECK_PROJECT_CREWS]: (state, action) =>
-      produce(state, draft => {
+      produce(state, (draft) => {
         draft.projectCrews = [...action.payload.crews.crews];
-        console.log(draft.projectCrews);
       }),
   },
 
@@ -201,15 +210,17 @@ export default handleActions(
 
 const actionCreators = {
   setProject,
+
   setDetailProject,
   addProject,
   deleteProject,
   editProject,
   inviteProject,
   checkProjectCrews,
+  __setProject,
+  __setSideProject,
   __setDetailProject,
   __postProject,
-  __setProject,
   __deleteProject,
   __editProject,
   __inviteProject,

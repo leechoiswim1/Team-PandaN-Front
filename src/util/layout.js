@@ -1,7 +1,7 @@
 window.addEventListener("DOMContentLoaded", runFunction);
 
 // * == Run!!!! ======== * //
-function runFunction(){
+function runFunction() {
   // mainHeight();
   sidebar();
   resizingTimeoutFunction();
@@ -16,10 +16,10 @@ function runFunction(){
 // }
 
 // * == (Resizing) ======== * //
-function resizingTimeoutFunction(){
+function resizingTimeoutFunction() {
   setTimeOutF(resizing);
 
-  function resizing(){
+  function resizing() {
     window.onresize = sidebar;
   }
 }
@@ -30,7 +30,7 @@ function resizingTimeoutFunction(){
 // }
 
 // * == (SetTimeOut) ======== * //
-function setTimeOutF(rsto){
+function setTimeOutF(rsto) {
   var resizingTimeout;
 
   clearTimeout(resizingTimeout);
@@ -60,39 +60,34 @@ function setTimeOutF(rsto){
 // }
 
 // * == (Mobile sidebar) ======== * //
-function sidebar(){
-  const body           = document.getElementsByTagName("body")[0];
-  const btnHamburger   = document.getElementById("btn-hamburger");
-  const btnClose       = document.getElementById("btn-close-sidebar");
+function sidebar() {
+  const body = document.getElementsByTagName("body")[0];
+  const btnHamburger = document.getElementById("btn-hamburger");
+  const btnClose = document.getElementById("btn-close-sidebar");
 
-  const windowW          = window.innerWidth ||
-                          document.documentElement.clientWidth ||
-                          document.body.clientWidth;
+  const windowW = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
   const screenLg = 1200;
   const screenSm = 768;
 
-  btnClose.onclick = function(){
+  btnClose.onclick = function () {
     body.classList.remove("sidebar-active");
-  }
+  };
 
-  btnHamburger.onclick = function(){
+  btnHamburger.onclick = function () {
     body.classList.toggle("sidebar-active");
-  }
-  
-  if(windowW >= screenLg){
+  };
+
+  if (windowW >= screenLg) {
     // 1200px ~
     body.classList.remove(...body.classList);
     body.classList.add("screen-lg");
     body.classList.add("sidebar-active");
-
-  } 
-  else if(windowW >= screenSm && windowW < screenLg){
+  } else if (windowW >= screenSm && windowW < screenLg) {
     // 768px ~ 1200px
     body.classList.remove(...body.classList);
     body.classList.add("screen-md");
-  } 
-  else if(windowW < screenSm){
+  } else if (windowW < screenSm) {
     // ~767px
     body.classList.remove(...body.classList);
     body.classList.add("screen-sm");

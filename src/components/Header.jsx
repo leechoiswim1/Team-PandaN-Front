@@ -3,23 +3,14 @@ import React, { useEffect } from "react";
 /* == Library */
 import styled, { css } from "styled-components";
 import { t } from "../util/remConverter";
-import {
-  Container,
-  Col,
-  Row,
-  InputGroup,
-  Form,
-  FormControl,
-  Button,
-  Dropdown,
-  DropdownButton,
-} from "react-bootstrap";
+import { Container, Col, Row, InputGroup, Form, FormControl, Button, Dropdown, DropdownButton } from "react-bootstrap";
 
 /* == Library - Icon (react-feather) */
 // https://feathericons.com/
 import { AlignRight } from "react-feather";
 
 /* == Custom - Component */
+import MyProfile from "./modals/MyProfile";
 
 /* == Custom - Icon */
 import { ReactComponent as IconSearch } from "../styles/images/ico-search.svg";
@@ -35,7 +26,7 @@ const Header = ({ history }) => {
   const dispatch = useDispatch();
   const logout = () => {
     // dispatch(userActions.__logout());
-  }
+  };
 
   useEffect(() => {
     dispatch(userActions.__getUserDetail());
@@ -54,6 +45,7 @@ const Header = ({ history }) => {
             </Button>
           </Col>
           <Col className="d-inline-flex justify-content-end">
+            <MyProfile />
             {/* == 검색창 */}
             {/* <div className="search-group">
               <InputGroup className="mb-3">
@@ -81,12 +73,7 @@ const Header = ({ history }) => {
 
               <Dropdown.Menu className="dropdown-group">
                 <Dropdown.ItemText className="text-center">
-                  <IconProfile
-                    width="40"
-                    height="40"
-                    fill="#ffffff"
-                    className="dropdown-profile"
-                  />
+                  <IconProfile width="40" height="40" fill="#ffffff" className="dropdown-profile" />
                   <p className="dropdown-name">{user.name}</p>
                   <p className="dropdown-email">{user.email}</p>
                 </Dropdown.ItemText>

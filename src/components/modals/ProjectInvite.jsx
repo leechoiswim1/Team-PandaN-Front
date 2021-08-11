@@ -12,17 +12,15 @@ import { actionCreators as projectActions } from "../../modules/project";
 import { ReactComponent as IconMemberAdd } from "../../styles/images/ico-member-add.svg";
 import { ReactComponent as IconCopyCode } from "../../styles/images/icon-content-copy.svg";
 
-const ProjectInvite = props => {
+const ProjectInvite = (props) => {
   const projectId = props.projectId;
-  console.log(props.projectId);
+
   const dispatch = useDispatch();
-  const inviteCode = useSelector(
-    state => state.project.inviteCodeList.inviteCode,
-  );
-  console.log(inviteCode);
+  const inviteCode = useSelector((state) => state.project.inviteCodeList.inviteCode);
+
   useEffect(() => {
     dispatch(projectActions.__inviteProject(projectId));
-  }, []);
+  }, [dispatch, projectId]);
 
   const [show, setShow] = useState(false);
 
@@ -31,57 +29,31 @@ const ProjectInvite = props => {
 
   return (
     <>
-      <IconMemberAdd
-        cursor="pointer"
-        width="40"
-        height="40"
-        fill="#9A9A9A"
-        className="menu-icon"
-        onClick={handleShow}
-      />
+      <IconMemberAdd cursor="pointer" width="40" height="40" fill="#9A9A9A" className="menu-icon" onClick={handleShow} />
 
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>
           <div style={{ display: "flex", height: "25px" }}>
-            <IconMemberAdd
-              cursor="pointer"
-              width="25px"
-              height="25px"
-              fill="#000000"
-              className="menu-icon"
-              position="absolute"
-            />
-            <Modal.Title
-              style={{ fontWeight: "700", color: "#000000", fontSize: "15px" }}
-            >
-              같이 PandaN할 멤버 초대
-            </Modal.Title>
+            <IconMemberAdd cursor="pointer" width="25px" height="25px" fill="#000000" className="menu-icon" position="absolute" />
+            <Modal.Title style={{ fontWeight: "700", color: "#000000", fontSize: "15px" }}>같이 PandaN할 멤버 초대</Modal.Title>
           </div>
         </Modal.Header>
         <Modal.Body style={{ height: "150px" }}>
           <ModalBody>
             <ModalBodyInner>
               <div style={{ padding: "5px" }}> {inviteCode}</div>
-              <CopyToClipboard text={inviteCode}>
+              <CopyToClipboard
+                text={inviteCode}
+                onCopy={() => {
+                  alert("복사가완료됐습니다");
+                }}
+              >
                 <CodeButton>
-                  <IconCopyCode
-                    cursor="pointer"
-                    width="20"
-                    height="20"
-                    fill="#9A9A9A"
-                    className="menu-icon"
-                  />
+                  <IconCopyCode cursor="pointer" width="20" height="20" fill="#9A9A9A" className="menu-icon" />
                 </CodeButton>
               </CopyToClipboard>
             </ModalBodyInner>
-            <P>
-              링크를 복사해서 멤버에게 전달해주세요 링크를 통해 가입한 사용자는{" "}
-            </P>
+            <P>링크를 복사해서 멤버에게 전달해주세요 링크를 통해 가입한 사용자는 </P>
             <P> 자동으로 프로젝트에 참여하게 됩니다.</P>
           </ModalBody>
         </Modal.Body>

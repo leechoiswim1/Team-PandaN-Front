@@ -2,7 +2,7 @@ import React from "react";
 
 import { ProjectModal } from "..";
 
-import ProjectInvite from "../modals/ProjectInvite";
+import ProjectJoin from "../modals/ProjectJoin";
 
 const EmptyProject = () => {
   return (
@@ -14,7 +14,7 @@ const EmptyProject = () => {
       ></img>
       <br />
       <ProjectModal />
-      <ProjectInvite />
+      <ProjectJoin />
     </div>
   );
 };
