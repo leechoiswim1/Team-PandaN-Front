@@ -18,7 +18,7 @@ const InnerHeader = ({ history, match, projectId, ...rest }) => {
             </NavLink>
           </li>        
           <li>
-            <NavLink to={`/projects/${projectId}/myissue`} exact activeClassName="innerheader-menu-active">
+            <NavLink to={`/projects/${projectId}/mynote`} exact activeClassName="innerheader-menu-active">
               내가 작성한 문서
             </NavLink>
           </li>

@@ -20,29 +20,34 @@ export const projectApi = {
   getProjectCrews: (projectId) => instance.get(`/api/projects/${projectId}/crews`),
 };
 
+/* == API - user */
+export const userApi = {
+  logout: () => instance.get("/logout"),
+  getUserDetail: () => instance.get("/api/user/detail"),
+};
+
 /* == API - note */
 export const noteApi = {
   /* project kanban */
   getKanbanNotes: (projectId) => instance.get(`/api/projects/${projectId}/kanbans`),
   /* project issue */
   getProjectIssue: (projectId) => instance.get(`/api/projects/${projectId}/issues`),
-  getProjectMyIssue: (projectId) => instance.get(`/api/projects/${projectId}/mynotes`),
+  getProjectMyNotes: (projectId) => instance.get(`/api/projects/${projectId}/mynotes`),
   /* detail */
   getNoteDetail: (noteId) => instance.get(`/api/notes/${noteId}`),
   /* note */
+  addNote: (noteId, newNote) => instance.post(`/api/notes/${noteId}`, newNote),
   editNote: (noteId, newNote) => instance.put(`/api/notes/${noteId}`, newNote),
+  deleteNote: (noteId) => instance.delete(`/api/notes/${noteId}`),
   /* bookmark */
-  getBookmark: () => instance.get("/api/notes/mybookmark"),
+  getBookmark: () => instance.get("/api/notes/mybookmarks"),
   addBookmark: (noteId) => instance.post(`/api/notes/${noteId}/bookmark`),
-  deleteBookmark: (noteId) => instance.delete(`/api/notes/${noteId}/unbookmark`),
+  deleteBookmark: (noteId) => instance.post(`/api/notes/${noteId}/unbookmark`),
   /* my issue */
-  getMyNote: () => instance.get("/api/notes/mynotes"),
+  getMyNotes: () => instance.get("/api/notes/mynotes"),
 };
+
 /* == API - comment */
 export const commentApi = {
   getCommentList: () => instance.get(""),
-};
-
-export const userApi = {
-  getUser: () => instance.get("/api/user/detail"),
 };

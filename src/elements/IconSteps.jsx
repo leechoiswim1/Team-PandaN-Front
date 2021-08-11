@@ -34,6 +34,7 @@ const IconSteps = ({ type }) => {
       <Done fill="#767676" width="20" height="20"/>
     )
   }
+  return null;
 }
 
 export default IconSteps;

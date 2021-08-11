@@ -12,8 +12,7 @@ import { noteActions }                from '../../modules/note';
 const MyNote = ({ history, match, ...rest }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(noteActions.__getProjectIssue(60)); // 현재 projectId 60 의 issue 형태 조회
-    // dispatch(noteActions.__getMyNote());
+    dispatch(noteActions.__getMyNote());
   }, []);
 
   const myNoteList = useSelector((state) => state.note.list)

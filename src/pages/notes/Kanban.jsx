@@ -21,7 +21,7 @@ const Kanban = ({ history, match, ...rest }) => {
   useEffect(() => {
     const projectId = match.params.projectId;
     dispatch(noteActions.__getKanbanNotes(projectId));
-  }, [dispatch, match.params.projectId]);
+  }, [projectId]);
 
   useEffect(() => {
     dispatch(projectActions.__setProject());
@@ -38,7 +38,7 @@ const Kanban = ({ history, match, ...rest }) => {
         <ProjectHeader project_detail_list={project_detail_list} />
         <InnerHeader history={history} match={match} projectId={projectId} />
         <div className="note-container">
-          <KanbanBoard history={history} />
+          <KanbanBoard history={history} match={match} />
         </div>
       </main>
     </Template>

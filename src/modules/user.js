@@ -1,43 +1,74 @@
 import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
-import { userApi } from "../shared/api"; // 필요한 api 함수 불러 올 것
+import { userApi } from "../shared/api";
 
-const SET_USER = "SET_USER";
-
-const setUser = createAction(SET_USER, (user) => ({
-  user,
-}));
-
+/* == User - initial state */
 const initialState = {
-  user: [],
+  name: "",
+  email: "",
+  picture: "",
+  isLoggedIn: false,
 };
 
-const __setUser =
+/* == action */
+const LOGOUT = "user/LOGOUT";
+const GET_USER_DETAIL = "user/GET_USER_DETAIL";
+
+/* == action creator */
+const logout = createAction(LOGOUT, () => ({}));
+const getUserDetail = createAction(GET_USER_DETAIL, (user) => ({ user }));
+
+/* == thunk function */
+const __logout =
   () =>
   async (dispatch, getState, { history }) => {
     try {
-      const data = await userApi.getUser();
-      console.log(data);
-      dispatch(setUser(data.data));
+      await userApi.logout();
+      dispatch(logout());
+      history.push("/login");
     } catch (e) {
       console.log(e);
     }
   };
 
-export default handleActions(
+const __getUserDetail =
+  () =>
+  async (dispatch, getState, { history }) => {
+    const isLoggedIn = getState().user.isLoggedIn;
+    try {
+      if (isLoggedIn) return;
+      const { data } = await userApi.getUserDetail();
+      dispatch(getUserDetail(data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+/* == reducer */
+const user = handleActions(
   {
-    [SET_USER]: (state, action) =>
-      produce(state, (draft) => {
-        console.log(action.payload.user);
-        draft.user = [{ ...action.payload.user }];
-      }),
+    [LOGOUT]: (state, action) => {
+      return {
+        ...state,
+        isLoggedIn: false,
+      };
+    },
+    [GET_USER_DETAIL]: (state, action) => {
+      return {
+        ...state,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
+        picture: action.payload.user.picture,
+        isLoggedIn: true,
+      };
+    },
   },
   initialState,
 );
 
-const actionCreators = {
-  setUser,
-  __setUser,
+/* == export actions */
+export const userActions = {
+  __logout,
+  __getUserDetail,
 };
 
-export { actionCreators };
+export default user;
