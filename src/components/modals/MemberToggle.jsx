@@ -14,7 +14,7 @@ const MemberToggle = (props) => {
   const dispatch = useDispatch();
   const projectId = props.projectId;
   const projectCrews = useSelector((state) => state.project.projectCrews);
-  const user = useSelector((state) => state.user.user[0]);
+  const user = useSelector((state) => state.user);
   const countCrews = projectCrews.length;
   useEffect(() => {
     dispatch(projectActions.__checkProjectCrews(projectId));

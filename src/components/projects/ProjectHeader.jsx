@@ -20,6 +20,9 @@ const ProjectHeader = (props) => {
 
   const project_detail_list = props.project_detail_list;
 
+  if (!project_detail_list) {
+    return <div></div>;
+  }
   return (
     <div
       style={{
