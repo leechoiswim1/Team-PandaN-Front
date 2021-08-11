@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 
-const Modals = props => {
+const Modals = (props) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -13,12 +13,7 @@ const Modals = props => {
         {props.buttonTitle}
       </Button>
 
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>
           <Modal.Title>{props.Title}</Modal.Title>
         </Modal.Header>

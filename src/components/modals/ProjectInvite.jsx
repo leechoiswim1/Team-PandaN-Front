@@ -14,13 +14,13 @@ import { ReactComponent as IconCopyCode } from "../../styles/images/icon-content
 
 const ProjectInvite = (props) => {
   const projectId = props.projectId;
-  console.log(props.projectId);
+
   const dispatch = useDispatch();
   const inviteCode = useSelector((state) => state.project.inviteCodeList.inviteCode);
-  console.log(inviteCode);
+
   useEffect(() => {
     dispatch(projectActions.__inviteProject(projectId));
-  }, []);
+  }, [dispatch, projectId]);
 
   const [show, setShow] = useState(false);
 

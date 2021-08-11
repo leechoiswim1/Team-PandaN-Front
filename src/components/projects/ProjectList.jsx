@@ -7,14 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../../modules/configStore";
 
 const ProjectList = () => {
-  const project_List = useSelector(state => state.project.list);
+  const project_side_list = useSelector((state) => state.project.sideList);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(projectActions.__setProject());
+    dispatch(projectActions.__setSideProject());
   }, []);
   return (
     <>
-      {project_List.map((p, idx) => {
+      {project_side_list.map((p, idx) => {
         return (
           <div
             style={{ cursor: "pointer" }}

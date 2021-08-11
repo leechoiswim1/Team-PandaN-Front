@@ -3,23 +3,14 @@ import React from "react";
 /* == Library */
 import styled, { css } from "styled-components";
 import { t } from "../util/remConverter";
-import {
-  Container,
-  Col,
-  Row,
-  InputGroup,
-  Form,
-  FormControl,
-  Button,
-  Dropdown,
-  DropdownButton,
-} from "react-bootstrap";
+import { Container, Col, Row, InputGroup, Form, FormControl, Button, Dropdown, DropdownButton } from "react-bootstrap";
 
 /* == Library - Icon (react-feather) */
 // https://feathericons.com/
 import { AlignRight } from "react-feather";
 
 /* == Custom - Component */
+import MyProfile from "./modals/MyProfile";
 
 /* == Custom - Icon */
 import { ReactComponent as IconSearch } from "../styles/images/ico-search.svg";
@@ -39,6 +30,7 @@ const Header = ({ history }) => {
             </Button>
           </Col>
           <Col className="d-inline-flex justify-content-end">
+            <MyProfile />
             {/* == 검색창 */}
             {/* <div className="search-group">
               <InputGroup className="mb-3">
@@ -59,31 +51,6 @@ const Header = ({ history }) => {
 
             {/* == 유저프로필 */}
             {/* <button><IconProfile width="40" height="40" fill="#767676" /></button> */}
-            <Dropdown>
-              <Dropdown.Toggle variant="success" align="end">
-                <IconProfile width="35" height="35" fill="#ffffff" />
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu className="dropdown-group">
-                <Dropdown.ItemText className="text-center">
-                  <IconProfile
-                    width="40"
-                    height="40"
-                    fill="#ffffff"
-                    className="dropdown-profile"
-                  />
-                  <p className="dropdown-name">User Name</p>
-                  <p className="dropdown-email">UserId_123456789@gmail.com</p>
-                </Dropdown.ItemText>
-                <Dropdown.Divider style={{ height: "0" }} />
-                <Dropdown.ItemText>
-                  {/* == 로그아웃 */}
-                  <Button variant="primary" size="sm" className="d-block w-100">
-                    로그아웃
-                  </Button>
-                </Dropdown.ItemText>
-              </Dropdown.Menu>
-            </Dropdown>
           </Col>
         </Row>
       </Container>

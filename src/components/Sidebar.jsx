@@ -23,7 +23,7 @@ import { ReactComponent as IconProject } from "../styles/images/ico-project.svg"
 
 // * == (Sidebar) -------------------- * //
 
-const Sidebar = props => {
+const Sidebar = (props) => {
   return (
     <nav className="sidebar">
       {/* == 로고 */}
@@ -45,23 +45,13 @@ const Sidebar = props => {
           <ul className="menu">
             <li className="menu-item active">
               <Link to="/bookmark" className="menu-link">
-                <IconBookMark
-                  width="40"
-                  height="40"
-                  fill="#9A9A9A"
-                  className="menu-icon"
-                />
+                <IconBookMark width="40" height="40" fill="#9A9A9A" className="menu-icon" />
                 <span className="menu-text">북마크</span>
               </Link>
             </li>
             <li className="menu-item">
               <Link to="/mynote" className="menu-link">
-                <IconDocument
-                  width="40"
-                  height="40"
-                  fill="#9A9A9A"
-                  className="menu-icon"
-                />
+                <IconDocument width="40" height="40" fill="#9A9A9A" className="menu-icon" />
                 <span className="menu-text">내가 작성한 문서</span>
               </Link>
             </li>
@@ -74,12 +64,7 @@ const Sidebar = props => {
               <Accordion defaultActiveKey="0" className="my-project-group">
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>
-                    <IconProject
-                      width="40"
-                      height="40"
-                      fill="#9A9A9A"
-                      className="menu-icon"
-                    />
+                    <IconProject width="40" height="40" fill="#9A9A9A" className="menu-icon" />
                     <span className="menu-text">내 프로젝트 보기</span>
                   </Accordion.Header>
                   <Accordion.Body>
@@ -95,10 +80,7 @@ const Sidebar = props => {
       {/* == 푸터 */}
       <div className="footer" id="footer">
         <Container fluid>
-          <div
-            className="d-grid gap-2"
-            style={{ justifyContent: "center", margin: "auto" }}
-          >
+          <div className="d-grid gap-2" style={{ justifyContent: "center", margin: "auto" }}>
             <ProjectJoin />
           </div>
 
