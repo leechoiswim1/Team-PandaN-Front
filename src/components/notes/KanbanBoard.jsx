@@ -98,7 +98,6 @@ const KanbanBoard = ({ history, match }) => {
 
   return (
     <DragDropContext onDragEnd={(result) => onDragEnd(result, projects)}>
-      {/* {Object.entries(steps).map(([stepsId, step], index) => { */}
       {projects.map((project, index) => {
         return (
           <div key={index}>
@@ -140,8 +139,16 @@ const KanbanBoard = ({ history, match }) => {
                     <KanbanList notes={project.notes} step={project.step} history={history} projectId={projectId}/>
                     {provided.placeholder}
                   </div>
-                  <ColFooter className="kanban-col-footer" type={project.step}>
-                    <Arrow type={project.step} width="24" height="24"/>
+                  <ColFooter className="kanban-col-footer" type={project.step} >
+                    <div onClick={openModal}>
+                      <Write 
+                        fill="#767676"
+                        type={project.step} 
+                        width="18" 
+                        height="18"
+                      />
+                      <span>할 일 만들기</span>
+                    </div>
                   </ColFooter>                   
                   </div>
                 );
@@ -190,7 +197,7 @@ ${(props) => (props.type === "DONE") &&
   css`  
     background-color: rgba(245, 218, 174, 0.3);
   `}
-  & svg {
+  /* & svg {
     ${(props) => (props.type === "STORAGE") && 
       css`  
        fill: #FFBD04;
@@ -207,7 +214,7 @@ ${(props) => (props.type === "DONE") &&
       css`  
         fill: #F5DAAE;
       `}
-  }
+  } */
 `
 
 export default KanbanBoard;
