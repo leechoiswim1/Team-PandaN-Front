@@ -10,7 +10,6 @@ import { Container, Col, Row, InputGroup, Form, FormControl, Button, Dropdown, D
 import { AlignRight } from "react-feather";
 
 /* == Custom - Component */
-import MyProfile from "./modals/MyProfile";
 
 /* == Custom - Icon */
 import { ReactComponent as IconSearch } from "../styles/images/ico-search.svg";
@@ -45,7 +44,6 @@ const Header = ({ history }) => {
             </Button>
           </Col>
           <Col className="d-inline-flex justify-content-end">
-            <MyProfile />
             {/* == 검색창 */}
             {/* <div className="search-group">
               <InputGroup className="mb-3">

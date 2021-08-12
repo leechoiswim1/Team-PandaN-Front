@@ -7,24 +7,27 @@ import { useSelector } from "react-redux";
 import { history } from "../../modules/configStore";
 
 const ProjectCardList = () => {
-  const project_list = useSelector(state => state.project.list);
+  const project_list = useSelector((state) => state.project.list);
   return (
-    <Wrap>
-      {project_list.map((p, idx) => {
-        return (
-          <Item
-            style={{ cursor: "pointer" }}
-            key={idx}
-            onClick={() => {
-              history.push(`/projects/${p.projectId}/kanban`);
-            }}
-          >
-            <Title>{p.title}</Title>
-            <Detail>{p.detail}</Detail>
-          </Item>
-        );
-      })}
-    </Wrap>
+    <>
+      <p style={{ margin: "20px 35px", fontSize: "20px", fontWeight: "700" }}>전체 프로젝트</p>
+      <Wrap>
+        {project_list.map((p, idx) => {
+          return (
+            <Item
+              style={{ cursor: "pointer" }}
+              key={idx}
+              onClick={() => {
+                history.push(`/projects/${p.projectId}/kanban`);
+              }}
+            >
+              <Title>{p.title}</Title>
+              <Detail>{p.detail}</Detail>
+            </Item>
+          );
+        })}
+      </Wrap>
+    </>
   );
 };
 

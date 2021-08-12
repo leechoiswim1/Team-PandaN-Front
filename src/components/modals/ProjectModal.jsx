@@ -49,16 +49,16 @@ const ProjectModal = () => {
             <Overlay onClick={() => setModalState(false)} />
 
             <Window>
-              <div style={{ display: "flex", height: "80%" }}>
+              <ModalBody>
                 {/* == left */}
-                <div style={{ display: "fixed", width: "55%" }}>
-                  <ModalHead>
-                    <div style={{ display: "flex", height: "25px", margin: "0 20px" }}>
-                      <IconProjectAdd cursor="pointer" width="25px" height="25px" fill="#000000" className="menu-icon" position="absolute" />
-                      <ModalTitle>프로젝트 생성하기</ModalTitle>
-                    </div>
-                  </ModalHead>
-                  <ModalBody>
+                <ModalBodyLeft>
+                  <div style={{ width: "100%", height: "100%" }}>
+                    <ModalBodyHead>
+                      <div style={{ display: "flex", height: "25px", margin: "0 20px" }}>
+                        <IconProjectAdd cursor="pointer" width="25px" height="25px" fill="#000000" className="menu-icon" position="absolute" />
+                        <ModalTitle>프로젝트 생성하기</ModalTitle>
+                      </div>
+                    </ModalBodyHead>
                     <ModalBodyInner>
                       <form>
                         <P>프로젝트 이름</P>
@@ -68,39 +68,39 @@ const ProjectModal = () => {
                         <TextDesc>팀원들이 작업환경에 대해 쉽게 알 수 있도록 작성해주세요.</TextDesc>
                       </form>
                     </ModalBodyInner>
-                  </ModalBody>
-                </div>
+                  </div>
+                </ModalBodyLeft>
+
                 {/* == right */}
-                <div style={{ display: "fixed", width: "45%", background: "#E1EDE4" }}>
-                  <div
-                    style={{
-                      width: "70%",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      left: "50%",
-                      top: "50%",
-                      transform: "translate(20%, 50%)",
+                <ModalBodyRight>
+                  <ModalBodyRightHead>
+                    <CloseBtn onClick={() => setModalState(false)}>x</CloseBtn>
+                  </ModalBodyRightHead>
+                  <ModalBodyRightInner>
+                    <ModalBodyRightImage src={modalSideImage} alt="modalSideImage" />
+                    <TextDesc>
+                      협업을 하기 위해, 협업툴을 배우는 시간은 그만! 😂 <TextDesc></TextDesc>세상에서 제일 쉬운 협업툴 PandaN을 만나보세요!
+                    </TextDesc>
+                  </ModalBodyRightInner>
+                </ModalBodyRight>
+              </ModalBody>
+
+              <ModalFooter>
+                <ModalFooterInner>
+                  <MakeBtn
+                    onClick={() => {
+                      CreateProject();
                     }}
                   >
-                    <img src={modalSideImage} alt="modalSideImage" style={{ margin: "0 0 10px 0" }} />
-                    <TextDesc>협업을 하기 위해, 협업툴을 배우는 시간은 그만! 😂 세상에서 제일 쉬운 협업툴 PandaN을 만나보세요!</TextDesc>
-                  </div>
-                </div>
-              </div>
-              <ModalFooter>
-                <MakeP
-                  onClick={() => {
-                    CreateProject();
-                  }}
-                >
-                  프로젝트 만들러 가기
-                </MakeP>
+                    프로젝트 만들러 가기
+                  </MakeBtn>
+                </ModalFooterInner>
               </ModalFooter>
             </Window>
           </Background>
         ) : (
           ""
-        )}{" "}
+        )}
       </ModalPortal>
     </>
   );
@@ -125,42 +125,81 @@ const Overlay = styled.div`
   background-color: rgba(255, 255, 255, 0.7);
 `;
 const Window = styled.div`
-  position: relative;
+  position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 50%;
-  height: 70%;
+  width: 700px;
+  height: 500px;
   background: #ffffff;
   border-radius: 20px;
-  @media (max-width: 900px) {
-    width: 65%;
-    height: 70%;
+
+  @media (max-width: 767px) {
+    max-width: 600px;
+    max-height: 500px;
   }
   @media (max-width: 400px) {
-    width: 90%;
-    height: 60%;
+    max-width: 350px;
+    max-height: 500px;
   }
 `;
-const P = styled.p(
+
+const ModalBody = styled.div`
+  display: flex;
+  height: 80%;
+`;
+
+const ModalBodyLeft = styled.div`
+
+  margin: auto;
+  height: 100%;
+  width: 55%
+  @media (max-width: 400px) {
+    width: 90%;
+
+`;
+
+const ModalBodyHead = styled.div(
   ...t`
-  margin-top:10px;
-  margin-bottom:10px;
-  font-size :20px;
-  font-weight :700;
-  color: #387E4B;
+  width: 100%;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #c6d2de;
+  height:20%;
 `,
 );
 
-const MakeP = styled.p(
+const ModalBodyInner = styled.div(
   ...t`
-  margin:auto;
-  padding-top: 20px;
-  color: #767676;
-  font-size: 20px;
-  font-weight: 700;
-  cursor: pointer;
-  text-align: center;
+  position: relative;
+  box-sizing:border-box;
+  width: 100%;
+  padding: 0 50px;
+  top: 7%;
+  height:80%;
+  justifyContent: center;
+  alignItems:center;
+  
+  `,
+);
+
+const ModalTitle = styled.p(
+  ...t`
+  font-weight: 700; 
+  color: #000000;
+  font-size:20px;
+  margin:0 0 0 5px;
+  `,
+);
+
+const P = styled.p(
+  ...t`
+ 
+  font-size :20px;
+  font-weight :700;
+  color: #387E4B;
 `,
 );
 
@@ -169,7 +208,7 @@ const Input = styled.input(
   width: 100%;
   height: 5vh;
   border: 1px solid #EDEDED;
-  margin:10px 0;
+  margin:20px 0;
   font-size: 18px;
   padding: 5px;
   font-color: #9A9A9A;
@@ -190,62 +229,82 @@ const TextArea = styled.textarea(
 `,
 );
 
-const ModalTitle = styled.p(
+const TextDesc = styled.p(
   ...t`
-  font-weight: 700; 
-  color: #000000;
-  font-size:20px;
-  margin:0 0 0 5px;
+  color: #9A9A9A; 
+  font-size:15px;
+  font-weight: 200;
   `,
 );
-const ModalHead = styled.div(
+
+const ModalBodyRight = styled.div(
   ...t`
-  
+display:block; 
+width: 45% ;
+background: #E1EDE4; 
+@media (max-width: 500px) {
+  display :none;
+}
+
+`,
+);
+const ModalBodyRightHead = styled.div`
+  width: 100%;
   display: flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #c6d2de;
-  height:15%;
-`,
-);
-const ModalBody = styled.div(
+  height: 25%;
+`;
+
+const CloseBtn = styled.button`
+  position: absolute;
+  padding: 20px;
+  color: #9a9a9a;
+  font-size: 20px;
+  font-weight: 600;
+  top: 0;
+  right: 0;
+`;
+
+const ModalBodyRightInner = styled.div(
   ...t`
-  margin:auto;
-  height:70%;
-  padding:auto;
-  @media (max-width: 400px) {
-    width: 90%;
-    height: 50%;
-  }
-  
+  width: 90%;
+  display:block;
+  justify-content: center;
+  align-items:center;
+  margin: 0 auto;
 `,
 );
+
+const ModalBodyRightImage = styled.img`
+  margin: 0 0 10px 0;
+`;
 
 const ModalFooter = styled.div(
   ...t`
   box-sizing: border-box;
   height:20%;
   border-top: 1px solid #c6d2de;
+  display: flex;
   `,
 );
-
-const ModalBodyInner = styled.div(
-  ...t`
-  position: relative;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  padding:0 20px;
-  `,
-);
-
-const TextDesc = styled.p(
-  ...t`
-  color: #9A9A9A; 
-  font-size:5px;
-  font-weight: 200;
-  `,
-);
+const ModalFooterInner = styled.div`
+  margin: auto;
+  padding: auto;
+`;
+const MakeBtn = styled.button`
+  margin: auto;
+  font-size: 18px;
+  font-weight: 500;
+  font-color: #fff;
+  cursor: pointer;
+  justifycontent: center;
+  alignitems: center;
+  width: 200px;
+  height: 40px;
+  background: #e1ede4;
+  border-radius: 15px;
+`;
 
 export default ProjectModal;
