@@ -18,13 +18,13 @@ import MemberToggle from "../modals/MemberToggle";
 const ProjectHeader = ({ match }) => {
   const dispatch = useDispatch();
   const projectId = match.params.projectId;
-  console.log(projectId);
 
   const project_detail_list = useSelector((state) => state.project.detailList[0]);
 
   useEffect(() => {
     dispatch(projectActions.__setDetailProject(projectId));
-  }, []);
+  }, [projectId]);
+
   if (!project_detail_list) {
     return <div></div>;
   }

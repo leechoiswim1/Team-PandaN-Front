@@ -18,18 +18,14 @@ const Detail = ({ history, match, ...rest }) => {
   return (
     <Template>
       <div className="content" id="content">
-        <ProjectHeader />
-        <InnerHeader projectId={projectId} />
+        <ProjectHeader match={match}/>
+        <InnerHeader history={history} match={match} projectId={projectId} />
         <Container>
           <div
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
             <div style={{ width: "500px" }}>
-              <NoteDetail
-                history={history}
-                match={match}
-                projectId={projectId}
-              />
+              <NoteDetail history={history} match={match} projectId={projectId} />
             </div>
           </div>
           <div>
