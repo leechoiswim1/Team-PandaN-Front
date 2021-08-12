@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 /* == Library - style */
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { t }  from "../../util/remConverter";
 import { Bookmark } from "react-feather";
 
@@ -41,14 +41,17 @@ const IssueCard = (props) => {
   }
   
   return (
-    <Wrapper>
+    <div className="note-issuecard-wrapper">
       <div style={{display: "flex", flexDirection: "row"}}>
         <div>
           <IconSteps type={step}/> 
         </div>
         <NoteDesc>
-          <a href={`/projects/${projectId}/notes/${noteId}`}>{title}</a>
+          <a href={`/projects/${projectId}/notes/${noteId}`}><h1>{title}</h1></a>
           <div>
+            {/* <Tag className="kanban-card-tag" type={step}>
+              { step }
+            </Tag> */}
             { projectTitle && <span className="text-primary">{projectTitle}</span> }
             { writer && <span>{writer}</span> }
             { createdAt && <span>{created}</span> }
@@ -62,17 +65,9 @@ const IssueCard = (props) => {
           </button> 
         }        
       </div>
-    </Wrapper>
+    </div>
   );
 };
-
-const Wrapper = styled.div(...t`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 16px;
-  border-bottom: 1px solid #ddd;
-`)
 
 const NoteDesc = styled.div(...t`
   padding: 0 16px;
@@ -88,5 +83,24 @@ const NoteDesc = styled.div(...t`
     color: #888;
   }
 `)
+
+// const Tag = styled.div`
+// ${(props) => (props.type === "STORAGE") && 
+//   css`  
+//     background-color: #FFCD40;
+//   `}
+// ${(props) => (props.type === "TODO") && 
+//   css`  
+//     background-color: #ADBE4F;
+//   `}
+// ${(props) => (props.type === "PROCESSING") && 
+// css`  
+//   background-color: #9BD09C;
+// `}
+// ${(props) => (props.type === "DONE") && 
+//   css`  
+//     background-color: #F5DAAE;
+//   `}
+// `
 
 export default IssueCard;
