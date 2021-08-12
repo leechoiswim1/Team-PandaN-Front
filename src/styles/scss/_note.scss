@@ -56,7 +56,8 @@ $note-heading-gray:   #767676;
 // --------------------------------
 .note-container {
   width: 100%;
-  height: calc(100vh - $header-height - rem(50) - $inner-header-height);
+  // height: calc(100vh - $header-height - rem(50) - $inner-header-height);
+  height: calc(100vh - 166px);
   padding: rem(38) rem(30);
   white-space: nowrap;
   overflow-x: scroll;
@@ -228,17 +229,18 @@ $note-heading-gray:   #767676;
 }
 
 .note-modal-container {
+  padding: rem(64) rem(64) 0;
   box-sizing: border-box;
   position: relative;
   background-color: #fff;
   border-radius: rem(40);
+  min-width: rem(360);
   width: rem(720);
   top: 50%;
   transform: translateY(-50%);
   margin: 0 auto; 
 
   .note-modal-header {
-    padding: rem(64) rem(64) 0;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -251,35 +253,43 @@ $note-heading-gray:   #767676;
 
       & h1 {
         font-weight: bold;
-        font-size: rem(24);
+        font-size: rem(20);
         color: $note-heading-black;
         letter-spacing: $letter-spacing;
       }
     }
     svg {
       fill: $note-heading-black;
-      margin-top: rem(4);    
+      margin-top: rem(3);    
     }    
   }
   .note-modal-content {
-    padding: 0 rem(64) rem(64);
+    padding-bottom: rem(64);
   }
 
   .note-modal-button {
     height: rem(96);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    margin: 0 rem(-64) ; 
     border-top: 1px solid #C2C2C2;
     cursor: pointer;
     & h1 {
       font-weight: bold;
-      font-size: rem(24);
+      font-size: rem(20);
       color: $note-heading-gray;
       letter-spacing: $letter-spacing;
     }
     & :hover {
       color: $primary;
     }
+  }
+}
+@media screen and (max-width: 767px){
+  .note-modal-container {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
   }
 }

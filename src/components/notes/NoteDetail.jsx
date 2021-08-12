@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+
 /* == Library - style */
 import styled from "styled-components";
 import { t }  from "../../util/remConverter";
@@ -9,7 +10,10 @@ import moment from "moment";
 import "moment/locale/ko";
 
 /* == Custom - Icon */
-import IconSteps                        from "../../elements/IconSteps";
+import IconSteps                      from "../../elements/IconSteps";
+
+/* == Custom - Component */
+import { EditingNoteModal }           from "..";
 
 /* == Redux - actions */
 import { useDispatch, useSelector }   from 'react-redux';
@@ -29,19 +33,15 @@ const NoteDetail = ({ history, match, ...rest }) => {
   const createdAt = moment(note.createdAt).format("작성: YYYY년 M월 D일");
   const modifiedAt = moment(note.modifiedAt).format("마지막 수정: YYYY년 M월 D일");
 
-  const editNote = () => {
-    // dispatch(noteActions.__editNote(noteId, modifiedNote));
-  };
+  const [modalVisible, setModalVisible] = useState(false)
+  const openModal = () => {
+    setModalVisible(true)
+  }
+  const closeModal = () => {
+    setModalVisible(false)
+  }
 
-  const deleteNote = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const result = window.confirm("노트를 삭제하시겠습니까?");
-    if (result) {
-      dispatch(noteActions.__deleteNote(noteId));
-    } else return;  
-  };
-
+  // function - bookmark
   const addBookmark = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -85,11 +85,17 @@ const NoteDetail = ({ history, match, ...rest }) => {
           <p>{modifiedAt}</p>
           <p>{note.writer}</p>
         </div>
-        <div style={{marginLeft: "16px"}}>
-          <Edit />
-          <button type="button" onClick={deleteNote}>
-            <Trash2 />
-          </button>
+        <div style={{marginLeft: "16px"}}>          
+          <Edit onClick={openModal}/>
+            { modalVisible && 
+              <EditingNoteModal
+                note={note}
+                noteId={noteId}
+                visible={modalVisible}
+                closable={true}
+                maskClosable={true}
+                onClose={closeModal} />
+            }
         </div>
       </div>
       <div>
