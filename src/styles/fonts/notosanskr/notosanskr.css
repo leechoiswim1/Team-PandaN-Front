@@ -71,3 +71,13 @@
   url('NotoSans-Black.woff') format('woff'),
   url('NotoSans-Black.woff2') format('woff2');
 }
+
+/*
+ * Roboto
+ */
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-style: normal;
+  src: url('Roboto-Medium.ttf') format('truetype'),
+}
