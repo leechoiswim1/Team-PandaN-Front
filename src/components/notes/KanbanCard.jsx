@@ -23,19 +23,19 @@ const KanbanCard = ({ note, step, ...rest }) => {
 const Tag = styled.div`
 ${(props) => (props.type === "STORAGE") && 
   css`  
-    background-color: #E1D3F8;
+    background-color: #FFCD40;
   `}
 ${(props) => (props.type === "TODO") && 
   css`  
-    background-color: #CCE4F8;
+    background-color: #ADBE4F;
   `}
 ${(props) => (props.type === "PROCESSING") && 
 css`  
-  background-color: #FFE3B0;
+  background-color: #9BD09C;
 `}
 ${(props) => (props.type === "DONE") && 
   css`  
-    background-color: #F9CDE5;
+    background-color: #F5DAAE;
   `}
 `
 

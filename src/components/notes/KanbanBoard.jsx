@@ -122,7 +122,8 @@ const KanbanBoard = ({ history, match }) => {
                           height="20"
                         />
                           { modalVisible && 
-                            <WritingNoteModal 
+                            <WritingNoteModal
+                              projectId={projectId}
                               visible={modalVisible}
                               closable={true}
                               maskClosable={true}
@@ -156,55 +157,55 @@ const KanbanBoard = ({ history, match }) => {
 const Badge = styled.div`
 ${(props) => (props.type === "STORAGE") && 
   css`  
-    background-color: #E1D3F8;
+    background-color: #FFCD40;
   `}
 ${(props) => (props.type === "TODO") && 
   css`  
-    background-color: #CCE4F8;
+    background-color: #ADBE4F;
   `}
 ${(props) => (props.type === "PROCESSING") && 
 css`  
-  background-color: #FFE3B0;
+  background-color: #9BD09C;
 `}
 ${(props) => (props.type === "DONE") && 
   css`  
-    background-color: #F9CDE5;
+    background-color: #F5DAAE;
   `}
 `
 
 const ColFooter = styled.div`
 ${(props) => (props.type === "STORAGE") && 
   css`  
-    background-color: rgba(225, 211, 248, 0.3);
+    background-color: rgba(255, 205, 64, 0.3);
   `}
 ${(props) => (props.type === "TODO") && 
   css`  
-    background-color: rgba(204, 228, 248, 0.3);
+    background-color: rgba(173, 190, 79, 0.3);
   `}
 ${(props) => (props.type === "PROCESSING") && 
 css`  
-  background-color: rgba(255, 227, 176, 0.3);
+  background-color: rgba(155, 208, 156, 0.3);
 `}
 ${(props) => (props.type === "DONE") && 
   css`  
-    background-color: rgba(249, 205, 229, 0.3);
+    background-color: rgba(245, 218, 174, 0.3);
   `}
   & svg {
     ${(props) => (props.type === "STORAGE") && 
       css`  
-       fill: #B88FFB;
+       fill: #FFBD04;
       `}
     ${(props) => (props.type === "TODO") && 
       css`  
-        fill: #76BEFB;
+        fill: #ADBE4F;
       `}
     ${(props) => (props.type === "PROCESSING") && 
     css`  
-      fill: #F9C35D;
+      fill: #9BD09C;
     `}
     ${(props) => (props.type === "DONE") && 
       css`  
-        fill: #F888C8;
+        fill: #F5DAAE;
       `}
   }
 `
