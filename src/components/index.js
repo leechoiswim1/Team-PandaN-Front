@@ -14,7 +14,6 @@ import NoteModal from "./modals/NoteModal";
 import ProjectModalEdit from "./modals/ProjectModalEdit";
 import ProjectInvite from "./modals/ProjectInvite";
 import ProjectJoin from "./modals/ProjectJoin";
-import MyProfile from "./modals/MyProfile";
 
 /* project */
 import EmptyProject from "./projects/EmptyProject";
@@ -49,7 +48,6 @@ export {
   Modals,
   ProjectModal,
   ProjectModalEdit,
-  MyProfile,
   /* == Project */
   ProjectList,
   ProjectHeader,

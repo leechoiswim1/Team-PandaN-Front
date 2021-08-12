@@ -3,12 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { t } from "../../util/remConverter";
 /* == Custom - Component */
-import {
-  Template,
-  ProjectHeader,
-  InnerHeader,
-  IssueList,
-} from "../../components";
+import { Template, ProjectHeader, InnerHeader, IssueList } from "../../components";
 /* == Redux - actions */
 import { useSelector, useDispatch } from "react-redux";
 import { noteActions } from "../../modules/note";
@@ -21,20 +16,15 @@ const ProjectMyNote = ({ history, match, ...rest }) => {
     dispatch(noteActions.__getProjectMyNotes(projectId));
   }, []);
 
-  const myNote = useSelector(state => state.note.list);
+  const myNote = useSelector((state) => state.note.list);
 
   return (
     <Template>
       <div className="content" id="content">
-        <ProjectHeader />
+        <ProjectHeader match={match} />
         <InnerHeader history={history} match={match} projectId={projectId} />
         <Container>
-          <IssueList
-            history={history}
-            notes={myNote}
-            projectId={projectId}
-            type="projectMyNote"
-          />
+          <IssueList history={history} notes={myNote} projectId={projectId} type="projectMyNote" />
         </Container>
       </div>
     </Template>
