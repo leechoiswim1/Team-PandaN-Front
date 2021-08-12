@@ -21,7 +21,8 @@ const ModalBox = ( props ) => {
     visible,
     children,
     heading,
-    btntext
+    btntext,
+    onSubmit
   } = props
 
   const onMaskClick = (e) => {
@@ -56,7 +57,7 @@ const ModalBox = ( props ) => {
           <div className="note-modal-content">
             {children}
           </div>
-          <div className="note-modal-button">
+          <div className="note-modal-button" onClick={onSubmit}>
             <h1>{btntext}</h1>
           </div>
         </div>
