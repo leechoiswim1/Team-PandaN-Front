@@ -30,12 +30,12 @@ const MemberToggle = (props) => {
           className="dropdown-group"
           style={{
             width: "220px",
-            minHeight: "430px",
+            minHeight: "360px",
           }}
         >
-          <Dropdown.ItemText className="text-center" style={{ display: "flex", flexWrap: "nowrap", height: "5vh" }}>
-            <IconProfile width="40" height="40" fill="#ffffff" className="dropdown-profile" />
-            <div style={{ marginLeft: "10px", textAlign: "left" }}>
+          <Dropdown.ItemText className="text-center" style={{ display: "flex", flexWrap: "nowrap", minHeight: "30px" }}>
+            <IconProfile style={{ width: "40", height: "40" }} fill="#9A9A9A" className="dropdown-profile" />
+            <div style={{ margin: "auto 10px", textAlign: "left" }}>
               <p className="dropdown-name">{user.name}</p>
               <p
                 className="dropdown-email"
@@ -52,25 +52,31 @@ const MemberToggle = (props) => {
           </Dropdown.ItemText>
           <Dropdown.Divider style={{ height: "0" }} />
 
-          <div style={{ height: "30vh" }}>
-            <Dropdown.ItemText>
-              {/* == 로그아웃 */}
-              멤버({countCrews})
-            </Dropdown.ItemText>
+          <div style={{ minHeight: "300px" }}>
+            <Dropdown.ItemText>멤버({countCrews})</Dropdown.ItemText>
             <Dropdown.ItemText>
               {countCrews > 1 ? (
                 projectCrews.map((c, idx) => {
                   return <div key={idx}>{c.userName}</div>;
                 })
               ) : (
-                <div>
-                  <div style={{ marginLeft: "42px" }}>
-                    <IconMemberAdd width="100" height="100" fill="#9A9A9A" className="menu-icon" />
-                  </div>
+                <div
+                  style={{
+                    marginTop: "40px",
+                    minheight: "250px",
+                    textAlign: "center",
+                    verticalAlign: "middle",
+                    alignItem: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   <div>
-                    <p>멤버가 없습니다. </p>
-                    <p>멤버를 초대하여 함께 협업공간을</p>
-                    <p>진행해보세요!</p>
+                    <IconMemberAdd style={{ width: "80", height: "80", marginBottom: "20px" }} fill="#9A9A9A" className="menu-icon" />
+                  </div>
+                  <div style={{ fontSize: "15px" }}>
+                    <p>멤버가 없습니다.👀 </p>
+                    <p>멤버를 초대하여 함께 </p>
+                    <p>협업공간을 진행해보세요!</p>
                   </div>
                 </div>
               )}
@@ -80,7 +86,7 @@ const MemberToggle = (props) => {
           <Dropdown.Divider style={{ height: "0" }} />
           <Dropdown.ItemText
             style={{
-              height: "5vh",
+              minHeight: "30px",
               textAlign: "center",
               verticalAlign: "middle",
               alignItem: "center",

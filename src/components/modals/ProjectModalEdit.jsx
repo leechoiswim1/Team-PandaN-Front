@@ -61,7 +61,7 @@ const ProjectModalEdit = (props) => {
 
   return (
     <>
-      <IconProjectEdit cursor="pointer" width="25" height="25" fill="#E1EDE4" className="menu-icon" onClick={() => setModalState(true)} />
+      <IconProjectEdit cursor="pointer" width="25" height="25" className="menu-icon" onClick={() => setModalState(true)} />
 
       <ModalPortal>
         {modalState ? (
@@ -75,7 +75,7 @@ const ProjectModalEdit = (props) => {
                   <div style={{ width: "100%", height: "100%" }}>
                     <ModalBodyHead>
                       <div style={{ display: "flex", height: "25px", margin: "0 20px" }}>
-                        <IconProjectEdit width="25px" height="25px" fill="#000000" className="menu-icon" position="absolute" />
+                        <IconProjectEdit width="25px" height="25px" className="menu-icon" position="absolute" />
                         <ModalTitle>프로젝트 수정하기</ModalTitle>
                       </div>
                     </ModalBodyHead>
@@ -270,22 +270,24 @@ const TextDesc = styled.p(
 const ModalBodyRight = styled.div(
   ...t`
   display:block; 
-width: 45% ;
-background: #E1EDE4; 
-@media (max-width: 500px) {
+  box-sizing:border-box;
+  width: 45% ;
+  background: #E1EDE4;
+  border-top-right-radius: 27px; 
+  @media (max-width: 500px) {
   display :none;
-}
+  }
 
 `,
 );
 
 const ModalBodyRightHead = styled.div`
   width: 100%;
+  height: 25%;
   display: flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
-  height: 25%;
 `;
 
 const CloseBtn = styled.button`

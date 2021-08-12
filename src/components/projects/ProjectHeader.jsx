@@ -28,6 +28,7 @@ const ProjectHeader = ({ match }) => {
   if (!project_detail_list) {
     return <div></div>;
   }
+  const isUpdatableAndDeletable = project_detail_list.isUpdatableAndDeletable;
   return (
     <div
       style={{
@@ -37,18 +38,24 @@ const ProjectHeader = ({ match }) => {
         justifyContent: "space-between",
       }}
     >
-      <div style={{ display: "flex", flexWrap: "nowrap" }}>
-        <div>
-          <div style={{ display: "flex", flexWrap: "nowrap" }}>
-            <h3>{project_detail_list.title} </h3>
-            <div style={{ marginLeft: "10px" }}>
-              <ProjectModalEdit projectId={project_detail_list.projectId} title={project_detail_list.title} detail={project_detail_list.detail} />
+      <div style={{ display: "absolute" }}>
+        <div style={{ display: "flex", flexWrap: "nowrap" }}>
+          <div>
+            <div style={{ display: "flex", flexWrap: "nowrap" }}>
+              <h3>{project_detail_list.title} </h3>
+              <div style={{ marginLeft: "10px" }}>
+                {isUpdatableAndDeletable ? (
+                  <ProjectModalEdit projectId={project_detail_list.projectId} title={project_detail_list.title} detail={project_detail_list.detail} />
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
+            <h5>{project_detail_list.detail}</h5>
           </div>
-          <h5>{project_detail_list.detail}</h5>
         </div>
       </div>
-      <div style={{ display: "flex", flexWrap: "nowrap" }}>
+      <div style={{ display: "flex", flexWrap: "nowrap", marginTop: "auto" }}>
         <div>
           <ProjectInvite projectId={project_detail_list.projectId} />
         </div>
