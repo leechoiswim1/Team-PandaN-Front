@@ -112,6 +112,7 @@ const __editProject =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await projectApi.putProject(projectId, project);
+      console.log(data.data);
       dispatch(editProject(data));
     } catch (e) {
       console.log(e);
@@ -186,10 +187,10 @@ export default handleActions(
       }),
     [EDIT_PROJECT]: (state, action) =>
       produce(state, (draft) => {
-        // 배열의 몇 번째에 있는 지 찾습니다.
-        let idx = draft.list.findIndex((p) => p.projectId === action.payload.Project.projectId);
-        // 해당 위치에 넣어줍니다.
-        draft.list[idx] = { ...action.payload.Project };
+        console.log(action.payload.Project);
+        draft.detailList[0].title = action.payload.Project.title;
+        draft.detailList[0].projectId = action.payload.Project.projectId;
+        draft.detailList[0].detail = action.payload.Project.detail;
       }),
 
     [INVITE_PROJECT]: (state, action) =>

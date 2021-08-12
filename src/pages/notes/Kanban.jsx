@@ -13,29 +13,15 @@ import { actionCreators as projectActions } from "../../modules/project";
 const Kanban = ({ history, match, ...rest }) => {
   const dispatch = useDispatch();
   const projectId = match.params.projectId;
+  
   useEffect(() => {
-    const projectId = match.params.projectId;
-    dispatch(projectActions.__setDetailProject(projectId));
-  }, [dispatch, match.params.projectId]);
-
-  useEffect(() => {
-    const projectId = match.params.projectId;
     dispatch(noteActions.__getKanbanNotes(projectId));
   }, [projectId]);
-
-  useEffect(() => {
-    dispatch(projectActions.__setProject());
-  }, []);
-
-  const project_detail_list = useSelector((state) => state.project.detailList[0]);
-  console.log(project_detail_list);
-  if (!project_detail_list) {
-    return <div />;
-  }
+  
   return (
     <Template>
       <main className="content" id="content">
-        <ProjectHeader project_detail_list={project_detail_list} />
+        <ProjectHeader match={match} />
         <InnerHeader history={history} match={match} projectId={projectId} />
         <div className="note-container">
           <KanbanBoard history={history} match={match} />

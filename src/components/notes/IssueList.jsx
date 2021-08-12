@@ -19,7 +19,7 @@ const IssueList = ({ history, notes, projectId, ...rest }) => {
         return (
           <IssueCard
             key={index}             
-            projectId={note.projectId}
+            projectId={note.projectId ? note.projectId : projectId}
             projectTitle={note.projectTitle}
             noteId={note.noteId}
             title={note.title}

@@ -15,10 +15,15 @@ import ProjectModalEdit from "../modals/ProjectModalEdit";
 import ProjectInvite from "../modals/ProjectInvite";
 import MemberToggle from "../modals/MemberToggle";
 
-const ProjectHeader = (props) => {
-  // const projectId = props.projectId;
+const ProjectHeader = ({ match }) => {
+  const dispatch = useDispatch();
+  const projectId = match.params.projectId;
 
-  const project_detail_list = props.project_detail_list;
+  const project_detail_list = useSelector((state) => state.project.detailList[0]);
+
+  useEffect(() => {
+    dispatch(projectActions.__setDetailProject(projectId));
+  }, [projectId]);
 
   if (!project_detail_list) {
     return <div></div>;
