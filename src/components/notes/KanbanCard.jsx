@@ -5,13 +5,11 @@ import styled, { css } from "styled-components";
 import { Clock } from "react-feather";
 /* == Library - date */
 import moment from "moment";
-// import "moment/locale/ko";
 
 // * == ( kanban / Note ) -------------------- * //
 const KanbanCard = ({ note, step, ...rest }) => {
   const deadline = note.deadline ? moment(note.deadline).format("YYYY년 M월 D일") : "" ;
   let dateDiff = note.deadline ? moment(note.deadline).diff(moment(), "days") : "" ;
-  console.log(dateDiff);
   // const deadline = moment(note.deadline).toNow();
   return (
     <div className="kanban-card">
