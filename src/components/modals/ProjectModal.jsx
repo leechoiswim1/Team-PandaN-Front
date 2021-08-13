@@ -9,7 +9,7 @@ import { t } from "../../util/remConverter";
 import { ReactComponent as IconProjectAdd } from "../../styles/images/ico-project-add.svg";
 import modalSideImage from "../../styles/images/modalSideImage.PNG";
 
-const ProjectModal = () => {
+const ProjectModal = (props) => {
   const dispatch = useDispatch();
 
   const [ProTitle, setProTitle] = useState("");
@@ -39,10 +39,23 @@ const ProjectModal = () => {
 
   return (
     <>
-      <IconProjectAdd width="40" height="40" fill="#9A9A9A" className="menu-icon" onClick={() => setModalState(true)} />
-      <span className="menu-text" onClick={() => setModalState(true)}>
-        프로젝트 만들기
-      </span>
+      {props.sidebar === "sidebar" ? (
+        <>
+          <IconProjectAdd width="40" height="40" fill="#9A9A9A" className="menu-icon" onClick={() => setModalState(true)} />
+          <span className="menu-text" onClick={() => setModalState(true)}>
+            프로젝트 만들기
+          </span>
+        </>
+      ) : (
+        <EmptyProjectBtn onClick={() => setModalState(true)}>
+          <EmptyProjectText>
+            프로젝트
+            <br />
+            만들기
+            <br />⚡
+          </EmptyProjectText>
+        </EmptyProjectBtn>
+      )}
       <ModalPortal>
         {modalState ? (
           <Background>
@@ -105,6 +118,24 @@ const ProjectModal = () => {
     </>
   );
 };
+const EmptyProjectBtn = styled.div`
+  background: #e1ede4;
+  width: 400px;
+  height: 400px;
+  display: block;
+  cursor: pointer;
+  border-radius: 50px;
+  margin: auto;
+  padding: auto;
+`;
+
+const EmptyProjectText = styled.p`
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 700;
+  margin: auto;
+  padding: auto;
+`;
 
 const Background = styled.div`
   position: fixed;

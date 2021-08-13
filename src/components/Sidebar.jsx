@@ -24,6 +24,7 @@ import { ReactComponent as IconProject } from "../styles/images/ico-project.svg"
 // * == (Sidebar) -------------------- * //
 
 const Sidebar = (props) => {
+  const sidebar = "sidebar";
   return (
     <nav className="sidebar">
       {/* == 로고 */}
@@ -79,7 +80,7 @@ const Sidebar = (props) => {
       <div className="footer" id="footer">
         <Container fluid>
           <div className="d-grid gap-2" style={{ justifyContent: "center", margin: "auto" }}>
-            <ProjectJoin />
+            <ProjectJoin sidebar="sidebar" />
           </div>
 
           <p className="copyright">Copyright 2021 pandaN</p>
