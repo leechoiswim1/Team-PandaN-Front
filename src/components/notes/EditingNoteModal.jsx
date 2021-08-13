@@ -12,25 +12,26 @@ import ModalBox from "../../elements/ModalBox";
 import { useSelector, useDispatch }   from 'react-redux';
 import { noteActions }                from '../../modules/note';
 
-// * == ( Note - writing note modal ) -------------------- * //
-const WritingNoteModal = (props) => {
+// * == ( Note - editing note modal ) -------------------- * //
+const EditingNoteModal = (props) => {
   const { 
     className, 
     visible, 
     onClose,
     maskClosable,
     closable, 
-    projectId } = props;
+    noteId,
+    note } = props;
   const dispatch = useDispatch();
 
   const [noteInputs, setNoteInputs] = useState({
-    title: "",
-    content: "",
-    deadline: "",
-    step: "",
+    title: note.title,
+    content: note.content,
+    deadline: note.deadline,
+    step: note.step,
   });
 
-  const addNote = (e) => {
+  const editNote = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -46,10 +47,21 @@ const WritingNoteModal = (props) => {
       window.alert("마감일을 입력하세요.");
       return;
     }
-    
-    dispatch(noteActions.__addNote(projectId, noteInputs));
+
+    dispatch(noteActions.__editNote(noteId, noteInputs));
     onClose(e);
   };
+
+  const deleteNote = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const result = window.confirm("노트를 삭제하시겠습니까?");
+    if (result) {
+      dispatch(noteActions.__deleteNote(noteId));
+      onClose(e);
+    } else return;  
+  };
+
 
   return (
     <ModalBox 
@@ -58,26 +70,28 @@ const WritingNoteModal = (props) => {
       maskClosable={maskClosable}
       onClose={onClose}
       closable={closable}
-      heading="할 일 만들기" 
-      btntext="할 일 만들기"
-      onSubmit={addNote}
+      heading="할 일 수정하기" 
+      btntext="수정하기"
+      btntext2="삭제하기"
+      onSubmit={editNote}
+      onDelete={deleteNote}
       >
       <Form>
         <Form.Group controlId="noteTitle">
           <Form.Label className="note-modal-label">할 일</Form.Label>
-          <Form.Control type="text" placeholder="제목을 입력해 주세요."
+          <Form.Control type="text" placeholder="제목을 입력해 주세요." defaultValue={note.title}
             onChange={(e)=> {setNoteInputs({...noteInputs, title: e.target.value})}}
           />
         </Form.Group>
         <Form.Group controlId="noteDetail">
           <Form.Label className="note-modal-label">설명(선택)</Form.Label>
-          <Form.Control type="text" placeholder="할 일에 대한 설명을 추가해 주세요."
+          <Form.Control type="text" placeholder="할 일에 대한 설명을 추가해 주세요." defaultValue={note.content}
             onChange={(e)=> {setNoteInputs({...noteInputs, content: e.target.value})}}
           />
         </Form.Group>
         <Form.Group controlId="noteStep">
           <Form.Label className="note-modal-label">상태 설정</Form.Label>
-          <Form.Select placeholder=""
+          <Form.Select placeholder="" defaultValue={note.step}
             onChange={(e)=> {setNoteInputs({...noteInputs, step: e.target.value})}}
           >
             <option>할 일의 상태를 설정하세요.</option>
@@ -89,7 +103,7 @@ const WritingNoteModal = (props) => {
         </Form.Group>
         <Form.Group controlId="noteDeadline">
           <Form.Label className="note-modal-label" >언제까지 끝내야 하나요?</Form.Label>
-          <Form.Control type="date" placeholder=""
+          <Form.Control type="date" placeholder="" defaultValue={note.deadline}
             onChange={(e)=> {setNoteInputs({...noteInputs, deadline: e.target.value})}}
           />
         </Form.Group>
@@ -98,4 +112,4 @@ const WritingNoteModal = (props) => {
   )
 }
 
-export default WritingNoteModal;
+export default EditingNoteModal;

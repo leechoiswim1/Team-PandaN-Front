@@ -20,7 +20,7 @@ const Detail = ({ history, match, ...rest }) => {
       <div className="content" id="content">
         <ProjectHeader match={match}/>
         <InnerHeader history={history} match={match} projectId={projectId} />
-        <Container>
+        <div className="note-detail-container">
           <div
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
@@ -31,23 +31,10 @@ const Detail = ({ history, match, ...rest }) => {
           <div>
             {/* <CommentList /> */}
           </div>
-        </Container>
+        </div>
       </div>
     </Template>
   );
 };
-
-const Container = styled.div(
-  ...t`
-  width: 100%;
-  height: calc( 100vh - 120px );
-  padding: 0 36px;
-  white-space: nowrap;
-  overflow-x: scroll;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`,
-);
 
 export default Detail;

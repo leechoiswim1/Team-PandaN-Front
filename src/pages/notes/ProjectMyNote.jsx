@@ -23,21 +23,12 @@ const ProjectMyNote = ({ history, match, ...rest }) => {
       <div className="content" id="content">
         <ProjectHeader match={match} />
         <InnerHeader history={history} match={match} projectId={projectId} />
-        <Container>
+        <div className="note-board-container">
           <IssueList history={history} notes={myNote} projectId={projectId} type="projectMyNote" />
-        </Container>
+        </div>
       </div>
     </Template>
   );
 };
-
-const Container = styled.div(
-  ...t`
-  width: 100%;
-  height: calc( 100% - 120px );
-  padding: 0 36px;
-  overflow: auto;
-`,
-);
 
 export default ProjectMyNote;

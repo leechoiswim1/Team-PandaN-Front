@@ -56,10 +56,12 @@ $note-heading-gray:   #767676;
 // --------------------------------
 .note-container {
   width: 100%;
-  height: 100%;
-  padding: rem(38) rem(30);
+  // height: calc(100vh - $header-height - rem(50) - $inner-header-height);
+  height: calc(100vh - 166px);
+  padding: rem(36) rem(30);
   white-space: nowrap;
   overflow-x: scroll;
+  overflow-y: hidden;
   display: flex;
   flex-direction: row;
 }
@@ -68,13 +70,14 @@ $note-heading-gray:   #767676;
 // --------------------------------
 .kanban-column {
   width: rem(320);
-  height: 100%;
+  height: inherit;
   margin-right: rem(28);
   display: flex;
   flex-direction: column;
+  white-space: nowrap;
+  overflow-y: hidden;
   border-radius: rem(20);
-  background-color: #eee;
-  // background-color: #F3F3F3;
+  background-color: #F3F3F3;
 
   .kanban-col-header {
     margin: rem(20) rem(20) 0;
@@ -111,8 +114,9 @@ $note-heading-gray:   #767676;
   }
 
   .kanban-col-content{
-    height: rem(600);
-    margin-top: 8px;
+    min-height: rem(20);
+    max-height: calc(100vh - 360px); // rem(360) 시 적용 안 됨
+    margin-top: rem(8);
     user-select: none;
     white-space: nowrap;
     overflow-y: auto;
@@ -124,7 +128,35 @@ $note-heading-gray:   #767676;
     display: flex;
     align-items: center;
     justify-content: center;
-  }  
+    & div {  
+      cursor: pointer;
+    }
+    & svg {
+      margin-top: -3px;
+    }
+    & span {
+      margin-left: rem(4);
+      font-weight: bold;
+      font-size: $note-heading;
+      letter-spacing: $letter-spacing;
+      color: $note-heading-gray;
+    }
+  } 
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px){
+  .kanban-column {
+    .kanban-col-content{
+      max-height: calc(100vh - 340px);
+    }
+  }
+}
+@media screen and (max-width: 767px){
+  .kanban-column {
+    .kanban-col-content{
+      max-height: calc(100vh - 310px);
+    }
+  }
 }
 
 // == note: kanban - card
@@ -167,15 +199,21 @@ $note-heading-gray:   #767676;
     height: rem(24);
     border-radius: rem(24);  
     display: inline-block;
-    margin: rem(16) 0 rem(6);
+    margin: rem(6) 0;
     padding: 0 rem(20);
     text-align: center;
-    vertical-align: middle;
-    color: #FFFFFF;
+    vertical-align: middle;    
     font-size: rem(12);
     line-height: rem(24);
     font-weight: bold;
     letter-spacing: $letter-spacing;
+    
+    & svg {
+      width: rem(14);
+      height: rem(14);
+      margin-top: rem(-2);
+      margin-right: rem(2);     
+    }
   }
 }
 
@@ -191,17 +229,18 @@ $note-heading-gray:   #767676;
 }
 
 .note-modal-container {
+  padding: rem(64) rem(64) 0;
   box-sizing: border-box;
   position: relative;
   background-color: #fff;
   border-radius: rem(40);
+  min-width: rem(360);
   width: rem(720);
   top: 50%;
   transform: translateY(-50%);
   margin: 0 auto; 
 
   .note-modal-header {
-    padding: rem(64) rem(64) 0;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -214,32 +253,172 @@ $note-heading-gray:   #767676;
 
       & h1 {
         font-weight: bold;
-        font-size: rem(24);
+        font-size: rem(20);
         color: $note-heading-black;
         letter-spacing: $letter-spacing;
       }
     }
     svg {
       fill: $note-heading-black;
-      margin-top: 4px;    
+      margin-top: rem(3);    
     }    
   }
   .note-modal-content {
-    padding: 0 rem(64) rem(64);
+    padding-bottom: rem(64);
   }
 
   .note-modal-button {
     height: rem(96);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    margin: 0 rem(-64) ; 
     border-top: 1px solid #C2C2C2;
     cursor: pointer;
     & h1 {
       font-weight: bold;
-      font-size: rem(24);
+      font-size: rem(20);
       color: $note-heading-gray;
       letter-spacing: $letter-spacing;
     }
+    & :hover {
+      color: $primary;
+    }
+  }
+}
+@media screen and (max-width: 767px){
+  .note-modal-container {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+}
+
+// == note: note container; board
+// --------------------------------
+.note-board-container {
+  @extend .note-container;
+  overflow-y: auto;
+  flex-direction: column;
+}
+.note-issuecard-wrapper {
+  margin-bottom: rem(16);
+  padding: rem(16);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  border-radius: rem(20);
+  box-shadow: rem(2) rem(4) rem(20) rgba(25, 25, 25, 0.1);
+
+  h1 {
+    font-weight: bold;
+    font-size: rem(16);
+    line-height: rem(24);
+    letter-spacing: $letter-spacing;
+    color: $note-heading-black;
+  }
+}
+
+// == note: note container; detail
+// --------------------------------
+.note-detail-container {
+  @extend .note-container;  
+  justify-content: space-between;
+}
+
+.note-detail-wrapper {
+  padding: rem(24);
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  border-radius: rem(20);
+  box-shadow: rem(2) rem(4) rem(20) rgba(25, 25, 25, 0.1);
+  
+  .note-detail-header {
+    display: flex;
+    flex-direction: column;
+    
+    .note-detail-header-step {
+      display: flex;
+      justify-content: space-between;
+
+      & span {
+        margin-left: rem(12);
+        font-weight: bold;
+        font-size: rem(16);
+        letter-spacing: $letter-spacing;
+        color: $note-heading-gray;
+      }
+    }
+
+    .note-detail-header-title {
+      display: flex;
+      flex-direction: row;
+      margin: rem(12) 0;
+      
+      .note-detail-header-title-heading {
+        font-weight: bold;
+        font-size: rem(20);
+        line-height: rem(24);
+        letter-spacing: $letter-spacing;
+        color: $note-heading-black;
+      }
+
+      .note-detail-header-title-svg {
+        margin-top: rem(2);
+        margin-left: rem(16); 
+      }  
+    }
+
+    .note-detail-header-info {
+      .note-detail-tag {
+        height: rem(24);
+        border-radius: rem(24);  
+        display: inline-block;
+        margin: rem(6) rem(6) rem(6) 0;
+        padding: 0 rem(20);
+        text-align: center;
+        vertical-align: middle;    
+        font-size: rem(14);
+        line-height: rem(24);
+        font-weight: bold;
+        letter-spacing: $letter-spacing;    
+
+        & svg {
+          width: rem(16);
+          height: rem(16);
+          margin-top: rem(-2);
+          margin-right: rem(2);     
+        }    
+      }
+      .note-detail-crew-tag {
+        @extend .note-detail-tag;
+        padding: 0 rem(12);
+        color: #FFFFFF;
+        background-color: #767676;
+      }
+    }
+  }
+  
+  .note-detail-content{
+    margin: rem(16) 0 rem(24);
+    p {
+      font-size: rem(16);
+      line-height: rem(18);
+      letter-spacing: $letter-spacing;
+      color: $note-heading-black;
+    }  
+  }
+
+  .note-detail-footer {
+    display: flex;
+    justify-content: space-between;
+    p {
+      font-size: rem(14);
+      line-height: rem(18);
+      letter-spacing: $letter-spacing;
+      color: #BCBCBC;
+    }  
   }
 }

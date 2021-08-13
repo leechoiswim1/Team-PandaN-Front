@@ -20,21 +20,12 @@ const Bookmark = ({ history, match, ...rest }) => {
   return (
     <Template>
       <div className="content" id="content">
-        <Container>
+        <div className="note-board-container">
           <IssueList history={history} notes={bookmarkList} type="bookmark" />
-        </Container>
+        </div>
       </div>
     </Template>
   );
 };
-
-const Container = styled.div(
-  ...t`
-  width: 100%;
-  height: calc( 100% - 120px );
-  padding: 0 36px;
-  overflow: auto;
-`,
-);
 
 export default Bookmark;

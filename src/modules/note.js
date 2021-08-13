@@ -51,6 +51,7 @@ const GET_NOTE_DETAIL         = "note/GET_NOTE_DETAIL";
 const ADD_NOTE                = "note/ADD_NOTE";
 const EDIT_NOTE               = "note/EDIT_NOTE";
 const DELETE_NOTE             = "note/DELETE_NOTE";
+const SET_MODIFIED_NOTE       = "note/SET_MODIFIED_NOTE";
 /* bookmark */
 const GET_BOOKMARK            = "note/GET_BOOKMARK";
 const SET_BOOKMARK            = "note/SET_BOOKMARK";
@@ -69,9 +70,10 @@ const getProjectMyNotes       = createAction(GET_PROJECT_MY_NOTES, myNoteList =>
 /* note - detail */
 const getNoteDetail           = createAction(GET_NOTE_DETAIL, note => ({ note }));
 /* note - CRUD */
-const addNote                 = createAction(ADD_NOTE, noteId => ({ noteId }));
+const addNote                 = createAction(ADD_NOTE, newNote => ({ newNote }));
 const editNote                = createAction(EDIT_NOTE, noteId => ({ noteId }));
 const deleteNote              = createAction(DELETE_NOTE, noteId => ({ noteId }));
+const setModifiedNote         = createAction(SET_MODIFIED_NOTE, modifiedNote => ({ modifiedNote }));
 /* bookmark */
 const getBookmark             = createAction(GET_BOOKMARK, myBookmarkNoteList => ({ myBookmarkNoteList }));
 const setBookmark             = createAction(SET_BOOKMARK, noteId => ({ noteId }));
@@ -131,18 +133,11 @@ const __getNoteDetail =
 
 /* note - CRUD */
 const __addNote =
-  (noteId, newNote) =>
+  (projectId, newNote) =>
   async (dispatch, getState, { history }) => {
     try {
-      const newNote = {
-        title: newNote.title,
-        content: newNote.content,
-        deadline: newNote.deadline,
-        step: newNote.step,
-      };
-      const { data } = await noteApi.addNote(noteId, newNote);
-      console.log(data);
-      // dispatch(addNote(data))
+      const { data } = await noteApi.addNote(projectId, newNote);
+      dispatch(addNote(data));
     } catch (e) {
       console.log(e);
     }
@@ -152,15 +147,8 @@ const __editNote =
   (noteId, modifiedNote) =>
   async (dispatch, getState, { history }) => {
     try {  
-      const newNote = {
-        title: modifiedNote.title,
-        content: modifiedNote.content,
-        deadline: modifiedNote.deadline,
-        step: modifiedNote.step,
-      };
-      const { data } = await noteApi.editNote(noteId, newNote);
-      console.log(data);
-      // dispatch(editNote(data))
+      const { data } = await noteApi.editNote(noteId, modifiedNote);
+      dispatch(setModifiedNote(data))
     } catch (e) {
       console.log(e);
     }
@@ -258,23 +246,33 @@ const note = handleActions(
       };
     },
     [ADD_NOTE]: (state, action) => {
+      const note = action.payload.newNote;
       return {
         ...state,
-        detail: action.payload.note,
+        list: state.list.map((step) => {
+          if ( step.step === note.step) {
+            return {
+              ...step,
+              notes: [note, ...step.notes]
+            }
+          } else {
+            return step;
+          }
+        })
       };
     },
-    [EDIT_NOTE]: (state, action) => {
-      // 배열에서 특정값을 찾아서 불변성 유지하면서 수정해주기
-			const data = action.payload.newContent;
+    [SET_MODIFIED_NOTE]: (state, action) => {
+			const note = action.payload.modifiedNote;
 			return {
 				...state,
-				comments: state.comments.map((comment, idx) => {
-					if (comment.id === data.id) {
-						return (state.comments[idx] = data);
-					} else {
-						return comment;
-					}
-				}),
+        detail: {
+          ...state.detail, 
+          noteId: note.noteId,
+          title: note.title,
+          content: note.content,
+          deadline: note.deadline,
+          step: note.step,
+        }
 			};
     },
     [DELETE_NOTE]: (state, action) => {

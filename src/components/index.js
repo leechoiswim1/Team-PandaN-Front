@@ -27,6 +27,7 @@ import KanbanCard from "./notes/KanbanCard";
 import KanbanList from "./notes/KanbanList";
 import KanbanBoard from "./notes/KanbanBoard";
 import WritingNoteModal from "./notes/WritingNoteModal";
+import EditingNoteModal from "./notes/EditingNoteModal";
 /* == Note - issue list; card */
 import IssueCard from "./notes/IssueCard";
 import IssueList from "./notes/IssueList";
@@ -61,6 +62,7 @@ export {
   KanbanCard,
   KanbanBoard,
   WritingNoteModal,
+  EditingNoteModal,
   /* == Note - list */
   IssueCard,
   IssueList,

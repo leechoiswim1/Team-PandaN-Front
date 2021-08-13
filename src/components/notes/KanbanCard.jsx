@@ -1,21 +1,23 @@
 import React  from "react";
 /* == Library - style */
 import styled, { css } from "styled-components";
+/* == Library - icon */
+import { Clock } from "react-feather";
+/* == Library - date */
 import moment from "moment";
-import "moment/locale/ko";
 
 // * == ( kanban / Note ) -------------------- * //
 const KanbanCard = ({ note, step, ...rest }) => {
-  const deadline = moment(note.deadline).toNow();
+  const deadline = note.deadline ? moment(note.deadline).format("YYYY년 M월 D일") : "" ;
+  let dateDiff = note.deadline ? moment(note.deadline).diff(moment(), "days") : "" ;
+  // const deadline = moment(note.deadline).toNow();
   return (
     <div className="kanban-card">
       <h1>{note.title}</h1>
-      <p>{note.content}</p>
-      <Tag className="kanban-card-tag" type={step}>
-        {step}
+      <Tag className="kanban-card-tag" type={step} dateDiff={dateDiff}>
+        <Clock/>
+        {deadline}
       </Tag>
-      <hr />
-      <p>{deadline}</p>
     </div>
   );
 };
@@ -23,20 +25,21 @@ const KanbanCard = ({ note, step, ...rest }) => {
 const Tag = styled.div`
 ${(props) => (props.type === "STORAGE") && 
   css`  
-    background-color: #E1D3F8;
+    background-color: #FFCD40;
   `}
 ${(props) => (props.type === "TODO") && 
   css`  
-    background-color: #CCE4F8;
+    background-color: #ADBE4F;
   `}
 ${(props) => (props.type === "PROCESSING") && 
 css`  
-  background-color: #FFE3B0;
+  background-color: #9BD09C;
 `}
 ${(props) => (props.type === "DONE") && 
   css`  
-    background-color: #F9CDE5;
+    background-color: #F5DAAE;
   `}
+  color: ${(props) => props.dateDiff <= -1 ? "#B00033" : "#fff"};
 `
 
 export default KanbanCard;

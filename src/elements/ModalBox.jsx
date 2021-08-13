@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 
 /* == Library - style */
 import styled, { css } from "styled-components";
 import { t }  from "../util/remConverter";
 
 /* == Custom - Icon */
-import { ReactComponent as Add } from "../styles/images/ico-project-add.svg";
-import { ReactComponent as Close } from "../styles/images/ico-close.svg";
+import { ReactComponent as Add }      from "../styles/images/ico-project-add.svg";
+import { ReactComponent as Close }    from "../styles/images/ico-close.svg";
+/* == Custom - components */
 
 /* == Redux - actions */
 import { useSelector, useDispatch }   from 'react-redux';
@@ -21,7 +22,10 @@ const ModalBox = ( props ) => {
     visible,
     children,
     heading,
-    btntext
+    btntext,
+    btntext2,
+    onSubmit,
+    onDelete,
   } = props
 
   const onMaskClick = (e) => {
@@ -35,6 +39,15 @@ const ModalBox = ( props ) => {
       onClose(e);
     }
   }
+
+  useEffect(() => {
+    document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = `position: ""; top: "";`;
+      window.scrollTo(0, parseInt(scrollY || "0") * -1);
+    };
+  }, []);
 
   return (
     <>
@@ -57,7 +70,8 @@ const ModalBox = ( props ) => {
             {children}
           </div>
           <div className="note-modal-button">
-            <h1>{btntext}</h1>
+            <h1 onClick={onSubmit}>{btntext}</h1>
+            {btntext2 && <h1 onClick={onDelete}>{btntext2}</h1>}
           </div>
         </div>
       </ModalWrapper>
