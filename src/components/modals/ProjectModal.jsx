@@ -39,7 +39,7 @@ const ProjectModal = () => {
 
   return (
     <>
-      <IconProjectAdd width="40" height="40" fill="#9A9A9A" className="menu-icon" onClick={() => setModalState(true)} />
+      <IconProjectAdd className="menu-icon" onClick={() => setModalState(true)} />
       <span className="menu-text" onClick={() => setModalState(true)}>
         프로젝트 만들기
       </span>

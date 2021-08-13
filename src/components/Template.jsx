@@ -9,7 +9,7 @@ import Sidebar from "./Sidebar";
 
 // import { Container, Row, Col, Button, Alert, Breadcrumb, Card, Form } from 'react-bootstrap';
 
-const Template = props => {
+const Template = (props) => {
   return (
     <div className="col-wrap" id="wrap">
       {/* == left */}

@@ -153,6 +153,10 @@ $header-height: rem(80);
     padding-left: 0;
   }
 
+  .menu-item + .menu-item {
+    padding-top: rem(20);
+  }
+
   .menu-item {
     position: relative;
 
@@ -184,12 +188,6 @@ $header-height: rem(80);
     font-size: rem(18);
     font-weight: 700;
     text-decoration: none;
-    padding-top: rem(10);
-    padding-bottom: rem(10);
-
-    .menu-icon {
-      margin-top: -3px;
-    }
 
     &:hover {
       color: $primary;
@@ -207,6 +205,13 @@ $header-height: rem(80);
     }
   }
 
+  .menu-icon {
+    fill: #9A9A9A;
+    width: rem(30);
+    height: rem(30);
+    margin-top: -3px;
+  }
+
   // == accordion
   .accordion {
     padding: 0;
@@ -219,7 +224,7 @@ $header-height: rem(80);
       font-size: rem(18);
       font-weight: 700;
       text-decoration: none;
-      padding-top: rem(10);
+      // padding-top: 0;
       padding-right: 0;
       padding-bottom: rem(10);
       padding-left: 0;
@@ -242,7 +247,7 @@ $header-height: rem(80);
       box-shadow: none;
       background-color: #ffffff;
 
-      svg {
+      .menu-icon {
         fill: $primary;
         color: $primary;
       }
@@ -302,6 +307,7 @@ $header-height: rem(80);
       position: absolute;
       white-space: nowrap;
       width: 1px;
+      margin-left: rem(10);
     }
     .accordion .accordion-collapse,
     .accordion-button::after,
