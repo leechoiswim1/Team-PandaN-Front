@@ -307,7 +307,6 @@ $note-heading-gray:   #767676;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: rem(16);
   background-color: #FFFFFF;
   border-radius: rem(20);
   box-shadow: rem(2) rem(4) rem(20) rgba(25, 25, 25, 0.1);
@@ -318,5 +317,108 @@ $note-heading-gray:   #767676;
     line-height: rem(24);
     letter-spacing: $letter-spacing;
     color: $note-heading-black;
+  }
+}
+
+// == note: note container; detail
+// --------------------------------
+.note-detail-container {
+  @extend .note-container;  
+  justify-content: space-between;
+}
+
+.note-detail-wrapper {
+  padding: rem(24);
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  border-radius: rem(20);
+  box-shadow: rem(2) rem(4) rem(20) rgba(25, 25, 25, 0.1);
+  
+  .note-detail-header {
+    display: flex;
+    flex-direction: column;
+    
+    .note-detail-header-step {
+      display: flex;
+      justify-content: space-between;
+
+      & span {
+        margin-left: rem(12);
+        font-weight: bold;
+        font-size: rem(16);
+        letter-spacing: $letter-spacing;
+        color: $note-heading-gray;
+      }
+    }
+
+    .note-detail-header-title {
+      display: flex;
+      flex-direction: row;
+      margin: rem(12) 0;
+      
+      .note-detail-header-title-heading {
+        font-weight: bold;
+        font-size: rem(20);
+        line-height: rem(24);
+        letter-spacing: $letter-spacing;
+        color: $note-heading-black;
+      }
+
+      .note-detail-header-title-svg {
+        margin-top: rem(2);
+        margin-left: rem(16); 
+      }  
+    }
+
+    .note-detail-header-info {
+      .note-detail-tag {
+        height: rem(24);
+        border-radius: rem(24);  
+        display: inline-block;
+        margin: rem(6) rem(6) rem(6) 0;
+        padding: 0 rem(20);
+        text-align: center;
+        vertical-align: middle;    
+        font-size: rem(14);
+        line-height: rem(24);
+        font-weight: bold;
+        letter-spacing: $letter-spacing;    
+
+        & svg {
+          width: rem(16);
+          height: rem(16);
+          margin-top: rem(-2);
+          margin-right: rem(2);     
+        }    
+      }
+      .note-detail-crew-tag {
+        @extend .note-detail-tag;
+        padding: 0 rem(12);
+        color: #FFFFFF;
+        background-color: #767676;
+      }
+    }
+  }
+  
+  .note-detail-content{
+    margin: rem(16) 0 rem(24);
+    p {
+      font-size: rem(16);
+      line-height: rem(18);
+      letter-spacing: $letter-spacing;
+      color: $note-heading-black;
+    }  
+  }
+
+  .note-detail-footer {
+    display: flex;
+    justify-content: space-between;
+    p {
+      font-size: rem(14);
+      line-height: rem(18);
+      letter-spacing: $letter-spacing;
+      color: #BCBCBC;
+    }  
   }
 }
