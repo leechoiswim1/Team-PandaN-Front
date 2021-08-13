@@ -24,11 +24,12 @@ import { userActions } from "../modules/user";
 const Header = ({ history }) => {
   const dispatch = useDispatch();
   const logout = () => {
-    // dispatch(userActions.__logout());
+    dispatch(userActions.__logout());
   };
 
   useEffect(() => {
     dispatch(userActions.__getUserDetail());
+    dispatch(userActions.__setLogin());
   }, []);
 
   const user = useSelector((state) => state.user);

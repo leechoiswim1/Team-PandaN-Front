@@ -13,7 +13,6 @@ import { actionCreators as projectActions } from "../../modules/project";
 const Kanban = ({ history, match, ...rest }) => {
   const dispatch = useDispatch();
   const projectId = match.params.projectId;
-  
   useEffect(() => {
     dispatch(noteActions.__getKanbanNotes(projectId));
   }, [projectId]);

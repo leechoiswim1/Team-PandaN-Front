@@ -7,11 +7,12 @@ import { t } from "../../util/remConverter";
 
 import { actionCreators as projectActions } from "../../modules/project";
 import { useDispatch } from "react-redux";
+import { history } from "../../modules/configStore";
 
 import { ReactComponent as IconMemberAdd } from "../../styles/images/ico-member-add.svg";
 
 const ProjectJoin = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();  
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -28,6 +29,7 @@ const ProjectJoin = () => {
     dispatch(projectActions.__joinProject(inviteCode));
     window.alert("초대가 완료됐습니다!");
     setShow(false);
+    history.push("/");
   };
 
   const changeInviteCode = (e) => {

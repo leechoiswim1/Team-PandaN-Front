@@ -56,9 +56,7 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li className="menu-item">
-              <Link to="" className="menu-link">
-                <ProjectModal />
-              </Link>
+              <ProjectModal />
             </li>
             <li className="menu-item">
               <Accordion defaultActiveKey="0" className="my-project-group">

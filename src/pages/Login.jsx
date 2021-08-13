@@ -9,7 +9,7 @@ import { useDispatch }     from "react-redux";
 
 const Login = ({ history }) => {
   const dispatch = useDispatch();
-
+  
   return (
     <Wrapper>
       <Container>
@@ -21,9 +21,7 @@ const Login = ({ history }) => {
         <form action="http://blossomwhale.shop/oauth2/authorization/google">
           <GoogleButton type="submit"/>
         </form>
-        {/* script */}
-        <div id="btn-close-sidebar"></div>
-        <div id="btn-hamburger"></div>
+
       </Container>
     </Wrapper>
   );
