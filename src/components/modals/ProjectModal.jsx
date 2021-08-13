@@ -239,12 +239,15 @@ const TextDesc = styled.p(
 
 const ModalBodyRight = styled.div(
   ...t`
-display:block; 
-width: 45% ;
-background: #E1EDE4; 
-@media (max-width: 500px) {
+  display:block; 
+  box-sizing:border-box;
+  width: 45% ;
+  background: #E1EDE4;
+  border-top-right-radius: 27px; 
+  @media (max-width: 500px) {
   display :none;
-}
+  }
+
 
 `,
 );

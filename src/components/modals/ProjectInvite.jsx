@@ -29,7 +29,7 @@ const ProjectInvite = (props) => {
 
   return (
     <>
-      <IconMemberAdd cursor="pointer" width="40" height="40" fill="#9A9A9A" className="menu-icon" onClick={handleShow} />
+      <IconMemberAdd cursor="pointer" width="30" height="30" fill="#9A9A9A" className="menu-icon" onClick={handleShow} />
 
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>

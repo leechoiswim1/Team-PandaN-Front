@@ -66,12 +66,12 @@ const Header = ({ history }) => {
             {/* <button><IconProfile width="40" height="40" fill="#767676" /></button> */}
             <Dropdown>
               <Dropdown.Toggle variant="success" align="end">
-                <IconProfile width="35" height="35" fill="#ffffff" />
+                <IconProfile width="35" height="35" fill="#9A9A9A" />
               </Dropdown.Toggle>
 
               <Dropdown.Menu className="dropdown-group">
                 <Dropdown.ItemText className="text-center">
-                  <IconProfile width="40" height="40" fill="#ffffff" className="dropdown-profile" />
+                  <IconProfile width="40" height="40" fill="#9A9A9A" className="dropdown-profile" />
                   <p className="dropdown-name">{user.name}</p>
                   <p className="dropdown-email">{user.email}</p>
                 </Dropdown.ItemText>
