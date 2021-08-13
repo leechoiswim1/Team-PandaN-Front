@@ -70,13 +70,17 @@ function sidebar() {
   const screenLg = 1200;
   const screenSm = 768;
 
-  btnClose.onclick = function () {
-    body.classList.remove("sidebar-active");
-  };
+  if (btnClose !== null) {
+    btnClose.onclick = function () {
+      body.classList.remove("sidebar-active");
+    };
+  }
 
-  btnHamburger.onclick = function () {
-    body.classList.toggle("sidebar-active");
-  };
+  if (btnHamburger !== null) {
+    btnHamburger.onclick = function () {
+      body.classList.toggle("sidebar-active");
+    };
+  }
 
   if (windowW >= screenLg) {
     // 1200px ~
