@@ -30,49 +30,24 @@ const ProjectJoin = () => {
     setShow(false);
   };
 
-  const changeInviteCode = e => {
+  const changeInviteCode = (e) => {
     setInviteCode(e.target.value);
   };
   return (
     <div>
-      <Button
-        variant="primary"
-        size="lg"
-        className="d-block"
-        onClick={handleShow}
-      >
+      <Button variant="primary" size="lg" className="d-block" onClick={handleShow} style={{ width: "100%" }}>
         프로젝트 초대코드 등록
       </Button>
 
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>
           <div style={{ display: "flex", height: "25px" }}>
-            <IconMemberAdd
-              cursor="pointer"
-              width="25px"
-              height="25px"
-              fill="#000000"
-              className="menu-icon"
-              position="absolute"
-            />
-            <Modal.Title
-              style={{ fontWeight: "700", color: "#000000", fontSize: "15px" }}
-            >
-              프로젝트 판단권 등록
-            </Modal.Title>
+            <IconMemberAdd cursor="pointer" width="25px" height="25px" fill="#000000" className="menu-icon" position="absolute" />
+            <Modal.Title style={{ fontWeight: "700", color: "#000000", fontSize: "15px" }}>프로젝트 판단권 등록</Modal.Title>
           </div>
         </Modal.Header>
         <Modal.Body width="100%">
-          <Input
-            style={{}}
-            placeholder="초대코드를 입력해주세요!"
-            onChange={changeInviteCode}
-          />
+          <Input style={{}} placeholder="초대코드를 입력해주세요!" onChange={changeInviteCode} />
         </Modal.Body>
         <Modal.Footer>
           <JoinBtn variant="primary" onClick={JoinProject}>
