@@ -7,6 +7,9 @@ import { Bookmark } from "react-feather";
 /* == Library - date */
 import moment from "moment";
 
+/* == Library - router */
+import { Link } from "react-router-dom";
+
 /* == Custom - Icon */
 import IconSteps                        from "../../elements/IconSteps";
 
@@ -47,7 +50,7 @@ const IssueCard = (props) => {
           <IconSteps type={step}/> 
         </div>
         <NoteDesc>
-          <a href={`/projects/${projectId}/notes/${noteId}`}><h1>{title}</h1></a>
+          <Link to={`/projects/${projectId}/notes/${noteId}`}><h1>{title}</h1></Link>
           <div>
             {/* <Tag className="kanban-card-tag" type={step}>
               { step }
