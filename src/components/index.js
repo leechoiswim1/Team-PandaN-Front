@@ -6,6 +6,7 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Template from "./Template";
 import Contents from "./Contents";
+import Spinner from "./Spinner.jsx";
 
 /* Modal */
 import Modals from "./modals/Modals";
@@ -44,6 +45,7 @@ export {
   Sidebar,
   Template,
   Contents,
+  Spinner,
   /* == Modal */
   NoteModal,
   Modals,
