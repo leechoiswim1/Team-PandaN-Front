@@ -1,23 +1,41 @@
-import React from "react";
-/* styled-components 및 rem 변환 모듈 */
+import React, { useState } from "react";
+
+/* == Library */
 import styled, { css } from "styled-components";
 import { t } from "../util/remConverter";
-import { runFunction } from "../util/layout";
-/* components & elements */
+import { Button, Collapse } from "react-bootstrap";
+
+/* == Library - Icon (react-feather) */
+// https://feathericons.com/
+import { AlignRight } from "react-feather";
+
+/* == Custom - Component */
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
-// import { Container, Row, Col, Button, Alert, Breadcrumb, Card, Form } from 'react-bootstrap';
+// * == (Template) -------------------- * //
 
 const Template = (props) => {
+  const [open, setOpen] = useState(false)
+
   return (
     <div className="col-wrap" id="wrap">
+      
       {/* == left */}
-      <div className="col-left" id="sidebar">
-        <Sidebar />
-      </div>
+      <Collapse in={open}>
+        <div className="col-left" id="sidebar">
+          <Sidebar />
+        </div>
+      </Collapse>
       {/* == right */}
       <div className="col-right">
+        <Button id="btn-hamburger" className="btn-hamburger"
+          onClick={() => setOpen(!open)}
+          aria-controls="example-collapse-text"
+          aria-expanded={open}
+        >
+          <AlignRight />
+        </Button>
         <Header />
         {props.children}
       </div>
