@@ -54,7 +54,7 @@ const Sidebar = (props) => {
             </li>
             <li className="menu-item">
               <div className="menu-link">
-                <ProjectModal sidebar={sidebar} />
+                <ProjectModal sidebar="sidebar" />
               </div>
             </li>
             <li className="menu-item">
