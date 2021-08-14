@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { t } from "../../util/remConverter";
 /* == Custom - Component */
-import { Template, ProjectHeader, InnerHeader, IssueList } from "../../components";
+import { Template, ProjectHeader, InnerHeader, IssueList, EmptyBoard } from "../../components";
 /* == Redux - actions */
 import { useSelector, useDispatch } from "react-redux";
 import { noteActions } from "../../modules/note";
@@ -24,7 +24,8 @@ const ProjectMyNote = ({ history, match, ...rest }) => {
         <ProjectHeader match={match} />
         <InnerHeader history={history} match={match} projectId={projectId} />
         <div className="note-board-container">
-          <IssueList history={history} notes={myNote} projectId={projectId} type="projectMyNote" />
+          { myNote && <IssueList history={history} notes={myNote} projectId={projectId} type="projectMyNote" /> }
+          { myNote.length === 0 && <EmptyBoard type="projectMyNote"/> }          
         </div>
       </div>
     </Template>
