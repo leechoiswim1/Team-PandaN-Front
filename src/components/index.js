@@ -31,6 +31,7 @@ import EditingNoteModal from "./notes/EditingNoteModal";
 /* == Note - issue list; card */
 import IssueCard from "./notes/IssueCard";
 import IssueList from "./notes/IssueList";
+import EmptyBoard from "./notes/EmptyBoard";
 /* == Note - detail */
 import NoteDetail from "./notes/NoteDetail";
 /* == Note - detail - Comment */
@@ -66,6 +67,7 @@ export {
   /* == Note - list */
   IssueCard,
   IssueList,
+  EmptyBoard,
   /* == Note - detail */
   NoteDetail,
   /* == Note - detail - Comment */
