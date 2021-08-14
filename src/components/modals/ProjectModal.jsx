@@ -4,7 +4,7 @@ import ModalPortal from "../../util/ModalPotal";
 
 import { actionCreators as projectActions } from "../../modules/project";
 import { useDispatch } from "react-redux";
-
+import { history } from "../../modules/configStore";
 import { t } from "../../util/remConverter";
 import { ReactComponent as IconProjectAdd } from "../../styles/images/ico-project-add.svg";
 import modalSideImage from "../../styles/images/modalSideImage.PNG";
@@ -27,6 +27,8 @@ const ProjectModal = (props) => {
     };
     dispatch(projectActions.__postProject(project));
     setModalState(false);
+
+    history.push("./");
   };
 
   const changeProTitle = (e) => {
@@ -41,8 +43,15 @@ const ProjectModal = (props) => {
     <>
       {props.sidebar === "sidebar" ? (
         <>
-          <IconProjectAdd width="40" height="40" fill="#9A9A9A" className="menu-icon" onClick={() => setModalState(true)} />
-          <span className="menu-text" onClick={() => setModalState(true)}>
+          <IconProjectAdd
+            width="40"
+            height="40"
+            style={{ cursor: "pointer" }}
+            fill="#9A9A9A"
+            className="menu-icon"
+            onClick={() => setModalState(true)}
+          />
+          <span className="menu-text" style={{ cursor: "pointer" }} onClick={() => setModalState(true)}>
             프로젝트 만들기
           </span>
         </>

@@ -11,6 +11,7 @@ const EDIT_PROJECT = "EDIT_PROJECT";
 const DELETE_PROJECT = "DELETE_PROJECT";
 const INVITE_PROJECT = "INVITE_PROJECT";
 const CHECK_PROJECT_CREWS = "CHECK_PROJECT_CREWS";
+const LOADING = "LOADING";
 
 const setProject = createAction(SET_PROJECT, (project_list) => ({
   project_list,
@@ -40,18 +41,22 @@ const checkProjectCrews = createAction(CHECK_PROJECT_CREWS, (crews, projectId) =
   projectId,
 }));
 
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+
 const initialState = {
   list: [],
   detailList: [],
   sideList: [],
   inviteCodeList: [],
   projectCrews: [],
+  is_loading: false,
 };
 
 const __setProject =
   () =>
   async (dispatch, getState, { history }) => {
     try {
+      dispatch(loading(true));
       const data = await projectApi.getProject();
 
       dispatch(setProject(data.data.projects));
@@ -77,7 +82,7 @@ const __setSideProject =
   async (dispatch, getState, { history }) => {
     try {
       const data = await projectApi.getSideProejct();
-      console.log(data.data);
+
       dispatch(setSideProject(data.data.projects));
     } catch (e) {
       console.log(e);
@@ -90,6 +95,7 @@ const __postProject =
     try {
       const { data } = await projectApi.postProject(project);
       dispatch(addProject(data));
+      dispatch(__setSideProject());
     } catch (e) {
       console.log(e);
     }
@@ -98,10 +104,10 @@ const __postProject =
 const __deleteProject =
   (projectId) =>
   async (dispatch, getState, { history }) => {
-    console.log(projectId);
     try {
       const { data } = await projectApi.deleteProject(projectId);
       dispatch(deleteProject(data.projectId));
+      dispatch(__setSideProject());
     } catch (e) {
       console.log(e);
     }
@@ -112,8 +118,9 @@ const __editProject =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await projectApi.putProject(projectId, project);
-      console.log(data.data);
+      console.log(data);
       dispatch(editProject(data));
+      dispatch(__setSideProject());
     } catch (e) {
       console.log(e);
     }
@@ -158,6 +165,7 @@ export default handleActions(
     [SET_PROJECT]: (state, action) =>
       produce(state, (draft) => {
         draft.list = [...action.payload.project_list];
+        draft.is_loading = false;
       }),
 
     [SET_DETAIL_PROJECT]: (state, action) =>
@@ -167,7 +175,6 @@ export default handleActions(
 
     [SET_SIDE_PROJECT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload);
         draft.sideList = [...action.payload.projects];
       }),
 
@@ -179,7 +186,7 @@ export default handleActions(
     [DELETE_PROJECT]: (state, action) =>
       produce(state, (draft) => {
         let idx = draft.list.findIndex((p) => p.projectId === action.payload.projectId);
-        console.log(idx);
+
         if (idx !== -1) {
           // 배열에서 idx 위치의 요소 1개를 지웁니다.
           draft.list.splice(idx, 1);
@@ -187,10 +194,7 @@ export default handleActions(
       }),
     [EDIT_PROJECT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload.Project);
-        draft.detailList[0].title = action.payload.Project.title;
-        draft.detailList[0].projectId = action.payload.Project.projectId;
-        draft.detailList[0].detail = action.payload.Project.detail;
+        draft.detailList[0] = action.payload.Project;
       }),
 
     [INVITE_PROJECT]: (state, action) =>
@@ -203,6 +207,10 @@ export default handleActions(
     [CHECK_PROJECT_CREWS]: (state, action) =>
       produce(state, (draft) => {
         draft.projectCrews = [...action.payload.crews.crews];
+      }),
+    [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
       }),
   },
 
