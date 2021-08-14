@@ -38,6 +38,10 @@ const WritingNoteModal = (props) => {
       window.alert("할 일을 입력하세요.");
       return;
     }
+    if (noteInputs.content === "") {
+      window.alert("할 일에 대한 설명을 추가하세요.");
+      return;
+    }
     if (noteInputs.step === "") {
       window.alert("할 일의 상태를 설정하세요.");
       return;
@@ -70,8 +74,10 @@ const WritingNoteModal = (props) => {
           />
         </Form.Group>
         <Form.Group controlId="noteDetail">
-          <Form.Label className="note-modal-label">설명(선택)</Form.Label>
+          <Form.Label className="note-modal-label">설명</Form.Label>
           <Form.Control type="text" placeholder="할 일에 대한 설명을 추가해 주세요."
+            as="textarea"
+            style={{ height: "100px" }}
             onChange={(e)=> {setNoteInputs({...noteInputs, content: e.target.value})}}
           />
         </Form.Group>
@@ -80,7 +86,7 @@ const WritingNoteModal = (props) => {
           <Form.Select placeholder=""
             onChange={(e)=> {setNoteInputs({...noteInputs, step: e.target.value})}}
           >
-            <option>할 일의 상태를 설정하세요.</option>
+            <option value="">할 일의 상태를 설정하세요.</option>
             <option value="STORAGE">STORAGE</option>
             <option value="TODO">TO DO</option>
             <option value="PROCESSING">PROCESSING</option>

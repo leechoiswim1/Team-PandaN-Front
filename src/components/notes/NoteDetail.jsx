@@ -83,7 +83,7 @@ const NoteDetail = ({ history, match, ...rest }) => {
           <h1 className="note-detail-header-title-heading">
             {note.title}
           </h1>       
-          <Edit3 className="note-detail-header-title-svg" onClick={openModal}/>
+          <Edit3 className="note-detail-header-title-svg" onClick={openModal} style={{cursor: "pointer"}}/>
             { modalVisible && 
               <EditingNoteModal
                 note={note}
