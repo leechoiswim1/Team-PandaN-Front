@@ -15,15 +15,16 @@ import { ReactComponent as Write }      from "../../styles/images/ico-kanban-wri
 // * == ( Note / project menu ) -------------------- * //
 const ProjectMenu = ({ history, match, projectId, ...rest }) => {
   /* 
-  * Function - Modal
-  * menuModalVisible : kanban > 노트 작성 모달의 state와 구분
-  */
+   * Function - Modal
+   * menuModalVisible : kanban > 노트 작성 모달의 state와 구분
+   */
   const [menuModalVisible, setMenuModalVisible] = useState(false)
   const openModal  = () => {setMenuModalVisible(true)}
   const closeModal = () => {setMenuModalVisible(false)}
 
   return (
     <div className="project-menu"> 
+
       {/* project menu */}
       <nav>
         <ul>
@@ -58,6 +59,7 @@ const ProjectMenu = ({ history, match, projectId, ...rest }) => {
             projectId={projectId} visible={menuModalVisible} closable={true} maskClosable={true} onClose={closeModal} />
         }      
       </div>
+      
     </div>
   );
 };
