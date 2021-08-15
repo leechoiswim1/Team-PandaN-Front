@@ -70,9 +70,12 @@ const EditingNoteModal = (props) => {
       <Form>
         <Form.Group controlId="noteTitle">
           <Form.Label className="note-modal-label">할 일</Form.Label>
-          <Form.Control type="text" placeholder="제목을 입력해 주세요." defaultValue={note.title}
+          <Form.Control type="text" placeholder="제목을 입력해 주세요." defaultValue={note.title} maxLength={255}
             onChange={(e)=> {setNoteInputs({...noteInputs, title: e.target.value})}}
           />
+          <Form.Text className="text-muted">
+            최대 255자까지 입력 가능합니다.
+          </Form.Text>
         </Form.Group>
         <Form.Group controlId="noteDetail">
           <Form.Label className="note-modal-label">설명</Form.Label>
