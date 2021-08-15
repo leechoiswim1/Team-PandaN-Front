@@ -7,7 +7,7 @@ import { t } from "../../util/remConverter";
 import {
   Template,
   ProjectHeader,
-  InnerHeader,
+  ProjectMenu,
   NoteDetail,
   CommentList,
 } from "../../components";
@@ -19,7 +19,7 @@ const Detail = ({ history, match, ...rest }) => {
     <Template>
       <div className="content" id="content">
         <ProjectHeader match={match}/>
-        <InnerHeader history={history} match={match} projectId={projectId} />
+        <ProjectMenu history={history} match={match} projectId={projectId} />
         <div className="note-detail-container">
           <div
             style={{ width: "100%", display: "flex", justifyContent: "center" }}

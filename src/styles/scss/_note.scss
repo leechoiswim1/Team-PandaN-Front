@@ -12,7 +12,7 @@ $note-heading-gray:   #767676;
 
 // == note: inner header
 // --------------------------------
-.innerheader {
+.project-menu {
   width: 100%;
   height: $inner-header-height;
   padding: 0 rem(30);
@@ -39,7 +39,7 @@ $note-heading-gray:   #767676;
   }
 }
 
-.innerheader-menu-active {
+.project-menu-active {
   color: $primary;
   &:after {
     position: relative;
