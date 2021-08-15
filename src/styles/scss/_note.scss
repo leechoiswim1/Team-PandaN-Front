@@ -204,26 +204,6 @@ $note-heading-gray:   #767676;
     height: rem(2);
     background-color: #BCBCBC;
   } 
-  .kanban-card-tag {
-    height: rem(24);
-    border-radius: rem(24);  
-    display: inline-block;
-    margin: rem(6) 0;
-    padding: 0 rem(20);
-    text-align: center;
-    vertical-align: middle;    
-    font-size: rem(12);
-    line-height: rem(24);
-    font-weight: bold;
-    letter-spacing: $letter-spacing;
-    
-    & svg {
-      width: rem(14);
-      height: rem(14);
-      margin-top: rem(-2);
-      margin-right: rem(2);     
-    }
-  }
 }
 
 // == note: modal
@@ -362,7 +342,7 @@ $note-heading-gray:   #767676;
       &.note-issuecard-title {
         color: $primary;
         &:hover {
-          font-weight: bold;
+          color: $note-heading-black;
         }
       }      
     }
