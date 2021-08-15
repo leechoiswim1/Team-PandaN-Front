@@ -56,7 +56,7 @@ $note-heading-gray:   #767676;
 // --------------------------------
 .note-container {
   width: 100%;
-  // height: calc(100vh - $header-height - rem(50) - $inner-header-height);
+  // height: calc(100vh - #{$header-height} - rem(50) - #{$inner-header-height});
   height: calc(100vh - 166px);
   padding: rem(36) rem(30);
   white-space: nowrap;
@@ -295,13 +295,18 @@ $note-heading-gray:   #767676;
   }
 }
 
-// == note: note container; board
+// == note: board container (Bookmark, MyNote page)
 // --------------------------------
 .note-board-container {
-  @extend .note-container;
+  width: 100%;
+  height: calc(100vh - #{$header-height});
+  padding: rem(36) rem(30);
+  white-space: nowrap;
+  overflow-x: hidden;
   overflow-y: auto;
   flex-direction: column;
 }
+
 .note-issuecard-wrapper {
   margin-bottom: rem(16);
   padding: rem(16);
@@ -312,13 +317,40 @@ $note-heading-gray:   #767676;
   border-radius: rem(20);
   box-shadow: rem(2) rem(4) rem(20) rgba(25, 25, 25, 0.1);
 
-  h1 {
-    font-weight: bold;
-    font-size: rem(16);
-    line-height: rem(24);
-    letter-spacing: $letter-spacing;
-    color: $note-heading-black;
-  }
+  .note-issuecard-content {
+    padding: 0 rem(16);
+
+    a {
+      text-decoration: none;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-size: rem(16);
+      line-height: rem(24);
+      letter-spacing: $letter-spacing;
+      color: $note-heading-black;
+      &:hover {
+        color: $primary;
+      }
+    }
+
+    span {
+      margin-right: rem(12);
+      font-size: rem(16);
+      line-height: rem(24);
+      letter-spacing: $letter-spacing;
+      color: $note-heading-gray;
+      
+      &.note-issuecard-title {
+        color: $primary;
+        &:hover {
+          font-weight: bold;
+        }
+      }      
+    }
+
+  }  
 }
 
 // == note: note container; detail
