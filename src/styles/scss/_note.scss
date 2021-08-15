@@ -447,6 +447,9 @@ $note-heading-gray:   #767676;
       line-height: rem(18);
       letter-spacing: $letter-spacing;
       color: $note-heading-black;
+      white-space: pre-wrap;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }  
   }
 
