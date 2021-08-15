@@ -180,6 +180,14 @@ $note-heading-gray:   #767676;
     letter-spacing: $letter-spacing;
     color: $note-heading-black;
     margin-bottom: rem(8);
+    white-space: normal;
+    word-break: break-all;
+    overflow-wrap: break-word;    
+    // @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 3, $bgColor: white);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   p {
     font-size: rem(12);
@@ -329,6 +337,14 @@ $note-heading-gray:   #767676;
       font-weight: bold;
       font-size: rem(16);
       line-height: rem(24);
+      white-space: normal;
+      word-break: break-all;
+      overflow-wrap: break-word;
+      // @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 3, $bgColor: white);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
       letter-spacing: $letter-spacing;
       color: $note-heading-black;
       &:hover {
@@ -400,6 +416,9 @@ $note-heading-gray:   #767676;
       display: flex;
       flex-direction: row;
       margin: rem(12) 0;
+      white-space: normal;
+      word-break: break-all;
+      overflow-wrap: break-word;
       
       .note-detail-header-title-heading {
         font-weight: bold;
