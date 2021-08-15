@@ -56,17 +56,6 @@ const EditingNoteModal = (props) => {
     onClose(e);
   };
 
-  const deleteNote = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const result = window.confirm("노트를 삭제하시겠습니까?");
-    if (result) {
-      dispatch(noteActions.__deleteNote(noteId));
-      onClose(e);
-    } else return;  
-  };
-
-
   return (
     <ModalBox 
       visible={visible} 
@@ -76,9 +65,7 @@ const EditingNoteModal = (props) => {
       closable={closable}
       heading="할 일 수정하기" 
       btntext="수정하기"
-      btntext2="삭제하기"
       onSubmit={editNote}
-      onDelete={deleteNote}
       >
       <Form>
         <Form.Group controlId="noteTitle">

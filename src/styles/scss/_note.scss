@@ -386,6 +386,16 @@ $note-heading-gray:   #767676;
       }
     }
 
+    .note-detail-header-button {
+      margin-left: rem(4); 
+      cursor: pointer;
+      transition: all .2s ease-in-out;
+      &:hover{
+        color: $primary;
+        transform: scale(1.05); 
+      }
+    }  
+
     .note-detail-header-title {
       display: flex;
       flex-direction: row;
@@ -398,11 +408,6 @@ $note-heading-gray:   #767676;
         letter-spacing: $letter-spacing;
         color: $note-heading-black;
       }
-
-      .note-detail-header-title-svg {
-        margin-top: rem(2);
-        margin-left: rem(16); 
-      }  
     }
 
     .note-detail-header-info {
