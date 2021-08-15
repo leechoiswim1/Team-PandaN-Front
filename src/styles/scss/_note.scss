@@ -10,7 +10,7 @@ $letter-spacing:      -0.03rem;
 $note-heading-black:  #191919;
 $note-heading-gray:   #767676;
 
-// == note: inner header
+// == note: project menu
 // --------------------------------
 .project-menu {
   width: 100%;
@@ -481,5 +481,28 @@ $note-heading-gray:   #767676;
       letter-spacing: $letter-spacing;
       color: #BCBCBC;
     }  
+  }
+}
+
+// == note: label
+// --------------------------------
+.note-step-label {
+  height: rem(24);
+  border-radius: rem(24);  
+  display: inline-block;
+  margin: rem(6) 0;
+  padding: 0 rem(20);
+  text-align: center;
+  vertical-align: middle;    
+  font-size: rem(12);
+  line-height: rem(24);
+  font-weight: bold;
+  letter-spacing: $letter-spacing;
+  
+  & svg {
+    width: rem(14);
+    height: rem(14);
+    margin-top: rem(-2);
+    margin-right: rem(2);     
   }
 }
