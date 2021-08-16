@@ -11,11 +11,6 @@ import { AlignRight } from "react-feather";
 
 /* == Custom - Component */
 
-/* == Custom - Icon */
-import { ReactComponent as IconSearch } from "../styles/images/ico-search.svg";
-import { ReactComponent as IconMemberAdd } from "../styles/images/ico-member-add.svg";
-import { ReactComponent as IconProfile } from "../styles/images/ico-profile.svg";
-
 /* == Redux - actions */
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../modules/user";
@@ -33,7 +28,10 @@ const Header = ({ history }) => {
   }, []);
 
   const user = useSelector((state) => state.user);
-
+  const userImage =
+    user.picture == null
+      ? "https://e7.pngegg.com/pngimages/287/501/png-clipart-giant-panda-emoji-coloring-book-drawing-sticker-emoji-child-face-thumbnail.png"
+      : user.picture;
   return (
     <header className="header" id="header">
       <Container fluid>
@@ -67,12 +65,12 @@ const Header = ({ history }) => {
             {/* <button><IconProfile width="40" height="40" fill="#767676" /></button> */}
             <Dropdown>
               <Dropdown.Toggle variant="success" align="end">
-                <IconProfile width="35" height="35" fill="#9A9A9A" />
+                <img src={userImage} alt="profileImage" style={{ width: "35px", height: "35px" }} className="dropdown-profile" />
               </Dropdown.Toggle>
 
               <Dropdown.Menu className="dropdown-group">
                 <Dropdown.ItemText className="text-center">
-                  <IconProfile width="40" height="40" fill="#9A9A9A" className="dropdown-profile" />
+                  <img src={userImage} alt="profileImage" style={{ width: "40px", height: "40px" }} className="dropdown-profile" />
                   <p className="dropdown-name">{user.name}</p>
                   <p className="dropdown-email">{user.email}</p>
                 </Dropdown.ItemText>
