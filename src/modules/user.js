@@ -54,7 +54,7 @@ const __getUserDetail =
 			// localStorage.setItem("userInfo", decoded.sub);
       // const decoded = jwt_decode(data);
 			setCookie("token", data.name, 1);
-			history.push("/");
+			// history.push("/");
       dispatch(getUserDetail(data));
     } catch (e) {
       console.log(e);

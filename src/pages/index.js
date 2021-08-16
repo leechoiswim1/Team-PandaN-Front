@@ -1,5 +1,6 @@
 import Home from "./Home";
 import Login from "./Login";
+import Search from "./Search";
 
 /* == Note */
 import Bookmark from "./notes/Bookmark";
@@ -13,6 +14,7 @@ import NotFound from "./NotFound";
 export {
   Home,
   Login,
+  Search,
   NotFound,
   /* == Note */
   Bookmark,

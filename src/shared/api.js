@@ -51,3 +51,8 @@ export const noteApi = {
 export const commentApi = {
   getCommentList: () => instance.get(""),
 };
+
+/* == API - search */
+export const searchApi = {
+  getSearchList: () => instance.get(""),
+};

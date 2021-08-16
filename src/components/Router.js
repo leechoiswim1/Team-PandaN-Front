@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Auth from "../shared/auth";
 
 /* == Pages */
-import { Login, Home, Bookmark, MyNote, Kanban, Detail, ProjectIssue, ProjectMyNote, NotFound } from "../pages";
+import { Login, Home, Bookmark, MyNote, Kanban, Detail, ProjectIssue, ProjectMyNote, NotFound, Search } from "../pages";
 
 // * == ( Router ) -------------------- * //
 const Router = () => {
@@ -18,6 +18,7 @@ const Router = () => {
       <Route path="/projects/:projectId/notes/:noteId" component={Auth(Detail, true)} exact />
       <Route path="/projects/:projectId/issue" component={Auth(ProjectIssue, true)} exact />
       <Route path="/projects/:projectId/mynote" component={Auth(ProjectMyNote, true)} exact />
+      <Route path="/search" component={Auth(Search, true)} exact />
       <Route path={"*"} component={NotFound} />
     </Switch>
   );
