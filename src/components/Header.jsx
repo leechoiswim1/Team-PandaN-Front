@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 /* == Library */
 import styled, { css } from "styled-components";
 import { t } from "../util/remConverter";
-import { Container, Col, Row, Button, Dropdown } from "react-bootstrap";
+import { Container, Col, Row, Button, Dropdown, InputGroup, FormControl } from "react-bootstrap";
 
 /* == Library - Icon (react-feather) */
 // https://feathericons.com/
@@ -38,6 +38,22 @@ const Header = ({ history }) => {
       <Container fluid>
         <Row>
           <Col className="d-inline-flex justify-content-end">
+            {/* == 검색창 */}
+            <div className="search-group">
+              <InputGroup className="mb-3">
+                <select className="form-control">
+                  <option>전체</option>
+                  <option>게시글 제목</option>
+                  <option>게시글 상태</option>
+                </select>
+                <FormControl placeholder="검색어를 입력하세요"/>
+                <button>
+                  <IconSearch width="40" height="40" fill="#767676"/>
+                </button>
+              </InputGroup>
+            </div>
+
+            {/* == 유저프로필 */}
             <Dropdown>
               <Dropdown.Toggle variant="success" align="end">
                 <IconProfile width="40" height="40" fill="#ffffff" className="profile-icon"/>

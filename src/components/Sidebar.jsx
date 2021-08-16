@@ -1,15 +1,8 @@
 import React from "react";
-import { useState } from "react";
 
 /* == Library */
 import { Link } from "react-router-dom";
 import { Container, Accordion } from "react-bootstrap";
-
-/* == Library - Icon (react-feather) */
-// https://feathericons.com/
-import { ChevronDown } from "react-feather";
-import { X } from "react-feather";
-
 import { history } from "../modules/configStore";
 
 /* == Custom - Component */
@@ -31,7 +24,6 @@ const Sidebar = (props) => {
         <Container fluid>
           <Link to="/" className="sidebar-logo">
             <Logo className="logo" />
-            {/* <button id="btn-close-sidebar" className="btn-close-sidebar"><X/></button> */}
           </Link>
         </Container>
       </div>
