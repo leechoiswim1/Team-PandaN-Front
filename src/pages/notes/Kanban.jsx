@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { t } from "../../util/remConverter";
 /* == Custom - Component */
-import { Template, ProjectHeader, InnerHeader, KanbanBoard } from "../../components";
+import { Template, ProjectHeader, ProjectMenu, KanbanBoard } from "../../components";
 /* == Redux - actions */
 import { useSelector, useDispatch } from "react-redux";
 import { noteActions } from "../../modules/note";
@@ -21,7 +21,7 @@ const Kanban = ({ history, match, ...rest }) => {
     <Template>
       <main className="content" id="content">
         <ProjectHeader match={match} />
-        <InnerHeader history={history} match={match} projectId={projectId} />
+        <ProjectMenu history={history} match={match} projectId={projectId} />
         <div className="note-container">
           <KanbanBoard history={history} match={match} />
         </div>
