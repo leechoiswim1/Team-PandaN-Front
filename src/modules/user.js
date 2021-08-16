@@ -48,13 +48,10 @@ const __logout =
   () =>
   (dispatch, getState, { history }) => {
     try {
-      // cors 해결 뒤 순서 바꿀 것, jwt 방식 전환하면 로직 전체 수정 
-      deleteCookie("token");
-      dispatch(logout());
-      history.push("/login");      
-      // await userApi.logout();
-      userApi.logout();
-      // localStorage.removeItem("userInfo");
+      localStorage.removeItem("useremail");
+      deleteCookie("TOKEN");
+			dispatch(logout());
+		  history.push("/login");
     } catch (e) {
       console.log(e);
     }
@@ -80,10 +77,9 @@ const __getUserDetail =
 const __setLogin =
   () =>
   (dispatch, getState, { history }) => {
-    const userInfo = localStorage.getItem("userInfo");
-    const token = document.cookie;
-    // jwt 전환 전 작성, 로그인 방식 개편 후 전체 로직 수정 예정
-    if (userInfo !== null && token !== "") {
+    const useremail = localStorage.getItem("useremail");
+    const token = document.cookie.split(`"`)[3];		
+    if (useremail !== null && token !== "") {
       dispatch(setLogin());
     }
   };
@@ -95,6 +91,9 @@ const user = handleActions(
       return {
         ...state,
         isLoggedIn: true,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
+        picture: action.payload.user.picture,
       };
     },
     [LOGOUT]: (state, action) => {
