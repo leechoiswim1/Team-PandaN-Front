@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect } from "react";
 
 /* == Library */
 import { Link } from "react-router-dom";
@@ -10,7 +9,9 @@ import { Container, Button, Collapse, Accordion, Card } from "react-bootstrap";
 import { ChevronDown } from "react-feather";
 import { X } from "react-feather";
 
-import { history } from "../modules/configStore";
+import { useDispatch, useSelector } from "react-redux";
+
+import { actionCreators as projectActions } from "../modules/project";
 
 /* == Custom - Component */
 import { ProjectList, ProjectModal, ProjectJoin } from ".";
@@ -24,6 +25,11 @@ import { ReactComponent as IconProject } from "../styles/images/ico-project.svg"
 // * == (Sidebar) -------------------- * //
 
 const Sidebar = (props) => {
+  const project_side_list = useSelector((state) => state.project.sideList);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(projectActions.__setSideProject());
+  }, []);
   const sidebar = "sidebar";
   return (
     <nav className="sidebar">
@@ -65,12 +71,16 @@ const Sidebar = (props) => {
               <Accordion defaultActiveKey="0" className="my-project-group">
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>
-                    <IconProject width="40" height="40" fill="#9A9A9A" className="menu-icon" />
+                    {project_side_list.length > 0 ? <IconProject width="40" height="40" fill="#9A9A9A" className="menu-icon" /> : ""}
                     <span className="menu-text">내 프로젝트 보기</span>
                   </Accordion.Header>
-                  <Accordion.Body>
-                    <ProjectList />
-                  </Accordion.Body>
+                  {project_side_list.length > 0 ? (
+                    <Accordion.Body>
+                      <ProjectList />
+                    </Accordion.Body>
+                  ) : (
+                    ""
+                  )}
                 </Accordion.Item>
               </Accordion>
             </li>
