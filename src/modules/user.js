@@ -15,16 +15,14 @@ const initialState = {
 };
 
 /* == action */
-const LOGIN           = "user/LOGIN";
-const LOGOUT          = "user/LOGOUT";
-const GET_USER_DETAIL = "user/GET_USER_DETAIL";
-const SET_LOGIN       = 'user/SET_LOGIN';
+const LOGIN       = "user/LOGIN";
+const LOGOUT      = "user/LOGOUT";
+const SET_LOGIN   = 'user/SET_LOGIN';
 
 /* == action creator */
-const login           = createAction(LOGIN, ( user ) => ({ user }));
-const logout          = createAction(LOGOUT, () => ({}));
-const getUserDetail   = createAction(GET_USER_DETAIL, ( user ) => ({ user }));
-const setLogin        = createAction(SET_LOGIN, () => ({}));
+const login       = createAction(LOGIN, ( user ) => ({ user }));
+const logout      = createAction(LOGOUT, () => ({}));
+const setLogin    = createAction(SET_LOGIN, () => ({}));
 
 /* == thunk function */
 const __login = 
@@ -52,23 +50,6 @@ const __logout =
       deleteCookie("TOKEN");
 			dispatch(logout());
 		  history.push("/login");
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-const __getUserDetail =
-  () =>
-  async (dispatch, getState, { history }) => {
-    const isLoggedIn = getState().user.isLoggedIn;
-    try {
-      // jwt 방식 전환하면 로직 전체 수정 
-      if (isLoggedIn) return;      
-      const { data } = await userApi.getUserDetail();
-			// localStorage.setItem("userInfo", decoded.sub);
-      // const decoded = jwt_decode(data);
-			setCookie("token", data.name, 1);
-      dispatch(getUserDetail(data));
     } catch (e) {
       console.log(e);
     }
@@ -102,15 +83,6 @@ const user = handleActions(
         isLoggedIn: false,
       };
     },
-    [GET_USER_DETAIL]: (state, action) => {
-      return {
-        ...state,
-        name: action.payload.user.name,
-        email: action.payload.user.email,
-        picture: action.payload.user.picture,
-        isLoggedIn: true,
-      };
-    },
     [SET_LOGIN]: (state, action) => {
 			return {
 				...state,
@@ -125,7 +97,6 @@ const user = handleActions(
 export const userActions = {
   __login,
   __logout,
-  __getUserDetail,
   __setLogin,
 };
 
