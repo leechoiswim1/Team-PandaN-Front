@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 /* == Library */
 import styled, { css } from "styled-components";
@@ -33,6 +33,9 @@ const Header = ({ history }) => {
 
   const user = useSelector((state) => state.user);
 
+  const [keyword, setKeyword] = useState("");
+  console.log(keyword + 'keyword');
+
   return (
     <header className="header" id="header">
       <Container fluid>
@@ -43,10 +46,10 @@ const Header = ({ history }) => {
               <InputGroup className="mb-3">
                 <select className="form-control">
                   <option>전체</option>
-                  <option>게시글 제목</option>
-                  <option>게시글 상태</option>
+                  <option>북마크 검색</option>
+                  <option>내가 작성한 문서 검색</option>
                 </select>
-                <FormControl placeholder="검색어를 입력하세요"/>
+                <FormControl placeholder="검색어를 입력하세요" onChange={(e)=> setKeyword(e.target.value)}/>
                 <button>
                   <IconSearch width="40" height="40" fill="#767676"/>
                 </button>
@@ -55,7 +58,7 @@ const Header = ({ history }) => {
 
             {/* == 유저프로필 */}
             <Dropdown>
-              <Dropdown.Toggle variant="success" align="end">
+              <Dropdown.Toggle align="end">
                 <IconProfile width="40" height="40" fill="#ffffff" className="profile-icon"/>
               </Dropdown.Toggle>
 

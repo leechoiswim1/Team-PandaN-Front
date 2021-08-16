@@ -54,5 +54,5 @@ export const commentApi = {
 
 /* == API - search */
 export const searchApi = {
-  getSearchList: () => instance.get(""),
+  getSearchList: (keyword) => instance.get(`/api/notes/search?keyword=${keyword}`),
 };
