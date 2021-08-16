@@ -1,12 +1,10 @@
-import { createAction, handleActions } from "redux-actions";
-import { userApi } from "../shared/api";
-import { setCookie, deleteCookie } from '../shared/cookie';
-import jwt_decode from 'jwt-decode';
 
-/*
- * 현재 jsessionid 쓰는 방식 mvp 배포 후 변경 예정 
- * 이후 로그인 / 클라이언트단 auth 관련 이슈 대응 가능
- */
+import { createAction, handleActions }  from "redux-actions";
+/* == Library - jwt decode */
+import jwtDecode                        from 'jwt-decode';
+/* == Custom - shared > api / cookie */
+import { userApi }                      from "../shared/api";
+import { setCookie, deleteCookie }      from '../shared/cookie';
 
 /* == User - initial state */
 const initialState = {
@@ -17,16 +15,35 @@ const initialState = {
 };
 
 /* == action */
-const LOGOUT = "user/LOGOUT";
+const LOGIN           = "user/LOGIN";
+const LOGOUT          = "user/LOGOUT";
 const GET_USER_DETAIL = "user/GET_USER_DETAIL";
-const SET_LOGIN = 'user/SET_LOGIN';
+const SET_LOGIN       = 'user/SET_LOGIN';
 
 /* == action creator */
-const logout = createAction(LOGOUT, () => ({}));
-const getUserDetail = createAction(GET_USER_DETAIL, (user) => ({ user }));
-const setLogin = createAction(SET_LOGIN, () => ({}));
+const login           = createAction(LOGIN, ( user ) => ({ user }));
+const logout          = createAction(LOGOUT, () => ({}));
+const getUserDetail   = createAction(GET_USER_DETAIL, ( user ) => ({ user }));
+const setLogin        = createAction(SET_LOGIN, () => ({}));
 
 /* == thunk function */
+const __login = 
+  (authorization_code) =>
+    async (dispatch, getState, { history }) => {
+      try {
+        const { data } = await userApi.login(authorization_code);
+        const _token = JSON.stringify(data)
+        const decoded = jwtDecode(_token);
+
+        dispatch(login(decoded));
+        localStorage.setItem("useremail", decoded.email);
+        setCookie("TOKEN", _token, 10);     
+        history.push("/");
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
 const __logout =
   () =>
   (dispatch, getState, { history }) => {
@@ -54,7 +71,6 @@ const __getUserDetail =
 			// localStorage.setItem("userInfo", decoded.sub);
       // const decoded = jwt_decode(data);
 			setCookie("token", data.name, 1);
-			history.push("/");
       dispatch(getUserDetail(data));
     } catch (e) {
       console.log(e);
@@ -75,6 +91,12 @@ const __setLogin =
 /* == reducer */
 const user = handleActions(
   {
+    [LOGIN]: (state, action) => {
+      return {
+        ...state,
+        isLoggedIn: true,
+      };
+    },
     [LOGOUT]: (state, action) => {
       return {
         ...state,
@@ -102,6 +124,7 @@ const user = handleActions(
 
 /* == export actions */
 export const userActions = {
+  __login,
   __logout,
   __getUserDetail,
   __setLogin,
