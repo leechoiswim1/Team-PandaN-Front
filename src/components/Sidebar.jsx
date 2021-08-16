@@ -77,7 +77,7 @@ const Sidebar = (props) => {
       {/* == 푸터 */}
       <div className="footer" id="footer">
         <Container fluid>
-          <div className="d-grid gap-2" style={{ justifyContent: "center", margin: "auto" }}>
+          <div className="d-grid gap-2 button-group">
             <ProjectJoin sidebar="sidebar" />
           </div>
 
