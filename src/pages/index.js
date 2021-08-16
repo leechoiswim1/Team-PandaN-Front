@@ -1,7 +1,7 @@
 import Home from "./Home";
 
 /* == Login */
-import Login from "./Login";
+import Login from "./login/Login";
 import LoginRedirect from "./login/LoginRedirect";
 
 /* == Note */
