@@ -23,7 +23,7 @@ import ProjectHeader from "./projects/ProjectHeader";
 import ProjectCardList from "./projects/ProjectCardList";
 
 /* == Note - kanban */
-import InnerHeader from "./notes/InnerHeader";
+import ProjectMenu from "./notes/ProjectMenu";
 import KanbanCard from "./notes/KanbanCard";
 import KanbanList from "./notes/KanbanList";
 import KanbanBoard from "./notes/KanbanBoard";
@@ -60,7 +60,7 @@ export {
   ProjectInvite,
   ProjectJoin,
   /* == Note - kanban */
-  InnerHeader,
+  ProjectMenu,
   KanbanList,
   KanbanCard,
   KanbanBoard,
