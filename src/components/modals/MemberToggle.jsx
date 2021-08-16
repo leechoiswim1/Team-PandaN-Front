@@ -19,6 +19,7 @@ const MemberToggle = (props) => {
   useEffect(() => {
     dispatch(projectActions.__checkProjectCrews(projectId));
   }, [dispatch, projectId]);
+
   return (
     <div>
       <Dropdown>
