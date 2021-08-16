@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 /* == Library - style */
 import styled, { css } from "styled-components";
-import { Bookmark, Clock, Edit3 } from "react-feather";
+import { Bookmark, Clock, Edit2, Trash2 } from "react-feather";
 
 /* == Library - date */
 import moment from "moment";
@@ -33,15 +33,27 @@ const NoteDetail = ({ history, match, ...rest }) => {
 
   let dateDiff = note.deadline ? moment(note.deadline).diff(moment(), "days") : "" ;
 
+  /* 
+   * Function - Modal
+   * modalVisible : project menu > 노트 작성 모달의 state와 구분
+   */
   const [modalVisible, setModalVisible] = useState(false)
-  const openModal = () => {
-    setModalVisible(true)
-  }
-  const closeModal = () => {
-    setModalVisible(false)
-  }
-
-  // function - bookmark
+  const openModal  = () => {setModalVisible(true)}
+  const closeModal = () => {setModalVisible(false)}
+  /* 
+   * Function - delete note 
+   */
+  const deleteNote = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const result = window.confirm("노트를 삭제하시겠습니까?");
+    if (result) {
+      dispatch(noteActions.__deleteNote(noteId));
+    } else return;  
+  };
+  /* 
+   * Function - Bookmark ( 북마크 추가 / 삭제 )
+   */
   const addBookmark = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -53,8 +65,7 @@ const NoteDetail = ({ history, match, ...rest }) => {
     const result = window.confirm("북마크에서 삭제하시겠습니까?");
     if (result) {
       dispatch(noteActions.__deleteBookmark(noteId));
-    } else return;
-    
+    } else return;    
   }
 
   return (
@@ -62,38 +73,46 @@ const NoteDetail = ({ history, match, ...rest }) => {
 
       <div className="note-detail-header">
 
-        <div className="note-detail-header-step" style={{display: "flex", justifyContent: "space-between"}}>
+        <div className="note-detail-header-step">
           <div>
             <IconSteps type={note.step}/> 
             <span>{note.step}</span>            
           </div>
+
+         
           <div>
-          {!isBookmark ? 
-            <button type="button" onClick={addBookmark}>
-              <Bookmark/>  
+            {/* buttons - edit */}
+            <button type="button" onClick={openModal} className="note-detail-header-button">
+              <Edit2 />
+            </button>
+              { modalVisible && 
+                <EditingNoteModal 
+                  note={note} noteId={noteId} visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal} />
+              }
+
+            {/* buttons - delete */}
+            <button type="button" onClick={deleteNote} className="note-detail-header-button">
+              <Trash2/>
+            </button>
+            
+            {/* buttons - bookmark */}
+            {!isBookmark ? 
+            <button type="button" onClick={addBookmark} className="note-detail-header-button">
+              <Bookmark />  
             </button> : 
-            <button type="button" onClick={deleteBookmark}>
-              <Bookmark fill="#387E4B" stroke="#387E4B"/>  
+            <button type="button" onClick={deleteBookmark} className="note-detail-header-button">
+              <Bookmark fill="#387E4B" stroke="#387E4B" />  
             </button>   
-          } 
+            } 
           </div>
         </div>    
       
         <div className="note-detail-header-title">          
           <h1 className="note-detail-header-title-heading">
             {note.title}
-          </h1>       
-          <Edit3 className="note-detail-header-title-svg" onClick={openModal}/>
-            { modalVisible && 
-              <EditingNoteModal
-                note={note}
-                noteId={noteId}
-                visible={modalVisible}
-                closable={true}
-                maskClosable={true}
-                onClose={closeModal} />
-            }        
+          </h1>
         </div>
+
         <div className="note-detail-header-info">
           <div className="note-detail-crew-tag">
             {note.writer}

@@ -113,7 +113,7 @@ const KanbanBoard = ({ history, match }) => {
                           {project.notes?.length}
                         </Badge>
                       </div>
-                      <div>
+                      <div style={{cursor: "pointer"}}>
                         <Write 
                           fill="#767676"
                           onClick={openModal}

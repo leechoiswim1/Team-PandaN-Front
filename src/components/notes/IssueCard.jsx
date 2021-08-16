@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
-/* == Library - style */
-import styled, { css } from "styled-components";
-import { t } from "../../util/remConverter";
+import React from "react";
+/* == Library - icon */
 import { Bookmark } from "react-feather";
-
 /* == Library - date */
 import moment from "moment";
+/* == Library - router */
+import { Link } from "react-router-dom";
 
-/* == Custom - Icon */
+/* == Custom - icon */
 import IconSteps from "../../elements/IconSteps";
+/* == Custom - elements */
+import Labels from "../../elements/Labels";
 
 /* == Redux - actions */
 import { useDispatch } from "react-redux";
 import { noteActions } from "../../modules/note";
-import { history } from "../../modules/configStore";
 
 // * == ( IssueCard / Note ) -------------------- * //
 const IssueCard = (props) => {
@@ -37,24 +37,21 @@ const IssueCard = (props) => {
         <div>
           <IconSteps type={step} />
         </div>
-        <NoteDesc>
-          <h1
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              history.push(`/projects/${projectId}/notes/${noteId}`);
-            }}
-          >
-            {title}
-          </h1>
-          <div>
-            {/* <Tag className="kanban-card-tag" type={step}>
-              { step }
-            </Tag> */}
-            {projectTitle && <span className="text-primary">{projectTitle}</span>}
+        <div className="note-issuecard-content">
+          <Link to={`/projects/${projectId}/notes/${noteId}`}>
+            <h1>{title}</h1>
+          </Link>
+          <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+            {projectTitle && (
+              <Link to={`/projects/${projectId}/kanban`}>
+                <span className="note-issuecard-title">{projectTitle}</span>
+              </Link>
+            )}
             {writer && <span>{writer}</span>}
             {createdAt && <span>{created}</span>}
+            <Labels type={step}>{step}</Labels>
           </div>
-        </NoteDesc>
+        </div>
       </div>
       <div>
         {rest.type === "bookmark" && (
@@ -66,41 +63,5 @@ const IssueCard = (props) => {
     </div>
   );
 };
-
-const NoteDesc = styled.div(
-  ...t`
-  padding: 0 16px;
-  a {
-    font-weight: 500;
-    text-decoration: none;
-  }
-  span {
-    margin-right: 16px;
-  }
-  div :last-child {
-    margin-right: 16px;
-    color: #888;
-  }
-`,
-);
-
-// const Tag = styled.div`
-// ${(props) => (props.type === "STORAGE") &&
-//   css`
-//     background-color: #FFCD40;
-//   `}
-// ${(props) => (props.type === "TODO") &&
-//   css`
-//     background-color: #ADBE4F;
-//   `}
-// ${(props) => (props.type === "PROCESSING") &&
-// css`
-//   background-color: #9BD09C;
-// `}
-// ${(props) => (props.type === "DONE") &&
-//   css`
-//     background-color: #F5DAAE;
-//   `}
-// `
 
 export default IssueCard;

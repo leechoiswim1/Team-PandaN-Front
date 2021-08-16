@@ -19,14 +19,6 @@ $sidebar-width-lg: rem(360);
 $sidebar-width-md: rem(85);
 $header-height: rem(80);
 
-// #root,
-// .col-wrap,
-// .col-left,
-// .col-right,
-// .sidebar {
-//   height: 100%;
-// }
-
 .col-wrap {
   background-color: #F9F9F9;
 }
@@ -38,19 +30,14 @@ $header-height: rem(80);
 // == col-left
 // --------------------------------
 .col-left {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: -$sidebar-width-lg;
+  position: absolute;
+  top: $header-height;
   z-index: 1;
-  width: $sidebar-width-lg;
+  width: 100%;
+  // height: 100%;
   background-color: #ffffff;
-  border-top-right-radius: rem(30);
-  border-bottom-right-radius: rem(30);
-  box-shadow: 4px 0px 10px rgba(215, 215, 215, 0.15);
-  transform: translate3d(0, 0, 0);
-  transition: width 0.3s, left 0.3s;
-  overflow-y: auto;
+
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
 }
 
 // == col-right
@@ -88,6 +75,12 @@ $header-height: rem(80);
     height: $header-height;
   }
 
+  .profile-icon {
+    // background-color: $primary;
+    // padding: rem(5);
+    // border-radius: 50%;
+  }
+
   .dropdown-group {
     .dropdown-profile {
       margin-bottom: rem(5);
@@ -102,6 +95,15 @@ $header-height: rem(80);
     }
   }
 }
+.btn-hamburger {
+  position: absolute;
+  top: rem(18);
+  left: rem(30);
+  z-index: 1;
+}
+[aria-expanded="true"] + header {
+  background-color: #ffffff;
+}
 
 
 // == sidebar
@@ -109,40 +111,7 @@ $header-height: rem(80);
 .sidebar {
   position: relative;
   height: 100%;
-  min-height: rem(800);
 
-  .logo-group,
-  .menu-group,
-  .footer {
-    .container-fluid {
-      padding-left: rem(15);
-      padding-right: rem(15);
-    }
-  }
-  .sidebar-logo {
-    display: block;
-    padding-top: rem(24);
-    padding-bottom: rem(40);
-  }
-  .btn-close-sidebar {
-    position: absolute;
-    top: rem(30);
-    right: 0;
-
-    @media (min-width: 768px) {
-      display: none;
-    }
-
-    svg {
-      width: rem(60);
-      height: rem(60);
-      color: $secondary;
-      padding: rem(10);
-    }
-  }
-  .logo {
-    display: block;
-  }
   .logo-mobile {
     display: none;
     width: rem(40);
@@ -153,6 +122,15 @@ $header-height: rem(80);
     padding-left: 0;
   }
 
+  .menu-item + .menu-item {
+    padding-top: rem(30);
+  }
+
+  .menu-text {
+    display: inline-block;
+    margin-left: rem(10);
+  }
+
   .menu-item {
     position: relative;
 
@@ -160,7 +138,7 @@ $header-height: rem(80);
       &:after {
         position: absolute;
         top: 0;
-        right: rem(-15);
+        right: rem(-30);
         content: '';
         display: block;
         width: rem(4);
@@ -184,12 +162,6 @@ $header-height: rem(80);
     font-size: rem(18);
     font-weight: 700;
     text-decoration: none;
-    padding-top: rem(10);
-    padding-bottom: rem(10);
-
-    .menu-icon {
-      margin-top: -3px;
-    }
 
     &:hover {
       color: $primary;
@@ -207,6 +179,13 @@ $header-height: rem(80);
     }
   }
 
+  .menu-icon {
+    fill: #9A9A9A;
+    width: rem(30);
+    height: rem(30);
+    margin-top: -3px;
+  }
+
   // == accordion
   .accordion {
     padding: 0;
@@ -219,9 +198,9 @@ $header-height: rem(80);
       font-size: rem(18);
       font-weight: 700;
       text-decoration: none;
-      padding-top: rem(10);
+      padding-top: 0;
       padding-right: 0;
-      padding-bottom: rem(10);
+      padding-bottom: rem(20);
       padding-left: 0;
 
       &::after {
@@ -242,7 +221,7 @@ $header-height: rem(80);
       box-shadow: none;
       background-color: #ffffff;
 
-      svg {
+      .menu-icon {
         fill: $primary;
         color: $primary;
       }
@@ -270,55 +249,19 @@ $header-height: rem(80);
     }
   }
 }
+.sidebar-logo {
+  display: block;
+  padding: rem(15) 0;
 
-// sidebar
-@media (min-width: 768px) and (max-width: 1199px){
-  .col-left {
-    left: 0;
-    width: $sidebar-width-md;
-    overflow-x: hidden;
-  }
-  .col-right {
-    padding-left: $sidebar-width-md;
-  }
-  .sidebar {
-    .logo-mobile {
-      display: block;
-    }
-    .logo {
-      display: none;
-    }
-    .menu-icon {
-      width: rem(55);
-      height: rem(55);
-    }
-    .menu-text {
-      border: 0;
-      clip: rect(0, 0, 0, 0);
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      white-space: nowrap;
-      width: 1px;
-    }
-    .accordion .accordion-collapse,
-    .accordion-button::after,
-    .footer {
-      display: none;
-    }
-    .accordion-button::after {
-      content: initial;
-    }
+  .logo {
+    width: rem(150);
   }
 }
+
 
 // == footer
 // --------------------------------
 .footer {
-  position: absolute;
-  bottom: 0;
   width: 100%;
   text-align: center;
 
@@ -327,95 +270,70 @@ $header-height: rem(80);
     padding-top: rem(15);
     padding-bottom: rem(40);
   }
+
+  .button-group {
+    justify-content: center;
+    margin: 40px auto 0;
+    border-top: 1px solid #e3e3e3;
+
+    @media (min-width: 1200px){
+      margin: 0 auto;
+      border-top: 0;
+    }
+  }
+
+  button {
+    margin-top: rem(50);
+  }
 }
 
-// == sidebar-active
+
+// == 1200px ~ 
 // --------------------------------
-.sidebar-active {
+@media (min-width: 1200px) {
   .col-left {
+    position: fixed;
+    top: 0;
+    bottom: 0;
     left: 0;
+    // left: -$sidebar-width-lg;
+    z-index: 1;
+    width: $sidebar-width-lg;
+    background-color: #ffffff;
+    border-top-right-radius: rem(30);
+    border-bottom-right-radius: rem(30);
+    box-shadow: 4px 0px 10px rgba(215, 215, 215, 0.15);
+    transform: translate3d(0, 0, 0);
+    transition: width 0.3s, left 0.3s;
+    overflow-y: auto;
+  }
+  .col-left.collapse:not(.show) {
+    display: block;
   }
   .col-right {
     padding-left: $sidebar-width-lg;
   }
-}
-
-
-.screen-md {
-  &.sidebar-active {
-    .col-left {
-      width: $sidebar-width-lg;
-    }
-    .sidebar {
-      .logo {
-        display: block;
-      }
-      .logo-mobile {
-        display: none;
-      }
-      .menu-icon {
-        width: rem(40);
-        height: rem(40);
-      }
-      .accordion .accordion-collapse, 
-      .accordion-button::after, 
-      .footer {
-        display: block;
-      }
-      .accordion-button::after {
-        display: block;
-      }
-      .accordion-button::after {
-        flex-shrink: 0;
-        width: 1.25rem;
-        height: 1.25rem;
-        margin-left: auto;
-        content: "";
-        background-repeat: no-repeat;
-        background-size: 1.25rem;
-        transition: transform 0.2s ease-in-out;
-      }
-      .accordion-button:not(.collapsed)::after {
-        transform: rotate(-180deg);
-      }
-      .menu-text {
-        border: inherit;
-        clip: inherit;
-        height: inherit;
-        margin: inherit;
-        overflow: inherit;
-        padding: inherit;
-        position: inherit;
-        white-space: inherit;
-        width: inherit;
-      }
-    }
+  .btn-hamburger {
+    display: none;
   }
-}
+  [aria-expanded="true"] + header {
+    background-color: transparent;
+  }
+  .sidebar {
+    height: 100%;
+    min-height: rem(800);
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+  }
+  .sidebar-logo {
+    padding-top: rem(24);
+    padding-bottom: rem(40);
 
-.screen-sm {
-  &.sidebar-active {
-    .col-left {
-      width: 100%;
-      background-color: transparent;
-
-      &:after {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        content: '';
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,.5);
-      }
-    }
-    .col-right {
-      padding-left: 0;
-    }
-    .sidebar {
-      width: $sidebar-width-lg;
-      background: #fff;
-      z-index: 2;
+    .logo {
+      width: rem(183);
+      height: rem(73);
     }
   }
 }

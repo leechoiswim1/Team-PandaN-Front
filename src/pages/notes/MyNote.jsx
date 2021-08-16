@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { t }  from "../../util/remConverter";
 /* == Custom - Component */
-import { Template, IssueList } from "../../components";
+import { Template, IssueList, EmptyBoard } from "../../components";
 /* == Redux - actions */
 import { useSelector, useDispatch }   from 'react-redux';
 import { noteActions }                from '../../modules/note';
@@ -21,7 +21,8 @@ const MyNote = ({ history, match, ...rest }) => {
     <Template>
       <div className="content" id="content">
         <div className="note-board-container">
-          <IssueList history={history} notes={myNoteList} type="myNote"/>
+          { myNoteList && <IssueList history={history} notes={myNoteList} type="myNote"/> }
+          { myNoteList.length === 0 && <EmptyBoard type="myNote"/> }
         </div>
       </div>
     </Template>

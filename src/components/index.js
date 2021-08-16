@@ -23,7 +23,7 @@ import ProjectHeader from "./projects/ProjectHeader";
 import ProjectCardList from "./projects/ProjectCardList";
 
 /* == Note - kanban */
-import InnerHeader from "./notes/InnerHeader";
+import ProjectMenu from "./notes/ProjectMenu";
 import KanbanCard from "./notes/KanbanCard";
 import KanbanList from "./notes/KanbanList";
 import KanbanBoard from "./notes/KanbanBoard";
@@ -32,6 +32,7 @@ import EditingNoteModal from "./notes/EditingNoteModal";
 /* == Note - issue list; card */
 import IssueCard from "./notes/IssueCard";
 import IssueList from "./notes/IssueList";
+import EmptyBoard from "./notes/EmptyBoard";
 /* == Note - detail */
 import NoteDetail from "./notes/NoteDetail";
 /* == Note - detail - Comment */
@@ -59,7 +60,7 @@ export {
   ProjectInvite,
   ProjectJoin,
   /* == Note - kanban */
-  InnerHeader,
+  ProjectMenu,
   KanbanList,
   KanbanCard,
   KanbanBoard,
@@ -68,6 +69,7 @@ export {
   /* == Note - list */
   IssueCard,
   IssueList,
+  EmptyBoard,
   /* == Note - detail */
   NoteDetail,
   /* == Note - detail - Comment */

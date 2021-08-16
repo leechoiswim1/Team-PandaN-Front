@@ -39,6 +39,10 @@ const EditingNoteModal = (props) => {
       window.alert("할 일을 입력하세요.");
       return;
     }
+    if (noteInputs.content === "") {
+      window.alert("할 일에 대한 설명을 추가하세요.");
+      return;
+    }
     if (noteInputs.step === "") {
       window.alert("할 일의 상태를 설정하세요.");
       return;
@@ -52,17 +56,6 @@ const EditingNoteModal = (props) => {
     onClose(e);
   };
 
-  const deleteNote = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const result = window.confirm("노트를 삭제하시겠습니까?");
-    if (result) {
-      dispatch(noteActions.__deleteNote(noteId));
-      onClose(e);
-    } else return;  
-  };
-
-
   return (
     <ModalBox 
       visible={visible} 
@@ -72,20 +65,23 @@ const EditingNoteModal = (props) => {
       closable={closable}
       heading="할 일 수정하기" 
       btntext="수정하기"
-      btntext2="삭제하기"
       onSubmit={editNote}
-      onDelete={deleteNote}
       >
       <Form>
         <Form.Group controlId="noteTitle">
           <Form.Label className="note-modal-label">할 일</Form.Label>
-          <Form.Control type="text" placeholder="제목을 입력해 주세요." defaultValue={note.title}
+          <Form.Control type="text" placeholder="제목을 입력해 주세요." defaultValue={note.title} maxLength={255}
             onChange={(e)=> {setNoteInputs({...noteInputs, title: e.target.value})}}
           />
+          <Form.Text className="text-muted">
+            최대 255자까지 입력 가능합니다.
+          </Form.Text>
         </Form.Group>
         <Form.Group controlId="noteDetail">
-          <Form.Label className="note-modal-label">설명(선택)</Form.Label>
+          <Form.Label className="note-modal-label">설명</Form.Label>
           <Form.Control type="text" placeholder="할 일에 대한 설명을 추가해 주세요." defaultValue={note.content}
+            as="textarea"
+            style={{ height: "100px" }}
             onChange={(e)=> {setNoteInputs({...noteInputs, content: e.target.value})}}
           />
         </Form.Group>
@@ -94,7 +90,7 @@ const EditingNoteModal = (props) => {
           <Form.Select placeholder="" defaultValue={note.step}
             onChange={(e)=> {setNoteInputs({...noteInputs, step: e.target.value})}}
           >
-            <option>할 일의 상태를 설정하세요.</option>
+            <option value="">할 일의 상태를 설정하세요.</option>
             <option value="STORAGE">STORAGE</option>
             <option value="TODO">TO DO</option>
             <option value="PROCESSING">PROCESSING</option>

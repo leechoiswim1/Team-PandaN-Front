@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 /* == Library */
 import { Link } from "react-router-dom";
-import { Container, Button, Collapse, Accordion, Card } from "react-bootstrap";
+import { Container, Accordion } from "react-bootstrap";
 
 /* == Library - Icon (react-feather) */
 // https://feathericons.com/
@@ -15,11 +15,11 @@ import { actionCreators as projectActions } from "../modules/project";
 
 /* == Custom - Component */
 import { ProjectList, ProjectModal, ProjectJoin } from ".";
+
 /* == Custom - Icon */
 import { ReactComponent as Logo } from "../styles/images/logo.svg";
-import LogoImg from "../styles/images/favicon.png";
 import { ReactComponent as IconBookMark } from "../styles/images/ico-bookmark.svg";
-import { ReactComponent as IconDocument } from "../styles/images/ico-document.svg";
+import { ReactComponent as IconFile } from "../styles/images/ico-file.svg";
 import { ReactComponent as IconProject } from "../styles/images/ico-project.svg";
 
 // * == (Sidebar) -------------------- * //
@@ -38,10 +38,7 @@ const Sidebar = (props) => {
         <Container fluid>
           <Link to="/" className="sidebar-logo">
             <Logo className="logo" />
-            <img src={LogoImg} alt="" className="logo-mobile" />
-            <button id="btn-close-sidebar" className="btn-close-sidebar">
-              <X />
-            </button>
+            {/* <button id="btn-close-sidebar" className="btn-close-sidebar"><X/></button> */}
           </Link>
         </Container>
       </div>
@@ -52,19 +49,19 @@ const Sidebar = (props) => {
           <ul className="menu">
             <li className="menu-item active">
               <Link to="/bookmark" className="menu-link">
-                <IconBookMark width="40" height="40" fill="#9A9A9A" className="menu-icon" />
+                <IconBookMark className="menu-icon" width="30px" height="30px" />
                 <span className="menu-text">북마크</span>
               </Link>
             </li>
             <li className="menu-item">
               <Link to="/mynote" className="menu-link">
-                <IconDocument width="40" height="40" fill="#9A9A9A" className="menu-icon" />
+                <IconFile className="menu-icon" width="30px" height="30px" />
                 <span className="menu-text">내가 작성한 문서</span>
               </Link>
             </li>
             <li className="menu-item">
               <div className="menu-link">
-                <ProjectModal sidebar={sidebar} />
+                <ProjectModal sidebar="sidebar" />
               </div>
             </li>
             <li className="menu-item">
@@ -91,7 +88,7 @@ const Sidebar = (props) => {
       {/* == 푸터 */}
       <div className="footer" id="footer">
         <Container fluid>
-          <div className="d-grid gap-2" style={{ justifyContent: "center", margin: "auto" }}>
+          <div className="d-grid gap-2 button-group">
             <ProjectJoin sidebar="sidebar" />
           </div>
 

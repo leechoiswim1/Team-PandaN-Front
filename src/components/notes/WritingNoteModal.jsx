@@ -1,5 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
+/* == Library - route */
+import { useLocation, useParams } from "react-router-dom";
 /* == Library - style */
 import styled, { css } from "styled-components";
 import { t }  from "../../util/remConverter";
@@ -9,6 +11,7 @@ import { Form } from "react-bootstrap";
 import ModalBox from "../../elements/ModalBox";
 
 /* == Redux - actions */
+import { history } from "../../modules/configStore";
 import { useSelector, useDispatch }   from 'react-redux';
 import { noteActions }                from '../../modules/note';
 
@@ -20,8 +23,12 @@ const WritingNoteModal = (props) => {
     onClose,
     maskClosable,
     closable, 
-    projectId } = props;
+    projectId,
+    projectStep } = props;
+
   const dispatch = useDispatch();
+  const params = useParams();
+  const location = useLocation();
 
   const [noteInputs, setNoteInputs] = useState({
     title: "",
@@ -38,6 +45,10 @@ const WritingNoteModal = (props) => {
       window.alert("할 일을 입력하세요.");
       return;
     }
+    if (noteInputs.content === "") {
+      window.alert("할 일에 대한 설명을 추가하세요.");
+      return;
+    }
     if (noteInputs.step === "") {
       window.alert("할 일의 상태를 설정하세요.");
       return;
@@ -49,6 +60,13 @@ const WritingNoteModal = (props) => {
     
     dispatch(noteActions.__addNote(projectId, noteInputs));
     onClose(e);
+    if (!params.noteId) {
+      window.location.replace(location.pathname);
+    }
+    if (params.noteId) {
+      history.push(`/projects/${params.projectId}/kanban`);
+    }
+    
   };
 
   return (
@@ -65,13 +83,18 @@ const WritingNoteModal = (props) => {
       <Form>
         <Form.Group controlId="noteTitle">
           <Form.Label className="note-modal-label">할 일</Form.Label>
-          <Form.Control type="text" placeholder="제목을 입력해 주세요."
+          <Form.Control type="text" placeholder="제목을 입력해 주세요." maxLength={255}
             onChange={(e)=> {setNoteInputs({...noteInputs, title: e.target.value})}}
           />
+          <Form.Text className="text-muted">
+            최대 255자까지 입력 가능합니다.
+          </Form.Text>
         </Form.Group>
         <Form.Group controlId="noteDetail">
-          <Form.Label className="note-modal-label">설명(선택)</Form.Label>
+          <Form.Label className="note-modal-label">설명</Form.Label>
           <Form.Control type="text" placeholder="할 일에 대한 설명을 추가해 주세요."
+            as="textarea"
+            style={{ height: "100px" }}
             onChange={(e)=> {setNoteInputs({...noteInputs, content: e.target.value})}}
           />
         </Form.Group>
@@ -80,7 +103,7 @@ const WritingNoteModal = (props) => {
           <Form.Select placeholder=""
             onChange={(e)=> {setNoteInputs({...noteInputs, step: e.target.value})}}
           >
-            <option>할 일의 상태를 설정하세요.</option>
+            <option value="">할 일의 상태를 설정하세요.</option>
             <option value="STORAGE">STORAGE</option>
             <option value="TODO">TO DO</option>
             <option value="PROCESSING">PROCESSING</option>
