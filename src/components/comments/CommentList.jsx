@@ -6,35 +6,29 @@ import { Form, Button } from "react-bootstrap";
 /* == Custom - Component */
 import { CommentCard, CommentInput } from "..";
 
-const CommentList = () => {
+const CommentList = (props) => {
+  const { history, match, projectId } = props;
+
   return (
     <Wrapper>
-      <div style={{overflow: "auto"}}>
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
+      <div style={{ overflow: "auto" }}>
+        <CommentCard history={history} match={match} projectId={projectId} />
       </div>
-      <div style={{padding: "16px 0"}}>
-        <CommentInput />
+      <div style={{ padding: "16px 0" }}>
+        <CommentInput history={history} match={match} projectId={projectId} />
       </div>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div(...t`
+const Wrapper = styled.div(
+  ...t`
   width: 400px;
   height: 100%;
   display: flex; 
   flex-direction: column;
   justify-content: space-between;
-`);
+`,
+);
 
 export default CommentList;

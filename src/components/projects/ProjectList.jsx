@@ -2,16 +2,12 @@ import React, { useEffect } from "react";
 
 import { Button } from "react-bootstrap";
 
-import { actionCreators as projectActions } from "../../modules/project";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { history } from "../../modules/configStore";
 
 const ProjectList = () => {
   const project_side_list = useSelector((state) => state.project.sideList);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(projectActions.__setSideProject());
-  }, []);
+
   return (
     <>
       {project_side_list.map((p, idx) => {

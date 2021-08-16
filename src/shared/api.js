@@ -49,5 +49,9 @@ export const noteApi = {
 
 /* == API - comment */
 export const commentApi = {
-  getCommentList: () => instance.get(""),
+  getCommentList: (noteId) => instance.get(`/api/comments/${noteId}`),
+  postComment: (noteId, comment) => instance.post(`/api/comments/${noteId}`, comment),
+
+  deleteComment: (commentId) => instance.delete(`/api/comments/${commentId}`),
+  editComment: (commentId, comment) => instance.put(`/api/comments/${commentId}`, comment),
 };
