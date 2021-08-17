@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 /* == Library */
 import { Link } from "react-router-dom";
 import { Container, Accordion } from "react-bootstrap";
-import { history } from "../modules/configStore";
+
+/* == Library - Icon (react-feather) */
+// https://feathericons.com/
+import { ChevronDown } from "react-feather";
+import { X } from "react-feather";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { actionCreators as projectActions } from "../modules/project";
 
 /* == Custom - Component */
 import { ProjectList, ProjectModal, ProjectJoin } from ".";
@@ -14,9 +22,18 @@ import { ReactComponent as IconBookMark } from "../styles/images/ico-bookmark.sv
 import { ReactComponent as IconFile } from "../styles/images/ico-file.svg";
 import { ReactComponent as IconProject } from "../styles/images/ico-project.svg";
 
+/* == Redux */
+import { history } from "../modules/configStore";
+
 // * == (Sidebar) -------------------- * //
 
 const Sidebar = (props) => {
+  const project_side_list = useSelector((state) => state.project.sideList);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(projectActions.__setSideProject());
+  }, []);
+  const sidebar = "sidebar";
   return (
     <nav className="sidebar">
       {/* == 로고 */}
@@ -34,13 +51,13 @@ const Sidebar = (props) => {
           <ul className="menu">
             <li className="menu-item active">
               <Link to="/bookmark" className="menu-link">
-                <IconBookMark className="menu-icon" width="30px" height="30px"/>
+                <IconBookMark className="menu-icon" width="30px" height="30px" />
                 <span className="menu-text">북마크</span>
               </Link>
             </li>
             <li className="menu-item">
               <Link to="/mynote" className="menu-link">
-                <IconFile className="menu-icon" width="30px" height="30px"/>
+                <IconFile className="menu-icon" width="30px" height="30px" />
                 <span className="menu-text">내가 작성한 문서</span>
               </Link>
             </li>
@@ -53,12 +70,16 @@ const Sidebar = (props) => {
               <Accordion defaultActiveKey="0" className="my-project-group">
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>
-                    <IconProject className="menu-icon" width="30px" height="30px"/>
+                    {project_side_list.length > 0 ? <IconProject width="40" height="40" fill="#9A9A9A" className="menu-icon" /> : ""}
                     <span className="menu-text">내 프로젝트 보기</span>
                   </Accordion.Header>
-                  <Accordion.Body>
-                    <ProjectList />
-                  </Accordion.Body>
+                  {project_side_list.length > 0 ? (
+                    <Accordion.Body>
+                      <ProjectList />
+                    </Accordion.Body>
+                  ) : (
+                    ""
+                  )}
                 </Accordion.Item>
               </Accordion>
             </li>

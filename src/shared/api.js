@@ -1,21 +1,20 @@
 import axios from "axios";
 
-const TOKEN = document.cookie.split(`"`)[3];
+const TOKEN = document.cookie.split("=")[1];
 
 /* == Axios - instance */
 const instance = axios.create({
   baseURL: "http://blossomwhale.shop",
   headers: {
-    TOKEN : TOKEN,
+    TOKEN: TOKEN,
   },
 });
 
 /* == Axios - interceptor for sending accessToken */
 instance.interceptors.request.use((config) => {
-  // prettier 설정으로 인해 쌍따옴표로 감쌀 수 없어 ` ` 사용합니다.
-	const TOKEN = document.cookie.split(`"`)[3];
+	const TOKEN = document.cookie.split("=")[1];
   config.headers.TOKEN = TOKEN;
-	return config;
+  return config;
 });
 
 /* == API - project */
@@ -33,9 +32,9 @@ export const projectApi = {
 
 /* == API - user */
 export const userApi = {
-  login:          (authcode) => instance.get(`/user/kakao/callback?code=${authcode}`),
-  logout:         () => instance.get("/logout"),
-  getUserDetail:  () => instance.get("/api/user/detail"),
+  login: (authcode) => instance.get(`/user/kakao/callback?code=${authcode}`),
+  logout: () => instance.get("/logout"),
+  getUserDetail: () => instance.get("/api/user/detail"),
 };
 
 /* == API - note */
@@ -61,7 +60,10 @@ export const noteApi = {
 
 /* == API - comment */
 export const commentApi = {
-  getCommentList: () => instance.get(""),
+  getCommentList: (noteId) => instance.get(`/api/comments/${noteId}`),
+  postComment: (noteId, comment) => instance.post(`/api/comments/${noteId}`, comment),
+  deleteComment: (commentId) => instance.delete(`/api/comments/${commentId}`),
+  putComment: (commentId, comment) => instance.put(`/api/comments/${commentId}`, comment),
 };
 
 /* == API - search */

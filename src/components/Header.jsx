@@ -31,6 +31,10 @@ const Header = ({ history }) => {
   const [keyword, setKeyword] = useState("");
   console.log(keyword);
 
+  // const userImage =
+  //   user.picture == null
+  //     ? "https://e7.pngegg.com/pngimages/287/501/png-clipart-giant-panda-emoji-coloring-book-drawing-sticker-emoji-child-face-thumbnail.png"
+  //     : user.picture;
   return (
     <header className="header" id="header">
       <Container fluid>
@@ -53,13 +57,13 @@ const Header = ({ history }) => {
 
             {/* == 유저프로필 */}
             <Dropdown>
-              <Dropdown.Toggle align="end">
-                <IconProfile width="40" height="40" fill="#ffffff" className="profile-icon"/>
+              <Dropdown.Toggle variant="success" align="end">
+                <img src={user.picture} alt="profileImage" style={{ width: "35px", height: "35px" }} className="dropdown-profile" />
               </Dropdown.Toggle>
 
               <Dropdown.Menu className="dropdown-group">
                 <Dropdown.ItemText className="text-center">
-                  <IconProfile width="40" height="40" fill="#9A9A9A" className="dropdown-profile" />
+                  <img src={user.picture} alt="profileImage" style={{ width: "40px", height: "40px" }} className="dropdown-profile" />
                   <p className="dropdown-name">{user.name}</p>
                   <p className="dropdown-email">{user.email}</p>
                 </Dropdown.ItemText>
