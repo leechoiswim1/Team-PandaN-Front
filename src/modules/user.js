@@ -28,23 +28,42 @@ const __login =
   (authorization_code) =>
     async (dispatch, getState, { history }) => {
       try {
+        // 로그인 한 유저가 뒤로가기로 페이지 돌아간 다음 다시 동일한 인가코드를 보내지 않도록 처리
+        const isLoggedIn = getState().user.isLoggedIn;
+        if (isLoggedIn) {
+          history.push("/");
+          return;
+        }
+
+        // OAuth authorization_code 보내고 토큰 가져오기
         const { data } = await userApi.login(authorization_code);
+
+        // str 변환 후 decode 
         const str_data = JSON.stringify(data)
-        const decoded = jwtDecode(str_data);  
-        const tokenvalue = str_data.split(`"`)[3];
+        const decoded = jwtDecode(str_data);
+        
+        // {"token":"...tokenvalue"} 토큰 값 가져오기 
+        const tokenvalue = str_data.split(`"`)[2];
+
+        // 유저 정보 유지를 위해 str 변환 후 localStorage 저장
         const userInfo = {
           email: decoded.email,
           name: decoded.name,
           picture: decoded.picture,
         }
         const str_userInfo = JSON.stringify(userInfo);
-
-        dispatch(login(decoded));
         localStorage.setItem("userInfo", str_userInfo);
+        
+        // setCookie("TOKEN", 값, 유효기간) 
         setCookie("TOKEN", tokenvalue, 1);
+
+        dispatch(login(decoded));        
         history.push("/");
+
       } catch (e) {
         console.log(e);
+        window.alert("로그인에 실패하였습니다. 다시 로그인 해 주세요.")
+        history.push("/login");
       }
     };
 
