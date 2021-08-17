@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const TOKEN = document.cookie.split(`"`)[3];
+const TOKEN = document.cookie.split("=")[1];
 
 /* == Axios - instance */
 const instance = axios.create({
@@ -12,8 +12,7 @@ const instance = axios.create({
 
 /* == Axios - interceptor for sending accessToken */
 instance.interceptors.request.use((config) => {
-  // prettier 설정으로 인해 쌍따옴표로 감쌀 수 없어 ` ` 사용합니다.
-	const TOKEN = document.cookie.split(`"`)[3];
+	const TOKEN = document.cookie.split("=")[1];
   config.headers.TOKEN = TOKEN;
 	return config;
 });
