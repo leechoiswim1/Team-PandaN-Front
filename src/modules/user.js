@@ -28,6 +28,12 @@ const __login =
   (authorization_code) =>
     async (dispatch, getState, { history }) => {
       try {
+        const isLoggedIn = getState().user.isLoggedIn;
+        if (isLoggedIn) {
+          history.push("/");
+          return;
+        }
+
         const { data } = await userApi.login(authorization_code);
         const str_data = JSON.stringify(data)
         const decoded = jwtDecode(str_data);  

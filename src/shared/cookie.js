@@ -14,8 +14,8 @@ const setCookie = (name, value, exp = 1) => {
  * @param {string} name : cookie name
  */
 const deleteCookie = (name) => {
-	let date = new Date("2020-01-01").toUTCString();
-	document.cookie = name + "=; expires=" + date;
+	let date = new Date("2020-01-01");
+	document.cookie = name + "=; expires=" + date.toUTCString() + "; path=/";
 };
 
 export { setCookie, deleteCookie };
