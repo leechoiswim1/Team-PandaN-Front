@@ -42,7 +42,14 @@ const ProjectHeader = ({ match }) => {
         <div style={{ display: "flex", flexWrap: "nowrap" }}>
           <div>
             <div style={{ display: "flex", flexWrap: "nowrap" }}>
-              <h3>{project_detail_list.title} </h3>
+              <h3
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  history.push(history.push(`/projects/${project_detail_list.projectId}/kanban`));
+                }}
+              >
+                {project_detail_list.title}{" "}
+              </h3>
               <div style={{ marginLeft: "10px" }}>
                 {isUpdatableAndDeletable ? (
                   <ProjectModalEdit projectId={project_detail_list.projectId} title={project_detail_list.title} detail={project_detail_list.detail} />

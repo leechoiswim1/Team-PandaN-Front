@@ -34,8 +34,8 @@ const ProjectCardList = () => {
 const Item = styled.div(
   ...t`
    
-  
-  height:180px;
+  width: 400px;
+  height:300px;
   margin: 20px;
   padding: 20px;
   background-color: #fff; 
@@ -43,7 +43,7 @@ const Item = styled.div(
   box-sizing: border-box;
   border-radius:20px;
   align-content: space-between;
-  width: 20%;
+ 
   @media (max-width: 1360px) {
     width: 20%;
   }
