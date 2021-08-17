@@ -1,12 +1,16 @@
-import React from "react";
-import styled from "styled-components";
+import React                      from "react";
+/* == Library - style */
+import styled                     from "styled-components";
 /* == Custom - Elements */
-import GoogleButton from "../elements/GoogleButton";
+import KakaoButton                from "../../elements/KakaoButton";
 /* == Custom - Icon */
-import { ReactComponent as Logo } from "../styles/images/logo.svg";
+import { ReactComponent as Logo } from "../../styles/images/logo.svg";
+/* == Custom - shared > OAuth setting */
+import { dev_oauthURL, oauthURL } from "../../shared/oauthenv";
 /* == Redux - actions */
-import { useDispatch }     from "react-redux";
+import { useDispatch }            from "react-redux";
 
+// * == ( Page > Login ) -------------------- * //
 const Login = ({ history }) => {
   const dispatch = useDispatch();
   
@@ -16,12 +20,9 @@ const Login = ({ history }) => {
         <Logo />
         <p style={{fontSize: "80px"}}>🐼</p>
         <h3>세상에서 제일 쉬운 협업툴</h3>
-        <h3><b>PandaN</b>을 만나보세요!</h3>        
-
-        <form action="http://blossomwhale.shop/oauth2/authorization/google">
-          <GoogleButton type="submit"/>
-        </form>
-
+        <h3><b>PandaN</b>을 만나보세요!</h3>
+        <KakaoButton type="button" onClick={()=> { window.location.href = dev_oauthURL }}/>
+        {/* <KakaoButton type="button" onClick={()=> { window.location.href = oauthURL }}/> */}
       </Container>
     </Wrapper>
   );
@@ -50,7 +51,7 @@ const Container = styled.div`
 @media (max-width: 767px){
   width: inherit;
   height: inherit;
-  min-width: 360px;
+  min-width: 300px;
   border-radius: 0;
 }
 `;

@@ -26,15 +26,10 @@ const Header = ({ history }) => {
     dispatch(userActions.__logout());
   };
 
-  useEffect(() => {
-    dispatch(userActions.__getUserDetail());
-    dispatch(userActions.__setLogin());
-  }, []);
-
   const user = useSelector((state) => state.user);
 
   const [keyword, setKeyword] = useState("");
-  console.log(keyword + 'keyword');
+  console.log(keyword);
 
   return (
     <header className="header" id="header">

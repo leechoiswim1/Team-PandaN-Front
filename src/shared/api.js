@@ -4,7 +4,14 @@ import axios from "axios";
 const instance = axios.create({
   baseURL: "http://blossomwhale.shop",
   headers: {},
-  withCredentials: true,
+});
+
+/* == Axios - interceptor for sending accessToken */
+instance.interceptors.request.use((config) => {
+  // prettier 설정으로 인해 쌍따옴표로 감쌀 수 없어 ` ` 사용합니다.
+	const TOKEN = document.cookie.split(`"`)[3];
+  config.headers.TOKEN = TOKEN;
+	return config;
 });
 
 /* == API - project */
@@ -22,8 +29,9 @@ export const projectApi = {
 
 /* == API - user */
 export const userApi = {
-  logout: () => instance.get("/logout"),
-  getUserDetail: () => instance.get("/api/user/detail"),
+  login:          (authcode) => instance.get(`/user/kakao/callback?code=${authcode}`),
+  logout:         () => instance.get("/logout"),
+  getUserDetail:  () => instance.get("/api/user/detail"),
 };
 
 /* == API - note */

@@ -49,6 +49,18 @@ const KanbanBoard = ({ history, match }) => {
       //배열로 만들고 store 저장
       const _newState = Object.values(newState);
       dispatch(noteActions.setKanbanStep(_newState));
+
+      // 바뀐 배열 정보 서버 요청
+      // 옮긴 노트의 인덱스가 맨 마지막일 경우
+      if (_notes[destination.index + 1] === undefined) {
+        const nextCardId = 0;
+        console.log("다음 노트가 없습니다.");
+        // dispatch(noteActions.__editNote(draggableId, newNote));  
+      } else {
+        const nextCardId = _notes[destination.index + 1].noteId;
+        console.log("다음 노트 noteId", nextCardId);
+        // dispatch(noteActions.__editNote(draggableId, newNote));  
+      }
     }
 
     // note의 기존 step status와 drop 이후의 step status가 다를 경우
@@ -81,6 +93,19 @@ const KanbanBoard = ({ history, match }) => {
       // 배열로 만들고 store 저장
       const _newState = Object.values(newState);
       dispatch(noteActions.setKanbanStep(_newState));
+
+      // 바뀐 배열 정보 서버 요청
+      // 옮긴 노트의 인덱스가 맨 마지막일 경우
+      if (_destinationNoteList[destination.index + 1] === undefined) {
+        const nextCardId = 0;
+        console.log("다음 노트가 없습니다.");
+        // dispatch(noteActions.__editNote(draggableId, newNote));  
+      } else {
+        const nextCardId = _destinationNoteList[destination.index + 1].noteId;
+        console.log("다음 노트 noteId", nextCardId);
+        // dispatch(noteActions.__editNote(draggableId, newNote));  
+      }
+      // 기존 칸반 노트 state 변경 사항 업데이트 요청      
       dispatch(noteActions.__editNote(draggableId, newNote));
     }
   };
