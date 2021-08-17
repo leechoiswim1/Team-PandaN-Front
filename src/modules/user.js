@@ -39,27 +39,31 @@ const __login =
         const { data } = await userApi.login(authorization_code);
 
         // str 변환 후 decode 
-        const str_data = JSON.stringify(data)
+        const str_data = JSON.stringify(data);
         const decoded = jwtDecode(str_data);
         
         // {"token":"...tokenvalue"} 토큰 값 가져오기 
-        const tokenvalue = str_data.split(`"`)[2];
+        const tokenvalue = str_data.split(`"`)[3];
 
-        // 유저 정보 유지를 위해 str 변환 후 localStorage 저장
+        // 유저 정보 유지를 위해 str 변환
         const userInfo = {
           email: decoded.email,
           name: decoded.name,
           picture: decoded.picture,
-        }
+        };
         const str_userInfo = JSON.stringify(userInfo);
+        
+        dispatch(login(decoded));
+
+        // str 변환한 유저정보 localStorage 저장   
         localStorage.setItem("userInfo", str_userInfo);
         
         // setCookie("TOKEN", 값, 유효기간) 
-        setCookie("TOKEN", tokenvalue, 1);
-
-        dispatch(login(decoded));        
+        setCookie("TOKEN", tokenvalue, 1);           
+        
+        // 메인페이지 이동
         history.push("/");
-
+        
       } catch (e) {
         console.log(e);
         window.alert("로그인에 실패하였습니다. 다시 로그인 해 주세요.")
