@@ -1,9 +1,13 @@
 import axios from "axios";
 
+const TOKEN = document.cookie.split(`"`)[3];
+
 /* == Axios - instance */
 const instance = axios.create({
   baseURL: "http://blossomwhale.shop",
-  headers: {},
+  headers: {
+    TOKEN : TOKEN,
+  },
 });
 
 /* == Axios - interceptor for sending accessToken */

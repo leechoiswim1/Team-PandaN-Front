@@ -19,12 +19,12 @@ export default (Page, checkAuth) => {
 
 		useEffect(() => {
 			dispatch(userActions.__setLogin());
-			if (!isLoggedIn && checkAuth) {
-				props.history.push("/login");
-			} 
-			else if (isLoggedIn && !checkAuth) {
-				props.history.push("/");
-			}
+			// if (!isLoggedIn && checkAuth) {
+			// 	props.history.push("/login");
+			// } 
+			// else if (isLoggedIn && !checkAuth) {
+			// 	props.history.push("/");
+			// }
 		}, []);
 
 		return <Page {...props} />;
