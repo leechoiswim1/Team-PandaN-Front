@@ -10,10 +10,10 @@ import { actionCreators as commentActions } from "../../modules/comment";
 import { Edit2 } from "react-feather";
 
 const CommentEdit = (props) => {
-  const { commentId, content, writer } = props;
+  const { commentId, content, writer } = props.props;
   const dispatch = useDispatch();
   const [modifiedComment, setModifiedComment] = useState(content);
-
+  const [isEditMode, setIsEditMode] = useState(props.isEditMode);
   const editComment = () => {
     if (modifiedComment === "") {
       window.alert("댓글을 입력해주세요!");
@@ -23,7 +23,8 @@ const CommentEdit = (props) => {
     const Comment = {
       content: modifiedComment,
     };
-    dispatch(commentActions.__postComment(Comment));
+    dispatch(commentActions.__editComment(commentId, Comment));
+    setIsEditMode(false);
   };
 
   const changeEditComment = (e) => {
@@ -32,36 +33,40 @@ const CommentEdit = (props) => {
 
   return (
     <>
-      <div style={{ width: "90%", margin: "0px 10px", boxSizing: "borderBox" }}>
-        <Comment>
-          <CommentForm>
-            <CommentTextArea type="text" placeholder="댓글을 입력하세요." value={modifiedComment} onChange={changeEditComment} />
+      {isEditMode ? (
+        <div style={{ width: "95%", margin: "10px 5px 0px 5px", boxSizing: "borderBox" }}>
+          <Comment>
+            <CommentForm>
+              <CommentTextArea type="text" placeholder="댓글을 입력하세요." defaultValue={content} onChange={changeEditComment} />
 
-            <CommentInner>
-              <CommnetBtnSide>
-                <CommentBtn
-                  variant="primary"
-                  type="summit"
-                  onClick={() => {
-                    editComment();
-                  }}
-                >
-                  저장
-                </CommentBtn>
-                <CommentBtn
-                  variant="primary"
-                  type="summit"
-                  onClick={() => {
-                    history.goBack();
-                  }}
-                >
-                  저장
-                </CommentBtn>
-              </CommnetBtnSide>
-            </CommentInner>
-          </CommentForm>
-        </Comment>
-      </div>
+              <CommentInner>
+                <CommnetBtnSide>
+                  <CommentBtn
+                    variant="primary"
+                    type="summit"
+                    onClick={() => {
+                      editComment();
+                    }}
+                  >
+                    저장
+                  </CommentBtn>
+                  <CommentBtn
+                    variant="primary"
+                    type="summit"
+                    onClick={() => {
+                      history.goBack();
+                    }}
+                  >
+                    취소
+                  </CommentBtn>
+                </CommnetBtnSide>
+              </CommentInner>
+            </CommentForm>
+          </Comment>
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 };
@@ -69,9 +74,7 @@ const Comment = styled.div`
   flex-shrink: 0;
   position: relative;
   min-height: 114px;
-  margin-left: 6px;
-  margin-right: 8px;
-  margin-top: auto;
+  margin: 2px;
   background-color: #fff;
   border-radius: 4px;
   border: 1px solid #d3d3d3;
@@ -79,7 +82,7 @@ const Comment = styled.div`
 `;
 const CommentForm = styled.div`
   width: 100%;
-  margin-top: 14px;
+  margin-top: 5px;
   padding-left: 14px;
   padding-right: 14px;
   overflow-x: hidden;
@@ -90,12 +93,12 @@ const CommentInner = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 13px;
+  padding-top: 2px;
   flex-basis: 100%;
 `;
 const CommentTextArea = styled.textarea`
   border: none;
-  min-height: 40px;
+  min-height: 60px;
   width: 100%;
   position: relative;
   outline: none;
@@ -115,6 +118,7 @@ const CommentBtn = styled.button`
 
 const CommnetBtnSide = styled.div`
   width: 100%;
+  display: flex;
 `;
 
 export default CommentEdit;

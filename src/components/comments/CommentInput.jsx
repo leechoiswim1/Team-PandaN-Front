@@ -22,7 +22,7 @@ const CommentInput = (props) => {
     const Comment = {
       content: comment,
     };
-    console.log(noteId, comment);
+
     dispatch(commentActions.__postComment(noteId, Comment));
   };
 

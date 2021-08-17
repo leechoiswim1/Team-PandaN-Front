@@ -10,6 +10,8 @@ import { actionCreators as commentActions } from "../../modules/comment";
 import { useSelector, useDispatch } from "react-redux";
 import { Bookmark, Clock, Edit2, Trash2 } from "react-feather";
 
+import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edit.svg";
+
 const CommentCard = (props) => {
   const { commentId, content, writer } = props;
   const dispatch = useDispatch();
@@ -34,13 +36,16 @@ const CommentCard = (props) => {
           <span style={{ fontWeight: "500" }}>{writer}</span>
           {userName === writer ? (
             <>
-              <button onClick={() => setMenu(true)}>박스</button>
+              <button onClick={() => setMenu(!menu)} style={{ float: "right" }}>
+                <IconEdit width="20px" />
+              </button>
               {menu === true ? (
-                <div>
+                <div style={{ width: "50px", height: "30px", float: "right" }}>
                   <Edit2
                     style={{ width: "15px", marginLeft: "10px", cursor: "pointer" }}
                     onClick={() => {
                       setIsEditMode(!isEditMode);
+                      setMenu(false);
                     }}
                   />
                   <Trash2 style={{ width: "15px", marginLeft: "10px", cursor: "pointer" }} onClick={deleteComment} />

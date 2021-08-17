@@ -17,7 +17,7 @@ const EDIT_COMMENT = "EDIT_COMMENT";
 const getCommentList = createAction(GET_COMMENT_LIST, (data) => data);
 const postComment = createAction(POST_COMMENT, (comment) => ({ comment }));
 const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({ commentId }));
-const editComment = createAction(EDIT_COMMENT, (commentId, comment) => ({ commentId, comment }));
+const editComment = createAction(EDIT_COMMENT, (comment) => comment);
 
 /* == thunk function */
 const __getCommentList =
@@ -53,6 +53,18 @@ const __deleteComment =
     }
   };
 
+const __editComment =
+  (commentId, comment) =>
+  async (dispatch, getState, { history }) => {
+    try {
+      console.log(commentId, comment);
+      const { data } = await commentApi.putComment(commentId, comment);
+      console.log(data);
+      dispatch(editComment(data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
 /* == reducer */
 export default handleActions(
   {
@@ -74,6 +86,14 @@ export default handleActions(
           draft.list.splice(idx, 1);
         }
       }),
+    [EDIT_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        console.log(action.payload);
+        let idx = draft.list.findIndex((p) => p.commentId === action.payload.commentId);
+        if (idx !== -1) {
+          draft.list[idx].content = action.payload.content;
+        }
+      }),
   },
   initialState,
 );
@@ -83,9 +103,12 @@ export default handleActions(
 const actionCreators = {
   getCommentList,
   postComment,
+  deleteComment,
+  editComment,
   __getCommentList,
   __postComment,
   __deleteComment,
+  __editComment,
 };
 
 export { actionCreators };
