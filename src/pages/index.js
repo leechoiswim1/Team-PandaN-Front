@@ -1,5 +1,8 @@
 import Home from "./Home";
-import Login from "./Login";
+
+/* == Login */
+import Login from "./login/Login";
+import LoginRedirect from "./login/LoginRedirect";
 
 /* == Note */
 import Bookmark from "./notes/Bookmark";
@@ -13,6 +16,7 @@ import NotFound from "./NotFound";
 export {
   Home,
   Login,
+  LoginRedirect,
   NotFound,
   /* == Note */
   Bookmark,

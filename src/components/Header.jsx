@@ -26,11 +26,6 @@ const Header = ({ history }) => {
     dispatch(userActions.__logout());
   };
 
-  useEffect(() => {
-    dispatch(userActions.__getUserDetail());
-    dispatch(userActions.__setLogin());
-  }, []);
-
   const user = useSelector((state) => state.user);
   const userImage =
     user.picture == null
