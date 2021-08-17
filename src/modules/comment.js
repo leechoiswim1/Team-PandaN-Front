@@ -4,22 +4,7 @@ import { commentApi } from "../shared/api";
 
 /* == Comments - initial state */
 const initialState = {
-  list: [
-    {
-      commentList: [
-        {
-          commentId: 5,
-          content: "댓글내용",
-          writer: "호랑이",
-        },
-        {
-          commentId: 6,
-          content: "댓글내용2",
-          writer: "뱀",
-        },
-      ],
-    },
-  ],
+  list: [],
 };
 
 /* == action */
@@ -40,8 +25,7 @@ const __getCommentList =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await commentApi.getCommentList(noteId);
-      console.log(data.data);
-      dispatch(getCommentList(data.data));
+      dispatch(getCommentList(data));
     } catch (e) {
       console.log(e);
     }
@@ -50,11 +34,20 @@ const __getCommentList =
 const __postComment =
   (noteId, comment) =>
   async (dispatch, getState, { history }) => {
-    console.log(noteId, comment);
     try {
       const { data } = await commentApi.postComment(noteId, comment);
-      console.log(data.data);
-      dispatch(postComment(data.data));
+      dispatch(postComment(data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+const __deleteComment =
+  (commentId) =>
+  async (dispatch, getState, { history }) => {
+    try {
+      const { data } = await commentApi.deleteComment(commentId);
+      dispatch(deleteComment(data.commentId));
     } catch (e) {
       console.log(e);
     }
@@ -65,13 +58,21 @@ export default handleActions(
   {
     [GET_COMMENT_LIST]: (state, action) =>
       produce(state, (draft) => {
-        console.log(...action.payload);
         draft.list = [...action.payload.commentList];
       }),
     [POST_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         // 데이터를 배열 맨 앞에 넣어줍니다.
-        draft.list.unshift(action.payload.commentList);
+        draft.list.push(action.payload.comment);
+      }),
+
+    [DELETE_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        let idx = draft.list.findIndex((p) => p.commentId === action.payload.commentId);
+        if (idx !== -1) {
+          // 배열에서 idx 위치의 요소 1개를 지웁니다.
+          draft.list.splice(idx, 1);
+        }
       }),
   },
   initialState,
@@ -84,6 +85,7 @@ const actionCreators = {
   postComment,
   __getCommentList,
   __postComment,
+  __deleteComment,
 };
 
 export { actionCreators };

@@ -7,51 +7,62 @@ import { Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { history } from "../../modules/configStore";
 import { actionCreators as commentActions } from "../../modules/comment";
+import { Edit2 } from "react-feather";
 
-const CommentInput = (props) => {
+const CommentEdit = (props) => {
+  const { commentId, content, writer } = props;
   const dispatch = useDispatch();
-  const [comment, setComment] = useState("");
-  const noteId = props.match.params.noteId;
+  const [modifiedComment, setModifiedComment] = useState(content);
 
-  const CreateComment = () => {
-    if (comment === "") {
+  const editComment = () => {
+    if (modifiedComment === "") {
       window.alert("댓글을 입력해주세요!");
       return;
     }
 
     const Comment = {
-      content: comment,
+      content: modifiedComment,
     };
-    console.log(noteId, comment);
-    dispatch(commentActions.__postComment(noteId, Comment));
+    dispatch(commentActions.__postComment(Comment));
   };
 
-  const changeComment = (e) => {
-    setComment(e.target.value);
+  const changeEditComment = (e) => {
+    setModifiedComment(e.target.value);
   };
 
   return (
-    <div style={{ width: "90%", margin: "0px 10px", boxSizing: "borderBox" }}>
-      <Comment>
-        <CommentForm>
-          <CommentTextArea type="text" placeholder="댓글을 입력하세요." value={comment} onChange={changeComment} />
+    <>
+      <div style={{ width: "90%", margin: "0px 10px", boxSizing: "borderBox" }}>
+        <Comment>
+          <CommentForm>
+            <CommentTextArea type="text" placeholder="댓글을 입력하세요." value={modifiedComment} onChange={changeEditComment} />
 
-          <CommentInner>
-            <CommnetBtnSide>
-              <CommentBtn
-                variant="primary"
-                type="summit"
-                onClick={() => {
-                  CreateComment();
-                }}
-              >
-                저장
-              </CommentBtn>
-            </CommnetBtnSide>
-          </CommentInner>
-        </CommentForm>
-      </Comment>
-    </div>
+            <CommentInner>
+              <CommnetBtnSide>
+                <CommentBtn
+                  variant="primary"
+                  type="summit"
+                  onClick={() => {
+                    editComment();
+                  }}
+                >
+                  저장
+                </CommentBtn>
+                <CommentBtn
+                  variant="primary"
+                  type="summit"
+                  onClick={() => {
+                    history.goBack();
+                  }}
+                >
+                  저장
+                </CommentBtn>
+              </CommnetBtnSide>
+            </CommentInner>
+          </CommentForm>
+        </Comment>
+      </div>
+    </>
   );
 };
 const Comment = styled.div`
@@ -106,4 +117,4 @@ const CommnetBtnSide = styled.div`
   width: 100%;
 `;
 
-export default CommentInput;
+export default CommentEdit;
