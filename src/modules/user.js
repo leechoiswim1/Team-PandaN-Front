@@ -19,34 +19,36 @@ const LOGOUT = "user/LOGOUT";
 const SET_LOGIN = "user/SET_LOGIN";
 
 /* == action creator */
-const login       = createAction(LOGIN, ( user ) => ({ user }));
-const logout      = createAction(LOGOUT, () => ({}));
-const setLogin    = createAction(SET_LOGIN, ( user ) => ({ user }));
+const login = createAction(LOGIN, (user) => ({ user }));
+const logout = createAction(LOGOUT, () => ({}));
+const setLogin = createAction(SET_LOGIN, (user) => ({ user }));
 
 /* == thunk function */
 const __login =
   (authorization_code) =>
-    async (dispatch, getState, { history }) => {
-      try {
-        const { data } = await userApi.login(authorization_code);
-        const str_data = JSON.stringify(data)
-        const decoded = jwtDecode(str_data);  
-        const tokenvalue = str_data.split(`"`)[3];
-        const userInfo = {
-          email: decoded.email,
-          name: decoded.name,
-          picture: decoded.picture,
-        }
-        const str_userInfo = JSON.stringify(userInfo);
+  async (dispatch, getState, { history }) => {
+    try {
+      const { data } = await userApi.login(authorization_code);
+      const str_data = JSON.stringify(data);
+      const decoded = jwtDecode(str_data);
 
-        dispatch(login(decoded));
-        localStorage.setItem("userInfo", str_userInfo);
-        setCookie("TOKEN", tokenvalue, 1);
-        history.push("/");
-      } catch (e) {
-        console.log(e);
-      }
-    };
+      const tokenvalue = str_data.split(`"`)[3];
+      const userInfo = {
+        email: decoded.email,
+        name: decoded.name,
+        picture: decoded.picture,
+      };
+      const str_userInfo = JSON.stringify(userInfo);
+
+      dispatch(login(decoded));
+      localStorage.setItem("userInfo", str_userInfo);
+      setCookie("TOKEN", tokenvalue, 1);
+
+      history.push("/");
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
 const __logout =
   () =>
@@ -91,14 +93,14 @@ const user = handleActions(
       };
     },
     [SET_LOGIN]: (state, action) => {
-			return {
-				...state,
-				isLoggedIn: true,
+      return {
+        ...state,
+        isLoggedIn: true,
         name: action.payload.user.name,
         email: action.payload.user.email,
         picture: action.payload.user.picture,
-			};
-    }
+      };
+    },
   },
   initialState,
 );
