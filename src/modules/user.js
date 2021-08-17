@@ -1,23 +1,22 @@
-
-import { createAction, handleActions }  from "redux-actions";
+import { createAction, handleActions } from "redux-actions";
 /* == Library - jwt decode */
-import jwtDecode                        from 'jwt-decode';
+import jwtDecode from "jwt-decode";
 /* == Custom - shared > api / cookie */
-import { userApi }                      from "../shared/api";
-import { setCookie, deleteCookie }      from '../shared/cookie';
+import { userApi } from "../shared/api";
+import { setCookie, deleteCookie } from "../shared/cookie";
 
 /* == User - initial state */
 const initialState = {
   name: "",
   email: "",
-  picture: "",
+  picture: "https://e7.pngegg.com/pngimages/287/501/png-clipart-giant-panda-emoji-coloring-book-drawing-sticker-emoji-child-face-thumbnail.png",
   isLoggedIn: false,
 };
 
 /* == action */
-const LOGIN       = "user/LOGIN";
-const LOGOUT      = "user/LOGOUT";
-const SET_LOGIN   = 'user/SET_LOGIN';
+const LOGIN = "user/LOGIN";
+const LOGOUT = "user/LOGOUT";
+const SET_LOGIN = "user/SET_LOGIN";
 
 /* == action creator */
 const login       = createAction(LOGIN, ( user ) => ({ user }));
@@ -25,7 +24,7 @@ const logout      = createAction(LOGOUT, () => ({}));
 const setLogin    = createAction(SET_LOGIN, ( user ) => ({ user }));
 
 /* == thunk function */
-const __login = 
+const __login =
   (authorization_code) =>
     async (dispatch, getState, { history }) => {
       try {
@@ -55,8 +54,8 @@ const __logout =
     try {
       localStorage.removeItem("userInfo");
       deleteCookie("TOKEN");
-			dispatch(logout());
-		  history.push("/login");
+      dispatch(logout());
+      history.push("/login");
     } catch (e) {
       console.log(e);
     }

@@ -1,36 +1,101 @@
-import React  from "react";
+import React, { useEffect, useState } from "react";
 /* == Library - style */
 import styled from "styled-components";
-import { t }  from "../../util/remConverter";
+import { t } from "../../util/remConverter";
 import { Form, Button } from "react-bootstrap";
 
-const CommentCard = () => {
+import CommentEdit from "./CommentEdit";
+
+import { actionCreators as commentActions } from "../../modules/comment";
+import { useSelector, useDispatch } from "react-redux";
+import { Bookmark, Clock, Edit2, Trash2 } from "react-feather";
+
+import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edit.svg";
+
+const CommentCard = (props) => {
+  const { commentId, content, writer } = props;
+  const dispatch = useDispatch();
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const [menu, setMenu] = useState(false);
+  const userName = useSelector((state) => state.user.name);
+
+  const deleteComment = () => {
+    if (window.confirm("정말로 댓글을 지우시겠습니까?😲") === true) {
+      dispatch(commentActions.__deleteComment(commentId));
+      window.alert("댓글을 성공적으로 삭제됐습니다!🐼");
+    } else {
+      return;
+    }
+  };
+
   return (
     <Card>
-      <CardHeader>
-        <span style={{fontWeight: "500"}}>작성자 이름</span>
-        <span style={{marginLeft: "8px"}}>작성 시간</span>
-      </CardHeader>
-      <Comment>
-        댓글 내용
-      </Comment>
+      <CardBody>
+        <CardHeader>
+          <span style={{ fontWeight: "500" }}>{writer}</span>
+          {userName === writer ? (
+            <>
+              <button onClick={() => setMenu(!menu)} style={{ float: "right" }}>
+                <IconEdit width="20px" />
+              </button>
+              {menu === true ? (
+                <div style={{ width: "50px", height: "30px", float: "right" }}>
+                  <Edit2
+                    style={{ width: "15px", marginLeft: "10px", cursor: "pointer" }}
+                    onClick={() => {
+                      setIsEditMode(!isEditMode);
+                      setMenu(false);
+                    }}
+                  />
+                  <Trash2 style={{ width: "15px", marginLeft: "10px", cursor: "pointer" }} onClick={deleteComment} />
+                </div>
+              ) : (
+                ""
+              )}
+            </>
+          ) : (
+            ""
+          )}
+        </CardHeader>
+        <Comment>{content}</Comment>
+      </CardBody>
+      {isEditMode ? <CommentEdit props={props} isEditMode /> : ""}
     </Card>
   );
 };
 
-const Card = styled.div(...t`
-  margin: 0 0 8px;
-  padding: 8px;
+const Card = styled.div(
+  ...t`
+  width: 90%;
+  background: #fff;
+  margin: 20px auto;
+  padding: 10px;
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
+
+
   &:hover {
-    background-color: #ffffff;
+    background-color: #e1ede4;
   }
-`);
+ 
+`,
+);
 
-const CardHeader = styled.div(...t`
-`);
+const CardHeader = styled.div(
+  ...t`
+`,
+);
 
-const Comment = styled.div(...t`
-  padding: 8px 0;
-`);
+const Comment = styled.div(
+  ...t`
+  margin-top: 8px;
+  white-space: pre-wrap;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+`,
+);
+
+const CardBody = styled.div``;
 
 export default CommentCard;

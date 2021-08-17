@@ -132,6 +132,7 @@ const __inviteProject =
     try {
       const data = await projectApi.getinviteProject(projectId);
       dispatch(inviteProject(data.data));
+      dispatch(__setSideProject());
     } catch (e) {
       console.log(e);
     }
