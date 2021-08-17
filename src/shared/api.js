@@ -69,4 +69,8 @@ export const commentApi = {
 /* == API - search */
 export const searchApi = {
   getSearchList: (keyword) => instance.get(`/api/notes/search?keyword=${keyword}`),
+  getSearchAll: (keyword) => instance.get(`/api/notes/search?keyword=${keyword}`),
+  getSearchBookmark: (keyword) => instance.get(`/api/notes/search/bookmarks?keyword=${keyword}`),
+  getSearchMynote: (keyword) => instance.get(`/api/notes/search/mynotes?keyword=${keyword}`),
 };
+

@@ -29,6 +29,7 @@ const Header = ({ history }) => {
   const user = useSelector((state) => state.user);
 
   const [keyword, setKeyword] = useState("");
+  const [searchParam] = useState(["classification", "noteTitle"]);
   console.log(keyword);
 
   // const userImage =
@@ -48,7 +49,9 @@ const Header = ({ history }) => {
                   <option>북마크 검색</option>
                   <option>내가 작성한 문서 검색</option>
                 </select>
-                <FormControl placeholder="검색어를 입력하세요" onChange={(e)=> setKeyword(e.target.value)}/>
+                <FormControl 
+                  placeholder="검색어를 입력하세요"
+                />
                 <button>
                   <IconSearch width="40" height="40" fill="#767676"/>
                 </button>
@@ -57,13 +60,13 @@ const Header = ({ history }) => {
 
             {/* == 유저프로필 */}
             <Dropdown>
-              <Dropdown.Toggle variant="success" align="end">
-                <img src={user.picture} alt="profileImage" style={{ width: "35px", height: "35px" }} className="dropdown-profile" />
+              <Dropdown.Toggle variant="" align="end">
+                <img src={user.picture} alt="profileImage" style={{ width: "35px", height: "35px", borderRadius: "50%" }} className="dropdown-profile" />
               </Dropdown.Toggle>
 
               <Dropdown.Menu className="dropdown-group">
                 <Dropdown.ItemText className="text-center">
-                  <img src={user.picture} alt="profileImage" style={{ width: "40px", height: "40px" }} className="dropdown-profile" />
+                  <img src={user.picture} alt="profileImage" style={{ width: "40px", height: "40px", borderRadius: "50%" }} className="dropdown-profile" />
                   <p className="dropdown-name">{user.name}</p>
                   <p className="dropdown-email">{user.email}</p>
                 </Dropdown.ItemText>

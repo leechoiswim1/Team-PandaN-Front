@@ -10,6 +10,7 @@ import project from "./project";
 import note from "./note";
 import user from "./user";
 import comment from "./comment";
+import search from "./search";
 
 export const history = createBrowserHistory();
 /* == Main - Root reducer */
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   note,
   user,
   comment,
+  search,
   router: connectRouter(history),
 });
 
