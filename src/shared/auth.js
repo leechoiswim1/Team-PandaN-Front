@@ -12,19 +12,20 @@ import { userActions } 	from '../modules/user';
 export default (Page, checkAuth) => {
 	const AuthCheck = (props) => {
 		const dispatch = useDispatch();
-		// prettier 설정으로 인해 쌍따옴표로 감쌀 수 없어 ` ` 사용합니다.
-		const token = document.cookie.split(`"`)[3];
-		const useremail = localStorage.getItem("useremail");
-		const isLoggedIn = useremail !== null && token !== undefined ? true : false;
+		const token = document.cookie.split("=")[1];
+		const userInfo = localStorage.getItem("userInfo");
+		const isLoggedIn = userInfo !== null && token !== undefined ? true : false;
 
 		useEffect(() => {
 			dispatch(userActions.__setLogin());
-			// if (!isLoggedIn && checkAuth) {
-			// 	props.history.push("/login");
-			// } 
-			// else if (isLoggedIn && !checkAuth) {
-			// 	props.history.push("/");
-			// }
+			// 로그인을 하지 않았는데 로그인 필요한 페이지에 있을 경우
+			if (!isLoggedIn && checkAuth) {
+				props.history.push("/login");
+			}
+			// 로그인을 이미 했는데 로그인 페이지 / 로그인 랜딩 페이지에 있을 경우 메인페이지로 이동 
+			else if (isLoggedIn && !checkAuth) {
+				props.history.push("/");
+			}
 		}, []);
 
 		return <Page {...props} />;

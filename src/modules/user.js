@@ -19,33 +19,40 @@ const LOGOUT = "user/LOGOUT";
 const SET_LOGIN = "user/SET_LOGIN";
 
 /* == action creator */
-const login = createAction(LOGIN, (user) => ({ user }));
-const logout = createAction(LOGOUT, () => ({}));
-const setLogin = createAction(SET_LOGIN, () => ({}));
+const login       = createAction(LOGIN, ( user ) => ({ user }));
+const logout      = createAction(LOGOUT, () => ({}));
+const setLogin    = createAction(SET_LOGIN, ( user ) => ({ user }));
 
 /* == thunk function */
 const __login =
   (authorization_code) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      const { data } = await userApi.login(authorization_code);
-      const _token = JSON.stringify(data);
-      const decoded = jwtDecode(_token);
+    async (dispatch, getState, { history }) => {
+      try {
+        const { data } = await userApi.login(authorization_code);
+        const str_data = JSON.stringify(data)
+        const decoded = jwtDecode(str_data);  
+        const tokenvalue = str_data.split(`"`)[3];
+        const userInfo = {
+          email: decoded.email,
+          name: decoded.name,
+          picture: decoded.picture,
+        }
+        const str_userInfo = JSON.stringify(userInfo);
 
-      dispatch(login(decoded));
-      localStorage.setItem("useremail", decoded.email);
-      setCookie("TOKEN", _token, 10);
-      history.push("/");
-    } catch (e) {
-      console.log(e);
-    }
-  };
+        dispatch(login(decoded));
+        localStorage.setItem("userInfo", str_userInfo);
+        setCookie("TOKEN", tokenvalue, 1);
+        history.push("/");
+      } catch (e) {
+        console.log(e);
+      }
+    };
 
 const __logout =
   () =>
   (dispatch, getState, { history }) => {
     try {
-      localStorage.removeItem("useremail");
+      localStorage.removeItem("userInfo");
       deleteCookie("TOKEN");
       dispatch(logout());
       history.push("/login");
@@ -57,10 +64,11 @@ const __logout =
 const __setLogin =
   () =>
   (dispatch, getState, { history }) => {
-    const useremail = localStorage.getItem("useremail");
-    const token = document.cookie.split(`"`)[3];
-    if (useremail !== null && token !== "") {
-      dispatch(setLogin());
+    const user = localStorage.getItem("userInfo");
+    const token = document.cookie.split("=")[1];
+    const json_user = JSON.parse(user);
+    if (user !== null && token !== "") {
+      dispatch(setLogin(json_user));
     }
   };
 
@@ -83,11 +91,14 @@ const user = handleActions(
       };
     },
     [SET_LOGIN]: (state, action) => {
-      return {
-        ...state,
-        isLoggedIn: true,
-      };
-    },
+			return {
+				...state,
+				isLoggedIn: true,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
+        picture: action.payload.user.picture,
+			};
+    }
   },
   initialState,
 );
