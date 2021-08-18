@@ -20,11 +20,6 @@ const CommentCard = (props) => {
 
   const [menu, setMenu] = useState(false);
   const userName = useSelector((state) => state.user.name);
-  const http = props.writerProfileImg.substring(0, 4);
-  const userProfileImage =
-    http == "http"
-      ? props.writerProfileImg
-      : "https://e7.pngegg.com/pngimages/287/501/png-clipart-giant-panda-emoji-coloring-book-drawing-sticker-emoji-child-face-thumbnail.png";
 
   const deleteComment = () => {
     if (window.confirm("정말로 댓글을 지우시겠습니까?😲") === true) {
@@ -36,6 +31,15 @@ const CommentCard = (props) => {
   };
 
   const createdAt = moment(modifiedAt).format(" YYYY. M. D hh:mm:ss");
+
+  var writerProfileImg1 = "" + writerProfileImg;
+  const http = writerProfileImg1.substring(0, 4);
+
+  console.log(http);
+  const userProfileImage =
+    http === "http"
+      ? writerProfileImg
+      : "https://e7.pngegg.com/pngimages/287/501/png-clipart-giant-panda-emoji-coloring-book-drawing-sticker-emoji-child-face-thumbnail.png";
 
   return (
     <Card>
