@@ -23,7 +23,7 @@ const CommentList = (props) => {
   }
   return (
     <Wrapper>
-      <div style={{ margin: "10px 18px", position: "sticky", top: "4px", zIndex: "1" }}>
+      <div style={{ margin: "10px 18px", position: "sticky", top: "4px" }}>
         <p>
           댓글{" "}
           <span style={{ background: "#387e4b", color: "#fff", borderRadius: "10px", padding: "0 6px", fontSize: "12px" }}>
