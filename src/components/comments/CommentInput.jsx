@@ -24,17 +24,24 @@ const CommentInput = (props) => {
     };
 
     dispatch(commentActions.__postComment(noteId, Comment));
+    setComment("");
   };
 
   const changeComment = (e) => {
     setComment(e.target.value);
   };
 
+  const EnterSummit = (e) => {
+    if (e.key === "Enter") {
+      CreateComment();
+    }
+  };
+
   return (
-    <div style={{ width: "90%", margin: "0px 10px", boxSizing: "borderBox" }}>
+    <div style={{ width: "95%", margin: "auto", boxSizing: "borderBox", position: "relative" }}>
       <Comment>
         <CommentForm>
-          <CommentTextArea type="text" placeholder="댓글을 입력하세요." value={comment} onChange={changeComment} />
+          <CommentTextArea type="text" placeholder="댓글을 입력하세요." value={comment} onChange={changeComment} onKeyPress={EnterSummit} />
 
           <CommentInner>
             <CommnetBtnSide>
@@ -58,12 +65,10 @@ const Comment = styled.div`
   flex-shrink: 0;
   position: relative;
   min-height: 114px;
-  margin-left: 6px;
-  margin-right: 8px;
-  margin-top: auto;
-  background-color: #fff;
-  border-radius: 4px;
-  border: 1px solid #d3d3d3;
+  margin: 8px;
+  background-color: #f5f5f5;
+  border-radius: 20px;
+  border: 1px solid #f5f5f5;
   padding-bottom: 11px;
 `;
 const CommentForm = styled.div`
@@ -73,6 +78,7 @@ const CommentForm = styled.div`
   padding-right: 14px;
   overflow-x: hidden;
   overflow-y: auto;
+  background-color: #f5f5f5;
 `;
 
 const CommentInner = styled.div`
@@ -81,6 +87,7 @@ const CommentInner = styled.div`
   justify-content: space-between;
   padding-top: 13px;
   flex-basis: 100%;
+  background-color: #f5f5f5;
 `;
 const CommentTextArea = styled.textarea`
   border: none;
@@ -88,7 +95,7 @@ const CommentTextArea = styled.textarea`
   width: 100%;
   position: relative;
   outline: none;
-
+  background-color: #f5f5f5;
   resize: none;
 `;
 

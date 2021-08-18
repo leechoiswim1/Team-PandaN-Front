@@ -28,7 +28,7 @@ const ProjectModal = (props) => {
     dispatch(projectActions.__postProject(project));
     setModalState(false);
 
-    history.push("./");
+    history.push("/");
   };
 
   const changeProTitle = (e) => {

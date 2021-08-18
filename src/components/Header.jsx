@@ -33,11 +33,10 @@ const Header = (props) => {
   const user = useSelector((state) => state.user);
   const {category, q} = useParams();
   const [keyword, setKeyword] = useState(q);
-  // console.log("category: " + category, "q: " +q);
 
   const [searchFilter, setSearchFilter] = useState("");
 
-  // 검색 유효성 검사 및 검색결과 페이지 이동
+  // * == 검색 유효성 검사 및 검색결과 페이지 이동
   const searchfunction = () => {
     if(keyword === undefined && searchFilter === ""){
       // case 1. 검색분류를 선택하지 않고 검색어를 입력하지 않았을 경우 
