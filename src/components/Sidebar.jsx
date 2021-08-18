@@ -22,6 +22,9 @@ import { ReactComponent as IconBookMark } from "../styles/images/ico-bookmark.sv
 import { ReactComponent as IconFile } from "../styles/images/ico-file.svg";
 import { ReactComponent as IconProject } from "../styles/images/ico-project.svg";
 
+/* == Redux */
+import { history } from "../modules/configStore";
+
 // * == (Sidebar) -------------------- * //
 
 const Sidebar = (props) => {
@@ -38,7 +41,6 @@ const Sidebar = (props) => {
         <Container fluid>
           <Link to="/" className="sidebar-logo">
             <Logo className="logo" />
-            {/* <button id="btn-close-sidebar" className="btn-close-sidebar"><X/></button> */}
           </Link>
         </Container>
       </div>
@@ -80,6 +82,11 @@ const Sidebar = (props) => {
                   )}
                 </Accordion.Item>
               </Accordion>
+            </li>
+            <li className="menu-item">
+              <Link to="/search" className="menu-link">
+                <span className="menu-text">검색 결과 페이지 (임시)</span>
+              </Link>
             </li>
           </ul>
         </Container>

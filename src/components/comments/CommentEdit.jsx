@@ -54,7 +54,7 @@ const CommentEdit = (props) => {
                     variant="primary"
                     type="summit"
                     onClick={() => {
-                      history.goBack();
+                      setIsEditMode(false);
                     }}
                   >
                     취소
