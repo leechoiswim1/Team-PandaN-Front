@@ -36,7 +36,7 @@ const Template = (props) => {
         >
           <AlignRight />
         </Button>
-        <Header />
+        <Header/>
         {props.children}
       </div>
     </div>
