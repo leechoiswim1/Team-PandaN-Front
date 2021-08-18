@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 /* == Library - style */
 import styled from "styled-components";
 import { t } from "../../util/remConverter";
@@ -13,12 +14,16 @@ import { Bookmark, Clock, Edit2, Trash2 } from "react-feather";
 import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edit.svg";
 
 const CommentCard = (props) => {
-  const { commentId, content, writer } = props;
+  const { commentId, content, writer, modifiedAt, writerProfileImg } = props;
   const dispatch = useDispatch();
   const [isEditMode, setIsEditMode] = useState(false);
 
   const [menu, setMenu] = useState(false);
   const userName = useSelector((state) => state.user.name);
+  const userProfileImage =
+    props.writerProfileImg == null
+      ? "https://e7.pngegg.com/pngimages/287/501/png-clipart-giant-panda-emoji-coloring-book-drawing-sticker-emoji-child-face-thumbnail.png"
+      : props.writerProfileImg;
 
   const deleteComment = () => {
     if (window.confirm("정말로 댓글을 지우시겠습니까?😲") === true) {
@@ -28,32 +33,46 @@ const CommentCard = (props) => {
       return;
     }
   };
+  if (!modifiedAt) {
+    return <div></div>;
+  }
+  const commentDate = () => {
+    const backDate = modifiedAt.split("T");
+    const Date = backDate[0];
+    const Time = backDate[1].substr(0, 5);
+    return Date + " " + Time;
+  };
 
   return (
     <Card>
       <CardBody>
         <CardHeader>
-          <span style={{ fontWeight: "500" }}>{writer}</span>
-          {userName === writer ? (
-            <>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
+              <img src={userProfileImage} alt="userProfileImage" style={{ width: "25px", height: "25px", borderRadius: "12.5px" }} />
+
+              <span style={{ margin: "0 5px", fontWeight: "600", fontSize: "16px" }}>{writer}</span>
+            </div>
+            <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "25px" }}>{commentDate(modifiedAt)}</p>
+            {userName === writer ? (
               <button onClick={() => setMenu(!menu)} style={{ float: "right" }}>
                 <IconEdit width="20px" />
               </button>
-              {menu === true ? (
-                <div style={{ width: "50px", height: "30px", float: "right" }}>
-                  <Edit2
-                    style={{ width: "15px", marginLeft: "10px", cursor: "pointer" }}
-                    onClick={() => {
-                      setIsEditMode(!isEditMode);
-                      setMenu(false);
-                    }}
-                  />
-                  <Trash2 style={{ width: "15px", marginLeft: "10px", cursor: "pointer" }} onClick={deleteComment} />
-                </div>
-              ) : (
-                ""
-              )}
-            </>
+            ) : (
+              ""
+            )}
+          </div>
+          {menu === true ? (
+            <MenuToggle>
+              <Edit2
+                style={{ width: "15px", cursor: "pointer" }}
+                onClick={() => {
+                  setIsEditMode(!isEditMode);
+                  setMenu(false);
+                }}
+              />
+              <Trash2 style={{ width: "15px", marginLeft: "10px", cursor: "pointer" }} onClick={deleteComment} />
+            </MenuToggle>
           ) : (
             ""
           )}
@@ -71,7 +90,7 @@ const Card = styled.div(
   background: #fff;
   margin: 20px auto;
   padding: 10px;
-  border: 1px solid #e1e1e1;
+  min-width:280px;
   border-radius: 10px;
 
 
@@ -93,8 +112,17 @@ const Comment = styled.div(
   white-space: pre-wrap;
   word-break: keep-all;
   overflow-wrap: break-word;
+  color:#767676;
 `,
 );
+
+const MenuToggle = styled.div`
+  padding: 5px;
+  float: right;
+  background: #fff;
+  border: 1px solid #767676;
+  border-radius: 10px;
+`;
 
 const CardBody = styled.div``;
 

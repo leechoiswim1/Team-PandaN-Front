@@ -19,53 +19,39 @@ const LOGOUT = "user/LOGOUT";
 const SET_LOGIN = "user/SET_LOGIN";
 
 /* == action creator */
-const login       = createAction(LOGIN, ( user ) => ({ user }));
-const logout      = createAction(LOGOUT, () => ({}));
-const setLogin    = createAction(SET_LOGIN, ( user ) => ({ user }));
+const login = createAction(LOGIN, (user) => ({ user }));
+const logout = createAction(LOGOUT, () => ({}));
+const setLogin = createAction(SET_LOGIN, (user) => ({ user }));
 
 /* == thunk function */
 const __login =
   (authorization_code) =>
-    async (dispatch, getState, { history }) => {
-      try {
-        // 로그인 한 유저가 뒤로가기로 페이지 돌아간 다음 다시 동일한 인가코드를 보내지 않도록 처리
-        const isLoggedIn = getState().user.isLoggedIn;
-        if (isLoggedIn) {
-          history.push("/");
-          return;
-        }
 
-        // OAuth authorization_code 보내고 토큰 가져오기
-        const { data } = await userApi.login(authorization_code);
+  async (dispatch, getState, { history }) => {
+    try {
+      const { data } = await userApi.login(authorization_code);
+      const str_data = JSON.stringify(data);
+      const decoded = jwtDecode(str_data);
 
-        // str 변환 후 decode 
-        const str_data = JSON.stringify(data)
-        const decoded = jwtDecode(str_data);
-        
-        // {"token":"...tokenvalue"} 토큰 값 가져오기 
-        const tokenvalue = str_data.split(`"`)[2];
+      const tokenvalue = str_data.split(`"`)[3];
+      const userInfo = {
+        email: decoded.email,
+        name: decoded.name,
+        picture: decoded.picture,
+      };
+      const str_userInfo = JSON.stringify(userInfo);
 
-        // 유저 정보 유지를 위해 str 변환 후 localStorage 저장
-        const userInfo = {
-          email: decoded.email,
-          name: decoded.name,
-          picture: decoded.picture,
-        }
-        const str_userInfo = JSON.stringify(userInfo);
-        localStorage.setItem("userInfo", str_userInfo);
-        
-        // setCookie("TOKEN", 값, 유효기간) 
-        setCookie("TOKEN", tokenvalue, 1);
+      dispatch(login(decoded));
+      localStorage.setItem("userInfo", str_userInfo);
+      setCookie("TOKEN", tokenvalue, 1);
 
-        dispatch(login(decoded));        
-        history.push("/");
+      history.push("/");
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-      } catch (e) {
-        console.log(e);
-        window.alert("로그인에 실패하였습니다. 다시 로그인 해 주세요.")
-        history.push("/login");
-      }
-    };
+    
 
 const __logout =
   () =>
@@ -110,14 +96,14 @@ const user = handleActions(
       };
     },
     [SET_LOGIN]: (state, action) => {
-			return {
-				...state,
-				isLoggedIn: true,
+      return {
+        ...state,
+        isLoggedIn: true,
         name: action.payload.user.name,
         email: action.payload.user.email,
         picture: action.payload.user.picture,
-			};
-    }
+      };
+    },
   },
   initialState,
 );

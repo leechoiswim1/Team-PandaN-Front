@@ -37,6 +37,8 @@ const __postComment =
     try {
       const { data } = await commentApi.postComment(noteId, comment);
       dispatch(postComment(data));
+
+      dispatch(__getCommentList(noteId));
     } catch (e) {
       console.log(e);
     }

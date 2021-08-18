@@ -8,7 +8,7 @@ const instance = axios.create({
 
 /* == Axios - interceptor for sending accessToken */
 instance.interceptors.request.use((config) => {
-	const TOKEN = document.cookie.split("=")[1];
+  const TOKEN = document.cookie.split("=")[1];
   config.headers.TOKEN = TOKEN;
   return config;
 });
