@@ -18,16 +18,7 @@ import { searchApi } from "../shared/api";
  */
 
 const initialState = {
-	list: [
-    {
-      noteId: "",
-      title: "",
-      step: "",
-      projectId: "",
-      projectTitle: "",
-      writer: ""
-    },
-  ],
+	list: null,
 };
 
 /**
@@ -48,6 +39,9 @@ const GET_SEARCH_BOOKMARK =  "search/GET_SEARCH_BOOKMARK";
 /* == [Search] MyNote: 노트 제목 검색 */
 const GET_SEARCH_MYNOTE =  "search/GET_SEARCH_MYNOTE";
 
+/* == [Search] deleteResult: 검색결과 삭제 */
+const DELETE_SEARCH_RESULT =  "search/DELETE_SEARCH_RESULT";
+
 /**
  * ------------------------------------------------------------------------
  * action creator
@@ -58,13 +52,16 @@ const GET_SEARCH_MYNOTE =  "search/GET_SEARCH_MYNOTE";
 const getSearchList = createAction(GET_SEARCH_LIST, searchResult => ({searchResult}));
 
 /* == [Search] All: 노트 제목 검색 */
-const getSearchAll = createAction(GET_SEARCH_ALL, (searchAll, keyword) => ({searchAll, keyword}));
+const getSearchAll = createAction(GET_SEARCH_ALL, (searchAll) => ({searchAll}));
 
 /* == [Search] BookMark: 내가 북마크한 모든 북마크 중 북마크 제목 검색 */
 const getSearchBookmark = createAction(GET_SEARCH_BOOKMARK, searchBookmark => ({searchBookmark}));
 
 /* == [Search] MyNote: 노트 제목 검색 */
 const getSearchMynote = createAction(GET_SEARCH_MYNOTE, searchMynote => ({searchMynote}));
+
+/* == [Search] deleteResult: 검색결과 삭제 */
+const deleteSearchResult = createAction(DELETE_SEARCH_RESULT, () => ({}));
 
 /**
  * ------------------------------------------------------------------------
@@ -91,8 +88,9 @@ const __getSearchAll =
     try {
       const { data } = await searchApi.getSearchAll(keyword);
       console.log("2." + data);
-      dispatch(getSearchAll(data.noteList, keyword));
+      dispatch(getSearchAll(data.noteList));
     } catch (e) {
+      dispatch(deleteSearchResult());
       console.log(e);
     }
   };
@@ -105,6 +103,7 @@ const __getSearchBookmark =
       const { data } = await searchApi.getSearchBookmark(keyword);
       dispatch(getSearchBookmark(data.noteList));
     } catch (e) {
+      dispatch(deleteSearchResult());
       console.log(e);
     }
   };
@@ -117,6 +116,7 @@ const __getSearchMynote =
       const { data } = await searchApi.getSearchMynote(keyword);
       dispatch(getSearchMynote(data.noteList));
     } catch (e) {
+      dispatch(deleteSearchResult());
       console.log(e);
     }
   };
@@ -135,12 +135,10 @@ const search = handleActions(
         list: action.payload.searchResult
       };
     },
-    [GET_SEARCH_ALL]: (state, action) => {   
-      console.log(action.payload.searchAll);  
+    [GET_SEARCH_ALL]: (state, action) => {    
       return {
         ...state,
-        list: action.payload.searchAll,
-        keyword: action.payload.keyword
+        list: action.payload.searchAll
       };
     },
     [GET_SEARCH_BOOKMARK]: (state, action) => {     
@@ -150,10 +148,15 @@ const search = handleActions(
       };
     },
     [GET_SEARCH_MYNOTE]: (state, action) => {     
-      console.log(action.payload.SearchMynote);
       return {
         ...state,
         list: action.payload.searchMynote
+      };
+    },
+    [DELETE_SEARCH_RESULT]: (state, action) => {   
+      return {
+        ...state,
+        list: [],
       };
     },
   },

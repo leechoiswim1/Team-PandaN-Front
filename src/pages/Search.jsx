@@ -14,49 +14,40 @@ import { Template, SearchList, EmptySearch } from "../components";
 /* == Redux - actions */
 import { useSelector, useDispatch } from "react-redux";
 import { searchActions } from "../modules/search";
+import { useParams } from "react-router-dom";
 
 // * == ( Search ) -------------------- * //
 
 const Search = ({ history }) => {
   const dispatch = useDispatch();
-  const [keyword, setKeyword] = useState("");
-  const [filterParm, setFilterParm] = useState(["All"]);
+  const {category, q} = useParams();
 
   const searchResult = useSelector((state) => (state.search.list));
   const searchKeyword = useSelector((state) => (state.search.keyword));
 
-  console.log("3." + searchKeyword);
+  // console.log("3." + searchKeyword);
 
-  // useEffect(() => {
-  //   dispatch(searchActions.__getSearchAll(keyword));
-  //   // if(filterParm === "All"){
-  //   //   dispatch(searchActions.__getSearchAll(keyword));
-  //   // } 
-  //   // else if(filterParm === "Bookmark"){
-  //   //   dispatch(searchActions.__getSearchBookmark(keyword));
-  //   // }
-  //   // else if(filterParm === "Mynote"){
-  //   //   dispatch(searchActions.__getSearchMynote(keyword));
-  //   // }
-  // }, [dispatch, keyword, filterParm]);
-
-  // console.log('filterParm, ' + filterParm);
-
-  // const searchResult = useSelector((state) => (state.search.list));
-  // console.log("1111searchResult: " + searchResult.noteId);
-  // console.log(searchResult);‌‌
-  // console.log(searchResult[0].noteId);
-
-  const searchFilter = (e) => {
-    console.log(keyword);
-    setKeyword(e.target.value);
-  }
+  useEffect(() => {
+    // dispatch(searchActions.__getSearchAll(keywordParams.q));
+    if(category === "all"){
+      dispatch(searchActions.__getSearchAll(q));
+    } 
+    else if(category === "bookmark"){
+      dispatch(searchActions.__getSearchBookmark(q));
+    }
+    else if(category === "mynote"){
+      dispatch(searchActions.__getSearchMynote(q));
+    }
+  }, [dispatch, q, category]);
 
   return (
-    <Template searchKeyword={searchKeyword}>
+    <Template>
       <Container fluid>
         <h1 className="mt-20 mb-30">검색결과</h1>
-        <h2 className="mt-20 mb-30">전체결과 <small><Badge pill bg="warning">{searchResult.length}건</Badge></small></h2>
+        <h2 className="mt-20 mb-30">
+          "{q}"에 대한 검색결과 
+          <small><Badge pill bg="warning">{searchResult ? searchResult?.length : "0"}건</Badge></small>
+        </h2>
 
           <div className="table-responsive">
             <table className="table data-table">
@@ -70,7 +61,7 @@ const Search = ({ history }) => {
               </thead>
               <tbody>
               { searchResult && <SearchList history={history} searchResult={searchResult}/> } 
-              { searchResult?.noteId === undefined && <EmptySearch/> }
+              { searchResult?.length === 0 && <EmptySearch/> }
               {/* {searchResult.map((searchItem, idx) => (
                 <tr key={idx}>
                   <td>{searchItem.title}</td>

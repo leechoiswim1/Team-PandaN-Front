@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../modules/user";
 import { searchActions } from "../modules/search";
 import { history } from "../modules/configStore";
+import { useParams } from "react-router-dom";
 
 // * == (Header) -------------------- * //
 
@@ -30,15 +31,32 @@ const Header = (props) => {
   };
 
   const user = useSelector((state) => state.user);
+  const {category, q} = useParams();
+  const [keyword, setKeyword] = useState(q);
+  // console.log("category: " + category, "q: " +q);
 
-  const [keyword, setKeyword] = useState("");
-  console.log(keyword);
+  const [searchFilter, setSearchFilter] = useState("");
 
+  // 검색 유효성 검사 및 검색결과 페이지 이동
   const searchfunction = () => {
-    // console.log("hhhhh" + history);
-    dispatch(searchActions.__getSearchAll(keyword));
-    history.push("/search");
+    if(keyword === undefined && searchFilter === ""){
+      // case 1. 검색분류를 선택하지 않고 검색어를 입력하지 않았을 경우 
+      alert('검색분류와 검색어를 선택 및 입력하세요!');
+      return;
+    } else if(keyword !== undefined && searchFilter === ""){
+      // case 2. 검색분류를 선택하지 않았을 경우
+      alert('검색분류를 선택하세요!');
+      return;
+    } else if(keyword == undefined && searchFilter !== ""){
+      // case 3. 검색어를 입력하지 않았을 경우
+      alert('검색어를 입력하세요!');
+      return;
+    }
+    // 검색결과 페이지로 이동
+    history.push(`/search/${searchFilter}/${keyword}`);
   }
+
+  console.log("200.keyword: " + keyword);
 
   const searchKeyword = (props.searchKeyword);
 
@@ -54,14 +72,18 @@ const Header = (props) => {
             {/* == 검색창 */}
             <div className="search-group">
               <InputGroup className="mb-3">
-                <select className="form-control">
-                  <option>전체</option>
-                  <option>북마크 검색</option>
-                  <option>내가 작성한 문서 검색</option>
+                <select className="form-control"
+                defaultValue={category && category}
+                  onChange={(e)=> setSearchFilter(e.target.value)}
+                >
+                  <option value="">선택</option>
+                  <option value="all">전체</option>
+                  <option value="bookmark">북마크 검색</option>
+                  <option value="mynote">내가 작성한 문서 검색</option>
                 </select>
                 <FormControl 
                   placeholder="검색어를 입력하세요"
-                  defaultValue={searchKeyword}
+                  defaultValue={q && q}
                   onChange={(e)=> setKeyword(e.target.value)}
                 />
                 <button

@@ -36,7 +36,7 @@ const Template = (props) => {
         >
           <AlignRight />
         </Button>
-        <Header searchKeyword={props.searchKeyword}/>
+        <Header/>
         {props.children}
       </div>
     </div>
