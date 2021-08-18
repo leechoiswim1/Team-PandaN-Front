@@ -7,24 +7,40 @@ import { Template, IssueList, EmptyBoard } from "../../components";
 /* == Redux - actions */
 import { useSelector, useDispatch } from "react-redux";
 import { noteActions } from "../../modules/note";
+import { InfiniteScroll } from "../../components";
 
 // * == ( My note - Note ) -------------------- * //
 const MyNote = ({ history, match, ...rest }) => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(noteActions.__getMyNote());
-  }, []);
-
   const myNoteList = useSelector((state) => state.note.list);
+  const isLoading = useSelector((state) => state.note.is_loading);
+  const paging = useSelector((state) => state.note.paging);
+  console.log(paging);
+
+  useEffect(() => {
+    dispatch(noteActions.__getMyNote(paging.page));
+  }, []);
 
   return (
     <Template>
-      <div className="content" id="content">
-        <div className="note-board-container">
-          {myNoteList && <IssueList history={history} notes={myNoteList} type="myNote" />}
-          {myNoteList.length === 0 && <EmptyBoard type="myNote" />}
+      <InfiniteScroll
+        callNextPage={() => {
+          console.log("next");
+          if (paging.next === false) {
+            return;
+          }
+          dispatch(noteActions.__getMyNote(paging.page));
+        }}
+        isLoading={isLoading}
+        isNext={paging.next ? true : false}
+      >
+        <div className="content" id="content">
+          <div className="note-board-container">
+            {myNoteList && <IssueList history={history} notes={myNoteList} type="myNote" />}
+            {myNoteList.length === 0 && <EmptyBoard type="myNote" />}
+          </div>
         </div>
-      </div>
+      </InfiniteScroll>
     </Template>
   );
 };
