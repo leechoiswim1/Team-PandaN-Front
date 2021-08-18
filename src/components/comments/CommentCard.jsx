@@ -14,12 +14,16 @@ import { Bookmark, Clock, Edit2, Trash2 } from "react-feather";
 import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edit.svg";
 
 const CommentCard = (props) => {
-  const { commentId, content, writer, modifiedAt } = props;
+  const { commentId, content, writer, modifiedAt, writerProfileImg } = props;
   const dispatch = useDispatch();
   const [isEditMode, setIsEditMode] = useState(false);
 
   const [menu, setMenu] = useState(false);
   const userName = useSelector((state) => state.user.name);
+  const userProfileImage =
+    props.writerProfileImg == null
+      ? "https://e7.pngegg.com/pngimages/287/501/png-clipart-giant-panda-emoji-coloring-book-drawing-sticker-emoji-child-face-thumbnail.png"
+      : props.writerProfileImg;
 
   const deleteComment = () => {
     if (window.confirm("정말로 댓글을 지우시겠습니까?😲") === true) {
@@ -45,11 +49,7 @@ const CommentCard = (props) => {
         <CardHeader>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>
-              <img
-                src="https://pbs.twimg.com/media/DwOe6LNUwAA28aM.jpg"
-                alt="profile"
-                style={{ width: "25px", height: "25px", borderRadius: "12.5px" }}
-              />
+              <img src={userProfileImage} alt="userProfileImage" style={{ width: "25px", height: "25px", borderRadius: "12.5px" }} />
 
               <span style={{ margin: "0 5px", fontWeight: "600", fontSize: "16px" }}>{writer}</span>
             </div>
