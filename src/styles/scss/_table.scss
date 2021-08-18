@@ -1,0 +1,19 @@
+/*
+ * table
+ */
+
+$custom-yellow: #FFCD40;
+$custom-yellowsh-green: #ADBE4F;
+$custom-cool-green: #9BD09C;
+$custom-light-green: #E1EDE4;
+$custom-beige: #F5DAAE;
+
+.data-table {
+  thead th {
+    color: #767676;
+    font-size: rem(14);
+    font-weight: 700;
+    background-color: $custom-light-green;
+    padding: rem(8);
+  }
+}
