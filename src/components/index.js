@@ -40,6 +40,10 @@ import CommentCard from "./comments/CommentCard";
 import CommentList from "./comments/CommentList";
 import CommentInput from "./comments/CommentInput";
 
+/* Search */
+import SearchList from "./search/SearchList";
+import EmptySearch from "./search/EmptySearch";
+
 export {
   Router,
   Header,
@@ -76,4 +80,7 @@ export {
   CommentCard,
   CommentList,
   CommentInput,
+  /* == Serach */
+  SearchList,
+  EmptySearch,
 };

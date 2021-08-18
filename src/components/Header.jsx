@@ -11,16 +11,19 @@ import { AlignRight } from "react-feather";
 
 /* == Custom - Icon */
 import { ReactComponent as IconSearch } from "../styles/images/ico-search.svg";
-import { ReactComponent as IconMemberAdd } from "../styles/images/ico-member-add.svg";
+
+/* == Custom - Image */
 import { ReactComponent as IconProfile } from "../styles/images/ico-profile.svg";
 
 /* == Redux - actions */
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../modules/user";
+import { searchActions } from "../modules/search";
+import { history } from "../modules/configStore";
 
 // * == (Header) -------------------- * //
 
-const Header = ({ history }) => {
+const Header = (props) => {
   const dispatch = useDispatch();
   const logout = () => {
     dispatch(userActions.__logout());
@@ -29,13 +32,20 @@ const Header = ({ history }) => {
   const user = useSelector((state) => state.user);
 
   const [keyword, setKeyword] = useState("");
-  const [searchParam] = useState(["classification", "noteTitle"]);
   console.log(keyword);
 
-  // const userImage =
-  //   user.picture == null
-  //     ? "https://e7.pngegg.com/pngimages/287/501/png-clipart-giant-panda-emoji-coloring-book-drawing-sticker-emoji-child-face-thumbnail.png"
-  //     : user.picture;
+  const searchfunction = () => {
+    // console.log("hhhhh" + history);
+    dispatch(searchActions.__getSearchAll(keyword));
+    history.push("/search");
+  }
+
+  const searchKeyword = (props.searchKeyword);
+
+  const userImage =
+    user.picture == "http://52.78.204.238/image/profileDefaultImg.jpg"
+      ? <IconProfile/>
+      : user.picture;
   return (
     <header className="header" id="header">
       <Container fluid>
@@ -51,8 +61,12 @@ const Header = ({ history }) => {
                 </select>
                 <FormControl 
                   placeholder="검색어를 입력하세요"
+                  defaultValue={searchKeyword}
+                  onChange={(e)=> setKeyword(e.target.value)}
                 />
-                <button>
+                <button
+                  onClick={searchfunction}
+                >
                   <IconSearch width="40" height="40" fill="#767676"/>
                 </button>
               </InputGroup>
@@ -66,7 +80,7 @@ const Header = ({ history }) => {
 
               <Dropdown.Menu className="dropdown-group">
                 <Dropdown.ItemText className="text-center">
-                  <img src={user.picture} alt="profileImage" style={{ width: "40px", height: "40px", borderRadius: "50%" }} className="dropdown-profile" />
+                  <img src={userImage} alt="profileImage" style={{ width: "40px", height: "40px", borderRadius: "50%" }} className="dropdown-profile" />
                   <p className="dropdown-name">{user.name}</p>
                   <p className="dropdown-email">{user.email}</p>
                 </Dropdown.ItemText>

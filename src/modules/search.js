@@ -58,7 +58,7 @@ const GET_SEARCH_MYNOTE =  "search/GET_SEARCH_MYNOTE";
 const getSearchList = createAction(GET_SEARCH_LIST, searchResult => ({searchResult}));
 
 /* == [Search] All: 노트 제목 검색 */
-const getSearchAll = createAction(GET_SEARCH_ALL, searchAll => ({searchAll}));
+const getSearchAll = createAction(GET_SEARCH_ALL, (searchAll, keyword) => ({searchAll, keyword}));
 
 /* == [Search] BookMark: 내가 북마크한 모든 북마크 중 북마크 제목 검색 */
 const getSearchBookmark = createAction(GET_SEARCH_BOOKMARK, searchBookmark => ({searchBookmark}));
@@ -90,7 +90,8 @@ const __getSearchAll =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await searchApi.getSearchAll(keyword);
-      dispatch(getSearchAll(data.noteList));
+      console.log("2." + data);
+      dispatch(getSearchAll(data.noteList, keyword));
     } catch (e) {
       console.log(e);
     }
@@ -102,7 +103,7 @@ const __getSearchBookmark =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await searchApi.getSearchBookmark(keyword);
-      dispatch(getSearchBookmark(data));
+      dispatch(getSearchBookmark(data.noteList));
     } catch (e) {
       console.log(e);
     }
@@ -114,7 +115,7 @@ const __getSearchMynote =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await searchApi.getSearchMynote(keyword);
-      dispatch(getSearchMynote(data));
+      dispatch(getSearchMynote(data.noteList));
     } catch (e) {
       console.log(e);
     }
@@ -138,7 +139,8 @@ const search = handleActions(
       console.log(action.payload.searchAll);  
       return {
         ...state,
-        list: action.payload.searchAll
+        list: action.payload.searchAll,
+        keyword: action.payload.keyword
       };
     },
     [GET_SEARCH_BOOKMARK]: (state, action) => {     
@@ -148,9 +150,10 @@ const search = handleActions(
       };
     },
     [GET_SEARCH_MYNOTE]: (state, action) => {     
+      console.log(action.payload.SearchMynote);
       return {
         ...state,
-        list: action.payload.SearchMynote
+        list: action.payload.searchMynote
       };
     },
   },
