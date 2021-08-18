@@ -38,7 +38,12 @@ const Header = ({ history }) => {
           <Col className="d-inline-flex justify-content-end">
             <Dropdown>
               <Dropdown.Toggle variant="success" align="end">
-                <img src={userImage} alt="profileImage" style={{ width: "35px", height: "35px" }} className="dropdown-profile" />
+                <img
+                  src={userImage}
+                  alt="profileImage"
+                  style={{ width: "40px", height: "40px", borderRadius: "20px" }}
+                  className="dropdown-profile"
+                />
               </Dropdown.Toggle>
 
               <Dropdown.Menu className="dropdown-group">
