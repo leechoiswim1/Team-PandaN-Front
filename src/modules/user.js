@@ -26,6 +26,7 @@ const setLogin = createAction(SET_LOGIN, (user) => ({ user }));
 /* == thunk function */
 const __login =
   (authorization_code) =>
+
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await userApi.login(authorization_code);
@@ -49,6 +50,8 @@ const __login =
       console.log(e);
     }
   };
+
+    
 
 const __logout =
   () =>
