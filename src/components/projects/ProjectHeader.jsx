@@ -23,33 +23,26 @@ const ProjectHeader = ({ match }) => {
 
   useEffect(() => {
     dispatch(projectActions.__setDetailProject(projectId));
-  }, [projectId]);
+  }, [dispatch, projectId]);
 
   if (!project_detail_list) {
     return <div></div>;
   }
   const isUpdatableAndDeletable = project_detail_list.isUpdatableAndDeletable;
   return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        padding: "0 30px",
-        justifyContent: "space-between",
-      }}
-    >
+    <ProjectHeaderWrap>
       <div style={{ display: "absolute" }}>
         <div style={{ display: "flex", flexWrap: "nowrap" }}>
           <div>
             <div style={{ display: "flex", flexWrap: "nowrap" }}>
-              <h3
+              <ProjectHeaderTitle
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                   history.push(history.push(`/projects/${project_detail_list.projectId}/kanban`));
                 }}
               >
                 {project_detail_list.title}{" "}
-              </h3>
+              </ProjectHeaderTitle>
               <div style={{ marginLeft: "10px" }}>
                 {isUpdatableAndDeletable ? (
                   <ProjectModalEdit projectId={project_detail_list.projectId} title={project_detail_list.title} detail={project_detail_list.detail} />
@@ -58,17 +51,39 @@ const ProjectHeader = ({ match }) => {
                 )}
               </div>
             </div>
-            <h5>{project_detail_list.detail}</h5>
+            <ProjectHeaderDetail>{project_detail_list.detail}</ProjectHeaderDetail>
           </div>
         </div>
       </div>
-      <div style={{ display: "flex", flexWrap: "nowrap", marginTop: "auto" }}>
+      <ProjectHeaderRight>
         <div>
           <ProjectInvite projectId={project_detail_list.projectId} />
         </div>
         <MemberToggle projectId={project_detail_list.projectId} />
-      </div>
-    </div>
+      </ProjectHeaderRight>
+    </ProjectHeaderWrap>
   );
 };
+
+const ProjectHeaderWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 30px;
+  justify-content: space-between;
+`;
+const ProjectHeaderTitle = styled.p`
+  font-weight: 700;
+  font-size: 1.5rem;
+`;
+
+const ProjectHeaderDetail = styled.p`
+  font-weight: 500;
+  font-size: 1rem;
+`;
+
+const ProjectHeaderRight = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: auto;
+`;
 export default ProjectHeader;
