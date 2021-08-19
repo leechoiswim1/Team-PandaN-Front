@@ -16,7 +16,7 @@ const ProjectMyNote = ({ history, match, ...rest }) => {
     dispatch(noteActions.__getProjectMyNotes(projectId));
   }, []);
 
-  const myNote = useSelector((state) => state.note.list);
+  const myNote = useSelector((state) => state.note.projectMyNote);
 
   return (
     <Template>

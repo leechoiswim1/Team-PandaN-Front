@@ -1,9 +1,10 @@
 import { createAction, handleActions } from "redux-actions";
 import { noteApi } from "../shared/api";
+import { produce } from 'immer';
 
 /* == Notes - initial state */
 const initialState = {
-  list: [
+  kanban: [
     {
       step: "STORAGE",
       notes: [
@@ -28,6 +29,10 @@ const initialState = {
       notes: [],
     },
   ],
+  bookmark: [],
+  myNote: [],
+  projectIssue: [],
+  projectMyNote: [],
   detail: {
     content: "",
     deadline: "",
@@ -36,7 +41,7 @@ const initialState = {
     title: "",
     isBookmark: false,
   },
-  paging: { page: 1, next: null, size: 10 },
+  paging: { page: 1, next: null, size: 8 },
   is_loading: false,
 };
 
@@ -107,6 +112,9 @@ const __getProjectIssue =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await noteApi.getProjectIssue(projectId);
+      // let notes = [];
+      // notes.push(data.notes);
+      // dispatch(getProjectIssue(notes));
       dispatch(getProjectIssue(data.notes));
     } catch (e) {
       console.log(e);
@@ -118,6 +126,9 @@ const __getProjectMyNotes =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await noteApi.getProjectMyNotes(projectId);
+      // let myNoteList = [];
+      // myNoteList.push(data.myNoteList);
+      // dispatch(getProjectMyNotes(myNoteList));
       dispatch(getProjectMyNotes(data.myNoteList));
     } catch (e) {
       console.log(e);
@@ -177,7 +188,11 @@ const __getBookmark =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await noteApi.getBookmark();
-      dispatch(getBookmark(data.noteList));
+      // 
+      // let bookmarkList = [];
+      // bookmarkList.push(data.noteList);
+      // dispatch(getBookmark(bookmarkList));
+      dispatch(getBookmark(data.noteList))
     } catch (e) {
       console.log(e);
     }
@@ -209,21 +224,31 @@ const __deleteBookmark =
 const __getMyNote =
   (page = 1, size = initialState.paging.size) =>
   async (dispatch, getState, { history }) => {
+
     const _next = getState().note.paging.next;
     const _page = getState().note.paging.page;
-
+    // 이 부분 첫페이지를 불러와야하는지 마지막페이지라서 불러올 게 없는지 감지하는게 매끄럽지 않습니다.
+    
     if (_page === false && _next === false) return;
     dispatch(loading(true));
 
     try {
-      const { data } = await noteApi.getMyNotes(_page, size);
+      const { data } = await noteApi.getMyNotes(page, size);
+      let myNoteList = [];
 
-      const totalPages = data.myNoteList.length;
+      const isNextPage = data.myNoteList.length;
+      
+      
       let paging = {
-        page: data.myNoteList.length < size ? false : _page + 1,
-        next: _page === totalPages ? false : true,
+        page: isNextPage < initialState.paging.size ? 1 : page + 1,
+        next: isNextPage < initialState.paging.size ? false : true,
         size: size,
       };
+      
+      myNoteList.push(data.myNoteList);
+      if (paging.next) {
+        myNoteList.pop();
+      }
 
       dispatch(getMyNotes(data.myNoteList, paging));
     } catch (e) {
@@ -237,25 +262,27 @@ const note = handleActions(
     [SET_KANBAN_STEP]: (state, action) => {
       return {
         ...state,
-        list: action.payload.newState,
+        kanban: action.payload.newState,
       };
     },
     [GET_KANBAN_NOTES]: (state, action) => {
       return {
         ...state,
-        list: action.payload.kanbanNotes,
+        kanban: action.payload.kanbanNotes,
       };
     },
     [GET_PROJECT_ISSUE]: (state, action) => {
       return {
         ...state,
-        list: action.payload.issueNotes,
+        projectIssue: action.payload.issueNotes,
+        // projectIssue: state.projectIssue.concat(action.payload.issueNotes),
       };
     },
     [GET_PROJECT_MY_NOTES]: (state, action) => {
       return {
         ...state,
-        list: action.payload.myNoteList,
+        projectMyNote: action.payload.myNoteList,
+        // projectMyNote: state.projectMyNote.concat(action.payload.myNoteList),
       };
     },
     [GET_NOTE_DETAIL]: (state, action) => {
@@ -268,7 +295,7 @@ const note = handleActions(
       const note = action.payload.newNote;
       return {
         ...state,
-        list: state.list.map((step) => {
+        kanban: state.kanban.map((step) => {
           if (step.step === note.step) {
             return {
               ...step,
@@ -297,20 +324,21 @@ const note = handleActions(
     [DELETE_NOTE]: (state, action) => {
       return {
         ...state,
-        list: state.list.filter((note) => note.noteId !== action.payload.noteId),
+        kanban: state.kanban.filter((note) => note.noteId !== action.payload.noteId),
       };
     },
     /* Bookmark */
     [GET_BOOKMARK]: (state, action) => {
       return {
         ...state,
-        list: action.payload.myBookmarkNoteList,
+        bookmark: action.payload.myBookmarkNoteList,
+        // bookmark: state.bookmark.concat(action.payload.myBookmarkNoteList),
       };
     },
     [SET_BOOKMARK]: (state, action) => {
       return {
         ...state,
-        list: state.list.filter((note) => note.noteId !== action.payload.noteId),
+        bookmark: state.bookmark.filter((note) => note.noteId !== action.payload.noteId),
       };
     },
     [ADD_BOOKMARK]: (state, action) => {
@@ -327,15 +355,12 @@ const note = handleActions(
     },
     /* my note */
 
-    [GET_MY_NOTES]: (state, action) => {
-      console.log(action.payload);
-      return {
-        ...state,
-        list: state.list.concat(...action.payload.myNoteList),
-        paging: action.payload.paging,
-        is_loading: false,
-      };
-    },
+    [GET_MY_NOTES]: (state, action) => 
+    produce(state, (draft) => {
+      draft.myNote.push(...action.payload.myNoteList);
+      draft.paging = action.payload.paging;
+      draft.isLoading = false;
+    }),
   },
   initialState,
 );

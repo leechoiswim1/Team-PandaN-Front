@@ -69,11 +69,11 @@ const Wrapper = styled.div(
 );
 
 const CardWrap = styled.div`
-  width: 280px;
-  height: 80%;
-  overflow: auto;
-  margin: auto;
-  align-items: flex-start; 
+  display: flex;
+  flex-direction: column;
+  height:100%;
+  justify-content: flex-start;
+  overflow: auto; 
   scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;;
