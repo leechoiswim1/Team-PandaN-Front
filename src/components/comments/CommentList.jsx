@@ -76,12 +76,20 @@ const Wrapper = styled.div(
 const CardWrap = styled.div`
   display: flex;
   flex-direction: column;
-  height:100%;
+  height: 100%;
+  width: 98%;
   justify-content: flex-start;
-  overflow: auto; 
+  overflow: auto;
   scrollbar-width: none;
   &::-webkit-scrollbar {
-    display: none;;
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e1ede4;
+    border: 2px solid transparent;
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
 `;
 
 export default CommentList;
