@@ -55,11 +55,8 @@ const Header = (props) => {
     history.push(`/search/${searchFilter}/${keyword}`);
   };
 
-  console.log("200.keyword: " + keyword);
-
-  const searchKeyword = props.searchKeyword;
-
   const userImage = user.picture == "http://52.78.204.238/image/profileDefaultImg.jpg" ? <IconProfile /> : user.picture;
+  
   return (
     <header className="header" id="header">
       <Container fluid>
@@ -83,7 +80,7 @@ const Header = (props) => {
 
             {/* == 유저프로필 */}
             <Dropdown>
-              <Dropdown.Toggle variant="success" align="end">
+              <Dropdown.Toggle variant="" align="end">
                 <img
                   src={userImage}
                   alt="profileImage"
