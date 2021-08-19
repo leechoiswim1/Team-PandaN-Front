@@ -4,13 +4,20 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 // * == ( Labels ) -------------------- * //
-const Labels = ({ type, dateDiff, children }) => {
+const Labels = ({ type, dateDiff, badge, children }) => {
   /**
    * props : type(str), dateDiff(int)
    * type === "STORAGE" || "TODO" || "PROCESSING" || "DONE" ; 각 해당 스텝에 따라 다른 색상의 레이블 출력
    * dateDiff ; deadline이 오늘 날짜를 지났을 경우(-1보다 작을 경우) 레이블 텍스트 컬러 붉은색으로 출력
    */
 
+  if (badge) {
+    return (
+      <Tag className="note-issue-badge" type={type}>
+      </Tag>
+    )    
+  }
+  
   return (
     <Tag className="note-step-label" type={type} dateDiff={dateDiff}>
       {children}

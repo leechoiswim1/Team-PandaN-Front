@@ -31,7 +31,7 @@ const IssueCard = (props) => {
     } else return;
   };
 
-  return (
+  return ( 
     <div className="note-issuecard-wrapper">
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div>

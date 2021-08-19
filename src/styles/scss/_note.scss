@@ -7,8 +7,8 @@ $note-heading:        rem(18);  // heading font-size
 $letter-spacing:      -0.03rem;
 // == color
 // --------------------------------
-$note-heading-black:  #191919;
-$note-heading-gray:   #767676;
+$custom-note-black:  #191919;
+$custom-note-gray:   #767676;
 
 // == note: project menu
 // --------------------------------
@@ -91,7 +91,7 @@ $note-heading-gray:   #767676;
       font-weight: bold;
       font-size: $note-heading;
       letter-spacing: $letter-spacing;
-      color: $note-heading-gray;
+      color: $custom-note-gray;
     }
 
     .kanban-col-title {
@@ -140,7 +140,7 @@ $note-heading-gray:   #767676;
       font-weight: bold;
       font-size: $note-heading;
       letter-spacing: $letter-spacing;
-      color: $note-heading-gray;
+      color: $custom-note-gray;
     }
   } 
 }
@@ -178,7 +178,7 @@ $note-heading-gray:   #767676;
     font-size: rem(16);
     line-height: rem(24);
     letter-spacing: $letter-spacing;
-    color: $note-heading-black;
+    color: $custom-note-black;
     margin-bottom: rem(8);
     white-space: normal;
     word-break: break-all;
@@ -197,7 +197,7 @@ $note-heading-gray:   #767676;
   }  
   p:last-of-type {
     font-weight: bold;
-    color: $note-heading-gray;
+    color: $custom-note-gray;
   }
   hr {
     margin: rem(10) 0;
@@ -243,12 +243,12 @@ $note-heading-gray:   #767676;
       & h1 {
         font-weight: bold;
         font-size: rem(20);
-        color: $note-heading-black;
+        color: $custom-note-black;
         letter-spacing: $letter-spacing;
       }
     }
     svg {
-      fill: $note-heading-black;
+      fill: $custom-note-black;
       margin-top: rem(3);  
       cursor: pointer;  
     }    
@@ -268,7 +268,7 @@ $note-heading-gray:   #767676;
     & h1 {
       font-weight: bold;
       font-size: rem(20);
-      color: $note-heading-gray;
+      color: $custom-note-gray;
       letter-spacing: $letter-spacing;
     }
     & :hover {
@@ -326,7 +326,7 @@ $note-heading-gray:   #767676;
       -webkit-box-orient: vertical;
       overflow: hidden;
       letter-spacing: $letter-spacing;
-      color: $note-heading-black;
+      color: $custom-note-black;
       &:hover {
         color: $primary;
       }
@@ -337,12 +337,12 @@ $note-heading-gray:   #767676;
       font-size: rem(16);
       line-height: rem(24);
       letter-spacing: $letter-spacing;
-      color: $note-heading-gray;
+      color: $custom-note-gray;
       
       &.note-issuecard-title {
         color: $primary;
         &:hover {
-          color: $note-heading-black;
+          color: $custom-note-black;
         }
       }      
     }
@@ -378,7 +378,7 @@ $note-heading-gray:   #767676;
         font-weight: bold;
         font-size: rem(16);
         letter-spacing: $letter-spacing;
-        color: $note-heading-gray;
+        color: $custom-note-gray;
       }
     }
 
@@ -405,7 +405,7 @@ $note-heading-gray:   #767676;
         font-size: rem(20);
         line-height: rem(24);
         letter-spacing: $letter-spacing;
-        color: $note-heading-black;
+        color: $custom-note-black;
       }
     }
 
@@ -445,7 +445,7 @@ $note-heading-gray:   #767676;
       font-size: rem(16);
       line-height: rem(18);
       letter-spacing: $letter-spacing;
-      color: $note-heading-black;
+      color: $custom-note-black;
       white-space: pre-wrap;
       word-break: keep-all;
       overflow-wrap: break-word;
@@ -485,4 +485,13 @@ $note-heading-gray:   #767676;
     margin-top: rem(-2);
     margin-right: rem(2);     
   }
+}
+
+.note-issue-badge {
+  width: rem(24);
+  height: rem(18);
+  border-radius: rem(18);  
+  display: inline-block;
+  margin-bottom: -(rem(4));
+  margin-right: rem(8);
 }

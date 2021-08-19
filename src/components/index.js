@@ -30,9 +30,9 @@ import KanbanBoard from "./notes/KanbanBoard";
 import WritingNoteModal from "./notes/WritingNoteModal";
 import EditingNoteModal from "./notes/EditingNoteModal";
 /* == Note - issue list; card */
-import IssueCard from "./notes/IssueCard";
-import IssueList from "./notes/IssueList";
-import EmptyBoard from "./notes/EmptyBoard";
+import IssueCard from "./notesIssue/IssueCard";
+import IssueList from "./notesIssue/IssueList";
+import EmptyBoard from "./notesIssue/EmptyBoard";
 import InfiniteScroll from "./notes/InfiniteScroll";
 /* == Note - detail */
 import NoteDetail from "./notes/NoteDetail";
