@@ -83,11 +83,6 @@ const Sidebar = (props) => {
                 </Accordion.Item>
               </Accordion>
             </li>
-            <li className="menu-item">
-              <Link to="/search" className="menu-link">
-                <span className="menu-text">검색 결과 페이지 (임시)</span>
-              </Link>
-            </li>
           </ul>
         </Container>
       </div>
