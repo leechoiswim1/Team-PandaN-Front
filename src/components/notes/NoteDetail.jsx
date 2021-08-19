@@ -122,7 +122,7 @@ const NoteDetail = ({ history, match, ...rest }) => {
         <InnerLine>
           <Inner>
             <IconMember />
-            <InnerTitle> 멤버</InnerTitle>
+            <InnerTitle> 작성자 </InnerTitle>
           </Inner>
           <InnerDetail>{note.writer}</InnerDetail>
         </InnerLine>
@@ -132,7 +132,6 @@ const NoteDetail = ({ history, match, ...rest }) => {
             <InnerTitle> 마감일</InnerTitle>
           </Inner>
           <InnerDetail>
-            {" "}
             <Tag dateDiff={dateDiff}>{deadline}</Tag>
           </InnerDetail>
         </InnerLine>
@@ -140,7 +139,7 @@ const NoteDetail = ({ history, match, ...rest }) => {
       <NoteBody>
         <Inner2>
           <IconNote />
-          <InnerTitle>노트</InnerTitle>
+          <InnerTitle2>노트</InnerTitle2>
         </Inner2>
         <NoteContents> {note.content}</NoteContents>
       </NoteBody>
@@ -164,14 +163,14 @@ const InnerLine = styled.div`
 
 const Inner = styled.div`
   display: flex;
-  width: 20%;
+  width: 100px;
   @media (max-width: 600px) {
-    width: 30px;
+    width: 80px;
   }
 `;
 const Inner2 = styled.div`
   display: flex;
-  width: 20%;
+  width: 110px;
   @media (max-width: 900px) {
     display: none;
   }
@@ -182,16 +181,24 @@ const InnerTitle = styled.p`
   font-weight: 700;
   color: #767676;
   margin-left: 5px;
+  @media (max-width: 600px) {
+    font-size: 13px;
+  }
+`;
+const InnerTitle2 = styled.p`
+  font-size: 16px;
+  font-weight: 700;
+  color: #767676;
+  margin-left: 5px;
+
   @media (max-width: 900px) {
     display: none;
   }
 `;
-
 const InnerDetail = styled.p`
   font-size: 16px;
   font-weight: 500;
   word-break: break-all;
-  width: 80%;
 
   @media (max-width: 600px) {
     font-size: 13px;
@@ -204,12 +211,20 @@ const NoteContents = styled.p`
   white-space: normal;
   overflow: auto;
   white-space: pre-wrap;
-  width: 80%;
-
   overflow-wrap: break-word;
+  padding-right: 10px;
+  width: 100%;
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e1ede4;
+    border: 2px solid transparent;
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
   @media (max-width: 900px) {
     font-size: 14px;
-    width: 100%;
   }
   @media (max-width: 600px) {
     font-size: 12px;
@@ -231,11 +246,15 @@ const NoteFooter = styled.div`
   height: 5%;
   min-hight: 30px;
   align-items: center;
+  text-align: center;
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-
   color: #767676;
+  @media (max-width: 600px) {
+    font-size: 10px;
+    margin-top: 10px;
+  }
 `;
 
 const Tag = styled.div`
@@ -264,8 +283,9 @@ ${(props) =>
     css`
       background-color: #f5daae;
     `}
-  color: ${(props) => (props.dateDiff <= -1 ? "#B00033" : "#000")}
+  color: ${(props) => (props.dateDiff <= -1 ? "#B00033" : "#000")};
   font-size: 16px;
+
   @media (max-width: 600px) {
     font-size: 12px;
   }
