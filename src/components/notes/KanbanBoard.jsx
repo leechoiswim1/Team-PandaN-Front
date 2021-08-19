@@ -110,7 +110,7 @@ const KanbanBoard = ({ history, match }) => {
     }
   };
 
-  const projects = useSelector((state) => state.note.list)
+  const projects = useSelector((state) => state.note.kanban)
   const projectId = match.params.projectId;
 
   const [modalVisible, setModalVisible] = useState(false)

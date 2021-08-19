@@ -1,16 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { MoonLoader } from "react-spinners";
+import { FadeLoader } from "react-spinners";
 const Spinner = (props) => {
   if (!props.visible) {
-    // 연구 필요
     return <></>;
   }
   return (
     <SpinnerBG>
       <SpinnerInner>
-        <MoonLoader color="#387E4B" size="100" />
+        <FadeLoader color="#387E4B" size="50" />
       </SpinnerInner>
     </SpinnerBG>
   );
@@ -33,8 +32,8 @@ const SpinnerBG = styled.div`
 `;
 const SpinnerInner = styled.div`
   position: absolute;
-  left: 40%;
-  top: 40%;
+  left: 50%;
+  top: 50%;
   transform: translate(-50%, -50%);
 `;
 export default Spinner;

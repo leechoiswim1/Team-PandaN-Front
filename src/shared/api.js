@@ -51,7 +51,7 @@ export const noteApi = {
   addBookmark: (noteId) => instance.post(`/api/notes/${noteId}/bookmark`),
   deleteBookmark: (noteId) => instance.post(`/api/notes/${noteId}/unbookmark`),
   /* my issue */
-  getMyNotes: () => instance.get("/api/notes/mynotes?page=1&size=10"),
+  getMyNotes: (_page, size) => instance.get(`/api/notes/mynotes?page=${_page}&size=${size}`),
 };
 
 /* == API - comment */
@@ -69,4 +69,3 @@ export const searchApi = {
   getSearchBookmark: (keyword) => instance.get(`/api/notes/search/bookmarks?keyword=${keyword}`),
   getSearchMynote: (keyword) => instance.get(`/api/notes/search/mynotes?keyword=${keyword}`),
 };
-

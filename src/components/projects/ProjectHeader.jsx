@@ -79,6 +79,7 @@ const ProjectHeaderTitle = styled.p`
 const ProjectHeaderDetail = styled.p`
   font-weight: 500;
   font-size: 1rem;
+  color: #767676;
 `;
 
 const ProjectHeaderRight = styled.div`

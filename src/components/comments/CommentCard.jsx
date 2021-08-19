@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import moment from "moment";
 /* == Library - style */
 import styled from "styled-components";
 import { t } from "../../util/remConverter";
@@ -20,10 +20,6 @@ const CommentCard = (props) => {
 
   const [menu, setMenu] = useState(false);
   const userName = useSelector((state) => state.user.name);
-  const userProfileImage =
-    props.writerProfileImg == null
-      ? "https://e7.pngegg.com/pngimages/287/501/png-clipart-giant-panda-emoji-coloring-book-drawing-sticker-emoji-child-face-thumbnail.png"
-      : props.writerProfileImg;
 
   const deleteComment = () => {
     if (window.confirm("정말로 댓글을 지우시겠습니까?😲") === true) {
@@ -33,15 +29,17 @@ const CommentCard = (props) => {
       return;
     }
   };
-  if (!modifiedAt) {
-    return <div></div>;
-  }
-  const commentDate = () => {
-    const backDate = modifiedAt.split("T");
-    const Date = backDate[0];
-    const Time = backDate[1].substr(0, 5);
-    return Date + " " + Time;
-  };
+
+  const createdAt = moment(modifiedAt).format(" YYYY. M. D hh:mm:ss");
+
+  var writerProfileImg1 = "" + writerProfileImg;
+  const http = writerProfileImg1.substring(0, 4);
+
+  console.log(http);
+  const userProfileImage =
+    http === "http"
+      ? writerProfileImg
+      : "https://e7.pngegg.com/pngimages/287/501/png-clipart-giant-panda-emoji-coloring-book-drawing-sticker-emoji-child-face-thumbnail.png";
 
   return (
     <Card>
@@ -53,7 +51,7 @@ const CommentCard = (props) => {
 
               <span style={{ margin: "0 5px", fontWeight: "600", fontSize: "16px" }}>{writer}</span>
             </div>
-            <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "25px" }}>{commentDate(modifiedAt)}</p>
+            <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "25px" }}>{createdAt}</p>
             {userName === writer ? (
               <button onClick={() => setMenu(!menu)} style={{ float: "right" }}>
                 <IconEdit width="20px" />

@@ -33,6 +33,7 @@ import EditingNoteModal from "./notes/EditingNoteModal";
 import IssueCard from "./notes/IssueCard";
 import IssueList from "./notes/IssueList";
 import EmptyBoard from "./notes/EmptyBoard";
+import InfiniteScroll from "./notes/InfiniteScroll";
 /* == Note - detail */
 import NoteDetail from "./notes/NoteDetail";
 /* == Note - detail - Comment */
@@ -74,6 +75,7 @@ export {
   IssueCard,
   IssueList,
   EmptyBoard,
+  InfiniteScroll,
   /* == Note - detail */
   NoteDetail,
   /* == Note - detail - Comment */
