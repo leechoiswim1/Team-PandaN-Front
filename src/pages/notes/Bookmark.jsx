@@ -15,7 +15,7 @@ const Bookmark = ({ history, match, ...rest }) => {
     dispatch(noteActions.__getBookmark());
   }, []);
 
-  const bookmarkList = useSelector(state => state.note.list);
+  const bookmarkList = useSelector(state => state.note.bookmark);
   return (
     <Template>
       <div className="content" id="content">
