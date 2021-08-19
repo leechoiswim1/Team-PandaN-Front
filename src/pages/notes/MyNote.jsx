@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 /* == Library - style */
 import styled from "styled-components";
 import { t } from "../../util/remConverter";
+import _ from "lodash";
 /* == Custom - Component */
 import { Template, IssueList, EmptyBoard } from "../../components";
 /* == Redux - actions */
@@ -26,11 +27,11 @@ const MyNote = ({ history, match, ...rest }) => {
       return;
     }
     dispatch(noteActions.__getMyNote(paging.page));
-	}
+  };
 
-  const handleScroll = (e) => { 
-    console.log("스크롤 중입니다.")
-    
+  const handleScroll = _.throttle((e) => {
+    console.log("스크롤 중입니다.");
+
     if (paging.next === false) {
       return;
     }
@@ -39,29 +40,22 @@ const MyNote = ({ history, match, ...rest }) => {
 
     const bottom = node.scrollHeight - node.scrollTop === node.clientHeight;
 
-    if (bottom) {      
-      console.log("BOTTOM REACHED:",bottom); 
+    if (bottom) {
+      console.log("BOTTOM REACHED:", bottom);
       dispatch(noteActions.__getMyNote(paging.page));
     }
-
-     
-  }
+  });
 
   return (
     <Template>
       <div className="content" id="content">
         <div className="note-board-container" onScroll={handleScroll}>
-          <InfiniteScroll
-        callNextPage={callNextPage}
-        isLoading={isLoading}
-        isNext={paging.next ? true : false}
-      >
+          <InfiniteScroll callNextPage={callNextPage} isLoading={isLoading} isNext={paging.next ? true : false}>
             {myNoteList && <IssueList history={history} notes={myNoteList} type="myNote" />}
             {myNoteList.length === 0 && <EmptyBoard type="myNote" />}
-            </InfiniteScroll>
-
-          </div>
-        </div>      
+          </InfiniteScroll>
+        </div>
+      </div>
     </Template>
   );
 };
