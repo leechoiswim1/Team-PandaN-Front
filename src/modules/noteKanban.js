@@ -41,8 +41,9 @@ const initialState = {
 
 /* == action */
 /* project - kanban */
-const SET_KANBAN_STEP = "note_kanban/SET_KANBAN_STEP";
 const GET_KANBAN_NOTES = "note_kanban/GET_KANBAN_NOTES";
+const SET_KANBAN_STEP = "note_kanban/SET_KANBAN_STEP";
+const EDIT_KANBAN_STEP = "note_kanban/GET_KANBAN_NOTES";
 /* note - detail */
 const GET_NOTE_DETAIL = "note_kanban/GET_NOTE_DETAIL";
 /* note - CRUD */
@@ -56,8 +57,9 @@ const DELETE_BOOKMARK = "note_kanban/DELETE_BOOKMARK";
 
 /* == action creator */
 /* project - kanban */
-const setKanbanStep = createAction(SET_KANBAN_STEP, (newState) => ({ newState }));
 const getKanbanNotes = createAction(GET_KANBAN_NOTES, (kanbanNotes) => ({ kanbanNotes }));
+const setKanbanStep = createAction(SET_KANBAN_STEP, (newState) => ({ newState }));
+const editKanbanStep = createAction(EDIT_KANBAN_STEP, (noteId) => ({ noteId }));
 /* note - detail */
 const getNoteDetail = createAction(GET_NOTE_DETAIL, (note) => ({ note }));
 /* note - CRUD */
@@ -71,7 +73,7 @@ const deleteBookmark = createAction(DELETE_BOOKMARK, (noteId) => ({ noteId }));
 
 
 /* == thunk function */
-/* project issue */
+/* kanban */
 const __getKanbanNotes =
   (projectId) =>
   async (dispatch, getState, { history }) => {
@@ -82,6 +84,18 @@ const __getKanbanNotes =
       console.log(e);
     }
   };
+
+const __editKanbanStep =
+  (projectId) =>
+  async (dispatch, getState, { history }) => {
+    try {
+      const { data } = await noteApi.editKanbanStep(projectId);
+      dispatch(editKanbanStep(data.projects));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
 
 /* note - detail */
 const __getNoteDetail =
@@ -228,8 +242,9 @@ const noteKanban = handleActions(
 /* == export actions */
 export const noteKanbanActions = {
   /* project - kanban */
-  setKanbanStep,
   __getKanbanNotes,
+  __editKanbanStep,
+  setKanbanStep,
   /* note - detail */
   __getNoteDetail,
   /* note - CRUD */
