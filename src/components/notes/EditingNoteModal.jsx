@@ -10,7 +10,7 @@ import ModalBox from "../../elements/ModalBox";
 
 /* == Redux - actions */
 import { useSelector, useDispatch }   from 'react-redux';
-import { noteActions }                from '../../modules/note';
+import { noteKanbanActions } from '../../modules/noteKanban';
 
 // * == ( Note - editing note modal ) -------------------- * //
 const EditingNoteModal = (props) => {
@@ -52,7 +52,7 @@ const EditingNoteModal = (props) => {
       return;
     }
 
-    dispatch(noteActions.__editNote(noteId, noteInputs));
+    dispatch(noteKanbanActions.__editNote(noteId, noteInputs));
     onClose(e);
   };
 

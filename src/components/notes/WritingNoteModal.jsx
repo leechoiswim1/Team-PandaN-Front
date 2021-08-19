@@ -13,7 +13,7 @@ import ModalBox from "../../elements/ModalBox";
 /* == Redux - actions */
 import { history } from "../../modules/configStore";
 import { useSelector, useDispatch }   from 'react-redux';
-import { noteActions }                from '../../modules/note';
+import { noteKanbanActions } from '../../modules/noteKanban';
 
 // * == ( Note - writing note modal ) -------------------- * //
 const WritingNoteModal = (props) => {
@@ -58,7 +58,7 @@ const WritingNoteModal = (props) => {
       return;
     }
     
-    dispatch(noteActions.__addNote(projectId, noteInputs));
+    dispatch(noteKanbanActions.__addNote(projectId, noteInputs));
     onClose(e);
     if (!params.noteId) {
       window.location.replace(location.pathname);
