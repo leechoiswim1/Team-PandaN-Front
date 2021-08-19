@@ -55,6 +55,7 @@ const Search = ({ history }) => {
                 <tr>
                   <th>문서제목</th>
                   <th>프로젝트명</th>
+                  <th>작성자</th>
                   <th>작성날짜</th>
                   <th>상태</th>
                 </tr>
@@ -62,14 +63,6 @@ const Search = ({ history }) => {
               <tbody>
               { searchResult && <SearchList history={history} searchResult={searchResult}/> } 
               { searchResult?.length === 0 && <EmptySearch/> }
-              {/* {searchResult.map((searchItem, idx) => (
-                <tr key={idx}>
-                  <td>{searchItem.title}</td>
-                  <td>{searchItem.projectTitle}</td>
-                  <td>{searchItem.writer}</td>
-                  <td>{searchItem.step}</td>
-                </tr>
-              ))} */}
               </tbody>
             </table>
           </div>
