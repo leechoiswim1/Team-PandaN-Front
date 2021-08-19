@@ -11,19 +11,26 @@ const CommentList = (props) => {
   const { history, match, projectId } = props;
   const dispatch = useDispatch();
   const comment_list = useSelector((state) => state.comment.list);
-
   const noteId = match.params.noteId;
 
   useEffect(() => {
     dispatch(commentActions.__getCommentList(noteId));
   }, []);
+  const commentsEndRef = useRef(null);
+  // 댓글 스크롤 밑으로 이동
+  const scrollToBottom = () => {
+    commentsEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [comment_list]);
 
   if (!comment_list) {
     return <div></div>;
   }
   return (
     <Wrapper>
-      <div style={{ margin: "10px 18px", position: "sticky", top: "4px" }}>
+      <div style={{ margin: "10px 18px" }}>
         <p>
           댓글{" "}
           <span style={{ background: "#387e4b", color: "#fff", borderRadius: "10px", padding: "0 6px", fontSize: "12px" }}>
@@ -35,6 +42,7 @@ const CommentList = (props) => {
         {comment_list.map((comment) => {
           return <CommentCard key={comment.id} {...comment} />;
         })}
+        <div ref={commentsEndRef} />
       </CardWrap>
 
       <div style={{ padding: "16px 0" }}>
@@ -48,10 +56,12 @@ const Wrapper = styled.div(
   ...t`
   width: 400px;
   height: 100%;
+  max-height:1600px;
+  min-height:400px;
   margin-left:10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  // justify-content: space-between;
   background-color: #FFFFFF;
   border-radius: 1rem;
   box-shadow: 5px 10px 20px  rgba(25, 25, 25, 0.1);
@@ -59,8 +69,11 @@ const Wrapper = styled.div(
 );
 
 const CardWrap = styled.div`
+  width: 280px;
+  height: 80%;
   overflow: auto;
-  alignItems: flexStart; 
+  margin: auto;
+  align-items: flex-start; 
   scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;;
