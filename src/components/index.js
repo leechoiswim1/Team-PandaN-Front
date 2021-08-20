@@ -24,9 +24,9 @@ import ProjectCardList from "./projects/ProjectCardList";
 
 /* == Note - kanban */
 import ProjectMenu from "./notes/ProjectMenu";
-import KanbanCard from "./notes/KanbanCard";
-import KanbanList from "./notes/KanbanList";
-import KanbanBoard from "./notes/KanbanBoard";
+import KanbanCard from "./notesKanban/KanbanCard";
+import KanbanList from "./notesKanban/KanbanList";
+import KanbanBoard from "./notesKanban/KanbanBoard";
 import WritingNoteModal from "./notes/WritingNoteModal";
 import EditingNoteModal from "./notes/EditingNoteModal";
 /* == Note - issue list; card */
