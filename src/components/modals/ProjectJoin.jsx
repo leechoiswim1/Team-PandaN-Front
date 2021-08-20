@@ -28,6 +28,9 @@ const ProjectJoin = (props) => {
       return;
     }
     dispatch(projectActions.__joinProject(inviteCode));
+    setTimeout(() => {
+      dispatch(projectActions.__setProject());
+    }, 100);
     window.alert("초대가 완료됐습니다!");
     setShow(false);
     history.push("/");
