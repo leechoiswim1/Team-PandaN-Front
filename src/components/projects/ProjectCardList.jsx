@@ -46,7 +46,7 @@ const ProjectCardList = () => {
                     history.push(`/projects/${p.projectId}/kanban`);
                   }}
                 >
-                  <Detail style={{ color: "#9BD09C" }}>{p.detail}</Detail>
+                  <Detail style={{ color: "#9BD09C" }} className="text-truncate">{p.detail}</Detail>
                   {p.recentNoteUpdateDate === null ? " " : <Detail>{createdAt}</Detail>}
                 </div>
               </div>
