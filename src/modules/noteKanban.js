@@ -86,13 +86,14 @@ const __getKanbanNotes =
   };
 
 const __editKanbanStep =
-  (projectId) =>
+  (noteId, position) =>
   async (dispatch, getState, { history }) => {
     try {
-      const { data } = await noteApi.editKanbanStep(projectId);
-      dispatch(editKanbanStep(data.projects));
+      const { data } = await noteApi.editKanbanStep(noteId, position);
+      // dispatch(editKanbanStep(data.projects));
     } catch (e) {
       console.log(e);
+      window.alert("새로고침이 필요합니다.");
     }
   };
 
