@@ -18,16 +18,17 @@ import { EditingNoteModal } from "..";
 
 /* == Redux - actions */
 import { useDispatch, useSelector } from "react-redux";
-import { noteActions } from "../../modules/note";
+import { noteActions } from '../../modules/note';
+import { noteKanbanActions } from '../../modules/noteKanban';
 
 // * == ( note detail ) -------------------- * //
 const NoteDetail = ({ history, match, ...rest }) => {
   const dispatch = useDispatch();
   const noteId = match.params.noteId;
-  const note = useSelector((state) => state.note.detail);
+  const note = useSelector((state) => state.noteKanban.detail);
   const isBookmark = note.isBookmark;
   useEffect(() => {
-    dispatch(noteActions.__getNoteDetail(noteId));
+    dispatch(noteKanbanActions.__getNoteDetail(noteId));
   }, [noteId]);
 
   const deadline = note.deadline ? moment(note.deadline).format("YYYY년 M월 D일") : "";
@@ -55,7 +56,7 @@ const NoteDetail = ({ history, match, ...rest }) => {
     e.stopPropagation();
     const result = window.confirm("노트를 삭제하시겠습니까?");
     if (result) {
-      dispatch(noteActions.__deleteNote(noteId));
+      dispatch(noteKanbanActions.__deleteNote(noteId));
     } else return;
   };
   /*
@@ -64,14 +65,14 @@ const NoteDetail = ({ history, match, ...rest }) => {
   const addBookmark = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch(noteActions.__addBookmark(noteId));
+    dispatch(noteKanbanActions.__addBookmark(noteId));
   };
   const deleteBookmark = (e) => {
     e.preventDefault();
     e.stopPropagation();
     const result = window.confirm("북마크에서 삭제하시겠습니까?");
     if (result) {
-      dispatch(noteActions.__deleteBookmark(noteId));
+      dispatch(noteKanbanActions.__deleteBookmark(noteId));
     } else return;
   };
 

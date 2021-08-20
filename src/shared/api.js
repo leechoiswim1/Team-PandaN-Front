@@ -37,6 +37,7 @@ export const userApi = {
 export const noteApi = {
   /* project kanban */
   getKanbanNotes: (projectId) => instance.get(`/api/projects/${projectId}/kanbans`),
+  editKanbanStep: (noteId, position) => instance.put(`/api/notes/${noteId}`, position),
   /* project issue */
   getProjectIssue: (projectId) => instance.get(`/api/projects/${projectId}/issues?page=1&size=10`),
   getProjectMyNotes: (projectId) => instance.get(`/api/projects/${projectId}/mynotes?page=1&size=10`),
@@ -44,7 +45,7 @@ export const noteApi = {
   getNoteDetail: (noteId) => instance.get(`/api/notes/${noteId}`),
   /* note */
   addNote: (noteId, newNote) => instance.post(`/api/notes/${noteId}`, newNote),
-  editNote: (noteId, newNote) => instance.put(`/api/notes/${noteId}`, newNote),
+  editNote: (noteId, newNote) => instance.put(`/api/notes/details/${noteId}`, newNote),
   deleteNote: (noteId) => instance.delete(`/api/notes/${noteId}`),
   /* bookmark */
   getBookmark: () => instance.get("/api/notes/mybookmarks?page=1&size=10"),

@@ -8,6 +8,7 @@ import { connectRouter } from "connected-react-router";
 /* == Redux - reducer */
 import project from "./project";
 import note from "./note";
+import noteKanban from "./noteKanban";
 import user from "./user";
 import comment from "./comment";
 import search from "./search";
@@ -17,6 +18,7 @@ export const history = createBrowserHistory();
 const rootReducer = combineReducers({
   project,
   note,
+  noteKanban,
   user,
   comment,
   search,

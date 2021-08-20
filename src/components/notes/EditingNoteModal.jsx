@@ -10,7 +10,7 @@ import ModalBox from "../../elements/ModalBox";
 
 /* == Redux - actions */
 import { useSelector, useDispatch }   from 'react-redux';
-import { noteActions }                from '../../modules/note';
+import { noteKanbanActions } from '../../modules/noteKanban';
 
 // * == ( Note - editing note modal ) -------------------- * //
 const EditingNoteModal = (props) => {
@@ -28,7 +28,7 @@ const EditingNoteModal = (props) => {
     title: note.title,
     content: note.content,
     deadline: note.deadline,
-    step: note.step,
+    // step: note.step,
   });
 
   const editNote = (e) => {
@@ -43,16 +43,16 @@ const EditingNoteModal = (props) => {
       window.alert("할 일에 대한 설명을 추가하세요.");
       return;
     }
-    if (noteInputs.step === "") {
-      window.alert("할 일의 상태를 설정하세요.");
-      return;
-    }
+    // if (noteInputs.step === "") {
+    //   window.alert("할 일의 상태를 설정하세요.");
+    //   return;
+    // }
     if (noteInputs.deadline === "") {
       window.alert("마감일을 입력하세요.");
       return;
     }
 
-    dispatch(noteActions.__editNote(noteId, noteInputs));
+    dispatch(noteKanbanActions.__editNote(noteId, noteInputs));
     onClose(e);
   };
 
@@ -85,7 +85,7 @@ const EditingNoteModal = (props) => {
             onChange={(e)=> {setNoteInputs({...noteInputs, content: e.target.value})}}
           />
         </Form.Group>
-        <Form.Group controlId="noteStep">
+        {/* <Form.Group controlId="noteStep">
           <Form.Label className="note-modal-label">상태 설정</Form.Label>
           <Form.Select placeholder="" defaultValue={note.step}
             onChange={(e)=> {setNoteInputs({...noteInputs, step: e.target.value})}}
@@ -96,7 +96,7 @@ const EditingNoteModal = (props) => {
             <option value="PROCESSING">PROCESSING</option>
             <option value="DONE">DONE</option>
           </Form.Select>
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group controlId="noteDeadline">
           <Form.Label className="note-modal-label" >언제까지 끝내야 하나요?</Form.Label>
           <Form.Control type="date" placeholder="" defaultValue={note.deadline}
