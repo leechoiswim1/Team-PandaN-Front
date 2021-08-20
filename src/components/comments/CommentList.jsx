@@ -58,25 +58,38 @@ const Wrapper = styled.div(
   height: 100%;
   max-height:1600px;
   min-height:400px;
+  
   margin-left:10px;
   display: flex;
   flex-direction: column;
-  // justify-content: space-between;
   background-color: #FFFFFF;
   border-radius: 1rem;
   box-shadow: 5px 10px 20px  rgba(25, 25, 25, 0.1);
+  @media (max-width: 800px) {
+    min-width:300px;
+    margin-right:25px;
+    // margin-top:20px;
+  }
 `,
 );
 
 const CardWrap = styled.div`
   display: flex;
   flex-direction: column;
-  height:100%;
+  height: 100%;
+  width: 98%;
   justify-content: flex-start;
-  overflow: auto; 
+  overflow: auto;
   scrollbar-width: none;
   &::-webkit-scrollbar {
-    display: none;;
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e1ede4;
+    border: 2px solid transparent;
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
 `;
 
 export default CommentList;

@@ -51,10 +51,10 @@ const CommentCard = (props) => {
 
               <span style={{ margin: "0 5px", fontWeight: "600", fontSize: "16px" }}>{writer}</span>
             </div>
-            <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "25px" }}>{createdAt}</p>
+            <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "20px" }}>{createdAt}</p>
             {userName === writer ? (
               <button onClick={() => setMenu(!menu)} style={{ float: "right" }}>
-                <IconEdit width="20px" />
+                <IconEdit width="18px" />
               </button>
             ) : (
               ""

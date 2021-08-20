@@ -9,7 +9,10 @@ import moment from "moment";
 
 /* == Custom - Icon */
 import IconSteps from "../../elements/IconSteps";
-
+import { ReactComponent as IconTitle } from "../../styles/images/icon_title.svg";
+import { ReactComponent as IconCalendar } from "../../styles/images/icon_calender.svg";
+import { ReactComponent as IconMember } from "../../styles/images/icon_member2.svg";
+import { ReactComponent as IconNote } from "../../styles/images/icon_note.svg";
 /* == Custom - Component */
 import { EditingNoteModal } from "..";
 
@@ -74,12 +77,13 @@ const NoteDetail = ({ history, match, ...rest }) => {
   };
 
   return (
-    <div className="note-detail-wrapper">
-      <div className="note-detail-header">
+    <div className="note-detail-wrapper" style={{ height: "100%", minHeight: "400px", minWidth: "300px" }}>
+      <div className="note-detail-header" style={{ height: "5%" }}>
         <div className="note-detail-header-step">
           <div>
-            <IconSteps type={note.step} />
-            <span>{note.step}</span>
+            <Tag type={note.step} style={{ padding: "0px 5px", borderRadius: "10px", color: "#fff" }}>
+              <p>{note.step}</p>
+            </Tag>
           </div>
 
           <div>
@@ -90,12 +94,10 @@ const NoteDetail = ({ history, match, ...rest }) => {
             {modalVisible && (
               <EditingNoteModal note={note} noteId={noteId} visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal} />
             )}
-
             {/* buttons - delete */}
             <button type="button" onClick={deleteNote} className="note-detail-header-button">
               <Trash2 />
             </button>
-
             {/* buttons - bookmark */}
             {!isBookmark ? (
               <button type="button" onClick={addBookmark} className="note-detail-header-button">
@@ -108,36 +110,159 @@ const NoteDetail = ({ history, match, ...rest }) => {
             )}
           </div>
         </div>
-
-        <div className="note-detail-header-title">
-          <h1 className="note-detail-header-title-heading">{note.title}</h1>
-        </div>
-
-        <div className="note-detail-header-info">
-          <div className="note-detail-crew-tag">{note.writer}</div>
-          <Tag className="note-detail-tag" type={note.step} dateDiff={dateDiff}>
-            <Clock />
-            {deadline}
-          </Tag>
-        </div>
       </div>
+      <NoteHeader>
+        <InnerLine>
+          <Inner>
+            <IconTitle />
+            <InnerTitle> 제목</InnerTitle>
+          </Inner>
+          <InnerDetail>{note.title}</InnerDetail>
+        </InnerLine>
 
-      <div className="note-detail-content">
-        <p>{note.content}</p>
-      </div>
-      <div className="note-detail-footer">
+        <InnerLine>
+          <Inner>
+            <IconMember />
+            <InnerTitle> 작성자 </InnerTitle>
+          </Inner>
+          <InnerDetail>{note.writer}</InnerDetail>
+        </InnerLine>
+        <InnerLine>
+          <Inner>
+            <IconCalendar />
+            <InnerTitle> 마감일</InnerTitle>
+          </Inner>
+          <InnerDetail>
+            <Tag dateDiff={dateDiff}>{deadline}</Tag>
+          </InnerDetail>
+        </InnerLine>
+      </NoteHeader>
+      <NoteBody>
+        <Inner2>
+          <IconNote />
+          <InnerTitle2>노트</InnerTitle2>
+        </Inner2>
+        <NoteContents> {note.content}</NoteContents>
+      </NoteBody>
+      <NoteFooter>
         <p>{createdAt}</p>
         <p>{modifiedAt}</p>
-      </div>
+      </NoteFooter>
     </div>
   );
 };
+
+const InnerLine = styled.div`
+  height: 45px;
+  display: flex;
+  border-bottom: 1px solid #ededed;
+  align-items: center;
+  @media (max-width: 600px) {
+    height: 38px;
+  }
+`;
+
+const Inner = styled.div`
+  display: flex;
+  width: 100px;
+  @media (max-width: 600px) {
+    width: 80px;
+  }
+`;
+const Inner2 = styled.div`
+  display: flex;
+  width: 110px;
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;
+
+const InnerTitle = styled.p`
+  font-size: 16px;
+  font-weight: 700;
+  color: #767676;
+  margin-left: 5px;
+  @media (max-width: 600px) {
+    font-size: 13px;
+  }
+`;
+const InnerTitle2 = styled.p`
+  font-size: 16px;
+  font-weight: 700;
+  color: #767676;
+  margin-left: 5px;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;
+const InnerDetail = styled.p`
+  font-size: 16px;
+  font-weight: 500;
+  word-break: break-all;
+
+  @media (max-width: 600px) {
+    font-size: 13px;
+  }
+`;
+const NoteContents = styled.p`
+  font-size: 16px;
+  font-weight: 500;
+  word-break: break-all;
+  white-space: normal;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  padding-right: 10px;
+  width: 100%;
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e1ede4;
+    border: 2px solid transparent;
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
+  @media (max-width: 900px) {
+    font-size: 14px;
+  }
+  @media (max-width: 600px) {
+    font-size: 12px;
+  }
+`;
+
+const NoteHeader = styled.div`
+heigth:20%
+min-height:100px;
+`;
+const NoteBody = styled.div`
+  height: 70%;
+  min-height: 150px;
+  display: flex;
+  margin-top: 10px;
+`;
+
+const NoteFooter = styled.div`
+  height: 5%;
+  min-hight: 30px;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #767676;
+  @media (max-width: 600px) {
+    font-size: 10px;
+    margin-top: 10px;
+  }
+`;
 
 const Tag = styled.div`
   ${(props) =>
     !props.type &&
     css`
-      background-color: #767676;
+      background-color: none;
     `}
   ${(props) =>
     props.type === "STORAGE" &&
@@ -159,7 +284,12 @@ ${(props) =>
     css`
       background-color: #f5daae;
     `}
-  color: ${(props) => (props.dateDiff <= -1 ? "#B00033" : "#fff")};
+  color: ${(props) => (props.dateDiff <= -1 ? "#B00033" : "#000")};
+  font-size: 16px;
+
+  @media (max-width: 600px) {
+    font-size: 12px;
+  }
 `;
 
 export default NoteDetail;
