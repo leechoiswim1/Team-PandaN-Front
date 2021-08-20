@@ -23,19 +23,19 @@ import ProjectHeader from "./projects/ProjectHeader";
 import ProjectCardList from "./projects/ProjectCardList";
 
 /* == Note - kanban */
-import ProjectMenu from "./notes/ProjectMenu";
+import ProjectMenu from "./notesShared/ProjectMenu";
 import KanbanCard from "./notesKanban/KanbanCard";
 import KanbanList from "./notesKanban/KanbanList";
 import KanbanBoard from "./notesKanban/KanbanBoard";
-import WritingNoteModal from "./notes/WritingNoteModal";
-import EditingNoteModal from "./notes/EditingNoteModal";
+import WritingNoteModal from "./notesShared/WritingNoteModal";
+import EditingNoteModal from "./notesShared/EditingNoteModal";
 /* == Note - issue list; card */
 import IssueCard from "./notesIssue/IssueCard";
 import IssueList from "./notesIssue/IssueList";
 import EmptyBoard from "./notesIssue/EmptyBoard";
-import InfiniteScroll from "./notes/InfiniteScroll";
+import InfiniteScroll from "./notesShared/InfiniteScroll";
 /* == Note - detail */
-import NoteDetail from "./notes/NoteDetail";
+import NoteDetail from "./notesShared/NoteDetail";
 /* == Note - detail - Comment */
 import CommentCard from "./comments/CommentCard";
 import CommentList from "./comments/CommentList";
