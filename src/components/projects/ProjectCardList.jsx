@@ -5,6 +5,7 @@ import { t } from "../../util/remConverter";
 import { Bookmark, FileText } from "react-feather";
 import { useSelector } from "react-redux";
 import { history } from "../../modules/configStore";
+import { ProjectModalEdit } from "..";
 
 import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edit.svg";
 const ProjectCardList = () => {
@@ -37,12 +38,7 @@ const ProjectCardList = () => {
                   >
                     {p.title}
                   </Title>
-                  <IconEdit
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      history.push("/bookmark");
-                    }}
-                  />
+                  <ProjectModalEdit main="main" projectId={p.projectId} title={p.title} detail={p.detail} />
                 </div>
                 <div
                   style={{ marginTop: "15px", cursor: "pointer" }}
@@ -88,7 +84,7 @@ const ProjectCardList = () => {
                       })}
                     </div>
                   </div>
-                  <div style={{ display: "fixed" }}>{crewcount > 3 ? <p>외 {crewcount}명 </p> : ""}</div>
+                  <div style={{ display: "fixed" }}>{crewcount ? <p>외 {crewcount}명 </p> : ""}</div>
                 </div>
               </Footer>
             </Item>
