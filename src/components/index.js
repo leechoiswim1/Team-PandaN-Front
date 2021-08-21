@@ -29,6 +29,9 @@ import KanbanList from "./notesKanban/KanbanList";
 import KanbanBoard from "./notesKanban/KanbanBoard";
 import WritingNoteModal from "./notesShared/WritingNoteModal";
 import EditingNoteModal from "./notesShared/EditingNoteModal";
+/* == Note - file control */
+import FileUploader from "./files/FileUploader";
+import FilePreviewer from "./files/FilePreviewer";
 /* == Note - issue list; card */
 import IssueCard from "./notesIssue/IssueCard";
 import IssueList from "./notesIssue/IssueList";
@@ -71,6 +74,8 @@ export {
   KanbanBoard,
   WritingNoteModal,
   EditingNoteModal,
+  FileUploader,
+  FilePreviewer,
   /* == Note - list */
   IssueCard,
   IssueList,
