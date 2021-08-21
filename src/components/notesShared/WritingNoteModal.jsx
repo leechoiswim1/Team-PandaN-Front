@@ -40,36 +40,37 @@ const WritingNoteModal = (props) => {
   });
 
   const addNote = (e) => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
 
-  //   if (noteInputs.title === "") {
-  //     window.alert("할 일을 입력하세요.");
-  //     return;
-  //   }
-  //   if (noteInputs.content === "") {
-  //     window.alert("할 일에 대한 설명을 추가하세요.");
-  //     return;
-  //   }
-  //   if (noteInputs.step === "") {
-  //     window.alert("할 일의 상태를 설정하세요.");
-  //     return;
-  //   }
-  //   if (noteInputs.deadline === "") {
-  //     window.alert("마감일을 입력하세요.");
-  //     return;
-  //   }
+    if (noteInputs.title === "") {
+      window.alert("할 일을 입력하세요.");
+      return;
+    }
+    if (noteInputs.content === "") {
+      window.alert("할 일에 대한 설명을 추가하세요.");
+      return;
+    }
+    if (noteInputs.step === "") {
+      window.alert("할 일의 상태를 설정하세요.");
+      return;
+    }
+    if (noteInputs.deadline === "") {
+      window.alert("마감일을 입력하세요.");
+      return;
+    }
     
-    // dispatch(noteKanbanActions.__addNote(projectId, noteInputs));
-    dispatch(fileActions.__addFiles());
+    dispatch(noteKanbanActions.__addNote(projectId, noteInputs));
+    // dispatch(fileActions.__addFiles());
     // 프로젝트 페이지 따라 리로드 필요해보임
     onClose(e);
-    // if (!params.noteId) {
-    //   window.location.replace(location.pathname);
-    // }
-    // if (params.noteId) {
-    //   history.push(`/projects/${params.projectId}/kanban`);    
-    // }
+    if (!params.noteId) {
+      history.push(`/projects/${params.projectId}/kanban`);    
+      // window.location.replace(location.pathname);
+    }
+    if (params.noteId) {
+      history.push(`/projects/${params.projectId}/kanban`);    
+    }
     
   };
 

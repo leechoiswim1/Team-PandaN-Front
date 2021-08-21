@@ -31,11 +31,18 @@ const NoteDetail = ({ history, match, ...rest }) => {
     dispatch(noteKanbanActions.__getNoteDetail(noteId));
   }, [noteId]);
 
-  const deadline = note.deadline ? moment(note.deadline).format("YYYY년 M월 D일") : "";
-  const createdAt = moment(note.createdAt).format("작성: YYYY년 M월 D일");
-  const modifiedAt = moment(note.modifiedAt).format("수정: YYYY년 M월 D일");
+  const deadline = note.deadline ? moment(note.deadline).format("YYYY. M. D") : "";
+  const createdAt = moment(note.createdAt).format("작성: YYYY. M. D");
+  const modifiedAt = moment(note.modifiedAt).format("수정: YYYY. M. D");
 
   let dateDiff = note.deadline ? moment(note.deadline).diff(moment(), "days") : "";
+
+  // project에 노트 수정일 정보가 있을 경우 현재로부터 시간 차 구하기
+  let hourDiff = note.modifiedAt && moment(note.modifiedAt).diff(moment(), "hours");
+  // format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm 
+  const updated = moment(note.modifiedAt).format(" YYYY. M. D hh:mm");
+  // format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전'
+  const recentlyUpdated = moment(note.modifiedAt).fromNow();
 
   /*
    * Function - Modal
@@ -146,7 +153,10 @@ const NoteDetail = ({ history, match, ...rest }) => {
       </NoteBody>
       <NoteFooter>
         <p>{createdAt}</p>
-        <p>{modifiedAt}</p>
+        {/* 시간 차 23시간 이상인지 ?
+          format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm : 
+          format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전' */}
+        {hourDiff < -22 ? <p>{updated}</p> : <p>마지막 수정: {recentlyUpdated}</p>}        
       </NoteFooter>
     </div>
   );
@@ -233,7 +243,7 @@ const NoteContents = styled.p`
 `;
 
 const NoteHeader = styled.div`
-heigth:20%
+height: 20%;
 min-height:100px;
 `;
 const NoteBody = styled.div`
