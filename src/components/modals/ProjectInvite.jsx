@@ -30,8 +30,21 @@ const ProjectInvite = (props) => {
   return (
     <>
       <div onClick={handleShow} style={{ display: "flex", margin: "0 10px" }}>
-        <IconMemberAdd cursor="pointer" width="25" height="25" fill="#9A9A9A" className="menu-icon" />
-        <button style={{ height: "33.5px", padding: "0.375rem 0" }}>멤버초대</button>
+        <Button
+          style={{
+            width: "120px",
+            height: "38px",
+            background: "#EDEDED",
+            color: "#767676",
+            border: "1px solid #EDEDED",
+            fontWeight: "500",
+            fontSize: "15.5px",
+            borderRadius: "10px",
+          }}
+        >
+          <IconMemberAdd style={{ marginRight: "5px" }} />
+          멤버초대
+        </Button>
       </div>
 
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>

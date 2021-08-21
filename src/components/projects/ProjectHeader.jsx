@@ -1,19 +1,13 @@
 import React, { useEffect } from "react";
 
 /* styled-components 및 rem 변환 모듈 */
-import styled, { css } from "styled-components";
-import { Button } from "react-bootstrap";
-
-import { AlignRight } from "react-feather";
-import { t } from "../../util/remConverter";
+import styled from "styled-components";
 
 import { actionCreators as projectActions } from "../../modules/project";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../../modules/configStore";
 
 import ProjectModalEdit from "../modals/ProjectModalEdit";
-import ProjectInvite from "../modals/ProjectInvite";
-import MemberToggle from "../modals/MemberToggle";
 
 const ProjectHeader = ({ match }) => {
   const dispatch = useDispatch();
@@ -31,42 +25,30 @@ const ProjectHeader = ({ match }) => {
   const isUpdatableAndDeletable = project_detail_list.isUpdatableAndDeletable;
   return (
     <ProjectHeaderWrap>
-      <div style={{ display: "absolute" }}>
-        <div style={{ display: "flex", flexWrap: "nowrap" }}>
-          <div>
-            <div style={{ display: "flex", flexWrap: "nowrap" }}>
-              <ProjectHeaderTitle
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  history.push(history.push(`/projects/${project_detail_list.projectId}/kanban`));
-                }}
-              >
-                {project_detail_list.title}{" "}
-              </ProjectHeaderTitle>
-              <div style={{ marginLeft: "10px" }}>
-                {isUpdatableAndDeletable ? (
-                  <ProjectModalEdit projectId={project_detail_list.projectId} title={project_detail_list.title} detail={project_detail_list.detail} />
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-            <ProjectHeaderDetail>{project_detail_list.detail}</ProjectHeaderDetail>
-          </div>
+      <div style={{ display: "flex", flexWrap: "nowrap" }}>
+        <div style={{ marginLeft: "10px" }}>
+          {isUpdatableAndDeletable ? (
+            <ProjectModalEdit projectId={project_detail_list.projectId} title={project_detail_list.title} detail={project_detail_list.detail} />
+          ) : (
+            ""
+          )}
         </div>
+        <ProjectHeaderTitle
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            history.push(history.push(`/projects/${project_detail_list.projectId}/kanban`));
+          }}
+        >
+          {project_detail_list.title}{" "}
+        </ProjectHeaderTitle>
       </div>
-      <ProjectHeaderRight>
-        <div>
-          <ProjectInvite projectId={project_detail_list.projectId} />
-        </div>
-        <MemberToggle projectId={project_detail_list.projectId} />
-      </ProjectHeaderRight>
+      <ProjectHeaderDetail>{project_detail_list.detail}</ProjectHeaderDetail>
     </ProjectHeaderWrap>
   );
 };
 
 const ProjectHeaderWrap = styled.div`
-  display: flex;
+  display: ;
   flex-wrap: wrap;
   padding: 0 30px;
   justify-content: space-between;
