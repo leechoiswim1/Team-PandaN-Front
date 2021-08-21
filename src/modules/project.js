@@ -143,7 +143,6 @@ const __joinProject =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await projectApi.postJoinProject(inviteCode);
-      dispatch(setProject());
     } catch (e) {
       console.log(e);
     }
