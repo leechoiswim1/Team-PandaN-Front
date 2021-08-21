@@ -34,7 +34,7 @@ const ProjectIssue = ({ history, match, ...rest }) => {
             {issueNotes && <IssueList history={history} notes={issueNotes} projectId={projectId} type="projectIssue" />}
             {issueNotes.length === 0 && <EmptyBoard type="projectIssue" />}
           </div>
-          <div style={{ height: "5%" }}>
+          <div style={{ height: "10%" }}>
             <Paging paging={paging} module={noteActions.__getProjectIssue} projectId={projectId} isLoading={isLoading} />
           </div>
         </div>
