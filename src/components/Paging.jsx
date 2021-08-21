@@ -43,7 +43,7 @@ const Paging = (props) => {
     pageNumbers.push(i + 1);
   }
 
-  const isEnd = page.end + 10 > pageNumbers.length + 10 ? true : false;
+  const isEnd = page.end + 10 >= pageNumbers.length + 10 ? true : false;
 
   const isStart = page.start - 1 === -1 ? true : false;
 
