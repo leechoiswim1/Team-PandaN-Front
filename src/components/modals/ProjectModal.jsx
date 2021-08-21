@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { history } from "../../modules/configStore";
 import { t } from "../../util/remConverter";
 import { ReactComponent as IconProjectAdd } from "../../styles/images/ico-project-add.svg";
+import { ReactComponent as Write } from "../../styles/images/ico-kanban-write.svg";
 import modalSideImage from "../../styles/images/modalSideImage.PNG";
 
 const ProjectModal = (props) => {
@@ -57,12 +58,7 @@ const ProjectModal = (props) => {
         </>
       ) : (
         <EmptyProjectBtn onClick={() => setModalState(true)}>
-          <EmptyProjectText>
-            프로젝트
-            <br />
-            만들기
-            <br />⚡
-          </EmptyProjectText>
+          <Write fill="#000000" width="22" /> <EmptyProjectText>새 프로젝트 만들기</EmptyProjectText>
         </EmptyProjectBtn>
       )}
       <ModalPortal>
@@ -129,21 +125,27 @@ const ProjectModal = (props) => {
 };
 const EmptyProjectBtn = styled.div`
   background: #e1ede4;
-  width: 400px;
-  height: 400px;
-  display: block;
+  width: 329px;
+  height: 60px;
+  display: flex;
   cursor: pointer;
-  border-radius: 50px;
+  border-radius: 10px;
   margin: auto;
   padding: auto;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    background: #ededed;
+  }
 `;
 
 const EmptyProjectText = styled.p`
-  text-align: center;
-  font-size: 3rem;
+  font-size: 20px;
+  line-height: 30px;
   font-weight: 700;
-  margin: auto;
-  padding: auto;
+  color: #191919;
+  text-align: center;
+  margin-left: 20px;
 `;
 
 const Background = styled.div`

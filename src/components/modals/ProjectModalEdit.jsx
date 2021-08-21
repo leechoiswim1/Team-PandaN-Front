@@ -13,6 +13,8 @@ import { history } from "../../modules/configStore";
 
 /* == Custom - Icon */
 import { ReactComponent as IconProjectEdit } from "../../styles/images/icon-project-edit.svg";
+import { ReactComponent as IconProjectEditBtn } from "../../styles/images/icon_projectEdit.svg";
+import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edit.svg";
 import modalSideImage from "../../styles/images/modalSideImage.PNG";
 
 const ProjectModalEdit = (props) => {
@@ -61,11 +63,15 @@ const ProjectModalEdit = (props) => {
 
   return (
     <>
-      <IconProjectEdit
-        style={{ cursor: "pointer", width: "20px", height: "20px", marginTop: "7px" }}
-        className="menu-icon"
-        onClick={() => setModalState(true)}
-      />
+      {props.main ? (
+        <IconEdit style={{ cursor: "pointer" }} onClick={() => setModalState(true)} />
+      ) : (
+        <IconProjectEditBtn
+          style={{ cursor: "pointer", width: "18px", height: "18px", marginTop: "10px" }}
+          className="menu-icon"
+          onClick={() => setModalState(true)}
+        />
+      )}
 
       <ModalPortal>
         {modalState ? (
