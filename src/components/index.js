@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar";
 import Template from "./Template";
 import Contents from "./Contents";
 import Spinner from "./Spinner.jsx";
+import Paging from "./Paging";
 
 /* Modal */
 import Modals from "./modals/Modals";
@@ -37,6 +38,7 @@ import IssueCard from "./notesIssue/IssueCard";
 import IssueList from "./notesIssue/IssueList";
 import EmptyBoard from "./notesIssue/EmptyBoard";
 import InfiniteScroll from "./notesShared/InfiniteScroll";
+
 /* == Note - detail */
 import NoteDetail from "./notesShared/NoteDetail";
 /* == Note - detail - Comment */
@@ -55,6 +57,7 @@ export {
   Template,
   Contents,
   Spinner,
+  Paging,
   /* == Modal */
   NoteModal,
   Modals,
@@ -80,7 +83,6 @@ export {
   IssueCard,
   IssueList,
   EmptyBoard,
-  InfiniteScroll,
   /* == Note - detail */
   NoteDetail,
   /* == Note - detail - Comment */
