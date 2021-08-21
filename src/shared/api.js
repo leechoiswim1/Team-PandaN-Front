@@ -70,3 +70,10 @@ export const searchApi = {
   getSearchBookmark: (keyword) => instance.get(`/api/notes/search/bookmarks?keyword=${keyword}`),
   getSearchMynote: (keyword) => instance.get(`/api/notes/search/mynotes?keyword=${keyword}`),
 };
+
+/* == API - file */
+export const fileApi = {
+  addFiles: (noteId, files) => instance.post(`/api/files/${noteId}`, files),
+  editFiles: (fileId, files) => instance.put(`/api/files/${fileId}`, files),
+  deleteFile: (fileId) => instance.delete(`/api/files/${fileId}`),
+};
