@@ -109,6 +109,8 @@ const EmptyProjectBtn = styled.div`
   }
   @media (max-width: 600px) {
     margin-bottom: 20px;
+    width: 220px;
+    height: 50px;
   }
 `;
 
@@ -119,6 +121,9 @@ const EmptyProjectText = styled.p`
   color: #191919;
   text-align: center;
   margin-left: 20px;
+  @media (max-width: 600px) {
+    font-size: 15px;
+  }
 `;
 const Input = styled.input(
   ...t`
