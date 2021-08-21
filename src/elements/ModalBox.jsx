@@ -50,8 +50,9 @@ const ModalBox = ( props ) => {
   }, []);
 
   return (
-    <>
-      <ModalOverlay visible={visible} />
+    <Background>
+      <Overlay  />
+      {/* <ModalOverlay visible={visible} /> */}
       <ModalWrapper 
         className={className} 
         tabIndex="-1" 
@@ -75,7 +76,7 @@ const ModalBox = ( props ) => {
           </div>
         </div>
       </ModalWrapper>
-    </>
+    </Background>
   )
 }
 
@@ -90,6 +91,24 @@ const ModalOverlay = styled.div`
   background-color: rgba(225, 225, 225, 0.3);
   z-index: 999;
 `
+const Background = styled.div`
+  position: fixed;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+`;
+const Overlay = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+`;
 
 const ModalWrapper = styled.div`
   box-sizing: border-box;

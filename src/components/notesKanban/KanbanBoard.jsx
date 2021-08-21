@@ -168,7 +168,7 @@ const KanbanBoard = ({ history, match }) => {
   const projectId = match.params.projectId;
 
   const [modalVisible, setModalVisible] = useState(false)
-  const openModal = () => {
+  const openModal = (e) => {
     dispatch(fileActions.resetPreview());
     setModalVisible(true)
   }
@@ -192,25 +192,18 @@ const KanbanBoard = ({ history, match }) => {
                         <Badge className="kanban-col-badge" type={project.step}>
                           {project.notes?.length}
                         </Badge>
-                      </div>
-                      <div style={{cursor: "pointer"}}>
-                        <Write 
-                          fill="#767676"
-                          onClick={openModal}
-                          width="20"
-                          height="20"
-                        />
-                          { modalVisible && 
-                            <WritingNoteModal
-                              projectId={projectId}
-                              visible={modalVisible}
-                              closable={true}
-                              maskClosable={true}
-                              onClose={closeModal} />
-                          }                        
-                      </div>
+                      </div>                                           
                     </div>
-                  
+                    { modalVisible && 
+                      <WritingNoteModal
+                        projectId={projectId}
+                        visible={modalVisible}
+                        closable={true}
+                        maskClosable={true}
+                        onClose={closeModal} 
+                        projectStep={project.step}
+                      />
+                    }
                   <div className="kanban-col-content"
                     ref={provided.innerRef}
                     isdraggingover={snapshot.isdraggingover}
@@ -222,12 +215,10 @@ const KanbanBoard = ({ history, match }) => {
                   <ColFooter className="kanban-col-footer" type={project.step} >
                     <div onClick={openModal}>
                       <Write 
-                        fill="#767676"
                         type={project.step} 
-                        width="18" 
-                        height="18"
+                        width="24" 
+                        height="24"
                       />
-                      <span>할 일 만들기</span>
                     </div>
                   </ColFooter>                   
                   </div>
@@ -277,7 +268,7 @@ ${(props) => (props.type === "DONE") &&
   css`  
     background-color: rgba(245, 218, 174, 0.3);
   `}
-  /* & svg {
+  & svg {
     ${(props) => (props.type === "STORAGE") && 
       css`  
        fill: #FFBD04;
@@ -294,7 +285,7 @@ ${(props) => (props.type === "DONE") &&
       css`  
         fill: #F5DAAE;
       `}
-  } */
+  }
 `
 
 export default KanbanBoard;
