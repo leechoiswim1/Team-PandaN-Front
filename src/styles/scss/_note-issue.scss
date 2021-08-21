@@ -4,35 +4,12 @@
     * components/IssueList.jsx
  * --------------------------------------------------------------------------
  */
-
- .note-issue-colgroup {
-  col {
-    &:nth-child(-n+2){
-      width: 5%;
-    }
-    &:nth-child(3){
-      width: 30%;
-    }
-    &:nth-child(4){
-      width: 25%;
-    }
-    &:nth-child(5){
-      width: 15%;
-    }
-    &:nth-child(6){
-      width: 15%;
-    }
-    &:last-child{
-      width: 5%;
-    }
-  } 
-}
-
 .note-issue-table{
   width: 100%; 
   border-collapse: separate;
   border-spacing: 0 rem(12); 
   table-layout: fixed;
+  word-wrap: break-word;
 
   > :not(caption) > * > * {
     padding: $table-cell-padding-y $table-cell-padding-x;
@@ -47,7 +24,7 @@
 
   thead {    
     vertical-align: middle;
-    height: rem(40);  
+    height: rem(32);  
     color: $custom-note-gray;
     font-size: rem(16);
     font-weight: 700;
@@ -81,7 +58,7 @@
 
     td {
       vertical-align: middle;
-      height: rem(60);
+      height: rem(48);
       &:first-child{
         text-align: center;
         border-top-left-radius: rem(8);

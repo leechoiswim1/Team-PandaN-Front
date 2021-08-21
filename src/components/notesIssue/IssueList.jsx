@@ -32,14 +32,14 @@ const IssueList = ({ history, notes, projectId, ...rest }) => {
     <>
       <div className="table-responsive">
         <table className="table note-issue-table">
-          <colgroup className="note-issue-colgroup">
-            <col />
-            <col />
-            <col />
-            <col />
-            <col />
-            <col />
-            <col />
+          <colgroup>
+            <col width="5%"/>
+            <col width="5%"/>
+            <col width="30%"/>
+            <col width="25%"/>
+            <col width="15%"/>
+            <col width="15%"/>
+            <col width="15%"/>
           </colgroup>
           <thead>
             <tr>
@@ -58,38 +58,21 @@ const IssueList = ({ history, notes, projectId, ...rest }) => {
             {notes.map((note, index) => {
               return (
                 <tr key={index}>
-                  <td>
-                    <IconSteps type={note.step} />
-                  </td>
-                  <td>{index + 1}</td>
-                  <td onClick={(e) => history.push(`/projects/${note.projectId}/notes/${note.noteId}`)}>{note.title}</td>
-                  <td onClick={(e) => history.push(`/projects/${note.projectId}/kanban`)}>{note.projectTitle && note.projectTitle}</td>
-                  <td>{note.createdAt ? moment(note.createdAt).format("YYYY. MM. DD") : note.writer}</td>
-                  <td>
-                    <Labels type={note.step} badge></Labels>
-                    {note.step}
-                  </td>
-                  <td>
-                    {rest.type === "bookmark" && (
-                      <button type="button">
-                        <Bookmark fill="#387E4B" stroke="#387E4B" />
-                      </button>
-                    )}
-                  </td>
+                  <IssueCard
+                  history={history}
+                  index={index}
+                  projectId={note.projectId ? note.projectId : projectId}
+                  projectTitle={note.projectTitle}
+                  noteId={note.noteId}
+                  title={note.title}
+                  content={note.content}
+                  writer={note.writer}
+                  deadline={note.deadline}
+                  createdAt={note.createdAt}
+                  step={note.step}
+                  type={rest.type}
+                />
                 </tr>
-                // <IssueCard
-                //   key={index}
-                //   projectId={note.projectId ? note.projectId : projectId}
-                //   projectTitle={note.projectTitle}
-                //   noteId={note.noteId}
-                //   title={note.title}
-                //   content={note.content}
-                //   writer={note.writer}
-                //   deadline={note.deadline}
-                //   createdAt={note.createdAt}
-                //   step={note.step}
-                //   type={rest.type}
-                // />
               );
             })}
           </tbody>
