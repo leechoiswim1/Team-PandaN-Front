@@ -26,13 +26,6 @@ const ProjectHeader = ({ match }) => {
   return (
     <ProjectHeaderWrap>
       <div style={{ display: "flex", flexWrap: "nowrap" }}>
-        <div style={{ marginLeft: "10px" }}>
-          {isUpdatableAndDeletable ? (
-            <ProjectModalEdit projectId={project_detail_list.projectId} title={project_detail_list.title} detail={project_detail_list.detail} />
-          ) : (
-            ""
-          )}
-        </div>
         <ProjectHeaderTitle
           style={{ cursor: "pointer" }}
           onClick={() => {
@@ -41,6 +34,13 @@ const ProjectHeader = ({ match }) => {
         >
           {project_detail_list.title}{" "}
         </ProjectHeaderTitle>
+        <div style={{ marginLeft: "10px" }}>
+          {isUpdatableAndDeletable ? (
+            <ProjectModalEdit projectId={project_detail_list.projectId} title={project_detail_list.title} detail={project_detail_list.detail} />
+          ) : (
+            ""
+          )}
+        </div>
       </div>
       <ProjectHeaderDetail>{project_detail_list.detail}</ProjectHeaderDetail>
     </ProjectHeaderWrap>
@@ -48,25 +48,49 @@ const ProjectHeader = ({ match }) => {
 };
 
 const ProjectHeaderWrap = styled.div`
-  display: ;
-  flex-wrap: wrap;
-  padding: 0 30px;
+  margin: 5px 50px;
   justify-content: space-between;
+  width: 100%;
+  @media (max-width: 600px) {
+    margin: 0px 50px 10px 50px;
+  }
 `;
 const ProjectHeaderTitle = styled.p`
-  font-weight: 700;
-  font-size: 1.5rem;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  color: #191919;
+  @media (max-width: 900px) {
+    font-size: 20px;
+  }
+  @media (max-width: 600px) {
+    font-size: 18px;
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 const ProjectHeaderDetail = styled.p`
-  font-weight: 500;
-  font-size: 1rem;
-  color: #767676;
+  font-weight: 400;
+  color: #1919196;
+  font-size: 16px;
+  line-height: 24px;
+  @media (max-width: 900px) {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80%;
+  }
+  @media (max-width: 600px) {
+    width: 250px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
-const ProjectHeaderRight = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  margin-top: auto;
-`;
 export default ProjectHeader;
