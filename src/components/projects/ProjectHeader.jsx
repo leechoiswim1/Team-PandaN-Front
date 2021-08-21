@@ -25,7 +25,7 @@ const ProjectHeader = ({ match }) => {
   const isUpdatableAndDeletable = project_detail_list.isUpdatableAndDeletable;
   return (
     <ProjectHeaderWrap>
-      <div style={{ display: "flex", flexWrap: "nowrap" }}>
+      <ProjectTitleWrap>
         <ProjectHeaderTitle
           style={{ cursor: "pointer" }}
           onClick={() => {
@@ -41,7 +41,7 @@ const ProjectHeader = ({ match }) => {
             ""
           )}
         </div>
-      </div>
+      </ProjectTitleWrap>
       <ProjectHeaderDetail>{project_detail_list.detail}</ProjectHeaderDetail>
     </ProjectHeaderWrap>
   );
@@ -49,10 +49,16 @@ const ProjectHeader = ({ match }) => {
 
 const ProjectHeaderWrap = styled.div`
   margin: 5px 50px;
-  justify-content: space-between;
   width: 100%;
   @media (max-width: 600px) {
     margin: 0px 50px 10px 50px;
+  }
+`;
+const ProjectTitleWrap = styled.div`
+  display: flex;
+  @media (max-width: 900px) {
+    justify-content: space-between;
+    width: 80%;
   }
 `;
 const ProjectHeaderTitle = styled.p`
@@ -62,13 +68,14 @@ const ProjectHeaderTitle = styled.p`
   color: #191919;
   @media (max-width: 900px) {
     font-size: 20px;
-  }
-  @media (max-width: 600px) {
-    font-size: 18px;
-    width: 250px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 70%;
+  }
+  @media (max-width: 600px) {
+    font-size: 18px;
+    width: 80%;
   }
 `;
 
