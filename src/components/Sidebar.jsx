@@ -69,12 +69,12 @@ const Sidebar = (props) => {
             <li className="menu-item">
               <Accordion defaultActiveKey="0" className="my-project-group">
                 <Accordion.Item eventKey="0">
-                  <Accordion.Header style={{ padding: "0px" }}>
+                  <Accordion.Header>
                     {project_side_list.length > 0 ? <IconProject width="40" height="40" fill="#9A9A9A" className="menu-icon" /> : ""}
                     <span className="menu-text">내 프로젝트 보기</span>
                   </Accordion.Header>
                   {project_side_list.length > 0 ? (
-                    <Accordion.Body style={{ background: "#fff", margin: "auto", padding: "0", width: "80%" }}>
+                    <Accordion.Body style={{ marginLeft: "18px", paddingTop: "0px" }}>
                       <ProjectList />
                     </Accordion.Body>
                   ) : (
