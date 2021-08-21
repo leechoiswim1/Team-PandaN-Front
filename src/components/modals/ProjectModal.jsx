@@ -8,8 +8,9 @@ import { history } from "../../modules/configStore";
 import { t } from "../../util/remConverter";
 import { ReactComponent as IconProjectAdd } from "../../styles/images/ico-project-add.svg";
 import { ReactComponent as Write } from "../../styles/images/ico-kanban-write.svg";
-import modalSideImage from "../../styles/images/modalSideImage.PNG";
+import { ReactComponent as IconAdd } from "../../styles/images/Icon_AddProject.svg";
 
+import modalSideImage from "../../styles/images/modalSideImage.PNG";
 const ProjectModal = (props) => {
   const dispatch = useDispatch();
 
@@ -56,6 +57,10 @@ const ProjectModal = (props) => {
             프로젝트 만들기
           </span>
         </>
+      ) : props.main === "main" ? (
+        <Item2 onClick={() => setModalState(true)}>
+          <IconAdd />
+        </Item2>
       ) : (
         <EmptyProjectBtn onClick={() => setModalState(true)}>
           <Write fill="#000000" width="22" /> <EmptyProjectText>새 프로젝트 만들기</EmptyProjectText>
@@ -350,6 +355,33 @@ const MakeBtn = styled.button`
   height: 40px;
   background: #e1ede4;
   border-radius: 15px;
+`;
+
+const Item2 = styled.div`
+  min-width: 280px;
+  width: 370px;
+  height: 280px;
+  margin: 10px;
+  border-radius: 20px;
+  align-content: space-between;
+  box-shadow: 0px 0px 5px rgba(25, 25, 25, 0.2);
+
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  @media (max-width: 1360px) {
+    width: 30%;
+  }
+  @media (max-width: 900px) {
+    width: 50%;
+  }
+  @media (max-width: 720px) {
+    width: 80%;
+  }
+  &:hover {
+    background: #e1ede4;
+  }
 `;
 
 export default ProjectModal;

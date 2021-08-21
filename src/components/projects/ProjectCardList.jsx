@@ -5,9 +5,9 @@ import { t } from "../../util/remConverter";
 import { Bookmark, FileText } from "react-feather";
 import { useSelector } from "react-redux";
 import { history } from "../../modules/configStore";
-import { ProjectModalEdit } from "..";
+import { ProjectModal, ProjectModalEdit } from "..";
 
-import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edit.svg";
+import { ReactComponent as IconAdd } from "../../styles/images/Icon_AddProject.svg";
 const ProjectCardList = () => {
   const project_list = useSelector((state) => state.project.list);
 
@@ -89,6 +89,7 @@ const ProjectCardList = () => {
             </Item>
           );
         })}
+        <ProjectModal main="main" />
       </Wrap>
     </>
   );
