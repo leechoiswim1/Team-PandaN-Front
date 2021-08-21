@@ -46,13 +46,13 @@ const ProjectCardList = () => {
                     history.push(`/projects/${p.projectId}/kanban`);
                   }}
                 >
-                  <Detail style={{ color: "#9BD09C" }}>{p.detail}</Detail>
+                  <Detail style={{ color: "#9BD09C", fontWeight: "700" }}>{p.detail}</Detail>
                   {p.recentNoteUpdateDate === null ? " " : <Detail>{createdAt}</Detail>}
                 </div>
               </div>
               <div style={{ height: "50%" }} />
 
-              <Footer style={{ justifyContent: "space-between" }}>
+              <Footer style={{ justifyContent: "space-between", alignItems: "center"}}>
                 <div style={{ display: "flex", float: "left" }}>
                   <Bookmark fill="#fff" stroke="#767676" style={{ width: "15px", height: "15px" }} />
                   <DetailText>{p.bookmarkCount}</DetailText>
@@ -77,6 +77,8 @@ const ProjectCardList = () => {
                                   height: "20px",
                                   borderRadius: "10px",
                                 }}
+                                key={idx}
+                                alt="crew"
                               />
                             )}
                           </>
@@ -84,7 +86,7 @@ const ProjectCardList = () => {
                       })}
                     </div>
                   </div>
-                  <div style={{ display: "fixed" }}>{crewcount > 3 ? <p>외 {crewcount}명 </p> : ""}</div>
+                  <div style={{ display: "fixed" }}>{crewcount > 0 ? <p>외 {crewcount}명 </p> : ""}</div>
                 </div>
               </Footer>
             </Item>
@@ -107,6 +109,7 @@ const Item = styled.div(
   box-sizing: border-box;
   border-radius:20px;
   align-content: space-between;
+  filter: drop-shadow(2px 4px 10px rgba(25, 25, 25, 0.1));
  
   @media (max-width: 1360px) {
     width: 30%;
@@ -135,10 +138,10 @@ const Wrap = styled.div(
 
 const Title = styled.p(
   ...t`
-  font-size:1.5rem;
+  font-size:1.25rem;
   font-weight:700;
   color:#191919;
-
+  letter-spacing: -0.03rem;
 `,
 );
 
@@ -148,6 +151,7 @@ const Detail = styled.p(
   font-size:1.0rem;
   color: #BCBCBC;
   font-weight: 500;
+  letter-spacing: -0.03rem;
 `,
 );
 
