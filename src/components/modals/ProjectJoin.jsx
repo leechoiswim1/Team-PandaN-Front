@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { history } from "../../modules/configStore";
 
 import { ReactComponent as IconMemberAdd } from "../../styles/images/ico-member-add.svg";
+import { ReactComponent as InviteLetter } from "../../styles/images/icon_InviteLetter.svg";
 import { EmptyProject } from "..";
 
 const ProjectJoin = (props) => {
@@ -42,18 +43,11 @@ const ProjectJoin = (props) => {
   return (
     <>
       {props.sidebar === "sidebar" ? (
-        <Button variant="primary" size="lg" className="d-block" onClick={handleShow} style={{ width: "100%" }}>
-          프로젝트 초대코드 등록
-        </Button>
+        <ProjectInviteBtn>프로젝트 초대코드 등록</ProjectInviteBtn>
       ) : (
         <EmptyProjectBtn onClick={handleShow}>
-          <EmptyProjectText>
-            초대코드
-            <br />
-            등록
-            <br />
-            📧
-          </EmptyProjectText>
+          <InviteLetter />
+          <EmptyProjectText>프로젝트 초대 코드 등록</EmptyProjectText>
         </EmptyProjectBtn>
       )}
 
@@ -79,23 +73,52 @@ const ProjectJoin = (props) => {
   );
 };
 
+const ProjectInviteBtn = styled.div`
+  display: block;
+  widht: 240px;
+  height: 48px;
+  background: #387e4b;
+  border-radius: 10px;
+  margin: auto;
+  padding: 12px 40px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  margin-top: 2rem;
+  cursor: pointer;
+  &:hover {
+    background: #e1ede4;
+    color: #000000;
+  }
+`;
+
 const EmptyProjectBtn = styled.div`
   background: #e1ede4;
-  width: 400px;
-  height: 400px;
-  display: block;
+  width: 329px;
+  height: 60px;
+  display: flex;
   cursor: pointer;
-  border-radius: 50px;
+  border-radius: 10px;
   margin: auto;
   padding: auto;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    background: #ededed;
+  }
+  @media (max-width: 600px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const EmptyProjectText = styled.p`
-  text-align: center;
-  font-size: 3rem;
+  font-size: 20px;
+  line-height: 30px;
   font-weight: 700;
-  margin: auto;
-  padding: auto;
+  color: #191919;
+  text-align: center;
+  margin-left: 20px;
 `;
 const Input = styled.input(
   ...t`

@@ -12,7 +12,11 @@ const ProjectCardList = () => {
 
   return (
     <>
-      <p style={{ margin: "20px 35px", fontSize: "20px", fontWeight: "700" }}>전체 프로젝트</p>
+      <p style={{ margin: "20px 35px", fontSize: "20px", fontWeight: "700" }}>
+        전체 프로젝트
+        <span style={{ fontSize: "14px", fontWeight: "700", color: "#BCBCBC" }}> Total {project_list.length}</span>
+      </p>
+
       <Wrap>
         {project_list.map((p, idx) => {
           const crewProfiles = p.crewProfiles;

@@ -15,7 +15,6 @@ const Home = ({ history }) => {
   const project_list = useSelector((state) => state.project.list);
   const project_list_length = project_list.length;
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(projectActions.__setProject());
   }, [dispatch, project_list_length]);
