@@ -6,7 +6,7 @@ import { t } from "../../util/remConverter";
 import { Template, ProjectHeader, ProjectMenu, KanbanBoard } from "../../components";
 /* == Redux - actions */
 import { useSelector, useDispatch } from "react-redux";
-import { noteActions } from "../../modules/note";
+import { noteKanbanActions } from "../../modules/noteKanban";
 import { actionCreators as projectActions } from "../../modules/project";
 
 // * == ( note - Kanban ) -------------------- * //
@@ -14,7 +14,7 @@ const Kanban = ({ history, match, ...rest }) => {
   const dispatch = useDispatch();
   const projectId = match.params.projectId;
   useEffect(() => {
-    dispatch(noteActions.__getKanbanNotes(projectId));
+    dispatch(noteKanbanActions.__getKanbanNotes(projectId));
   }, [projectId]);
   
   return (

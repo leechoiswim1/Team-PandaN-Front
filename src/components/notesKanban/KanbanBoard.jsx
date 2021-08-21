@@ -17,7 +17,8 @@ import IconSteps                        from "../../elements/IconSteps";
 
 /* == Redux - actions */
 import { useSelector, useDispatch }     from "react-redux";
-import { noteActions }                  from "../../modules/note";
+import { noteKanbanActions }            from "../../modules/noteKanban";
+import { fileActions }                  from "../../modules/file";
 
 // * == ( kanban / Board ) -------------------- * //
 const KanbanBoard = ({ history, match }) => {
@@ -45,22 +46,66 @@ const KanbanBoard = ({ history, match }) => {
           notes: _notes,
         },
       };
-
+    
       //배열로 만들고 store 저장
       const _newState = Object.values(newState);
-      dispatch(noteActions.setKanbanStep(_newState));
+      dispatch(noteKanbanActions.setKanbanStep(_newState)); 
 
-      // 바뀐 배열 정보 서버 요청
-      // 옮긴 노트의 인덱스가 맨 마지막일 경우
-      if (_notes[destination.index + 1] === undefined) {
-        const nextCardId = 0;
-        console.log("다음 노트가 없습니다.");
-        // dispatch(noteActions.__editNote(draggableId, newNote));  
-      } else {
-        const nextCardId = _notes[destination.index + 1].noteId;
-        console.log("다음 노트 noteId", nextCardId);
-        // dispatch(noteActions.__editNote(draggableId, newNote));  
+      console.log("이동하는 노트", draggableId, source.index)
+
+      // 스텝 이동 순서 변경 서버로 요청 보내기
+      // 칸반 스텝 최상단 노트 이동할 때
+      // fromNextNoteId / 제자리 이동의 경우가 나머지 경우의 인덱스와 다름
+      if (source.index === 0) {
+
+        let fromNextNoteId  = _notes[source.index - 1]?.noteId;
+        let fromPreNoteId   = _notes[source.index]?.noteId;
+        let toNextNoteId    = _notes[destination.index - 1]?.noteId;
+        let toPreNoteId     = _notes[destination.index + 1]?.noteId;
+  
+        if (fromNextNoteId === undefined) {fromNextNoteId = 0;};
+        if (fromPreNoteId === undefined)  {fromPreNoteId = 0;};
+        if (toNextNoteId === undefined)   {toNextNoteId = 0;};
+        if (toPreNoteId === undefined)    {toPreNoteId = 0;};
+             
+        if (draggableId === String(fromPreNoteId)) return;
+
+        const position = {
+          fromPreNoteId: fromPreNoteId,
+          fromNextNoteId: fromNextNoteId,
+          toPreNoteId: toPreNoteId,
+          toNextNodeId: toNextNoteId,
+          step: sourceStep.step
+        }
+        // 바뀐 배열 정보 서버 요청
+        dispatch(noteKanbanActions.__editKanbanStep(draggableId, position));  
       }
+
+      // 칸반 스텝 최하단 노트 혹은 중간의 노트를 이동할 경우
+      if (source.index === _notes.length - 1 || (_notes[source.index - 1]?.noteId && _notes[source.index + 1]?.noteId)) {
+        
+        let fromNextNoteId  = _notes[source.index]?.noteId;
+        let fromPreNoteId   = _notes[source.index + 1]?.noteId;
+        let toNextNoteId    = _notes[destination.index - 1]?.noteId;
+        let toPreNoteId     = _notes[destination.index + 1]?.noteId;
+  
+        if (fromNextNoteId === undefined) {fromNextNoteId = 0;};
+        if (fromPreNoteId === undefined)  {fromPreNoteId = 0;};
+        if (toNextNoteId === undefined)   {toNextNoteId = 0;};
+        if (toPreNoteId === undefined)    {toPreNoteId = 0;};
+             
+        if (draggableId === String(fromNextNoteId)) return;
+  
+        const position = {
+          fromPreNoteId: fromPreNoteId,
+          fromNextNoteId: fromNextNoteId,
+          toPreNoteId: toPreNoteId,
+          toNextNodeId: toNextNoteId,
+          step: sourceStep.step
+        }
+        // 바뀐 배열 정보 서버 요청
+        dispatch(noteKanbanActions.__editKanbanStep(draggableId, position));  
+      }     
     }
 
     // note의 기존 step status와 drop 이후의 step status가 다를 경우
@@ -92,29 +137,39 @@ const KanbanBoard = ({ history, match }) => {
 
       // 배열로 만들고 store 저장
       const _newState = Object.values(newState);
-      dispatch(noteActions.setKanbanStep(_newState));
+      dispatch(noteKanbanActions.setKanbanStep(_newState));
 
-      // 바뀐 배열 정보 서버 요청
-      // 옮긴 노트의 인덱스가 맨 마지막일 경우
-      if (_destinationNoteList[destination.index + 1] === undefined) {
-        const nextCardId = 0;
-        console.log("다음 노트가 없습니다.");
-        // dispatch(noteActions.__editNote(draggableId, newNote));  
-      } else {
-        const nextCardId = _destinationNoteList[destination.index + 1].noteId;
-        console.log("다음 노트 noteId", nextCardId);
-        // dispatch(noteActions.__editNote(draggableId, newNote));  
+      // 서버로 바뀐 배열 정보 보내기
+      let fromNextNoteId  = _sourceNoteList[source.index - 1]?.noteId    
+      let fromPreNoteId   = _sourceNoteList[source.index]?.noteId      
+      let toNextNoteId    = _destinationNoteList[destination.index - 1]?.noteId
+      let toPreNoteId     =_destinationNoteList[destination.index + 1]?.noteId      
+
+      if (fromNextNoteId === undefined) {fromNextNoteId = 0;}
+      if (fromPreNoteId === undefined)  {fromPreNoteId = 0;}
+      if (toNextNoteId === undefined)   {toNextNoteId = 0;}
+      if (toPreNoteId === undefined)    {toPreNoteId = 0;}
+
+      if (draggableId === String(fromNextNoteId)) return;
+
+      const position = {
+        fromNextNoteId: fromNextNoteId,
+        fromPreNoteId: fromPreNoteId, 
+        toNextNodeId: toNextNoteId,
+        toPreNoteId: toPreNoteId,      
+        step: destinationStep.step
       }
-      // 기존 칸반 노트 state 변경 사항 업데이트 요청      
-      dispatch(noteActions.__editNote(draggableId, newNote));
+      // 바뀐 배열 정보 서버 요청
+      dispatch(noteKanbanActions.__editKanbanStep(draggableId, position));      
     }
   };
 
-  const projects = useSelector((state) => state.note.kanban)
+  const projects = useSelector((state) => state.noteKanban.kanban)
   const projectId = match.params.projectId;
 
   const [modalVisible, setModalVisible] = useState(false)
   const openModal = () => {
+    dispatch(fileActions.resetPreview());
     setModalVisible(true)
   }
   const closeModal = () => {

@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
-/* == Library - route */
-import { useLocation, useParams } from "react-router-dom";
 /* == Library - style */
 import styled, { css } from "styled-components";
 import { t }  from "../../util/remConverter";
@@ -11,33 +9,29 @@ import { Form } from "react-bootstrap";
 import ModalBox from "../../elements/ModalBox";
 
 /* == Redux - actions */
-import { history } from "../../modules/configStore";
 import { useSelector, useDispatch }   from 'react-redux';
-import { noteActions }                from '../../modules/note';
+import { noteKanbanActions } from '../../modules/noteKanban';
 
-// * == ( Note - writing note modal ) -------------------- * //
-const WritingNoteModal = (props) => {
+// * == ( Note - editing note modal ) -------------------- * //
+const EditingNoteModal = (props) => {
   const { 
     className, 
     visible, 
     onClose,
     maskClosable,
     closable, 
-    projectId,
-    projectStep } = props;
-
+    noteId,
+    note } = props;
   const dispatch = useDispatch();
-  const params = useParams();
-  const location = useLocation();
 
   const [noteInputs, setNoteInputs] = useState({
-    title: "",
-    content: "",
-    deadline: "",
-    step: "",
+    title: note.title,
+    content: note.content,
+    deadline: note.deadline,
+    // step: note.step,
   });
 
-  const addNote = (e) => {
+  const editNote = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -49,24 +43,17 @@ const WritingNoteModal = (props) => {
       window.alert("할 일에 대한 설명을 추가하세요.");
       return;
     }
-    if (noteInputs.step === "") {
-      window.alert("할 일의 상태를 설정하세요.");
-      return;
-    }
+    // if (noteInputs.step === "") {
+    //   window.alert("할 일의 상태를 설정하세요.");
+    //   return;
+    // }
     if (noteInputs.deadline === "") {
       window.alert("마감일을 입력하세요.");
       return;
     }
-    
-    dispatch(noteActions.__addNote(projectId, noteInputs));
+
+    dispatch(noteKanbanActions.__editNote(noteId, noteInputs));
     onClose(e);
-    if (!params.noteId) {
-      window.location.replace(location.pathname);
-    }
-    if (params.noteId) {
-      history.push(`/projects/${params.projectId}/kanban`);
-    }
-    
   };
 
   return (
@@ -76,14 +63,14 @@ const WritingNoteModal = (props) => {
       maskClosable={maskClosable}
       onClose={onClose}
       closable={closable}
-      heading="할 일 만들기" 
-      btntext="할 일 만들기"
-      onSubmit={addNote}
+      heading="할 일 수정하기" 
+      btntext="수정하기"
+      onSubmit={editNote}
       >
       <Form>
         <Form.Group controlId="noteTitle">
           <Form.Label className="note-modal-label">할 일</Form.Label>
-          <Form.Control type="text" placeholder="제목을 입력해 주세요." maxLength={255}
+          <Form.Control type="text" placeholder="제목을 입력해 주세요." defaultValue={note.title} maxLength={255}
             onChange={(e)=> {setNoteInputs({...noteInputs, title: e.target.value})}}
           />
           <Form.Text className="text-muted">
@@ -92,15 +79,15 @@ const WritingNoteModal = (props) => {
         </Form.Group>
         <Form.Group controlId="noteDetail">
           <Form.Label className="note-modal-label">설명</Form.Label>
-          <Form.Control type="text" placeholder="할 일에 대한 설명을 추가해 주세요."
+          <Form.Control type="text" placeholder="할 일에 대한 설명을 추가해 주세요." defaultValue={note.content}
             as="textarea"
             style={{ height: "100px" }}
             onChange={(e)=> {setNoteInputs({...noteInputs, content: e.target.value})}}
           />
         </Form.Group>
-        <Form.Group controlId="noteStep">
+        {/* <Form.Group controlId="noteStep">
           <Form.Label className="note-modal-label">상태 설정</Form.Label>
-          <Form.Select placeholder=""
+          <Form.Select placeholder="" defaultValue={note.step}
             onChange={(e)=> {setNoteInputs({...noteInputs, step: e.target.value})}}
           >
             <option value="">할 일의 상태를 설정하세요.</option>
@@ -109,10 +96,10 @@ const WritingNoteModal = (props) => {
             <option value="PROCESSING">PROCESSING</option>
             <option value="DONE">DONE</option>
           </Form.Select>
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group controlId="noteDeadline">
           <Form.Label className="note-modal-label" >언제까지 끝내야 하나요?</Form.Label>
-          <Form.Control type="date" placeholder=""
+          <Form.Control type="date" placeholder="" defaultValue={note.deadline}
             onChange={(e)=> {setNoteInputs({...noteInputs, deadline: e.target.value})}}
           />
         </Form.Group>
@@ -121,4 +108,4 @@ const WritingNoteModal = (props) => {
   )
 }
 
-export default WritingNoteModal;
+export default EditingNoteModal;

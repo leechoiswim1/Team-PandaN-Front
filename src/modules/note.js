@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { noteApi } from "../shared/api";
-import { produce } from 'immer';
+import { produce } from "immer";
 
 /* == Notes - initial state */
 const initialState = {
@@ -30,9 +30,16 @@ const initialState = {
     },
   ],
   bookmark: [],
+
   myNote: [],
+
+  paging: { first: null, last: null, size: 10, pageNumber: 1, totalElements: 0, totalPages: 0 },
+  bookPaging: { first: null, last: null, size: 10, pageNumber: 1, totalElements: 0, totalPages: 0 },
+  issuePaging: { first: null, last: null, size: 10, pageNumber: 1, totalElements: 0, totalPages: 0 },
+  projectNotePaging: { first: null, last: null, size: 10, pageNumber: 1, totalElements: 0, totalPages: 0 },
   projectIssue: [],
   projectMyNote: [],
+
   detail: {
     content: "",
     deadline: "",
@@ -41,142 +48,53 @@ const initialState = {
     title: "",
     isBookmark: false,
   },
-  paging: { page: 1, next: null, size: 8 },
-  is_loading: false,
 };
 
 /* == action */
-/* project - kanban */
-const SET_KANBAN_STEP = "note/SET_KANBAN_STEP";
-const GET_KANBAN_NOTES = "note/GET_KANBAN_NOTES";
 /* project - issue */
 const GET_PROJECT_ISSUE = "note/GET_PROJECT_ISSUE";
 const GET_PROJECT_MY_NOTES = "note/GET_PROJECT_MY_NOTES";
-/* note - detail */
-const GET_NOTE_DETAIL = "note/GET_NOTE_DETAIL";
-/* note - CRUD */
-const ADD_NOTE = "note/ADD_NOTE";
-const EDIT_NOTE = "note/EDIT_NOTE";
-const DELETE_NOTE = "note/DELETE_NOTE";
-const SET_MODIFIED_NOTE = "note/SET_MODIFIED_NOTE";
 /* bookmark */
 const GET_BOOKMARK = "note/GET_BOOKMARK";
 const SET_BOOKMARK = "note/SET_BOOKMARK";
-const ADD_BOOKMARK = "note/ADD_BOOKMARK";
-const DELETE_BOOKMARK = "note/DELETE_BOOKMARK";
 /* my note */
 const GET_MY_NOTES = "note/GET_MY_NOTES";
 
 const LOADING = "LOADING";
 
 /* == action creator */
-/* project - kanban */
-const setKanbanStep = createAction(SET_KANBAN_STEP, (newState) => ({ newState }));
-const getKanbanNotes = createAction(GET_KANBAN_NOTES, (kanbanNotes) => ({ kanbanNotes }));
 /* project - issue */
-const getProjectIssue = createAction(GET_PROJECT_ISSUE, (issueNotes) => ({ issueNotes }));
-const getProjectMyNotes = createAction(GET_PROJECT_MY_NOTES, (myNoteList) => ({ myNoteList }));
-/* note - detail */
-const getNoteDetail = createAction(GET_NOTE_DETAIL, (note) => ({ note }));
-/* note - CRUD */
-const addNote = createAction(ADD_NOTE, (newNote) => ({ newNote }));
-const editNote = createAction(EDIT_NOTE, (noteId) => ({ noteId }));
-const deleteNote = createAction(DELETE_NOTE, (noteId) => ({ noteId }));
-const setModifiedNote = createAction(SET_MODIFIED_NOTE, (modifiedNote) => ({ modifiedNote }));
+const getProjectIssue = createAction(GET_PROJECT_ISSUE, (pagingInfo) => ({ pagingInfo }));
+const getProjectMyNotes = createAction(GET_PROJECT_MY_NOTES, (pagingInfo) => ({ pagingInfo }));
 /* bookmark */
-const getBookmark = createAction(GET_BOOKMARK, (myBookmarkNoteList) => ({ myBookmarkNoteList }));
+const getBookmark = createAction(GET_BOOKMARK, (pagingInfo) => ({ pagingInfo }));
 const setBookmark = createAction(SET_BOOKMARK, (noteId) => ({ noteId }));
-const addBookmark = createAction(ADD_BOOKMARK, (noteId) => ({ noteId }));
-const deleteBookmark = createAction(DELETE_BOOKMARK, (noteId) => ({ noteId }));
 /* my note */
-const getMyNotes = createAction(GET_MY_NOTES, (myNoteList, paging) => ({ myNoteList, paging }));
+const getMyNotes = createAction(GET_MY_NOTES, (pagingInfo) => ({ pagingInfo }));
 
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 /* == thunk function */
-/* project issue */
-const __getKanbanNotes =
-  (projectId) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      const { data } = await noteApi.getKanbanNotes(projectId);
-      dispatch(getKanbanNotes(data.projects));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
 /* project - issue */
 const __getProjectIssue =
-  (projectId) =>
+  (projectId, page, size) =>
   async (dispatch, getState, { history }) => {
     try {
-      const { data } = await noteApi.getProjectIssue(projectId);
-      // let notes = [];
-      // notes.push(data.notes);
-      // dispatch(getProjectIssue(notes));
-      dispatch(getProjectIssue(data.notes));
+      dispatch(loading(true));
+      const { data } = await noteApi.getProjectIssue(projectId, page, size);
+      dispatch(getProjectIssue(data));
     } catch (e) {
       console.log(e);
     }
   };
 
 const __getProjectMyNotes =
-  (projectId) =>
+  (projectId, page, size) =>
   async (dispatch, getState, { history }) => {
     try {
-      const { data } = await noteApi.getProjectMyNotes(projectId);
-      // let myNoteList = [];
-      // myNoteList.push(data.myNoteList);
-      // dispatch(getProjectMyNotes(myNoteList));
-      dispatch(getProjectMyNotes(data.myNoteList));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-/* note - detail */
-const __getNoteDetail =
-  (noteId) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      const { data } = await noteApi.getNoteDetail(noteId);
-      dispatch(getNoteDetail(data));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-/* note - CRUD */
-const __addNote =
-  (projectId, newNote) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      const { data } = await noteApi.addNote(projectId, newNote);
-      dispatch(addNote(data));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-const __editNote =
-  (noteId, modifiedNote) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      const { data } = await noteApi.editNote(noteId, modifiedNote);
-      dispatch(setModifiedNote(data));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-const __deleteNote =
-  (noteId) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      const { data } = await noteApi.deleteNote(noteId);
-      dispatch(deleteNote(noteId));
-      history.goBack();
+      dispatch(loading(true));
+      const { data } = await noteApi.getProjectMyNotes(projectId, page, size);
+      dispatch(getProjectMyNotes(data));
     } catch (e) {
       console.log(e);
     }
@@ -184,37 +102,12 @@ const __deleteNote =
 
 /* bookmark */
 const __getBookmark =
-  () =>
+  (page, size) =>
   async (dispatch, getState, { history }) => {
     try {
-      const { data } = await noteApi.getBookmark();
-      // 
-      // let bookmarkList = [];
-      // bookmarkList.push(data.noteList);
-      // dispatch(getBookmark(bookmarkList));
-      dispatch(getBookmark(data.noteList))
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-const __addBookmark =
-  (noteId) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      const { data } = await noteApi.addBookmark(noteId);
-      dispatch(addBookmark(noteId));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-const __deleteBookmark =
-  (noteId) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      const { data } = await noteApi.deleteBookmark(noteId);
-      dispatch(deleteBookmark(noteId));
+      dispatch(loading(true));
+      const { data } = await noteApi.getBookmark(page, size);
+      dispatch(getBookmark(data));
     } catch (e) {
       console.log(e);
     }
@@ -222,35 +115,12 @@ const __deleteBookmark =
 
 /* my note */
 const __getMyNote =
-  (page = 1, size = initialState.paging.size) =>
+  (page, size) =>
   async (dispatch, getState, { history }) => {
-
-    const _next = getState().note.paging.next;
-    const _page = getState().note.paging.page;
-    // 이 부분 첫페이지를 불러와야하는지 마지막페이지라서 불러올 게 없는지 감지하는게 매끄럽지 않습니다.
-    
-    if (_page === false && _next === false) return;
-    dispatch(loading(true));
-
     try {
+      dispatch(loading(true));
       const { data } = await noteApi.getMyNotes(page, size);
-      let myNoteList = [];
-
-      const isNextPage = data.myNoteList.length;
-      
-      
-      let paging = {
-        page: isNextPage < initialState.paging.size ? 1 : page + 1,
-        next: isNextPage < initialState.paging.size ? false : true,
-        size: size,
-      };
-      
-      myNoteList.push(data.myNoteList);
-      if (paging.next) {
-        myNoteList.pop();
-      }
-
-      dispatch(getMyNotes(data.myNoteList, paging));
+      dispatch(getMyNotes(data));
     } catch (e) {
       console.log(e);
     }
@@ -259,131 +129,80 @@ const __getMyNote =
 /* == reducer */
 const note = handleActions(
   {
-    [SET_KANBAN_STEP]: (state, action) => {
-      return {
-        ...state,
-        kanban: action.payload.newState,
-      };
-    },
-    [GET_KANBAN_NOTES]: (state, action) => {
-      return {
-        ...state,
-        kanban: action.payload.kanbanNotes,
-      };
-    },
-    [GET_PROJECT_ISSUE]: (state, action) => {
-      return {
-        ...state,
-        projectIssue: action.payload.issueNotes,
-        // projectIssue: state.projectIssue.concat(action.payload.issueNotes),
-      };
-    },
-    [GET_PROJECT_MY_NOTES]: (state, action) => {
-      return {
-        ...state,
-        projectMyNote: action.payload.myNoteList,
-        // projectMyNote: state.projectMyNote.concat(action.payload.myNoteList),
-      };
-    },
-    [GET_NOTE_DETAIL]: (state, action) => {
-      return {
-        ...state,
-        detail: action.payload.note,
-      };
-    },
-    [ADD_NOTE]: (state, action) => {
-      const note = action.payload.newNote;
-      return {
-        ...state,
-        kanban: state.kanban.map((step) => {
-          if (step.step === note.step) {
-            return {
-              ...step,
-              notes: [note, ...step.notes],
-            };
-          } else {
-            return step;
-          }
-        }),
-      };
-    },
-    [SET_MODIFIED_NOTE]: (state, action) => {
-      const note = action.payload.modifiedNote;
-      return {
-        ...state,
-        detail: {
-          ...state.detail,
-          noteId: note.noteId,
-          title: note.title,
-          content: note.content,
-          deadline: note.deadline,
-          step: note.step,
-        },
-      };
-    },
-    [DELETE_NOTE]: (state, action) => {
-      return {
-        ...state,
-        kanban: state.kanban.filter((note) => note.noteId !== action.payload.noteId),
-      };
-    },
+    [GET_PROJECT_ISSUE]: (state, action) =>
+      produce(state, (draft) => {
+        const myIssue = { ...action.payload.pagingInfo };
+        draft.projectIssue = myIssue.notes;
+        draft.issuePaging.first = myIssue.first;
+        draft.issuePaging.last = myIssue.last;
+        draft.issuePaging.pageNumber = myIssue.pageNumber;
+        draft.issuePaging.totalElements = myIssue.totalElements;
+        draft.issuePaging.totalPages = myIssue.totalPages;
+        draft.is_loading = false;
+      }),
+
+    [GET_PROJECT_MY_NOTES]: (state, action) =>
+      produce(state, (draft) => {
+        const myProjectNote = { ...action.payload.pagingInfo };
+        draft.projectMyNote = myProjectNote.myNoteList;
+        draft.projectNotePaging.first = myProjectNote.first;
+        draft.projectNotePaging.last = myProjectNote.last;
+        draft.projectNotePaging.pageNumber = myProjectNote.pageNumber;
+        draft.projectNotePaging.totalElements = myProjectNote.totalElements;
+        draft.projectNotePaging.totalPages = myProjectNote.totalPages;
+        draft.is_loading = false;
+      }),
+
     /* Bookmark */
-    [GET_BOOKMARK]: (state, action) => {
-      return {
-        ...state,
-        bookmark: action.payload.myBookmarkNoteList,
-        // bookmark: state.bookmark.concat(action.payload.myBookmarkNoteList),
-      };
-    },
+    [GET_BOOKMARK]: (state, action) =>
+      produce(state, (draft) => {
+        const myBookmark = { ...action.payload.pagingInfo };
+        draft.bookmark = myBookmark.noteList;
+        draft.bookPaging.first = myBookmark.first;
+        draft.bookPaging.last = myBookmark.last;
+        draft.bookPaging.pageNumber = myBookmark.pageNumber;
+        draft.bookPaging.totalElements = myBookmark.totalElements;
+        draft.bookPaging.totalPages = myBookmark.totalPages;
+        draft.is_loading = false;
+      }),
+
     [SET_BOOKMARK]: (state, action) => {
       return {
         ...state,
         bookmark: state.bookmark.filter((note) => note.noteId !== action.payload.noteId),
       };
     },
-    [ADD_BOOKMARK]: (state, action) => {
-      return {
-        ...state,
-        detail: { ...state.detail, isBookmark: true },
-      };
-    },
-    [DELETE_BOOKMARK]: (state, action) => {
-      return {
-        ...state,
-        detail: { ...state.detail, isBookmark: false },
-      };
-    },
+
     /* my note */
 
-    [GET_MY_NOTES]: (state, action) => 
-    produce(state, (draft) => {
-      draft.myNote.push(...action.payload.myNoteList);
-      draft.paging = action.payload.paging;
-      draft.isLoading = false;
-    }),
+    [GET_MY_NOTES]: (state, action) =>
+      produce(state, (draft) => {
+        const myNote = { ...action.payload.pagingInfo };
+        draft.myNote = myNote.myNoteList;
+        draft.paging.first = myNote.first;
+        draft.paging.last = myNote.last;
+        draft.paging.pageNumber = myNote.pageNumber;
+        draft.paging.totalElements = myNote.totalElements;
+        draft.paging.totalPages = myNote.totalPages;
+        draft.is_loading = false;
+      }),
+
+    [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
+      }),
   },
   initialState,
 );
 
 /* == export actions */
 export const noteActions = {
-  /* project - kanban */
-  setKanbanStep,
-  __getKanbanNotes,
   /* project - issue */
   __getProjectIssue,
   __getProjectMyNotes,
-  /* note - detail */
-  __getNoteDetail,
-  /* note - CRUD */
-  __addNote,
-  __editNote,
-  __deleteNote,
   /* bookmark */
   setBookmark,
   __getBookmark,
-  __addBookmark,
-  __deleteBookmark,
   /* my note */
   __getMyNote,
 };

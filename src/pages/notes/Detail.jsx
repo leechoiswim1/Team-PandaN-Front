@@ -15,18 +15,33 @@ const Detail = ({ history, match, ...rest }) => {
         <ProjectHeader match={match} />
         <ProjectMenu history={history} match={match} projectId={projectId} />
         <div className="note-detail-container">
-          <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-            <div style={{ width: "500px" }}>
+          <DetailInner>
+            <NoteWrap>
               <NoteDetail history={history} match={match} projectId={projectId} />
+            </NoteWrap>
+            <div>
+              <CommentList history={history} match={match} projectId={projectId} />
             </div>
-          </div>
-          <div>
-            <CommentList history={history} match={match} projectId={projectId} />
-          </div>
+          </DetailInner>
         </div>
       </div>
     </Template>
   );
 };
 
+const DetailInner = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  // @media (max-width: 800px) {
+  //   display: block;
+  // }
+`;
+
+const NoteWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  max-height: 1600px;
+  min-height: 400px;
+`;
 export default Detail;

@@ -1,59 +1,76 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 
+/* == Library - route */
+import { useLocation, useParams } from "react-router-dom";
 /* == Library - style */
 import styled, { css } from "styled-components";
 import { t }  from "../../util/remConverter";
-
-/* == Custom - Element */
 import { Form } from "react-bootstrap";
+
+/* == Custom - Component & Element */
+import { FileUploader } from "..";
 import ModalBox from "../../elements/ModalBox";
 
 /* == Redux - actions */
+import { history } from "../../modules/configStore";
 import { useSelector, useDispatch }   from 'react-redux';
-import { noteActions }                from '../../modules/note';
+import { noteKanbanActions } from '../../modules/noteKanban';
+import { fileActions } from '../../modules/file';
 
-// * == ( Note - editing note modal ) -------------------- * //
-const EditingNoteModal = (props) => {
+// * == ( Note - writing note modal ) -------------------- * //
+const WritingNoteModal = (props) => {
   const { 
     className, 
     visible, 
     onClose,
     maskClosable,
     closable, 
-    noteId,
-    note } = props;
+    projectId,
+    projectStep } = props;
+
   const dispatch = useDispatch();
+  const params = useParams();
+  const location = useLocation();
 
   const [noteInputs, setNoteInputs] = useState({
-    title: note.title,
-    content: note.content,
-    deadline: note.deadline,
-    step: note.step,
+    title: "",
+    content: "",
+    deadline: "",
+    step: "",
   });
 
-  const editNote = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const addNote = (e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
 
-    if (noteInputs.title === "") {
-      window.alert("할 일을 입력하세요.");
-      return;
-    }
-    if (noteInputs.content === "") {
-      window.alert("할 일에 대한 설명을 추가하세요.");
-      return;
-    }
-    if (noteInputs.step === "") {
-      window.alert("할 일의 상태를 설정하세요.");
-      return;
-    }
-    if (noteInputs.deadline === "") {
-      window.alert("마감일을 입력하세요.");
-      return;
-    }
-
-    dispatch(noteActions.__editNote(noteId, noteInputs));
+  //   if (noteInputs.title === "") {
+  //     window.alert("할 일을 입력하세요.");
+  //     return;
+  //   }
+  //   if (noteInputs.content === "") {
+  //     window.alert("할 일에 대한 설명을 추가하세요.");
+  //     return;
+  //   }
+  //   if (noteInputs.step === "") {
+  //     window.alert("할 일의 상태를 설정하세요.");
+  //     return;
+  //   }
+  //   if (noteInputs.deadline === "") {
+  //     window.alert("마감일을 입력하세요.");
+  //     return;
+  //   }
+    
+    // dispatch(noteKanbanActions.__addNote(projectId, noteInputs));
+    dispatch(fileActions.__addFiles());
+    // 프로젝트 페이지 따라 리로드 필요해보임
     onClose(e);
+    // if (!params.noteId) {
+    //   window.location.replace(location.pathname);
+    // }
+    // if (params.noteId) {
+    //   history.push(`/projects/${params.projectId}/kanban`);    
+    // }
+    
   };
 
   return (
@@ -63,14 +80,14 @@ const EditingNoteModal = (props) => {
       maskClosable={maskClosable}
       onClose={onClose}
       closable={closable}
-      heading="할 일 수정하기" 
-      btntext="수정하기"
-      onSubmit={editNote}
+      heading="할 일 만들기" 
+      btntext="할 일 만들기"
+      onSubmit={addNote}
       >
       <Form>
         <Form.Group controlId="noteTitle">
           <Form.Label className="note-modal-label">할 일</Form.Label>
-          <Form.Control type="text" placeholder="제목을 입력해 주세요." defaultValue={note.title} maxLength={255}
+          <Form.Control type="text" placeholder="제목을 입력해 주세요." maxLength={255}
             onChange={(e)=> {setNoteInputs({...noteInputs, title: e.target.value})}}
           />
           <Form.Text className="text-muted">
@@ -79,7 +96,7 @@ const EditingNoteModal = (props) => {
         </Form.Group>
         <Form.Group controlId="noteDetail">
           <Form.Label className="note-modal-label">설명</Form.Label>
-          <Form.Control type="text" placeholder="할 일에 대한 설명을 추가해 주세요." defaultValue={note.content}
+          <Form.Control type="text" placeholder="할 일에 대한 설명을 추가해 주세요."
             as="textarea"
             style={{ height: "100px" }}
             onChange={(e)=> {setNoteInputs({...noteInputs, content: e.target.value})}}
@@ -87,7 +104,7 @@ const EditingNoteModal = (props) => {
         </Form.Group>
         <Form.Group controlId="noteStep">
           <Form.Label className="note-modal-label">상태 설정</Form.Label>
-          <Form.Select placeholder="" defaultValue={note.step}
+          <Form.Select placeholder=""
             onChange={(e)=> {setNoteInputs({...noteInputs, step: e.target.value})}}
           >
             <option value="">할 일의 상태를 설정하세요.</option>
@@ -97,9 +114,10 @@ const EditingNoteModal = (props) => {
             <option value="DONE">DONE</option>
           </Form.Select>
         </Form.Group>
+        <FileUploader />
         <Form.Group controlId="noteDeadline">
           <Form.Label className="note-modal-label" >언제까지 끝내야 하나요?</Form.Label>
-          <Form.Control type="date" placeholder="" defaultValue={note.deadline}
+          <Form.Control type="date" placeholder=""
             onChange={(e)=> {setNoteInputs({...noteInputs, deadline: e.target.value})}}
           />
         </Form.Group>
@@ -108,4 +126,4 @@ const EditingNoteModal = (props) => {
   )
 }
 
-export default EditingNoteModal;
+export default WritingNoteModal;

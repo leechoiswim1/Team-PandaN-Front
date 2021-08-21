@@ -37,17 +37,18 @@ export const userApi = {
 export const noteApi = {
   /* project kanban */
   getKanbanNotes: (projectId) => instance.get(`/api/projects/${projectId}/kanbans`),
+  editKanbanStep: (noteId, position) => instance.put(`/api/notes/${noteId}`, position),
   /* project issue */
-  getProjectIssue: (projectId) => instance.get(`/api/projects/${projectId}/issues?page=1&size=10`),
-  getProjectMyNotes: (projectId) => instance.get(`/api/projects/${projectId}/mynotes?page=1&size=10`),
+  getProjectIssue: (projectId, _page, size) => instance.get(`/api/projects/${projectId}/issues?page=${_page}&size=${size}`),
+  getProjectMyNotes: (projectId, _page, size) => instance.get(`/api/projects/${projectId}/mynotes?page=${_page}&size=${size}`),
   /* detail */
   getNoteDetail: (noteId) => instance.get(`/api/notes/${noteId}`),
   /* note */
   addNote: (noteId, newNote) => instance.post(`/api/notes/${noteId}`, newNote),
-  editNote: (noteId, newNote) => instance.put(`/api/notes/${noteId}`, newNote),
+  editNote: (noteId, newNote) => instance.put(`/api/notes/details/${noteId}`, newNote),
   deleteNote: (noteId) => instance.delete(`/api/notes/${noteId}`),
   /* bookmark */
-  getBookmark: () => instance.get("/api/notes/mybookmarks?page=1&size=10"),
+  getBookmark: (_page, size) => instance.get(`/api/notes/mybookmarks?page=${_page}&size=${size}`),
   addBookmark: (noteId) => instance.post(`/api/notes/${noteId}/bookmark`),
   deleteBookmark: (noteId) => instance.post(`/api/notes/${noteId}/unbookmark`),
   /* my issue */
@@ -68,4 +69,11 @@ export const searchApi = {
   getSearchAll: (keyword) => instance.get(`/api/notes/search?keyword=${keyword}`),
   getSearchBookmark: (keyword) => instance.get(`/api/notes/search/bookmarks?keyword=${keyword}`),
   getSearchMynote: (keyword) => instance.get(`/api/notes/search/mynotes?keyword=${keyword}`),
+};
+
+/* == API - file */
+export const fileApi = {
+  addFiles: (noteId, files) => instance.post(`/api/files/${noteId}`, files),
+  editFiles: (fileId, files) => instance.put(`/api/files/${fileId}`, files),
+  deleteFile: (fileId) => instance.delete(`/api/files/${fileId}`),
 };

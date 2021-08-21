@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar";
 import Template from "./Template";
 import Contents from "./Contents";
 import Spinner from "./Spinner.jsx";
+import Paging from "./Paging";
 
 /* Modal */
 import Modals from "./modals/Modals";
@@ -23,19 +24,23 @@ import ProjectHeader from "./projects/ProjectHeader";
 import ProjectCardList from "./projects/ProjectCardList";
 
 /* == Note - kanban */
-import ProjectMenu from "./notes/ProjectMenu";
-import KanbanCard from "./notes/KanbanCard";
-import KanbanList from "./notes/KanbanList";
-import KanbanBoard from "./notes/KanbanBoard";
-import WritingNoteModal from "./notes/WritingNoteModal";
-import EditingNoteModal from "./notes/EditingNoteModal";
+import ProjectMenu from "./notesShared/ProjectMenu";
+import KanbanCard from "./notesKanban/KanbanCard";
+import KanbanList from "./notesKanban/KanbanList";
+import KanbanBoard from "./notesKanban/KanbanBoard";
+import WritingNoteModal from "./notesShared/WritingNoteModal";
+import EditingNoteModal from "./notesShared/EditingNoteModal";
+/* == Note - file control */
+import FileUploader from "./files/FileUploader";
+import FilePreviewer from "./files/FilePreviewer";
 /* == Note - issue list; card */
-import IssueCard from "./notes/IssueCard";
-import IssueList from "./notes/IssueList";
-import EmptyBoard from "./notes/EmptyBoard";
-import InfiniteScroll from "./notes/InfiniteScroll";
+import IssueCard from "./notesIssue/IssueCard";
+import IssueList from "./notesIssue/IssueList";
+import EmptyBoard from "./notesIssue/EmptyBoard";
+import InfiniteScroll from "./notesShared/InfiniteScroll";
+
 /* == Note - detail */
-import NoteDetail from "./notes/NoteDetail";
+import NoteDetail from "./notesShared/NoteDetail";
 /* == Note - detail - Comment */
 import CommentCard from "./comments/CommentCard";
 import CommentList from "./comments/CommentList";
@@ -52,6 +57,7 @@ export {
   Template,
   Contents,
   Spinner,
+  Paging,
   /* == Modal */
   NoteModal,
   Modals,
@@ -71,11 +77,12 @@ export {
   KanbanBoard,
   WritingNoteModal,
   EditingNoteModal,
+  FileUploader,
+  FilePreviewer,
   /* == Note - list */
   IssueCard,
   IssueList,
   EmptyBoard,
-  InfiniteScroll,
   /* == Note - detail */
   NoteDetail,
   /* == Note - detail - Comment */
