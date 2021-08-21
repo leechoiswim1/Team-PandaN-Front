@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { noteApi } from "../shared/api";
-import { produce } from 'immer';
+import { produce } from "immer";
 
 /* == Notes - initial state */
 const initialState = {
@@ -30,9 +30,16 @@ const initialState = {
     },
   ],
   bookmark: [],
+
   myNote: [],
+
+  paging: { first: null, last: null, size: 10, pageNumber: 1, totalElements: 0, totalPages: 0 },
+  bookPaging: { first: null, last: null, size: 10, pageNumber: 1, totalElements: 0, totalPages: 0 },
+  issuePaging: { first: null, last: null, size: 10, pageNumber: 1, totalElements: 0, totalPages: 0 },
+  projectNotePaging: { first: null, last: null, size: 10, pageNumber: 1, totalElements: 0, totalPages: 0 },
   projectIssue: [],
   projectMyNote: [],
+
   detail: {
     content: "",
     deadline: "",
@@ -41,8 +48,6 @@ const initialState = {
     title: "",
     isBookmark: false,
   },
-  paging: { page: 1, next: null, size: 8 },
-  is_loading: false,
 };
 
 /* == action */
@@ -59,57 +64,50 @@ const LOADING = "LOADING";
 
 /* == action creator */
 /* project - issue */
-const getProjectIssue = createAction(GET_PROJECT_ISSUE, (issueNotes) => ({ issueNotes }));
-const getProjectMyNotes = createAction(GET_PROJECT_MY_NOTES, (myNoteList) => ({ myNoteList }));
+const getProjectIssue = createAction(GET_PROJECT_ISSUE, (pagingInfo) => ({ pagingInfo }));
+const getProjectMyNotes = createAction(GET_PROJECT_MY_NOTES, (pagingInfo) => ({ pagingInfo }));
 /* bookmark */
-const getBookmark = createAction(GET_BOOKMARK, (myBookmarkNoteList) => ({ myBookmarkNoteList }));
+const getBookmark = createAction(GET_BOOKMARK, (pagingInfo) => ({ pagingInfo }));
 const setBookmark = createAction(SET_BOOKMARK, (noteId) => ({ noteId }));
 /* my note */
-const getMyNotes = createAction(GET_MY_NOTES, (myNoteList, paging) => ({ myNoteList, paging }));
+const getMyNotes = createAction(GET_MY_NOTES, (pagingInfo) => ({ pagingInfo }));
 
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 /* == thunk function */
 /* project - issue */
 const __getProjectIssue =
-  (projectId) =>
+  (projectId, page, size) =>
   async (dispatch, getState, { history }) => {
     try {
-      const { data } = await noteApi.getProjectIssue(projectId);
-      // let notes = [];
-      // notes.push(data.notes);
-      // dispatch(getProjectIssue(notes));
-      dispatch(getProjectIssue(data.notes));
+      dispatch(loading(true));
+      const { data } = await noteApi.getProjectIssue(projectId, page, size);
+      dispatch(getProjectIssue(data));
     } catch (e) {
       console.log(e);
     }
   };
 
 const __getProjectMyNotes =
-  (projectId) =>
+  (projectId, page, size) =>
   async (dispatch, getState, { history }) => {
     try {
-      const { data } = await noteApi.getProjectMyNotes(projectId);
-      // let myNoteList = [];
-      // myNoteList.push(data.myNoteList);
-      // dispatch(getProjectMyNotes(myNoteList));
-      dispatch(getProjectMyNotes(data.myNoteList));
+      dispatch(loading(true));
+      const { data } = await noteApi.getProjectMyNotes(projectId, page, size);
+      dispatch(getProjectMyNotes(data));
     } catch (e) {
       console.log(e);
     }
   };
 
-  /* bookmark */
+/* bookmark */
 const __getBookmark =
-  () =>
+  (page, size) =>
   async (dispatch, getState, { history }) => {
     try {
-      const { data } = await noteApi.getBookmark();
-      // 
-      // let bookmarkList = [];
-      // bookmarkList.push(data.noteList);
-      // dispatch(getBookmark(bookmarkList));
-      dispatch(getBookmark(data.noteList))
+      dispatch(loading(true));
+      const { data } = await noteApi.getBookmark(page, size);
+      dispatch(getBookmark(data));
     } catch (e) {
       console.log(e);
     }
@@ -117,35 +115,12 @@ const __getBookmark =
 
 /* my note */
 const __getMyNote =
-  (page = 1, size = initialState.paging.size) =>
+  (page, size) =>
   async (dispatch, getState, { history }) => {
-
-    const _next = getState().note.paging.next;
-    const _page = getState().note.paging.page;
-    // 이 부분 첫페이지를 불러와야하는지 마지막페이지라서 불러올 게 없는지 감지하는게 매끄럽지 않습니다.
-    
-    if (_page === false && _next === false) return;
-    dispatch(loading(true));
-
     try {
+      dispatch(loading(true));
       const { data } = await noteApi.getMyNotes(page, size);
-      let myNoteList = [];
-
-      const isNextPage = data.myNoteList.length;
-      
-      
-      let paging = {
-        page: isNextPage < initialState.paging.size ? 1 : page + 1,
-        next: isNextPage < initialState.paging.size ? false : true,
-        size: size,
-      };
-      
-      myNoteList.push(data.myNoteList);
-      if (paging.next) {
-        myNoteList.pop();
-      }
-
-      dispatch(getMyNotes(data.myNoteList, paging));
+      dispatch(getMyNotes(data));
     } catch (e) {
       console.log(e);
     }
@@ -154,28 +129,43 @@ const __getMyNote =
 /* == reducer */
 const note = handleActions(
   {
-    [GET_PROJECT_ISSUE]: (state, action) => {
-      return {
-        ...state,
-        projectIssue: action.payload.issueNotes,
-        // projectIssue: state.projectIssue.concat(action.payload.issueNotes),
-      };
-    },
-    [GET_PROJECT_MY_NOTES]: (state, action) => {
-      return {
-        ...state,
-        projectMyNote: action.payload.myNoteList,
-        // projectMyNote: state.projectMyNote.concat(action.payload.myNoteList),
-      };
-    },
+    [GET_PROJECT_ISSUE]: (state, action) =>
+      produce(state, (draft) => {
+        const myIssue = { ...action.payload.pagingInfo };
+        draft.projectIssue = myIssue.notes;
+        draft.issuePaging.first = myIssue.first;
+        draft.issuePaging.last = myIssue.last;
+        draft.issuePaging.pageNumber = myIssue.pageNumber;
+        draft.issuePaging.totalElements = myIssue.totalElements;
+        draft.issuePaging.totalPages = myIssue.totalPages;
+        draft.is_loading = false;
+      }),
+
+    [GET_PROJECT_MY_NOTES]: (state, action) =>
+      produce(state, (draft) => {
+        const myProjectNote = { ...action.payload.pagingInfo };
+        draft.projectMyNote = myProjectNote.myNoteList;
+        draft.projectNotePaging.first = myProjectNote.first;
+        draft.projectNotePaging.last = myProjectNote.last;
+        draft.projectNotePaging.pageNumber = myProjectNote.pageNumber;
+        draft.projectNotePaging.totalElements = myProjectNote.totalElements;
+        draft.projectNotePaging.totalPages = myProjectNote.totalPages;
+        draft.is_loading = false;
+      }),
+
     /* Bookmark */
-    [GET_BOOKMARK]: (state, action) => {
-      return {
-        ...state,
-        bookmark: action.payload.myBookmarkNoteList,
-        // bookmark: state.bookmark.concat(action.payload.myBookmarkNoteList),
-      };
-    },
+    [GET_BOOKMARK]: (state, action) =>
+      produce(state, (draft) => {
+        const myBookmark = { ...action.payload.pagingInfo };
+        draft.bookmark = myBookmark.noteList;
+        draft.bookPaging.first = myBookmark.first;
+        draft.bookPaging.last = myBookmark.last;
+        draft.bookPaging.pageNumber = myBookmark.pageNumber;
+        draft.bookPaging.totalElements = myBookmark.totalElements;
+        draft.bookPaging.totalPages = myBookmark.totalPages;
+        draft.is_loading = false;
+      }),
+
     [SET_BOOKMARK]: (state, action) => {
       return {
         ...state,
@@ -185,12 +175,22 @@ const note = handleActions(
 
     /* my note */
 
-    [GET_MY_NOTES]: (state, action) => 
-    produce(state, (draft) => {
-      draft.myNote.push(...action.payload.myNoteList);
-      draft.paging = action.payload.paging;
-      draft.isLoading = false;
-    }),
+    [GET_MY_NOTES]: (state, action) =>
+      produce(state, (draft) => {
+        const myNote = { ...action.payload.pagingInfo };
+        draft.myNote = myNote.myNoteList;
+        draft.paging.first = myNote.first;
+        draft.paging.last = myNote.last;
+        draft.paging.pageNumber = myNote.pageNumber;
+        draft.paging.totalElements = myNote.totalElements;
+        draft.paging.totalPages = myNote.totalPages;
+        draft.is_loading = false;
+      }),
+
+    [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
+      }),
   },
   initialState,
 );

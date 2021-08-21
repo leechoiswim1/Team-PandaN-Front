@@ -15,13 +15,14 @@ const Home = ({ history }) => {
   const project_list = useSelector((state) => state.project.list);
   const project_list_length = project_list.length;
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(projectActions.__setProject());
   }, [dispatch, project_list_length]);
 
   return (
     <>
-      <Spinner visible={is_loading} />
+      <Spinner visible={is_loading} Home={"Home"} />
       <Template>
         <main className="content" id="content">
           {project_list.length > 0 ? <ProjectCardList /> : <EmptyProject />}
