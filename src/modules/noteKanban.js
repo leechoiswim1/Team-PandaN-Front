@@ -228,14 +228,20 @@ const noteKanban = handleActions(
     [ADD_BOOKMARK]: (state, action) => {
       return {
         ...state,
-        detail: { ...state.detail, isBookmark: true },
-      };
+        detail: { 
+          ...state.detail, 
+          detail: {...state.detail.detail, isBookmark: true},
+        },
+      }
     },
     [DELETE_BOOKMARK]: (state, action) => {
       return {
         ...state,
-        detail: { ...state.detail, isBookmark: false },
-      };
+        detail: { 
+          ...state.detail, 
+          detail: {...state.detail.detail, isBookmark: false},
+        },
+      }
     },
   },  
   initialState,
