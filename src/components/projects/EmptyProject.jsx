@@ -3,23 +3,24 @@ import styled from "styled-components";
 import { ProjectModal } from "..";
 
 import ProjectJoin from "../modals/ProjectJoin";
-import { ReactComponent as NoneProject } from "../../styles/images/NoneProject.svg";
-import { ReactComponent as PlanBetterStartEasier } from "../../styles/images/PlanBetter_StartEasier.svg";
+import PandaEmpty from "../../styles/images/Panda_EmptyProject.svg";
+import PlanBetterStartEasier from "../../styles/images/PlanBetter_StartEasier.svg";
 const EmptyProject = () => {
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <CenterWrap>
         <CenterBox>
-          <NoneProject />
-          <PlanBetterStartEasier style={{ margin: "20px 0px 0px 50px" }} />
+          <img src={PandaEmpty} />
+          <img src={PlanBetterStartEasier} style={{ margin: "20px 0px" }} />
+
           <CenterText>
-            <p style={{ marginRight: "5px" }}>세상에서 제일 쉬운 협업툴 PandaN으로</p> 프로젝트를 관리하세요!
+            세상에서 제일 쉬운 협업툴 <span style={{ color: "#387E4B", fontWeight: "700" }}>PandaN</span>으로 프로젝트를 관리하세요!
           </CenterText>
+          <CenterBtn>
+            <ProjectJoin />
+            <ProjectModal />
+          </CenterBtn>
         </CenterBox>
-        <CenterBtn>
-          <ProjectJoin />
-          <ProjectModal />
-        </CenterBtn>
       </CenterWrap>
     </div>
   );
@@ -31,9 +32,21 @@ const CenterWrap = styled.div`
   position: absolute;
   justify-content: center;
   align-items: center;
-  left: 50%;
+  width: 100%;
+  height: 100%;
+  left: 60%;
   top: 50%;
   transform: translate(-50%, -50%);
+  @media (max-width: 1200px) {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  @media (max-width: 1200px) {
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 const CenterBox = styled.div`
@@ -43,6 +56,9 @@ const CenterBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 600px) {
+    width: 70%;
+  }
 `;
 
 const CenterBtn = styled.div`
@@ -51,6 +67,9 @@ const CenterBtn = styled.div`
   width: 700px;
   @media (max-width: 600px) {
     flex-direction: column;
+    max-width: 200px;
+    max-height: 150px;
+    margin: auto;
   }
 `;
 const CenterText = styled.div`
@@ -61,7 +80,7 @@ const CenterText = styled.div`
   margin-top: 10px;
   display: flex;
   @media (max-width: 600px) {
-    flex-direction: column;
+    display: none;
   }
 `;
 
