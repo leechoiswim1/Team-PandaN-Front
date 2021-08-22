@@ -42,7 +42,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     content: "",
     deadline: "",
     step: projectStep,
-    // files: [],
+    files: [],
   });
   // state : 노트 수정 시
   const [noteModifiedInputs, setNoteModifiedInputs] = useState({
@@ -83,7 +83,6 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     // console.log("노트 생성 내용", noteInputs);
     // 상태 변경 : 입력값 서버에 전송
     dispatch(noteKanbanActions.__addNote(projectId, noteInputs));
-    // dispatch(fileActions.__addFiles());
   
     handleCloseModal(e);
 
