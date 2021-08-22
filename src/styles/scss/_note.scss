@@ -1,5 +1,6 @@
 // == layout
 // --------------------------------
+$project-header-height: rem(60);
 $inner-header-height: rem(36);
 // == text
 // --------------------------------
@@ -57,8 +58,7 @@ $custom-note-gray: #767676;
 // --------------------------------
 .note-container {
   width: 100%;
-  // height: calc(100vh - #{$header-height} - rem(50) - #{$inner-header-height});
-  height: calc(100vh - 166px);
+  height: calc(100vh - #{$header-height} - #{$project-header-height} - #{$inner-header-height});
   padding: rem(36) rem(30);
   white-space: nowrap;
   overflow-x: scroll;
