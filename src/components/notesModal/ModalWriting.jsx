@@ -41,12 +41,14 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     content: "",
     deadline: "",
     step: projectStep,
+    // files: [],
   });
   // state : 노트 수정 시
   const [noteModifiedInputs, setNoteModifiedInputs] = useState({
     title: detail.title,
     content: detail.content,
     deadline: detail.deadline,
+    // files: [detail.files],
   }); 
 
   // functions 
@@ -77,9 +79,9 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     if (noteInputs.step === "")     {window.alert("할 일의 상태를 설정하세요."); return;};
     if (noteInputs.deadline === "") {window.alert("마감일을 입력하세요."); return;};
     
-    console.log("작성 노트 내용", noteInputs);
+    // console.log("노트 생성 내용", noteInputs);
     // 상태 변경 : 입력값 서버에 전송
-    // dispatch(noteKanbanActions.__addNote(projectId, noteInputs));
+    dispatch(noteKanbanActions.__addNote(projectId, noteInputs));
     // dispatch(fileActions.__addFiles());
   
     handleCloseModal(e);
@@ -103,8 +105,8 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     if (noteModifiedInputs.content === "")  {window.alert("할 일에 대한 설명을 추가하세요."); return;};
     if (noteModifiedInputs.deadline === "") {window.alert("마감일을 입력하세요."); return;}
 
-    console.log("수정 노트 내용", noteModifiedInputs);
-    // dispatch(noteKanbanActions.__editNote(noteId, noteInputs));
+    // console.log("수정 노트 내용", noteModifiedInputs);
+    dispatch(noteKanbanActions.__editNote(noteId, noteModifiedInputs));
     handleCloseModal(e);
   };
 
