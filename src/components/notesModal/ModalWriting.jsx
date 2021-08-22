@@ -30,9 +30,10 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
   const location = useLocation();
   const { projectId, noteId } =  useParams();
 
-  // subscribe
-  const detail = useSelector((state) => state.noteKanban?.detail);
-
+  // subscribe 
+  // case : modalType === "editing"
+  const { detail, files } = useSelector((state) => state.noteKanban?.detail);
+  
   // state
   const [modalVisible, setModalVisible] = useState(false)
   // state : 노트 생성 시 
@@ -45,10 +46,10 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
   });
   // state : 노트 수정 시
   const [noteModifiedInputs, setNoteModifiedInputs] = useState({
-    title: detail.title,
-    content: detail.content,
-    deadline: detail.deadline,
-    // files: [detail.files],
+    title: detail?.title,
+    content: detail?.content,
+    deadline: detail?.deadline,
+    files: [detail?.files],
   }); 
 
   // functions 
@@ -180,7 +181,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                         type="text" 
                         placeholder="제목을 입력해 주세요. 최대 255자까지 입력 가능합니다." 
                         maxLength={255}
-                        defaultValue={ modalType === "editing" ? detail.title : "" }
+                        defaultValue={ modalType === "editing" ? detail?.title : "" }
                         onChange={ (e)=> { (modalType === "editing") ?
                           setNoteModifiedInputs({...noteModifiedInputs, title: e.target.value}) :
                           setNoteInputs({...noteInputs, title: e.target.value})
@@ -200,7 +201,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                     className="w-75"
                     type="date" 
                     placeholder=""
-                    defaultValue={ modalType === "editing" ? detail.deadline : "" }
+                    defaultValue={ modalType === "editing" ? detail?.deadline : "" }
                     onChange={ (e)=> { (modalType === "editing") ?
                       setNoteModifiedInputs({...noteModifiedInputs, deadline: e.target.value}) :
                       setNoteInputs({...noteInputs, deadline: e.target.value})
@@ -245,7 +246,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                     </Form.Label>
                   </div>
                   <div className="note-modal-td cell-align-top">
-                    <FileUploader detail={ modalType === "editing" ? detail?.files : ""}/>
+                    <FileUploader files={ modalType === "editing" ? files : ""}/>
                   </div>
                 </div>
                 <div className="note-modal-tr cell-align-top">
@@ -259,7 +260,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                     <Form.Control 
                       placeholder="할 일에 대한 설명을 추가해 주세요."
                       as="textarea"
-                      defaultValue={ modalType === "editing" ? detail.content : "" }
+                      defaultValue={ modalType === "editing" ? detail?.content : "" }
                       style={{ height: "10rem" }}
                       onChange={ (e)=> { (modalType === "editing") ?
                       setNoteModifiedInputs({...noteModifiedInputs, content: e.target.value}) :
