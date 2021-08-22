@@ -94,3 +94,133 @@
     }
   }
 }
+
+.note-modal-wrapper{
+  box-sizing: border-box;
+  position: relative;
+  background-color: #fff;
+  border-radius: rem(40);
+  max-width: rem(1200);
+  min-width: rem(360);
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 auto;
+
+  .note-modal-contain {
+    padding: rem(54) rem(54) 0;  
+  }
+
+  .note-modal-header {
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+    margin-bottom: rem(24);
+
+    span {
+      margin-left: rem(16);
+      font-weight: bold;
+      font-size: rem(20);
+      color: $custom-note-black;
+      letter-spacing: $letter-spacing;
+    }
+    svg {
+      margin-top: rem(-6);
+    }
+    .note-modal-closer {
+      cursor: pointer;
+    }
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1199px)  {
+    .note-modal-container {
+      width: 80%;
+    }
+  }
+
+
+  @media screen and (max-width: 767px) {
+  .note-modal-container {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+}
+}
+
+
+.note-modal-table{
+  width: 100%; 
+  display: table;
+  &:nth-child{
+    padding-top: rem(16);
+    vertical-align: top;
+  }
+
+  .note-modal-tr { 
+    vertical-align: middle;
+    display: table-row;
+    height: rem(68);   
+  }
+  
+  .note-modal-th {
+    width: rem(100);
+    vertical-align: middle;
+    display: table-cell; 
+    border-bottom: 1px solid #EDEDED;
+    width: rem(160);
+    font-weight: bold;
+    font-size: rem(16);  
+    letter-spacing: -0.03em;
+    color: $custom-note-gray;
+
+
+    svg {
+      fill: $custom-note-gray;
+      margin: rem(-2) rem(20) 0;
+    }
+  }
+  
+  .note-modal-td {
+    padding: rem(16);
+    vertical-align: middle;
+    display: table-cell; 
+    border-bottom: 1px solid #EDEDED;
+  }
+}
+
+.note-modal-footer-button {
+  height: rem(96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: $primary;
+  border-bottom-left-radius: rem(40);
+  border-bottom-right-radius: rem(40);
+  transition: all 0.2s ease-in-out;
+  & h1 {
+    font-weight: bold;
+    font-size: rem(20);
+    color: #FFFFFF;
+    letter-spacing: $letter-spacing;
+  }
+  &:hover {
+    background-color: #3F6A44;
+  }
+}
+
+.note-file-uploader {
+  span {
+    font-size: rem(14);
+    color: &custom-note-gray;
+    letter-spacing: $letter-spacing;
+  }
+  ul > li {
+    font-size: rem(14);
+    font-weight: 500;
+    color: &custom-note-black;
+    letter-spacing: $letter-spacing;
+    float: left;
+  }
+}
