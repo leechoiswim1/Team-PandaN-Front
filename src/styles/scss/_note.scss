@@ -129,19 +129,6 @@ $custom-note-gray: #767676;
     display: flex;
     align-items: center;
     justify-content: center;
-    & div {
-      cursor: pointer;
-    }
-    & svg {
-      margin-top: -3px;
-    }
-    & span {
-      margin-left: rem(4);
-      font-weight: bold;
-      font-size: $note-heading;
-      letter-spacing: $letter-spacing;
-      color: $custom-note-gray;
-    }
   }
 }
 
@@ -203,84 +190,6 @@ $custom-note-gray: #767676;
     margin: rem(10) 0;
     height: rem(2);
     background-color: #bcbcbc;
-  }
-}
-
-// == note: modal
-// --------------------------------
-.note-modal-label {
-  font-weight: bold;
-  font-size: $note-heading;
-  line-height: rem(24);
-  letter-spacing: $letter-spacing;
-  margin: rem(32) 0 rem(8);
-  color: $primary;
-}
-
-.note-modal-container {
-  padding: rem(64) rem(64) 0;
-  box-sizing: border-box;
-  position: relative;
-  background-color: #fff;
-  border-radius: rem(40);
-  min-width: rem(360);
-  width: rem(720);
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0 auto;
-
-  .note-modal-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-
-    .note-modal-title {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      & h1 {
-        font-weight: bold;
-        font-size: rem(20);
-        color: $custom-note-black;
-        letter-spacing: $letter-spacing;
-      }
-    }
-    svg {
-      fill: $custom-note-black;
-      margin-top: rem(3);
-      cursor: pointer;
-    }
-  }
-  .note-modal-content {
-    padding-bottom: rem(64);
-  }
-
-  .note-modal-button {
-    height: rem(96);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin: 0 rem(-64);
-    border-top: 1px solid #c2c2c2;
-    cursor: pointer;
-    & h1 {
-      font-weight: bold;
-      font-size: rem(20);
-      color: $custom-note-gray;
-      letter-spacing: $letter-spacing;
-    }
-    & :hover {
-      color: $primary;
-    }
-  }
-}
-@media screen and (max-width: 767px) {
-  .note-modal-container {
-    width: 100vw;
-    height: 100vh;
-    border-radius: 0;
   }
 }
 
@@ -372,7 +281,7 @@ $custom-note-gray: #767676;
       display: flex;
       justify-content: space-between;
 
-      & span {
+      & span:not(.note-file-remover) {
         margin-left: rem(12);
         font-weight: bold;
         font-size: rem(16);

@@ -100,14 +100,15 @@
   position: relative;
   background-color: #fff;
   border-radius: rem(40);
-  max-width: rem(1200);
+  max-width: rem(960);
   min-width: rem(360);
   top: 50%;
   transform: translateY(-50%);
   margin: 0 auto;
 
-  .note-modal-contain {
-    padding: rem(54) rem(54) 0;  
+  .note-modal-container {
+    width: inherit;
+    padding: rem(54) rem(54) rem(32);  
   }
 
   .note-modal-header {
@@ -117,7 +118,8 @@
     justify-content:space-between;
     margin-bottom: rem(24);
 
-    span {
+    h1 {
+      display: inline;
       margin-left: rem(16);
       font-weight: bold;
       font-size: rem(20);
@@ -126,18 +128,22 @@
     }
     svg {
       margin-top: rem(-6);
+      fill: $custom-note-black;
     }
     .note-modal-closer {
       cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        fill: $primary;
+        transform: scale(1.05);
+      }
     }
   }
 
   @media screen and (min-width: 768px) and (max-width: 1199px)  {
     .note-modal-container {
-      width: 80%;
     }
   }
-
 
   @media screen and (max-width: 767px) {
   .note-modal-container {
@@ -148,23 +154,20 @@
 }
 }
 
-
 .note-modal-table{
   width: 100%; 
   display: table;
-  &:nth-child{
-    padding-top: rem(16);
-    vertical-align: top;
-  }
+  border-collapse: collapse;
 
   .note-modal-tr { 
     vertical-align: middle;
     display: table-row;
-    height: rem(68);   
+    height: rem(68);
   }
   
   .note-modal-th {
     width: rem(100);
+    padding: rem(16) 0;
     vertical-align: middle;
     display: table-cell; 
     border-bottom: 1px solid #EDEDED;
@@ -173,7 +176,6 @@
     font-size: rem(16);  
     letter-spacing: -0.03em;
     color: $custom-note-gray;
-
 
     svg {
       fill: $custom-note-gray;
@@ -187,6 +189,22 @@
     display: table-cell; 
     border-bottom: 1px solid #EDEDED;
   }
+
+  .cell-file-upload {
+    height: rem(160);
+  }
+
+  .cell-align-top {
+    vertical-align: top;
+  }
+
+  & .note-modal-tr:last-child .note-modal-th {
+    border-bottom: 0;
+  } 
+  & .note-modal-tr:last-child .note-modal-td {
+    border-bottom: 0;
+  }
+
 }
 
 .note-modal-footer-button {
@@ -211,16 +229,23 @@
 }
 
 .note-file-uploader {
-  span {
-    font-size: rem(14);
-    color: &custom-note-gray;
-    letter-spacing: $letter-spacing;
-  }
-  ul > li {
-    font-size: rem(14);
-    font-weight: 500;
-    color: &custom-note-black;
-    letter-spacing: $letter-spacing;
+  font-size: rem(14);
+  color: $custom-note-gray;
+  letter-spacing: $letter-spacing;
+
+  & ul > li {
+    margin-right: 1rem;
+    color: $custom-note-black;
     float: left;
+    .note-file-remover {
+      @extend .note-file-uploader;
+      color: $custom-note-gray;
+      font-size: rem(14);
+      font-weight: normal;
+      &:hover { 
+        color: $primary;
+        cursor: pointer;
+      }
+    }
   }
 }
