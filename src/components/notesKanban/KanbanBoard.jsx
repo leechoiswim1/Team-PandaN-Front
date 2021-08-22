@@ -261,7 +261,7 @@ ${(props) => (props.type === "DONE") &&
   }
   `}
 
-  & svg:first-child {
+  & svg {
     ${(props) => (props.type === "STORAGE") && 
       css`fill: #FFBD04;`}
     ${(props) => (props.type === "TODO") && 

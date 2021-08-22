@@ -152,13 +152,13 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
           projectStep={projectStep} 
         >
         <div tabIndex="0" className="note-modal-wrapper">
-          <div className="note-modal-contain">
+          <div className="note-modal-container">
             <div className="note-modal-header">
               <div>
                 <Add width="24" height="24" fill="#191919"/>
-                <span>
+                <h1>
                   { modalType === "editing" ? "할 일 수정하기" : "할 일 만들기" }
-                </span>
+                </h1>
               </div>
               <Close width="24" height="24" fill="#191919" className="note-modal-closer" onClick={handleCloseModal}/>
             </div>
@@ -233,17 +233,17 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                 </div>
                 }
                 {/* ---------------------------------------------------------------- */}
-                <div className="note-modal-tr">
-                  <div className="note-modal-th">
+                <div className="note-modal-tr cell-file-upload">
+                  <div className="note-modal-th cell-align-top">
                     <Link width="24" height="24" fill="#767676"/>
                     첨부파일
                   </div>
-                  <div className="note-modal-td">
+                  <div className="note-modal-td cell-align-top">
                     <FileUploader detail={ modalType === "editing" ? detail?.files : ""}/>
                   </div>
                 </div>
-                <div className="note-modal-tr">
-                  <div className="note-modal-th">
+                <div className="note-modal-tr cell-align-top">
+                  <div className="note-modal-th cell-align-top">
                     <Note />
                     할 일 설명
                   </div>
@@ -275,7 +275,6 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
   )
 }
 
-// 리팩토링 시 scss 파일에 합칠 것
 const KanbanColBtn = styled.div`
   width: 100%; 
   height: 100%; 
