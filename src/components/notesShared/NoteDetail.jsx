@@ -14,7 +14,7 @@ import { ReactComponent as IconCalendar } from "../../styles/images/icon_calende
 import { ReactComponent as IconMember } from "../../styles/images/icon_member2.svg";
 import { ReactComponent as IconNote } from "../../styles/images/icon_note.svg";
 /* == Custom - Component */
-import { EditingNoteModal } from "..";
+import { ModalWriting } from "..";
 
 /* == Redux - actions */
 import { useDispatch, useSelector } from "react-redux";
@@ -44,17 +44,6 @@ const NoteDetail = ({ history, match, ...rest }) => {
   // format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전'
   const recentlyUpdated = moment(note.modifiedAt).fromNow();
 
-  /*
-   * Function - Modal
-   * modalVisible : project menu > 노트 작성 모달의 state와 구분
-   */
-  const [modalVisible, setModalVisible] = useState(false);
-  const openModal = () => {
-    setModalVisible(true);
-  };
-  const closeModal = () => {
-    setModalVisible(false);
-  };
   /*
    * Function - delete note
    */
@@ -95,12 +84,7 @@ const NoteDetail = ({ history, match, ...rest }) => {
 
           <div>
             {/* buttons - edit */}
-            <button type="button" onClick={openModal} className="note-detail-header-button">
-              <Edit2 />
-            </button>
-            {modalVisible && (
-              <EditingNoteModal note={note} noteId={noteId} visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal} />
-            )}
+            <ModalWriting modalType="editing" />
             {/* buttons - delete */}
             <button type="button" onClick={deleteNote} className="note-detail-header-button">
               <Trash2 />
@@ -243,8 +227,11 @@ const NoteContents = styled.p`
 `;
 
 const NoteHeader = styled.div`
-height: 20%;
-min-height:100px;
+  height: 20%;
+  white-space: normal;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  min-height:100px;
 `;
 const NoteBody = styled.div`
   height: 70%;
@@ -255,7 +242,7 @@ const NoteBody = styled.div`
 
 const NoteFooter = styled.div`
   height: 5%;
-  min-hight: 30px;
+  min-height: 30px;
   align-items: center;
   text-align: center;
   display: flex;
