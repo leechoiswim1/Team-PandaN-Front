@@ -137,7 +137,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
       {/* 상세 페이지에서 보이는 노트 수정 위한 ' 연필 ' 버튼 --------------------- */}
       {/* ---------------------------------------------------------------- */}
       { modalType === "editing" && 
-      <button type="button" className="note-detail-header-button" onClick={handleOpenModal}>
+      <button type="button" className="note-detail-button" onClick={handleOpenModal}>
         <Edit2 />
       </button>
       }
@@ -216,7 +216,9 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                 <div className="note-modal-tr">
                   <div className="note-modal-th">
                     <Calendar />
-                    상태 설정
+                    <Form.Label>
+                      상태 설정
+                    </Form.Label>
                   </div>
                   <div className="note-modal-td">
                     <Form.Select 
@@ -238,7 +240,9 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                 <div className="note-modal-tr cell-file-upload">
                   <div className="note-modal-th cell-align-top">
                     <Link width="24" height="24" fill="#767676"/>
-                    첨부파일
+                    <Form.Label>
+                      첨부파일
+                    </Form.Label>
                   </div>
                   <div className="note-modal-td cell-align-top">
                     <FileUploader detail={ modalType === "editing" ? detail?.files : ""}/>
@@ -247,7 +251,9 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                 <div className="note-modal-tr cell-align-top">
                   <div className="note-modal-th cell-align-top">
                     <Note />
-                    할 일 설명
+                    <Form.Label>
+                      할 일 설명
+                    </Form.Label>
                   </div>
                   <div className="note-modal-td">
                     <Form.Control 
