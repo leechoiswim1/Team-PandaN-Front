@@ -36,6 +36,7 @@ const initialState = {
     step: "",
     title: "",
     isBookmark: false,
+    files: [],
   },
 };
 
