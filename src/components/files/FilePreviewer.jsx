@@ -52,7 +52,7 @@ const FilePreviewer = ({ file, isEditing, ...rest}) => {
 		else {
 			const result = window.confirm("업로드 된 파일을 정말로 삭제하시겠습니까? 기존의 파일 및 파일 정보가 삭제됩니다.");
     	if (result) {
-				// dispatch(fileActions.deletePreview(file.awsFileName));
+				dispatch(noteKanbanActions.deletePreview(file.fileUrl))
     	} else return;
 		}		
 	}

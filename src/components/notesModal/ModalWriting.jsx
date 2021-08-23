@@ -59,17 +59,32 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     e.preventDefault();
     e.stopPropagation();
 
-    // 상태 변경 : 모달창 클릭 시 항상 파일 미리보기 목록 삭제
-    // dispatch(fileActions.resetPreview());
-    dispatch(noteKanbanActions.resetPreview());
+    // 상태 변경 
+    // case 1: 노트 수정의 경우 상세정보에 있는 파일 목록을 모달창 클릭 시 파일 미리보기 목록에 넣어주기
+    if (modalType ==="editing") {
+      dispatch(noteKanbanActions.setListPreview(files));
+    } 
+    // case 2: 노트 생성의 경우 모달창 클릭 시 파일 미리보기 목록 삭제
+    else {
+      dispatch(noteKanbanActions.resetPreview());
+    }
+    
     setModalVisible(true)
   }
   // 모달 공통 : 클릭 시 모달창 닫힘
   const handleCloseModal = (e) => {
     e.preventDefault();
-    e.stopPropagation();
-
-    setModalVisible(false)
+    e.stopPropagation();    
+    setModalVisible(false);
+    // // case 1: 노트 수정의 경우 한 번 더 확인
+    // if (modalType ==="editing") {
+    //   const result = window.confirm("정말로 창을 닫으시겠습니까? 변경된 정보가 저장되지 않습니다.");
+    // 	if (result) {
+    //     setModalVisible(false);
+    //   } else return;
+    // } 
+    // // case 2: 노트 생성의 경우
+    // else setModalVisible(false);    
   }
 
   // 노트 생성 시 : 제출 시 노트 생성 요청

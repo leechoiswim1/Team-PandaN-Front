@@ -99,12 +99,12 @@ const FileUploader = (props) => {
 			<div className="note-file-uploader">
 				<p>각 항목 당 5MB, 최대 5개의 파일을 업로드 할 수 있습니다.</p>				
 				<ul>					
-					{ editingFileList ? 
-					editingFileList.map((file, index) => {
-						return ( <li key={index}><FilePreviewer index={index} file={file} isEditing={true} /></li>)
-					}) :
-					fileList.map((file, index) => {
-						return ( <li key={index}><FilePreviewer index={index} file={file} isEditing={false} /></li>)
+					{ fileList.map((file, index) => {
+						return ( 
+						<li key={index}>
+							<FilePreviewer index={index} file={file} 
+								isEditing={ editingFileList ? true : false } />
+						</li>)
 					})}
 				</ul>
 			</div>

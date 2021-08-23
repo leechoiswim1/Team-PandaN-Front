@@ -59,6 +59,7 @@ const DELETE_BOOKMARK   = "note_bookmark/DELETE_BOOKMARK";
 const SET_PREVIEW       = "note_file/SET_PREVIEW";
 const RESET_PREVIEW     = "note_file/RESET_PREVIEW";
 const DELETE_PREVIEW    = "note_file/DELETE_PREVIEW";
+const SET_LIST_PREVIEW  = "note_file/SET_LIST_PREVIEW";
 
 /* == action creator */
 /* project - kanban */
@@ -78,6 +79,7 @@ const deleteBookmark = createAction(DELETE_BOOKMARK, (noteId) => ({ noteId }));
 const setPreview    = createAction(SET_PREVIEW, ( fileName, awsFileName, fileUrl ) => ({ fileName, awsFileName, fileUrl }));
 const resetPreview  = createAction(RESET_PREVIEW, () => ({}));
 const deletePreview = createAction(DELETE_PREVIEW, ( fileUrl ) => ({ fileUrl }));
+const setListPreview = createAction(SET_LIST_PREVIEW, ( fileList ) => ({ fileList }));
 
 /* == thunk function */
 /* kanban */
@@ -121,12 +123,10 @@ const __getNoteDetail =
 const __addNote =
   (projectId, newNote) =>
   async (dispatch, getState, { history }) => {
-    const files = getState().noteKanban?.filePreview
-    console.log(files)
-    const _newNote = {
-      ...newNote,
-      files: files
-    }
+    const files = 
+      getState().noteKanban.filePreview ? getState().noteKanban.filePreview : [];
+    const _newNote = { ...newNote, files: files }
+
     try {
       const { data } = await noteApi.addNote(projectId, _newNote);
       dispatch(addNote(data));
@@ -138,10 +138,12 @@ const __addNote =
 const __editNote =
   (noteId, modifiedNote) =>
   async (dispatch, getState, { history }) => {
-    const files = getState().file.files
+    const files = 
+      getState().noteKanban.filePreview ? getState().noteKanban.filePreview : [];
+
     const _newModifiedNote = {
-      ...modifiedNote,
-      files: [...modifiedNote.files, ...files] 
+      // ...modifiedNote,
+      // files: [...modifiedNote.files, ...files] 
     }
     // console.log("요청 보내기 전", _newModifiedNote)
     try {
@@ -286,6 +288,12 @@ const noteKanban = handleActions(
         filePreview: state.filePreview.filter((file) => file.fileUrl !== action.payload.fileUrl),
       };  
     },
+    [SET_LIST_PREVIEW]: (state, action) => {
+      return {
+        ...state,
+        filePreview: action.payload.fileList,
+      };  
+    },
   },  
   initialState,
 );
@@ -308,6 +316,7 @@ export const noteKanbanActions = {
   setPreview,
   resetPreview,
   deletePreview,
+  setListPreview,
 };
 
 export default noteKanban;
