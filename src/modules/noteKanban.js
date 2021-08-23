@@ -140,15 +140,23 @@ const __editNote =
   async (dispatch, getState, { history }) => {
     const files = 
       getState().noteKanban.filePreview ? getState().noteKanban.filePreview : [];
+    // awsFileName 제거
+    files.map(file => delete file.awsFileName); 
+    // fileId가 있는 것과 없는 것 분리
+    const oldFiles = files.filter(file => "fileId" in file);
+    const newFiles = files.filter(file => !("fileId" in file));
+    // 없는 파일은 fileId : 0 ; 추가
+    newFiles.forEach(newFile => newFile.fileId = 0);
+    const _newFileList = oldFiles.concat(newFiles)
 
     const _newModifiedNote = {
       // ...modifiedNote,
-      // files: [...modifiedNote.files, ...files] 
+      // files: _newFileList
     }
     // console.log("요청 보내기 전", _newModifiedNote)
     try {
-      const { data } = await noteApi.editNote(noteId, _newModifiedNote);
-      dispatch(setModifiedNote(data));
+      // const { data } = await noteApi.editNote(noteId, _newModifiedNote);
+      // dispatch(setModifiedNote(data));
     } catch (e) {
       console.log(e);
     }

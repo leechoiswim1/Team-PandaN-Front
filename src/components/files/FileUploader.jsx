@@ -57,13 +57,14 @@ const FileUploader = (props) => {
 
     //원본 파일명 중복을 막기 위해 aws에 저장할 무작위 파일명 설정
     function makeid() {
-        let randomKey = "";
-        let charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (let i = 0; i < 10; i++)
-        randomKey += charSet.charAt(Math.floor(Math.random() * charSet.length));        
-      	return randomKey;
+			let randomKey = "";
+			let charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			for (let i = 0; i < 10; i++) {
+				randomKey += charSet.charAt(Math.floor(Math.random() * charSet.length));
+			}
+			return randomKey;
     }
-    const awsFileName = makeid() + `.${orgFileExtension}`;
+    const awsFileName = orgFileName + makeid() + `.${orgFileExtension}`;
 
 		// S3 SDK에 내장된 업로드 함수
 		const upload = new AWS.S3.ManagedUpload({
