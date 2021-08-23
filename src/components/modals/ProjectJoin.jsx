@@ -27,7 +27,7 @@ const ProjectJoin = (props) => {
     setTimeout(() => {
       dispatch(projectActions.__setProject());
     }, 100);
-    window.alert("초대가 완료됐습니다!");
+
     setModalState(false);
     history.push("/");
   };

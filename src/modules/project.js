@@ -106,10 +106,12 @@ const __deleteProject =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await projectApi.deleteProject(projectId);
+      window.alert("프로젝트가 성공적으로 삭제됐습니다!🐼");
       dispatch(deleteProject(data.projectId));
       dispatch(__setSideProject());
     } catch (e) {
       console.log(e);
+      window.alert("프로젝트 삭제에 실패했습니다! 😭");
     }
   };
 
@@ -119,10 +121,12 @@ const __editProject =
     try {
       const { data } = await projectApi.putProject(projectId, project);
       console.log(data);
+      window.alert("프로젝트가 성공적으로 수정됐습니다!🐼");
       dispatch(editProject(data));
       dispatch(__setSideProject());
     } catch (e) {
       console.log(e);
+      window.alert("프로젝트 수정에 실패했습니다!😭");
     }
   };
 
@@ -143,8 +147,10 @@ const __joinProject =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await projectApi.postJoinProject(inviteCode);
+      window.alert("프로젝트 참여가 완료됐습니다!🐼");
     } catch (e) {
       console.log(e);
+      window.alert("초대에 실패했습니다.😭");
     }
   };
 

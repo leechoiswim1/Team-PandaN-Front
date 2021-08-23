@@ -31,7 +31,6 @@ const ProjectModalEdit = (props) => {
   const deleteProject = () => {
     if (window.confirm("정말로 프로젝트를 지우시겠습니까?😲") === true) {
       dispatch(projectActions.__deleteProject(id));
-      window.alert("프로젝트가 성공적으로 삭제됐습니다!🐼");
       history.push("/");
     } else {
       return;
@@ -47,9 +46,10 @@ const ProjectModalEdit = (props) => {
       title: ProTitle,
       detail: ProDesc,
     };
-
     dispatch(projectActions.__editProject(id, project));
-    window.alert("프로젝트가 성공적으로 수정됐습니다!🐼");
+    setTimeout(() => {
+      dispatch(projectActions.__setProject());
+    }, 100);
     setModalState(false);
   };
 
