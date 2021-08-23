@@ -247,7 +247,7 @@ const ModalFooter = styled.div`
   color: #767676;
   cursor: pointer;
   justify-content: center;
-  text-aling: center;
+  text-align: center;
   align-items: center;
   &:hover {
     background: #387e4b;
