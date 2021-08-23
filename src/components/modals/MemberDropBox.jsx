@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "./dropbox.css";
 
 /* == Library - style */
 import styled from "styled-components";

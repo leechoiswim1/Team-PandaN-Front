@@ -4,7 +4,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Modal, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { t } from "../../util/remConverter";
-import "./dropbox.css";
 
 import { useDispatch, useSelector } from "react-redux";
 
