@@ -34,7 +34,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
   // case : modalType === "editing"
   const { detail, files } = useSelector((state) => state.noteKanban?.detail);
   const { title, content, deadline } = detail ? detail : "";
-
+  const fileList = useSelector((state) => state.noteKanban?.filePreview)
   // state
   const [modalVisible, setModalVisible] = useState(false)
   // state : 노트 생성 시 
@@ -97,8 +97,13 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     if (noteInputs.step === "")     {window.alert("할 일의 상태를 설정하세요."); return;};
     if (noteInputs.deadline === "") {window.alert("마감일을 입력하세요."); return;};
     
+    // 파일 최대 첨부 개수 초과 시
+		if (fileList.length > 5 ) {
+			alert("최대 5개의 파일까지 업로드 할 수 있습니다.");
+			return;
+    }
+    
     // 상태 변경 : 입력값 서버에 전송
-    // dispatch(fileActions.__addFiles());
     dispatch(noteKanbanActions.__addNote(projectId, noteInputs));
   
     handleCloseModal(e);
@@ -109,9 +114,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     // if (!noteId) {
     //   history.push(location.pathname);
     // }
-    history.push(`/projects/${projectId}/kanban`);    
-
-    
+    history.push(`/projects/${projectId}/kanban`); 
   };
 
   // 노트 수정 시 : 제출 시 노트 수정 요청
@@ -123,10 +126,16 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     if (noteModifiedInputs.content === "")  {window.alert("할 일에 대한 설명을 추가하세요."); return;};
     if (noteModifiedInputs.deadline === "") {window.alert("마감일을 입력하세요."); return;}
 
-    // console.log("수정 노트 내용", noteModifiedInputs);
+    // 파일 최대 첨부 개수 초과 시
+		if (fileList.length > 5 ) {
+			alert("최대 5개의 파일까지 업로드 할 수 있습니다.");
+			return;
+    }
+    
     dispatch(noteKanbanActions.__editNote(noteId, noteModifiedInputs));
     handleCloseModal(e);
   };
+
 
   return (
     <>

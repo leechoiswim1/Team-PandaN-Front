@@ -123,10 +123,10 @@ const __getNoteDetail =
 const __addNote =
   (projectId, newNote) =>
   async (dispatch, getState, { history }) => {
-    const files = 
-      getState().noteKanban.filePreview ? getState().noteKanban.filePreview : [];
+    const files = getState().noteKanban.filePreview ? getState().noteKanban.filePreview : [];
+    // awsFileName 제거
+    files.map(file => delete file.awsFileName); 
     const _newNote = { ...newNote, files: files }
-
     try {
       const { data } = await noteApi.addNote(projectId, _newNote);
       dispatch(addNote(data));
