@@ -60,6 +60,8 @@ const SET_PREVIEW       = "note_file/SET_PREVIEW";
 const RESET_PREVIEW     = "note_file/RESET_PREVIEW";
 const DELETE_PREVIEW    = "note_file/DELETE_PREVIEW";
 const SET_LIST_PREVIEW  = "note_file/SET_LIST_PREVIEW";
+/* loading - for spinner */
+const LOADING           = "note_kanban/LOADING";
 
 /* == action creator */
 /* project - kanban */
@@ -81,11 +83,14 @@ const resetPreview  = createAction(RESET_PREVIEW, () => ({}));
 const deletePreview = createAction(DELETE_PREVIEW, ( fileUrl ) => ({ fileUrl }));
 const setListPreview = createAction(SET_LIST_PREVIEW, ( fileList ) => ({ fileList }));
 
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+
 /* == thunk function */
 /* kanban */
 const __getKanbanNotes =
   (projectId) =>
   async (dispatch, getState, { history }) => {
+    dispatch(loading(true));
     try {
       const { data } = await noteApi.getKanbanNotes(projectId);
       dispatch(getKanbanNotes(data.projects));
@@ -111,6 +116,7 @@ const __editKanbanStep =
 const __getNoteDetail =
   (noteId) =>
   async (dispatch, getState, { history }) => {
+    dispatch(loading(true));
     try {
       const { data } = await noteApi.getNoteDetail(noteId);
       dispatch(getNoteDetail(data));
@@ -203,18 +209,21 @@ const noteKanban = handleActions(
       return {
         ...state,
         kanban: action.payload.newState,
+        is_loading: false
       };
     },
     [GET_KANBAN_NOTES]: (state, action) => {
       return {
         ...state,
         kanban: action.payload.kanbanNotes,
+        is_loading: false
       };
     },
     [GET_NOTE_DETAIL]: (state, action) => {
       return {
         ...state,
         detail: action.payload.note,
+        is_loading: false
       };
     },
     [ADD_NOTE]: (state, action) => {
@@ -231,6 +240,7 @@ const noteKanban = handleActions(
             return step;
           }
         }),
+        is_loading: false
       };
     },
     [SET_MODIFIED_NOTE]: (state, action) => {
@@ -245,6 +255,7 @@ const noteKanban = handleActions(
           deadline: note.deadline,
           step: note.step,
         },
+        is_loading: false
       };
     },
     [DELETE_NOTE]: (state, action) => {
@@ -300,6 +311,12 @@ const noteKanban = handleActions(
       return {
         ...state,
         filePreview: action.payload.fileList,
+      };  
+    },
+    [LOADING]: (state, action) => {
+      return {
+        ...state,
+        is_loading: action.payload.is_loading
       };  
     },
   },  
