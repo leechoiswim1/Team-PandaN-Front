@@ -51,9 +51,8 @@ const ProjectHeader = ({ match }) => {
       <Right>
         <MemberDropBox projectId={projectId} />
         <ProjectInvite projectId={projectId} />
-        <ProjectInvite projectId={projectId} />
         {/* writing note modal */}
-        {/* <ModalWriting history={history} projectId={projectId} modalType="projectMenu" /> */}
+        <ModalWriting history={history} projectId={projectId} modalType="projectMenu" />
       </Right>
     </ProjectHeaderWrap>
   );

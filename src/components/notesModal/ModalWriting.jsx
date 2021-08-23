@@ -154,10 +154,14 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
       {/* 프로젝트 메뉴에서 보이는 노트 작성 위한 ' 할 일 만들기 ' 버튼 ------------ */}
       {/* ---------------------------------------------------------------- */}
       { modalType === "projectMenu" && 
-      <StyledBtn variant="primary" size="sm" onClick={handleOpenModal}>
-        <Write fill="#FFFFFF" width="14" height="14" />
-        할 일 만들기
-      </StyledBtn>
+      <>
+        <div class="dropdown">
+          <button class="dropbtn" onClick={handleOpenModal} style={{backgroundColor: "#387E4B", color: "#FFFFFF"}}>
+            <Write fill="#FFFFFF" width="14" height="14" style={{ marginRight: "4px"}}/>
+            할 일 만들기
+          </button>
+        </div>
+      </>
       }
       {/* ---------------------------------------------------------------- */}
       {/* case3. props.modalType === "editing" --------------------------- */}
