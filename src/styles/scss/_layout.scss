@@ -20,7 +20,7 @@ $sidebar-width-md: rem(85);
 $header-height: rem(80);
 
 .col-wrap {
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
 }
 .col-left,
 .col-right {
@@ -48,7 +48,6 @@ $header-height: rem(80);
   transition: padding-left 0.3s;
 }
 
-
 // == header
 // --------------------------------
 .header {
@@ -60,10 +59,10 @@ $header-height: rem(80);
       right: 0;
       bottom: 0;
       left: 0;
-      content: '';
+      content: "";
       display: block;
       height: 1px;
-      background-color: #CACACA;
+      background-color: #cacaca;
       margin-right: rem(30);
       margin-left: rem(30);
     }
@@ -99,7 +98,6 @@ $header-height: rem(80);
   background-color: #ffffff;
 }
 
-
 // == sidebar
 // --------------------------------
 .sidebar {
@@ -133,7 +131,7 @@ $header-height: rem(80);
         position: absolute;
         top: 0;
         right: rem(-30);
-        content: '';
+        content: "";
         display: block;
         width: rem(4);
         height: 100%;
@@ -152,7 +150,7 @@ $header-height: rem(80);
 
   .menu-link {
     display: block;
-    color: #9A9A9A;
+    color: #9a9a9a;
     font-size: rem(18);
     font-weight: 700;
     text-decoration: none;
@@ -166,7 +164,7 @@ $header-height: rem(80);
     }
 
     &:after {
-      content: '';
+      content: "";
       width: 2px;
       height: 100%;
       background-color: $primary;
@@ -174,7 +172,7 @@ $header-height: rem(80);
   }
 
   .menu-icon {
-    fill: #9A9A9A;
+    fill: #9a9a9a;
     width: rem(30);
     height: rem(30);
     margin-top: -3px;
@@ -188,23 +186,23 @@ $header-height: rem(80);
       border: 0;
     }
     .accordion-button {
-      color: #9A9A9A;
+      color: #9a9a9a;
       font-size: rem(18);
       font-weight: 700;
       text-decoration: none;
       padding-top: 0;
       padding-right: 0;
-      padding-bottom: rem(20);
+      padding-bottom: rem(10);
       padding-left: 0;
 
       &::after {
-        fill: #9A9A9A;
-        color: #9A9A9A;
+        fill: #9a9a9a;
+        color: #9a9a9a;
       }
 
       &:hover {
         color: $primary;
-  
+
         .menu-icon {
           fill: $primary;
         }
@@ -221,7 +219,7 @@ $header-height: rem(80);
       }
     }
     .accordion-collapse {
-      background-color: #ebf2ed;
+      background-color: #ffffff;
     }
     .accordion-body {
       ul li a {
@@ -252,7 +250,6 @@ $header-height: rem(80);
   }
 }
 
-
 // == footer
 // --------------------------------
 .footer {
@@ -260,7 +257,7 @@ $header-height: rem(80);
   text-align: center;
 
   .copyright {
-    color: #AEAEAE;
+    color: #aeaeae;
     padding-top: rem(15);
     padding-bottom: rem(40);
   }
@@ -270,7 +267,7 @@ $header-height: rem(80);
     margin: 40px auto 0;
     border-top: 1px solid #e3e3e3;
 
-    @media (min-width: 1200px){
+    @media (min-width: 1200px) {
       margin: 0 auto;
       border-top: 0;
     }
@@ -281,8 +278,7 @@ $header-height: rem(80);
   }
 }
 
-
-// == 1200px ~ 
+// == 1200px ~
 // --------------------------------
 @media (min-width: 1200px) {
   .col-left {

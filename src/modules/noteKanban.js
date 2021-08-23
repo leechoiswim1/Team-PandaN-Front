@@ -36,6 +36,7 @@ const initialState = {
     step: "",
     title: "",
     isBookmark: false,
+    files: [],
   },
 };
 
@@ -114,8 +115,13 @@ const __getNoteDetail =
 const __addNote =
   (projectId, newNote) =>
   async (dispatch, getState, { history }) => {
+    const files = getState().file.files
+    const _newNote = {
+      ...newNote,
+      files: files
+    }
     try {
-      const { data } = await noteApi.addNote(projectId, newNote);
+      const { data } = await noteApi.addNote(projectId, _newNote);
       dispatch(addNote(data));
     } catch (e) {
       console.log(e);
@@ -125,8 +131,14 @@ const __addNote =
 const __editNote =
   (noteId, modifiedNote) =>
   async (dispatch, getState, { history }) => {
+    const files = getState().file.files
+    const _newModifiedNote = {
+      ...modifiedNote,
+      files: [...modifiedNote.files, ...files] 
+    }
+    // console.log("요청 보내기 전", _newModifiedNote)
     try {
-      const { data } = await noteApi.editNote(noteId, modifiedNote);
+      const { data } = await noteApi.editNote(noteId, _newModifiedNote);
       dispatch(setModifiedNote(data));
     } catch (e) {
       console.log(e);
@@ -227,14 +239,20 @@ const noteKanban = handleActions(
     [ADD_BOOKMARK]: (state, action) => {
       return {
         ...state,
-        detail: { ...state.detail, isBookmark: true },
-      };
+        detail: { 
+          ...state.detail, 
+          detail: {...state.detail.detail, isBookmark: true},
+        },
+      }
     },
     [DELETE_BOOKMARK]: (state, action) => {
       return {
         ...state,
-        detail: { ...state.detail, isBookmark: false },
-      };
+        detail: { 
+          ...state.detail, 
+          detail: {...state.detail.detail, isBookmark: false},
+        },
+      }
     },
   },  
   initialState,

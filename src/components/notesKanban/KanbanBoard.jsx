@@ -8,11 +8,10 @@ import { t }                            from "../../util/remConverter";
 import { DragDropContext, Droppable}    from "react-beautiful-dnd";
 
 /* == Custom - Component */
-import { KanbanList, WritingNoteModal } from "..";
+import { KanbanList, ModalWriting } from "..";
 
 /* == Custom - Icon */
 import { ReactComponent as Write }      from "../../styles/images/ico-kanban-write.svg";
-import { ReactComponent as Arrow }      from "../../styles/images/ico-kanban-col-footer-arrow.svg";
 import IconSteps                        from "../../elements/IconSteps";
 
 /* == Redux - actions */
@@ -167,14 +166,7 @@ const KanbanBoard = ({ history, match }) => {
   const projects = useSelector((state) => state.noteKanban.kanban)
   const projectId = match.params.projectId;
 
-  const [modalVisible, setModalVisible] = useState(false)
-  const openModal = () => {
-    dispatch(fileActions.resetPreview());
-    setModalVisible(true)
-  }
-  const closeModal = () => {
-    setModalVisible(false)
-  }
+  // const [modalVisible, setModalVisible] = useState(false)
 
   return (
     <DragDropContext onDragEnd={(result) => onDragEnd(result, projects)}>
@@ -192,25 +184,9 @@ const KanbanBoard = ({ history, match }) => {
                         <Badge className="kanban-col-badge" type={project.step}>
                           {project.notes?.length}
                         </Badge>
-                      </div>
-                      <div style={{cursor: "pointer"}}>
-                        <Write 
-                          fill="#767676"
-                          onClick={openModal}
-                          width="20"
-                          height="20"
-                        />
-                          { modalVisible && 
-                            <WritingNoteModal
-                              projectId={projectId}
-                              visible={modalVisible}
-                              closable={true}
-                              maskClosable={true}
-                              onClose={closeModal} />
-                          }                        
-                      </div>
+                      </div>                                           
                     </div>
-                  
+                    
                   <div className="kanban-col-content"
                     ref={provided.innerRef}
                     isdraggingover={snapshot.isdraggingover}
@@ -220,15 +196,14 @@ const KanbanBoard = ({ history, match }) => {
                     {provided.placeholder}
                   </div>
                   <ColFooter className="kanban-col-footer" type={project.step} >
-                    <div onClick={openModal}>
-                      <Write 
-                        fill="#767676"
-                        type={project.step} 
-                        width="18" 
-                        height="18"
-                      />
-                      <span>할 일 만들기</span>
-                    </div>
+                    { project.step === "STORAGE" && 
+                    <ModalWriting history={history} projectId={projectId} projectStep={project.step} /> }
+                    { project.step === "TODO" && 
+                    <ModalWriting history={history} projectId={projectId} projectStep={project.step} /> }
+                    { project.step === "PROCESSING" && 
+                    <ModalWriting history={history} projectId={projectId} projectStep={project.step} /> }
+                    { project.step === "DONE" && 
+                    <ModalWriting history={history} projectId={projectId} projectStep={project.step} /> }
                   </ColFooter>                   
                   </div>
                 );
@@ -243,58 +218,59 @@ const KanbanBoard = ({ history, match }) => {
 
 const Badge = styled.div`
 ${(props) => (props.type === "STORAGE") && 
-  css`  
-    background-color: #FFCD40;
-  `}
+  css`background-color: #FFCD40;`}
 ${(props) => (props.type === "TODO") && 
-  css`  
-    background-color: #ADBE4F;
-  `}
+  css`background-color: #ADBE4F;`}
 ${(props) => (props.type === "PROCESSING") && 
-css`  
-  background-color: #9BD09C;
-`}
+  css`background-color: #9BD09C;`}
 ${(props) => (props.type === "DONE") && 
-  css`  
-    background-color: #F5DAAE;
-  `}
+  css`background-color: #F5DAAE;`}
 `
 
 const ColFooter = styled.div`
 ${(props) => (props.type === "STORAGE") && 
-  css`  
-    background-color: rgba(255, 205, 64, 0.3);
+  css`
+  background-color: rgba(255, 205, 64, 0.3);
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    background-color: rgba(255, 205, 64, 0.5);
+  }
   `}
 ${(props) => (props.type === "TODO") && 
-  css`  
-    background-color: rgba(173, 190, 79, 0.3);
+  css`
+  background-color: rgba(173, 190, 79, 0.3);
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    background-color: rgba(173, 190, 79, 0.5);
+  }
   `}
 ${(props) => (props.type === "PROCESSING") && 
-css`  
+  css`
   background-color: rgba(155, 208, 156, 0.3);
-`}
-${(props) => (props.type === "DONE") && 
-  css`  
-    background-color: rgba(245, 218, 174, 0.3);
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    background-color: rgba(155, 208, 156, 0.5);
+  }
   `}
-  /* & svg {
+${(props) => (props.type === "DONE") && 
+  css`
+  background-color: rgba(245, 218, 174, 0.3);
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    background-color: rgba(245, 218, 174, 0.5);
+  }
+  `}
+
+  & svg {
     ${(props) => (props.type === "STORAGE") && 
-      css`  
-       fill: #FFBD04;
-      `}
+      css`fill: #FFBD04;`}
     ${(props) => (props.type === "TODO") && 
-      css`  
-        fill: #ADBE4F;
-      `}
+      css`fill: #ADBE4F;`}
     ${(props) => (props.type === "PROCESSING") && 
-    css`  
-      fill: #9BD09C;
-    `}
+      css`fill: #9BD09C;`}
     ${(props) => (props.type === "DONE") && 
-      css`  
-        fill: #F5DAAE;
-      `}
-  } */
+      css`fill: #F5DAAE;`}
+  }
 `
 
 export default KanbanBoard;

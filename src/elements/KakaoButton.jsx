@@ -15,12 +15,12 @@ const KakaoButton = ({ type, onClick }) => {
 }
 
 const Button = styled.button`
-  margin: 20px 0;
-  max-width: 24rem;
-  height: 3rem;
+  margin-top: 2.75rem;
+  width: 25rem;
+  height: 3.75rem;
   padding: 0.25rem 1rem;
-  font-weight: 500;
-  font-size: 1.0rem;
+  font-weight: 700;
+  font-size: 1.2rem;
   letter-spacing: -0.03rem;
   text-align: center;  
   display: block;
@@ -31,12 +31,13 @@ const Button = styled.button`
   background: #FFEB00;
   border-radius: 5px;
   & span {
-    margin: 0 3.5rem;
+    margin: 0 5rem;
   }
 
 @media (max-width: 767px){
+  width: 17.5rem;
   & span {
-    margin: 0 1rem;
+    margin: 0 1.25rem;
   }
 }
 `
