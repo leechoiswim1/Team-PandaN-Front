@@ -12,10 +12,10 @@
 // --------------------------------
 // == note: issue board table
 // --------------------------------
-.note-issue-table{
-  width: 100%; 
+.note-issue-table {
+  width: 100%;
   border-collapse: separate;
-  border-spacing: 0 rem(12); 
+  border-spacing: 0 rem(12);
   table-layout: fixed;
   word-wrap: break-word;
 
@@ -26,34 +26,35 @@
     box-shadow: inset 0 0 0 9999px var(--#{$variable-prefix}table-accent-bg);
   }
 
-  th, td {
+  th,
+  td {
     padding: 0 rem(8);
   }
 
-  thead {    
+  thead {
     vertical-align: middle;
-    height: rem(32);  
+    height: rem(32);
     color: $custom-note-gray;
     font-size: rem(16);
     font-weight: 700;
     letter-spacing: $letter-spacing;
     background-color: $custom-light-green;
-    
+
     th {
       text-align: left;
-      &:first-child{
+      &:first-child {
         text-align: center;
         border-top-left-radius: rem(8);
         border-bottom-left-radius: rem(8);
       }
-      &:nth-child(2){
+      &:nth-child(2) {
         text-align: center;
       }
-      &:last-child{
+      &:last-child {
         border-top-right-radius: rem(8);
         border-bottom-right-radius: rem(8);
       }
-    }    
+    }
   }
 
   tbody {
@@ -61,23 +62,22 @@
     font-size: rem(16);
     font-weight: 500;
     letter-spacing: $letter-spacing;
-    background-color: #FFFFFF;
-    
+    background-color: #ffffff;
 
     td {
       vertical-align: middle;
       height: rem(48);
-      &:first-child{
+      &:first-child {
         text-align: center;
         border-top-left-radius: rem(8);
         border-bottom-left-radius: rem(8);
       }
 
-      &:nth-child(2){
+      &:nth-child(2) {
         text-align: center;
       }
       // note title
-      &:nth-child(3){
+      &:nth-child(3) {
         padding-right: rem(16);
         color: $custom-note-black;
         white-space: nowrap;
@@ -86,7 +86,7 @@
         cursor: pointer;
       }
       // project title
-      &:nth-child(4){
+      &:nth-child(4) {
         padding-right: rem(16);
         color: $primary;
         white-space: nowrap;
@@ -95,7 +95,7 @@
         cursor: pointer;
       }
 
-      &:last-child{
+      &:last-child {
         border-top-right-radius: rem(8);
         border-bottom-right-radius: rem(8);
       }
@@ -106,7 +106,7 @@
 // --------------------------------
 // == note: modal
 // --------------------------------
-.note-modal-wrapper{
+.note-modal-wrapper {
   box-sizing: border-box;
   position: relative;
   background-color: #fff;
@@ -119,14 +119,14 @@
 
   .note-modal-container {
     width: inherit;
-    padding: rem(54) rem(54) rem(32);  
+    padding: rem(54) rem(54) rem(32);
   }
 
   .note-modal-header {
-    display: flex; 
+    display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content:space-between;
+    justify-content: space-between;
     margin-bottom: rem(24);
 
     h1 {
@@ -151,40 +151,40 @@
     }
   }
 
-  @media screen and (min-width: 768px) and (max-width: 1199px)  {
+  @media screen and (min-width: 768px) and (max-width: 1199px) {
     .note-modal-container {
     }
   }
 
   @media screen and (max-width: 767px) {
-  .note-modal-container {
-    width: 100vw;
-    height: 100vh;
-    border-radius: 0;
+    .note-modal-container {
+      width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+    }
   }
 }
-}
 
-.note-modal-table{
-  width: 100%; 
+.note-modal-table {
+  width: 100%;
   display: table;
   border-collapse: collapse;
 
-  .note-modal-tr { 
+  .note-modal-tr {
     vertical-align: middle;
     display: table-row;
     height: rem(68);
   }
-  
+
   .note-modal-th {
     width: rem(100);
     padding: rem(16) 0;
     vertical-align: middle;
-    display: table-cell; 
-    border-bottom: 1px solid #EDEDED;
+    display: table-cell;
+    border-bottom: 1px solid #ededed;
     width: rem(160);
     font-weight: bold;
-    font-size: rem(16);  
+    font-size: rem(16);
     letter-spacing: -0.03em;
     color: $custom-note-gray;
 
@@ -193,12 +193,12 @@
       margin: rem(-2) rem(20) 0;
     }
   }
-  
+
   .note-modal-td {
     padding: rem(16);
     vertical-align: middle;
-    display: table-cell; 
-    border-bottom: 1px solid #EDEDED;
+    display: table-cell;
+    border-bottom: 1px solid #ededed;
   }
 
   .cell-file-upload {
@@ -211,11 +211,10 @@
 
   & .note-modal-tr:last-child .note-modal-th {
     border-bottom: 0;
-  } 
+  }
   & .note-modal-tr:last-child .note-modal-td {
     border-bottom: 0;
   }
-
 }
 
 .note-modal-footer-button {
@@ -231,11 +230,11 @@
   & h1 {
     font-weight: bold;
     font-size: rem(20);
-    color: #FFFFFF;
+    color: #ffffff;
     letter-spacing: $letter-spacing;
   }
   &:hover {
-    background-color: #3F6A44;
+    background-color: #3f6a44;
   }
 }
 
@@ -256,7 +255,7 @@
       color: $custom-note-gray;
       font-size: rem(14);
       font-weight: normal;
-      &:hover { 
+      &:hover {
         color: $primary;
         cursor: pointer;
       }
@@ -276,7 +275,7 @@
   //----------------------
   min-width: 300px;
   min-height: 600px;
-  width: 97.5%;  
+  width: 97.5%;
   //----------------------
   padding: rem(32);
   display: flex;
@@ -285,9 +284,18 @@
   border-radius: rem(20);
   box-shadow: rem(2) rem(4) rem(20) rgba(25, 25, 25, 0.1);
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e1ede4;
+    border: 5px solid #e1ede4;
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
 
   .note-detail-button {
-    margin-left: 2.25rem;
+    margin-left: 2rem;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     color: $primary;
@@ -307,8 +315,6 @@
   }
 
   .note-detail-header {
-
-
     .note-detail-header-step {
       display: flex;
       justify-content: space-between;
@@ -321,7 +327,6 @@
         color: $custom-note-gray;
       }
     }
-
 
     .note-detail-header-title {
       display: flex;
@@ -395,26 +400,26 @@
   }
 }
 
-.note-detail-table{
-  width: 100%; 
+.note-detail-table {
+  width: 100%;
   display: table;
   border-collapse: collapse;
 
-  .note-detail-tr { 
+  .note-detail-tr {
     vertical-align: middle;
     display: table-row;
     overflow: auto;
   }
-  
+
   .note-detail-th {
     width: rem(100);
     padding: rem(16) 0;
     vertical-align: middle;
-    display: table-cell; 
-    border-bottom: 1px solid #EDEDED;
+    display: table-cell;
+    border-bottom: 1px solid #ededed;
     width: rem(160);
     font-weight: bold;
-    font-size: rem(16);  
+    font-size: rem(16);
     letter-spacing: -0.03em;
     color: $custom-note-gray;
 
@@ -423,20 +428,19 @@
       margin: rem(-2) rem(20) 0;
     }
   }
-  
+
   .note-detail-td {
     padding: rem(16);
     vertical-align: middle;
-    display: table-cell; 
-    border-bottom: 1px solid #EDEDED;
+    display: table-cell;
+    border-bottom: 1px solid #ededed;
     word-break: break-all;
-    white-space: normal;    
+    white-space: normal;
     white-space: pre-wrap;
     overflow-wrap: break-word;
   }
 
   .cell-file-upload {
-    
   }
 
   .cell-align-top {
@@ -453,7 +457,7 @@
   & .note-detail-tr:first-child .note-detail-th {
     border-bottom: 0;
     span {
-      font-size: rem(14);  
+      font-size: rem(14);
       letter-spacing: -0.03em;
       color: $custom-note-gray;
     }
@@ -465,7 +469,7 @@
     justify-content: space-between;
     border-bottom: 0;
     span {
-      font-size: rem(14);  
+      font-size: rem(14);
       letter-spacing: -0.03em;
       color: $primary;
     }
@@ -473,9 +477,8 @@
 
   & .note-detail-tr:last-child .note-detail-th {
     border-bottom: 0;
-  } 
+  }
   & .note-detail-tr:last-child .note-detail-td {
     border-bottom: 0;
   }
-
 }

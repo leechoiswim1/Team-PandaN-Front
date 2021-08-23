@@ -4,7 +4,7 @@ import moment from "moment";
 import styled from "styled-components";
 import { t } from "../../util/remConverter";
 import { Form, Button } from "react-bootstrap";
-
+import "../modals/dropbox.css";
 import CommentEdit from "./CommentEdit";
 
 import { actionCreators as commentActions } from "../../modules/comment";
@@ -18,7 +18,6 @@ const CommentCard = (props) => {
   const dispatch = useDispatch();
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const [menu, setMenu] = useState(false);
   const userName = useSelector((state) => state.user.name);
 
   const deleteComment = () => {
@@ -32,7 +31,7 @@ const CommentCard = (props) => {
 
   // project에 노트 수정일 정보가 있을 경우 현재로부터 시간 차 구하기
   let hourDiff = modifiedAt && moment(modifiedAt).diff(moment(), "hours");
-  // format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm 
+  // format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm
   const updated = moment(modifiedAt).format(" YYYY. M. D hh:mm");
   // format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전'
   const recentlyUpdated = moment(modifiedAt).fromNow();
@@ -61,31 +60,30 @@ const CommentCard = (props) => {
             {/* 시간 차 23시간 이상인지 ?
               format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm : 
               format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전' */}
-            {hourDiff < -22 ? 
-              <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "20px" }}>{updated}</p> :
-              <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "20px" }}>{recentlyUpdated}</p>}
+            {hourDiff < -22 ? (
+              <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "20px" }}>{updated}</p>
+            ) : (
+              <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "20px" }}>{recentlyUpdated}</p>
+            )}
             {userName === writer ? (
-              <button onClick={() => setMenu(!menu)} style={{ float: "right" }}>
-                <IconEdit width="18px" />
-              </button>
+              <div class="dropdown_cmt">
+                <div class="dropbtn_cmt">
+                  <IconEdit width="18px" />
+                </div>
+                <div class="dropdown-content_cmt">
+                  <Edit2
+                    style={{ width: "15px", cursor: "pointer" }}
+                    onClick={() => {
+                      setIsEditMode(!isEditMode);
+                    }}
+                  />
+                  <Trash2 style={{ width: "15px", marginLeft: "10px", cursor: "pointer" }} onClick={deleteComment} />
+                </div>
+              </div>
             ) : (
               ""
             )}
           </div>
-          {menu === true ? (
-            <MenuToggle>
-              <Edit2
-                style={{ width: "15px", cursor: "pointer" }}
-                onClick={() => {
-                  setIsEditMode(!isEditMode);
-                  setMenu(false);
-                }}
-              />
-              <Trash2 style={{ width: "15px", marginLeft: "10px", cursor: "pointer" }} onClick={deleteComment} />
-            </MenuToggle>
-          ) : (
-            ""
-          )}
         </CardHeader>
         <Comment>{content}</Comment>
       </CardBody>

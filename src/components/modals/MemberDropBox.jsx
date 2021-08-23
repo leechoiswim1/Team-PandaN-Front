@@ -1,19 +1,15 @@
 import React, { useEffect } from "react";
-
-import { Dropdown, DropdownButton } from "react-bootstrap";
-
-import { ProjectInvite } from "..";
+import "./dropbox.css";
 
 /* == Library - style */
 import styled from "styled-components";
 
 import { actionCreators as projectActions } from "../../modules/project";
 import { useDispatch, useSelector } from "react-redux";
-import { history } from "../../modules/configStore";
 
-import { ReactComponent as IconProfile } from "../../styles/images/ico-profile.svg";
-import { ReactComponent as IconMemberAdd } from "../../styles/images/ico-member-add.svg";
-const MemberToggle = (props) => {
+import { ReactComponent as IconMemberAdd } from "../../styles/images/icon_AddMember2.svg";
+
+const MemberDropBox = (props) => {
   const dispatch = useDispatch();
   const projectId = props.projectId;
   const projectCrews = useSelector((state) => state.project.projectCrews);
@@ -24,64 +20,35 @@ const MemberToggle = (props) => {
   }, [dispatch, projectId]);
 
   return (
-    <div>
-      <Dropdown>
-        <Dropdown.Toggle
-          style={{
-            width: "120px",
-            height: "38px",
-            background: "#EDEDED",
-            color: "#767676",
-            border: "1px solid #EDEDED",
-            fontWeight: "500",
-            fontSize: "16px",
-            borderRadius: "10px",
-          }}
-          variant="success"
-          align="end"
-        >
-          <IconMemberAdd style={{ marginRight: "5px" }} />
-          멤버{countCrews}명
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu
-          className="dropdown-group"
-          style={{
-            width: "200px",
-            minHeight: "360px",
-            borderRadius: "10px",
-            boxShadow: "3px 3px 10px 5px rgba(0, 0, 0, 0.1)",
-            background: "#F9F9F9",
-            border: "2px solid #DEDEDE",
-          }}
-        >
-          <Dropdown.ItemText className="text-center" style={{ display: "flex", flexWrap: "nowrap", minHeight: "30px" }}>
-            <img src={user.picture} style={{ width: "40px", height: "40px", borderRadius: "20px" }} />
-            <div style={{ margin: "auto 10px", textAlign: "left" }}>
-              <p className="dropdown-name" style={{ color: "#191919", fontWeight: "400", fontSize: "16px" }}>
-                {user.name}
-              </p>
-              <p
-                className="dropdown-email"
-                style={{
-                  width: "120px",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  color: "#767676",
-                  fontWeight: "400",
-                  fontSize: "14px",
-                }}
-              >
-                {user.email}
-              </p>
-            </div>
-          </Dropdown.ItemText>
-          <Dropdown.Divider style={{ width: "89%", margin: "10px auto", border: "1px solid #E4E4E4" }} />
-
+    <div class="dropdown">
+      <button class="dropbtn">
+        <IconMemberAdd fill="#767676" class="dropbtnSvg" style={{ marginRight: "5px" }} />
+        <p>멤버{countCrews}명</p>
+      </button>
+      <div class="dropdown-content">
+        <DropdownHeader>
+          <img src={user.picture} style={{ width: "40px", height: "40px", borderRadius: "20px" }} alt={user.picture} />
+          <div style={{ margin: "auto 10px", textAlign: "left" }}>
+            <p style={{ color: "#191919", fontWeight: "400", fontSize: "16px" }}>{user.name}</p>
+            <p
+              style={{
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                color: "#767676",
+                fontWeight: "400",
+                fontSize: "14px",
+              }}
+            >
+              {user.email}
+            </p>
+          </div>
+        </DropdownHeader>
+        <hr style={{ width: "90%", margin: "5px auto", border: "1px solid #E4E4E4" }} />
+        <DropdownBody>
+          <p style={{ color: "#767676", fontWeight: "400", fontSize: "14px", margin: "10px auto" }}>멤버({countCrews})</p>
           <CrewBox>
-            <Dropdown.ItemText style={{ color: "#767676", fontWeight: "400", fontSize: "14px" }}>멤버({countCrews})</Dropdown.ItemText>
-            <Dropdown.ItemText>
+            <div>
               {countCrews > 1 ? (
                 projectCrews.map((c, idx) => {
                   return (
@@ -114,17 +81,32 @@ const MemberToggle = (props) => {
                   </div>
                 </div>
               )}
-            </Dropdown.ItemText>
+            </div>
           </CrewBox>
-        </Dropdown.Menu>
-      </Dropdown>
+        </DropdownBody>
+      </div>
     </div>
   );
 };
 
+const DropdownHeader = styled.div`
+  display: flex;
+  height: 20%;
+  width: 88%;
+  padding: 16px 0px;
+  margin: auto;
+`;
+
+const DropdownBody = styled.div`
+  height: 80%;
+  width: 88%;
+  margin: auto;
+  padding: auto;
+`;
+
 const CrewBox = styled.div`
   min-height: 100px;
-  max-height: 300px;
+  max-height: 250px;
   overflow: auto;
   margin-bottom: 20px;
   scrollbar-width: none;
@@ -138,4 +120,5 @@ const CrewBox = styled.div`
     border-bottom-right-radius: 50px;
   }
 `;
-export default MemberToggle;
+
+export default MemberDropBox;
