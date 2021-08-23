@@ -8,9 +8,9 @@ import { actionCreators as projectActions } from "../../modules/project";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../../modules/configStore";
 
-import { ProjectModalEdit, ProjectInvite, ModalWriting } from "..";
+import { ProjectModalEdit, ProjectInvite, ModalWriting, LeaveProject } from "..";
 import MemberToggle from "../modals/MemberToggle";
-import { ReactComponent as Write } from "../../styles/images/ico-kanban-write.svg";
+
 const ProjectHeader = ({ match }) => {
   const dispatch = useDispatch();
   const projectId = match.params.projectId;
@@ -21,13 +21,6 @@ const ProjectHeader = ({ match }) => {
     dispatch(projectActions.__setDetailProject(projectId));
   }, [dispatch, projectId]);
 
-  const [menuModalVisible, setMenuModalVisible] = useState(false);
-  const openModal = () => {
-    setMenuModalVisible(true);
-  };
-  const closeModal = () => {
-    setMenuModalVisible(false);
-  };
   if (!project_detail_list) {
     return <div></div>;
   }
@@ -48,7 +41,7 @@ const ProjectHeader = ({ match }) => {
             {isUpdatableAndDeletable ? (
               <ProjectModalEdit projectId={project_detail_list.projectId} title={project_detail_list.title} detail={project_detail_list.detail} />
             ) : (
-              ""
+              <LeaveProject projectId={project_detail_list.projectId} />
             )}
           </div>
         </ProjectTitleWrap>

@@ -6,9 +6,8 @@ import { t } from "../../util/remConverter";
 import { Bookmark, FileText } from "react-feather";
 import { useSelector } from "react-redux";
 import { history } from "../../modules/configStore";
-import { ProjectModal, ProjectModalEdit } from "..";
+import { ProjectModal, ProjectModalEdit, LeaveProject } from "..";
 
-import { ReactComponent as IconAdd } from "../../styles/images/Icon_AddProject.svg";
 const ProjectCardList = () => {
   const project_list = useSelector((state) => state.project.list);
 
@@ -45,7 +44,11 @@ const ProjectCardList = () => {
                   >
                     {p.title}
                   </Title>
-                  {p.isUpdatableAndDeletable ? <ProjectModalEdit main="main" projectId={p.projectId} title={p.title} detail={p.detail} /> : ""}
+                  {p.isUpdatableAndDeletable ? (
+                    <ProjectModalEdit main="main" projectId={p.projectId} title={p.title} detail={p.detail} />
+                  ) : (
+                    <LeaveProject main="main" projectId={p.projectId} />
+                  )}
                 </div>
                 <div
                   style={{ marginTop: "15px", cursor: "pointer" }}
