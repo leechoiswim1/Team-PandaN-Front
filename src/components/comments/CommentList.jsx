@@ -56,26 +56,24 @@ const CommentList = (props) => {
   );
 };
 
-const Wrapper = styled.div(
-  ...t`
-  width: 400px;
+const Wrapper = styled.div`
+  position: sticky;
+  width: 320px;
   height: 100%;
-  max-height:1600px;
-  min-height:400px;
-  
-  margin-left:10px;
+  max-height: 1600px;
+  min-height: 400px;
+  margin-left: 10px;
   display: flex;
   flex-direction: column;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 1rem;
-  box-shadow: 5px 10px 20px  rgba(25, 25, 25, 0.1);
+  box-shadow: 5px 10px 20px rgba(25, 25, 25, 0.1);
   @media (max-width: 800px) {
-    min-width:300px;
-    margin-right:25px;
+    min-width: 300px;
+    margin-right: 25px;
     // margin-top:20px;
   }
-`,
-);
+`;
 
 const CardWrap = styled.div`
   display: flex;

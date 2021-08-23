@@ -1,7 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { projectApi } from "../shared/api"; // 필요한 api 함수 불러 올 것
-import { configure } from "@testing-library/react";
 
 const SET_PROJECT = "SET_PROJECT";
 const SET_DETAIL_PROJECT = "SET_DETAIL_PROJECT";
@@ -130,6 +129,21 @@ const __editProject =
     }
   };
 
+const __leaveProject =
+  (projectId) =>
+  async (dispatch, getState, { history }) => {
+    console.log(projectId);
+    try {
+      const { data } = await projectApi.leaveProject(projectId);
+      window.alert("프로젝트를 성공적으로 탈퇴했습니다!🐼");
+      dispatch(deleteProject(data.projectId));
+      dispatch(__setSideProject());
+    } catch (e) {
+      console.log(e);
+      window.alert("프로젝트 탈퇴에 실패했습니다! 😭");
+    }
+  };
+
 const __inviteProject =
   (projectId) =>
   async (dispatch, getState, { history }) => {
@@ -225,7 +239,6 @@ export default handleActions(
 
 const actionCreators = {
   setProject,
-
   setDetailProject,
   addProject,
   deleteProject,
@@ -237,6 +250,7 @@ const actionCreators = {
   __setDetailProject,
   __postProject,
   __deleteProject,
+  __leaveProject,
   __editProject,
   __inviteProject,
   __joinProject,

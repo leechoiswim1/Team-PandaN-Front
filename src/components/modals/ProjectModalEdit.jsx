@@ -66,11 +66,7 @@ const ProjectModalEdit = (props) => {
       {props.main ? (
         <IconEdit style={{ cursor: "pointer" }} onClick={() => setModalState(true)} />
       ) : (
-        <IconProjectEdit
-          style={{ cursor: "pointer", width: "22px", height: "22px", marginTop: "7px" }}
-          className="menu-icon"
-          onClick={() => setModalState(true)}
-        />
+        <IconProjectEdit style={{ cursor: "pointer", width: "22px", height: "22px", marginTop: "7px" }} onClick={() => setModalState(true)} />
       )}
 
       <ModalPortal>
