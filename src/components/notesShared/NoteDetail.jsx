@@ -8,14 +8,14 @@ import { Bookmark, Clock, Edit2, Trash2 } from "react-feather";
 import moment from "moment";
 
 /* == Library - route */
-import { useParams }     from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 /* == Custom - Component & Element & Icon */
 import IconSteps from "../../elements/IconSteps";
 import Labels from "../../elements/Labels";
-import { ReactComponent as Write }    from "../../styles/images/ico-kanban-write.svg";
-import { ReactComponent as Add }      from "../../styles/images/ico-kanban-write.svg";
-import { ReactComponent as IconClose }    from "../../styles/images/ico-close.svg";
+import { ReactComponent as Write } from "../../styles/images/ico-kanban-write.svg";
+import { ReactComponent as Add } from "../../styles/images/ico-kanban-write.svg";
+import { ReactComponent as Close } from "../../styles/images/ico-close.svg";
 import { ReactComponent as IconWorking } from "../../styles/images/icon-status-working.svg";
 import { ReactComponent as IconTitle } from "../../styles/images/icon_title.svg";
 import { ReactComponent as IconCalendar } from "../../styles/images/icon_calender.svg";
@@ -23,9 +23,11 @@ import { ReactComponent as IconMember } from "../../styles/images/icon_member2.s
 import { ReactComponent as IconNote } from "../../styles/images/icon_note.svg";
 import { ReactComponent as IconLink }     from "../../styles/images/ico-link.svg";
 import { ReactComponent as IconFile }    from "../../styles/images/icon-status-todolist.svg";
+import { ReactComponent as IconLink } from "../../styles/images/ico-link.svg";
+import { ReactComponent as IconComment } from "../../styles/images/icon_comment.svg";
 
 /* == Custom - Component */
-import { ModalWriting } from "..";
+import { ModalWriting, CommentList } from "..";
 
 /* == Redux - actions */
 import { useDispatch, useSelector } from "react-redux";
@@ -34,10 +36,11 @@ import { noteKanbanActions } from '../../modules/noteKanban';
 import { fileActions } from '../../modules/file';
 
 // * == ( note detail ) -------------------- * //
-const NoteDetail = ({ history, ...rest }) => {
+const NoteDetail = ({ history, match, projectId, ...rest }) => {
   const dispatch = useDispatch();
   const { noteId } = useParams();
 
+  const [showCmt, setShowCmt] = useState(false);
   // state
   const note = useSelector((state) => state.noteKanban.detail?.detail);
   const files = useSelector((state) => state.noteKanban.detail?.files);
@@ -58,7 +61,7 @@ const NoteDetail = ({ history, ...rest }) => {
 
   // project에 노트 수정일 정보가 있을 경우 현재로부터 시간 차 구하기
   let hourDiff = note?.modifiedAt && moment(note.modifiedAt).diff(moment(), "hours");
-  // format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm 
+  // format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm
   const updated = moment(note?.modifiedAt).format(" YYYY. M. D hh:mm");
   // format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전'
   const recentlyUpdated = moment(note?.modifiedAt).fromNow();
@@ -92,80 +95,78 @@ const NoteDetail = ({ history, ...rest }) => {
   };
 
   return (
-    <div className="note-detail-wrapper" >
-
-      <div className="note-detail-table">
-        <div className="note-detail-tr">
-          <div className="note-detail-th cell-align-top">
-            <IconWorking width="20" height="20" fill="#767676"/>
-            <span>Project</span>    
-          </div>
-          <div className="note-detail-td cell-align-top">
-            <span>{projectTitle}</span>
-            <div>
-              {/* buttons - edit */}
-              <ModalWriting modalType="editing" />
-              {/* buttons - delete */}
-              <button type="button" onClick={deleteNote} className="note-detail-button">
-                <Trash2 />
-              </button>
-              {/* buttons - bookmark */}
-              {!isBookmark ? (
-                <button type="button" onClick={addBookmark} className="note-detail-button">
-                  <Bookmark />
+    <div style={{ display: "flex" }}>
+      <div className="note-detail-wrapper">
+        <div className="note-detail-table">
+          <div className="note-detail-tr">
+            <div className="note-detail-th cell-align-top">
+              <IconWorking width="20" height="20" fill="#767676" />
+              <span>Project</span>
+            </div>
+            <div className="note-detail-td cell-align-top">
+              <span>{projectTitle}</span>
+              <div>
+                {/* buttons - edit */}
+                <ModalWriting modalType="editing" />
+                {/* buttons - delete */}
+                <button type="button" onClick={deleteNote} className="note-detail-button">
+                  <Trash2 />
                 </button>
-              ) : (
-                <button type="button" onClick={deleteBookmark} className="note-detail-button">
-                  <Bookmark fill="#387E4B" stroke="#387E4B" />
+                {/* buttons - bookmark */}
+                {!isBookmark ? (
+                  <button type="button" onClick={addBookmark} className="note-detail-button">
+                    <Bookmark />
+                  </button>
+                ) : (
+                  <button type="button" onClick={deleteBookmark} className="note-detail-button">
+                    <Bookmark fill="#387E4B" stroke="#387E4B" />
+                  </button>
+                )}
+                {/* buttons - comment */}
+                <button type="button" onClick={() => setShowCmt(!showCmt)} className="note-detail-button">
+                  <IconComment fill="#387E4B" />
                 </button>
-              )}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="note-detail-tr">
-          <div className="note-detail-th cell-align-top">
-            <IconTitle />
-            제목
+          <div className="note-detail-tr">
+            <div className="note-detail-th cell-align-top">
+              <IconTitle />
+              제목
+            </div>
+            <div className="note-detail-td cell-text-title cell-text-bold">{note?.title}</div>
           </div>
-          <div className="note-detail-td cell-text-title cell-text-bold">
-            {note?.title}
+          <div className="note-detail-tr">
+            <div className="note-detail-th">
+              <IconMember />
+              작성자
+            </div>
+            <div className="note-detail-td">{note?.writer}</div>
           </div>
-        </div>
-        <div className="note-detail-tr">
-          <div className="note-detail-th">
-            <IconMember />
-            작성자
+          <div className="note-detail-tr">
+            <div className="note-detail-th">
+              <IconCalendar />
+              마감일
+            </div>
+            <div className="note-detail-td cell-text-bold">
+              <Tag dateDiff={dateDiff}>{deadline}</Tag>
+            </div>
+          </div>            
+          <div className="note-detail-tr">
+            <div className="note-detail-th">
+              <IconCalendar />
+              상태
+            </div>
+            <div className="note-detail-td">
+              <Labels type={note?.step}>{note?.step}</Labels>
+            </div>
           </div>
-          <div className="note-detail-td">
-            {note?.writer}
-          </div>
-        </div>
-        <div className="note-detail-tr">
-          <div className="note-detail-th">
-            <IconCalendar />
-            마감일        
-          </div>
-          <div className="note-detail-td cell-text-bold">
-            <Tag dateDiff={dateDiff}>{deadline}</Tag>
-          </div>
-        </div>   
-        <div className="note-detail-tr">
-          <div className="note-detail-th">
-            <IconCalendar />
-            상태
-          </div>
-          <div className="note-detail-td">
-            <Labels type={note?.step} >
-              {note?.step}
-            </Labels>       
-          </div>
-        </div>
-        <div className="note-detail-tr cell-file-upload">
-          <div className="note-detail-th cell-align-top">
-            <IconLink width="24" height="24" fill="#767676"/>
-            첨부파일
-          </div>
-          <div className="note-detail-td cell-align-top">
+          <div className="note-detail-tr cell-file-upload">
+            <div className="note-detail-th cell-align-top">
+              <IconLink width="24" height="24" fill="#767676" />
+              첨부파일
+            </div>
+            <div className="note-detail-td cell-align-top">
             { files.length === 0 ? 
               "첨부된 파일이 없습니다." :
               <ul>
@@ -178,22 +179,17 @@ const NoteDetail = ({ history, ...rest }) => {
               ))}
               </ul>
             }
-            
+            </div>
+          </div>
+          <div className="note-detail-tr cell-align-top">
+            <div className="note-detail-th cell-align-top">
+              <IconNote />할 일
+            </div>
+            <div className="note-detail-td">{note?.content}</div>
           </div>
         </div>
-        <div className="note-detail-tr cell-align-top">
-          <div className="note-detail-th cell-align-top">
-            <IconNote />
-            할 일
-          </div>
-          <div className="note-detail-td">        
-            {note?.content}
-          </div>
-        </div>
-      </div>
 
-
-      {/* <div className="note-detail-header" style={{ height: "5%" }}>
+        {/* <div className="note-detail-header" style={{ height: "5%" }}>
         <div className="note-detail-header-step">
           <div>
             <Tag type={note.step} style={{ padding: "0px 5px", borderRadius: "10px", color: "#fff" }}>
@@ -203,13 +199,13 @@ const NoteDetail = ({ history, ...rest }) => {
 
           <div>
             {/* buttons - edit */}
-            {/* <ModalWriting modalType="editing" /> */}
-            {/* buttons - delete */}
-            {/* <button type="button" onClick={deleteNote} className="note-detail-header-button">
+        {/* <ModalWriting modalType="editing" /> */}
+        {/* buttons - delete */}
+        {/* <button type="button" onClick={deleteNote} className="note-detail-header-button">
               <Trash2 />
             </button> */}
-            {/* buttons - bookmark  */}
-            {/* {!isBookmark ? (
+        {/* buttons - bookmark  */}
+        {/* {!isBookmark ? (
               <button type="button" onClick={addBookmark} className="note-detail-header-button">
                 <Bookmark />
               </button>
@@ -218,7 +214,7 @@ const NoteDetail = ({ history, ...rest }) => {
                 <Bookmark fill="#387E4B" stroke="#387E4B" />
               </button>
             )} */}
-          {/* </div>
+        {/* </div>
         </div>
       </div>
       <NoteHeader>
@@ -258,121 +254,14 @@ const NoteDetail = ({ history, ...rest }) => {
         <p>{createdAt}</p>
         {/* 시간 차 23시간 이상인지 ?
           format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm : 
-          format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전' */} 
+          format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전' */}
         {/* {hourDiff < -22 ? <p>{updated}</p> : <p>마지막 수정: {recentlyUpdated}</p>}        
       </NoteFooter> */}
+      </div>
+      <CommentList comment={showCmt} history={history} match={match} projectId={projectId} />
     </div>
   );
 };
-
-const InnerLine = styled.div`
-  height: 45px;
-  display: flex;
-  border-bottom: 1px solid #ededed;
-  align-items: center;
-  @media (max-width: 600px) {
-    height: 38px;
-  }
-`;
-
-const Inner = styled.div`
-  display: flex;
-  width: 100px;
-  @media (max-width: 600px) {
-    width: 80px;
-  }
-`;
-const Inner2 = styled.div`
-  display: flex;
-  width: 110px;
-  @media (max-width: 900px) {
-    display: none;
-  }
-`;
-
-const InnerTitle = styled.p`
-  font-size: 16px;
-  font-weight: 700;
-  color: #767676;
-  margin-left: 5px;
-  @media (max-width: 600px) {
-    font-size: 13px;
-  }
-`;
-const InnerTitle2 = styled.p`
-  font-size: 16px;
-  font-weight: 700;
-  color: #767676;
-  margin-left: 5px;
-
-  @media (max-width: 900px) {
-    display: none;
-  }
-`;
-const InnerDetail = styled.p`
-  font-size: 16px;
-  font-weight: 500;
-  word-break: break-all;
-
-  @media (max-width: 600px) {
-    font-size: 13px;
-  }
-`;
-const NoteContents = styled.p`
-  font-size: 16px;
-  font-weight: 500;
-  word-break: break-all;
-  white-space: normal;
-  overflow: auto;
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-  padding-right: 10px;
-  width: 100%;
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #e1ede4;
-    border: 2px solid transparent;
-    border-top-left-radius: 50px;
-    border-bottom-right-radius: 50px;
-  }
-  @media (max-width: 900px) {
-    font-size: 14px;
-  }
-  @media (max-width: 600px) {
-    font-size: 12px;
-  }
-`;
-
-const NoteHeader = styled.div`
-  height: 20%;
-  white-space: normal;
-  word-break: break-all;
-  overflow-wrap: break-word;
-  min-height:100px;
-`;
-const NoteBody = styled.div`
-  height: 70%;
-  min-height: 150px;
-  display: flex;
-  margin-top: 10px;
-`;
-
-const NoteFooter = styled.div`
-  height: 5%;
-  min-height: 30px;
-  align-items: center;
-  text-align: center;
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: #767676;
-  @media (max-width: 600px) {
-    font-size: 10px;
-    margin-top: 10px;
-  }
-`;
 
 const Tag = styled.div`
   ${(props) =>

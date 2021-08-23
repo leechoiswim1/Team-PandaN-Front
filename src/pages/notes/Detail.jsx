@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 /* == Library - style */
 import styled from "styled-components";
 
@@ -22,9 +22,6 @@ const Detail = ({ history, match, ...rest }) => {
             <NoteWrap>
               <NoteDetail history={history} match={match} projectId={projectId} />
             </NoteWrap>
-            <div>
-              <CommentList history={history} match={match} projectId={projectId} />
-            </div>
           </DetailInner>
         </div>
       </div>
@@ -42,6 +39,7 @@ const DetailInner = styled.div`
 `;
 
 const NoteWrap = styled.div`
+  display: flex;
   width: 100%;
   height: 100%;
   max-height: 1600px;

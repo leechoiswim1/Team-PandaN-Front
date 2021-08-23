@@ -1,0 +1,99 @@
+.dropbtn {
+  width: 120px;
+  height: 38px;
+  background: #ededed;
+  color: #767676;
+  border: 1px solid #ededed;
+  font-weight: 500;
+  font-size: 15.5px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin: 5px 10px;
+}
+@media all and (max-width: 400px) {
+  .dropbtn {
+    width: 80px;
+    height: 30px;
+    font-size: 11px;
+    margin: 5px;
+  }
+  .dropbtnSvg {
+    width: 15;
+    height: 15;
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  width: 200px;
+  min-height: 360px;
+  max-height: 400px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px 5px rgba(0, 0, 0, 0.1);
+  background: #f9f9f9;
+  border: 2px solid #dedede;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+  color: #ffffff;
+}
+
+.dropbtn:hover svg {
+  fill: #ffffff;
+}
+
+/* comment */
+.dropbtn_cmt {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.dropdown_cmt {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content_cmt {
+  display: none;
+  position: absolute;
+  width: 55px;
+  height: 30px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px 5px rgba(0, 0, 0, 0.1);
+  background: #f9f9f9;
+  border: 2px solid #9bd09c;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+  z-index: 1;
+  right: 0;
+  left: auto;
+}
+
+.dropdown_cmt:hover .dropdown-content_cmt {
+  display: block;
+}
+
+.dropdown_cmt:hover .dropbtn_cmt {
+  cursor: pointer;
+}
+
+.dropbtn_cmt:hover svg {
+  fill: #ffffff;
+}

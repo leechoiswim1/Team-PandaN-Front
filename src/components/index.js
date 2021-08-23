@@ -22,6 +22,7 @@ import ProjectList from "./projects/ProjectList";
 import ProjectHeader from "./projects/ProjectHeader";
 import ProjectCardList from "./projects/ProjectCardList";
 import LeaveProject from "./projects/LeaveProject";
+import MemberDropBox from "./modals/MemberDropBox";
 
 /* == Note - kanban */
 import ProjectMenu from "./notesShared/ProjectMenu";
@@ -74,6 +75,7 @@ export {
   ProjectCardList,
   EmptyProject,
   LeaveProject,
+  MemberDropBox,
   /* == Note - kanban */
   ProjectMenu,
   KanbanList,

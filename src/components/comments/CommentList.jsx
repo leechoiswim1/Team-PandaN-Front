@@ -12,6 +12,7 @@ const CommentList = (props) => {
   const dispatch = useDispatch();
   const comment_list = useSelector((state) => state.comment.list);
   const noteId = match.params.noteId;
+  const comment = props.comment;
 
   useEffect(() => {
     dispatch(commentActions.__getCommentList(noteId));
@@ -29,36 +30,38 @@ const CommentList = (props) => {
     return <div></div>;
   }
   return (
-    <Wrapper>
-      <div style={{ margin: "10px 18px" }}>
-        <p>
-          댓글{" "}
-          <span style={{ background: "#387e4b", color: "#fff", borderRadius: "10px", padding: "0 6px", fontSize: "12px" }}>
-            {comment_list.length}
-          </span>
-        </p>
-      </div>
-      <CardWrap>
-        {comment_list.map((comment, idx) => {
-          return (
-            <div key={idx}>
-              <CommentCard key={comment.id} {...comment} />
-            </div>
-          );
-        })}
-        <div ref={commentsEndRef} />
-      </CardWrap>
+    <>
+      {comment ? (
+        <Wrapper>
+          <div style={{ margin: "10px 18px" }}>
+            <p>
+              댓글{" "}
+              <span style={{ background: "#387e4b", color: "#fff", borderRadius: "10px", padding: "0 6px", fontSize: "12px" }}>
+                {comment_list.length}
+              </span>
+            </p>
+          </div>
+          <CardWrap>
+            {comment_list.map((comment) => {
+              return <CommentCard key={comment.id} {...comment} />;
+            })}
+            <div ref={commentsEndRef} />
+          </CardWrap>
 
-      <div style={{ padding: "16px 0" }}>
-        <CommentInput history={history} match={match} projectId={projectId} />
-      </div>
-    </Wrapper>
+          <div style={{ padding: "16px 0" }}>
+            <CommentInput history={history} match={match} projectId={projectId} />
+          </div>
+        </Wrapper>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 
 const Wrapper = styled.div`
   position: sticky;
-  width: 320px;
+  width: 400px;
   height: 100%;
   max-height: 1600px;
   min-height: 400px;

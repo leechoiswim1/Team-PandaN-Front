@@ -4,13 +4,13 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Modal, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { t } from "../../util/remConverter";
+import "./dropbox.css";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import { actionCreators as projectActions } from "../../modules/project";
-import { ReactComponent as IconMemberAdd } from "../../styles/images/ico-member-add.svg";
+import { ReactComponent as IconMemberAdd } from "../../styles/images/icon_AddOneMember.svg";
 import { ReactComponent as IconCopyCode } from "../../styles/images/icon-content-copy.svg";
-
 import { ReactComponent as CloseModal } from "../../styles/images/Icon_ModalClose.svg";
 
 const ProjectInvite = (props) => {
@@ -27,22 +27,11 @@ const ProjectInvite = (props) => {
 
   return (
     <>
-      <div onClick={() => setModalState(true)} style={{ display: "flex", margin: "0 10px" }}>
-        <Button
-          style={{
-            width: "120px",
-            height: "38px",
-            background: "#EDEDED",
-            color: "#767676",
-            border: "1px solid #EDEDED",
-            fontWeight: "500",
-            fontSize: "15.5px",
-            borderRadius: "10px",
-          }}
-        >
-          <IconMemberAdd style={{ marginRight: "5px" }} />
-          멤버초대
-        </Button>
+      <div class="dropdown" onClick={() => setModalState(true)}>
+        <button class="dropbtn">
+          <IconMemberAdd class="dropbtnSvg" fill="#767676" style={{ marginRight: "5px", width: "24", height: "24" }} />
+          <p>멤버 초대</p>
+        </button>
       </div>
 
       <ModalPortal>
@@ -228,7 +217,7 @@ const ModalFooter = styled.div`
   color: #767676;
   cursor: pointer;
   justify-content: center;
-  text-aling: center;
+  text-align: center;
   align-items: center;
   &:hover {
     background: #387e4b;

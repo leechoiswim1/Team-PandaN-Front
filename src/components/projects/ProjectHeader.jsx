@@ -8,8 +8,7 @@ import { actionCreators as projectActions } from "../../modules/project";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../../modules/configStore";
 
-import { ProjectModalEdit, ProjectInvite, ModalWriting, LeaveProject } from "..";
-import MemberToggle from "../modals/MemberToggle";
+import { ProjectModalEdit, ProjectInvite, ModalWriting, LeaveProject, MemberDropBox } from "..";
 
 const ProjectHeader = ({ match }) => {
   const dispatch = useDispatch();
@@ -45,20 +44,23 @@ const ProjectHeader = ({ match }) => {
             )}
           </div>
         </ProjectTitleWrap>
-        <ProjectHeaderDetail>{project_detail_list.detail}</ProjectHeaderDetail>
+        <ProjectDetailWrap>
+          <ProjectHeaderDetail>{project_detail_list.detail}</ProjectHeaderDetail>
+        </ProjectDetailWrap>
       </Left>
       <Right>
-        <MemberToggle projectId={projectId} />
+        <MemberDropBox projectId={projectId} />
+        <ProjectInvite projectId={projectId} />
         <ProjectInvite projectId={projectId} />
         {/* writing note modal */}
-        <ModalWriting history={history} projectId={projectId} modalType="projectMenu" />
+        {/* <ModalWriting history={history} projectId={projectId} modalType="projectMenu" /> */}
       </Right>
     </ProjectHeaderWrap>
   );
 };
 
 const ProjectHeaderWrap = styled.div`
-  padding: 10px 50px;
+  padding: 10px 30px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -66,6 +68,7 @@ const ProjectHeaderWrap = styled.div`
   @media (max-width: 600px) {
     flex-direction: column;
     margin: auto;
+    padding: 10px 20px;
   }
 `;
 
@@ -75,12 +78,19 @@ const Left = styled.div`
 
 const Right = styled.div`
   display: flex;
+  @media (max-width: 900px) {
+    width:100%
+    margin: auto;
+    float:right;
+    margin-left: auto;
+  }
 `;
 const ProjectTitleWrap = styled.div`
   display: flex;
   @media (max-width: 900px) {
     justify-content: space-between;
-    width: 80%;
+    width: 100%;
+    margin: auto;
   }
 `;
 const ProjectHeaderTitle = styled.p`
@@ -93,14 +103,19 @@ const ProjectHeaderTitle = styled.p`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 70%;
   }
   @media (max-width: 600px) {
     font-size: 18px;
-    width: 80%;
   }
 `;
-
+const ProjectDetailWrap = styled.div`
+  display: flex;
+  @media (max-width: 900px) {
+    justify-content: space-between;
+    width: 100%;
+    margin: auto;
+  }
+`;
 const ProjectHeaderDetail = styled.p`
   font-weight: 400;
   color: #191919;
@@ -111,10 +126,8 @@ const ProjectHeaderDetail = styled.p`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 80%;
   }
   @media (max-width: 600px) {
-    width: 250px;
     font-size: 12px;
     white-space: nowrap;
     overflow: hidden;

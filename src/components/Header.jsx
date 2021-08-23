@@ -56,7 +56,7 @@ const Header = (props) => {
   };
 
   const userImage = user.picture == "http://52.78.204.238/image/profileDefaultImg.jpg" ? <IconProfile /> : user.picture;
-  
+
   return (
     <header className="header" id="header">
       <Container fluid>
@@ -100,7 +100,7 @@ const Header = (props) => {
                   <p className="dropdown-name">{user.name}</p>
                   <p className="dropdown-email">{user.email}</p>
                 </Dropdown.ItemText>
-                <Dropdown.Divider style={{ height: "0" }} />
+                <DropdownDivider />
                 <Dropdown.ItemText>
                   {/* == 로그아웃 */}
                   <Button variant="primary" size="sm" className="d-block w-100" onClick={logout}>
@@ -115,5 +115,14 @@ const Header = (props) => {
     </header>
   );
 };
+
+const DropdownDivider = styled.hr`
+  width: 90%;
+  height: 1px;
+  background: #EDEDED;
+  @media (max-width: 400px) {
+    width: 100%;
+  }
+`;
 
 export default Header;
