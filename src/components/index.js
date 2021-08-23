@@ -21,6 +21,7 @@ import EmptyProject from "./projects/EmptyProject";
 import ProjectList from "./projects/ProjectList";
 import ProjectHeader from "./projects/ProjectHeader";
 import ProjectCardList from "./projects/ProjectCardList";
+import LeaveProject from "./projects/LeaveProject";
 
 /* == Note - kanban */
 import ProjectMenu from "./notesShared/ProjectMenu";
@@ -65,13 +66,14 @@ export {
   Modals,
   ProjectModal,
   ProjectModalEdit,
+  ProjectInvite,
+  ProjectJoin,
   /* == Project */
   ProjectList,
   ProjectHeader,
   ProjectCardList,
   EmptyProject,
-  ProjectInvite,
-  ProjectJoin,
+  LeaveProject,
   /* == Note - kanban */
   ProjectMenu,
   KanbanList,

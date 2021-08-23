@@ -20,6 +20,7 @@ export const projectApi = {
   getSideProejct: () => instance.get("/api/projects/sidebar"),
   postProject: (project) => instance.post("/api/projects", project),
   deleteProject: (projectId) => instance.delete(`/api/projects/${projectId}`),
+  leaveProject: (projectId) => instance.put(`/api/projects/leave/${projectId}`),
   putProject: (projectId, project) => instance.put(`/api/projects/${projectId}`, project),
   getinviteProject: (projectId) => instance.get(`/api/projects/${projectId}/invites`),
   postJoinProject: (inviteCode) => instance.post("/api/projects/invites", inviteCode),
