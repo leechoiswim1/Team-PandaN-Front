@@ -21,7 +21,9 @@ const Login = ({ history }) => {
         <p style={{fontSize: "80px"}}>🐼</p>
         <h3>세상에서 제일 쉬운 협업툴</h3>
         <h3><b>PandaN</b>을 만나보세요!</h3>
+        {/* 로컬 테스트 */}
         <KakaoButton type="button" onClick={()=> { window.location.href = dev_oauthURL }}/>
+        {/* 배포 */}
         {/* <KakaoButton type="button" onClick={()=> { window.location.href = oauthURL }}/> */}
       </Container>
     </Wrapper>
@@ -34,7 +36,7 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.1);
 `;
 
 const Container = styled.div`

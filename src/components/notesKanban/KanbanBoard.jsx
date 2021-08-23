@@ -18,6 +18,7 @@ import IconSteps                        from "../../elements/IconSteps";
 /* == Redux - actions */
 import { useSelector, useDispatch }     from "react-redux";
 import { noteKanbanActions }            from "../../modules/noteKanban";
+import { fileActions }                  from "../../modules/file";
 
 // * == ( kanban / Board ) -------------------- * //
 const KanbanBoard = ({ history, match }) => {
@@ -168,6 +169,7 @@ const KanbanBoard = ({ history, match }) => {
 
   const [modalVisible, setModalVisible] = useState(false)
   const openModal = () => {
+    dispatch(fileActions.resetPreview());
     setModalVisible(true)
   }
   const closeModal = () => {
