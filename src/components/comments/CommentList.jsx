@@ -39,8 +39,12 @@ const CommentList = (props) => {
         </p>
       </div>
       <CardWrap>
-        {comment_list.map((comment) => {
-          return <CommentCard key={comment.id} {...comment} />;
+        {comment_list.map((comment, idx) => {
+          return (
+            <div key={idx}>
+              <CommentCard key={comment.id} {...comment} />
+            </div>
+          );
         })}
         <div ref={commentsEndRef} />
       </CardWrap>
