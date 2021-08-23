@@ -403,9 +403,9 @@ ${(props) =>
   color: ${(props) => (props.dateDiff <= -1 ? "#B00033" : "#000")};
   font-size: 16px;
 
-  @media (max-width: 600px) {
+  /* @media (max-width: 600px) {
     font-size: 12px;
-  }
+  } */
 `;
 
 export default NoteDetail;

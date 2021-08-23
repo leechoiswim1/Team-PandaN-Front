@@ -203,7 +203,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                   </div>
                   <div className="note-modal-td">
                       <Form.Control
-                        className="w-75"
+                        className="note-modal-form-width"
                         type="text" 
                         placeholder="제목을 입력해 주세요. 최대 255자까지 입력 가능합니다." 
                         maxLength={255}
@@ -224,7 +224,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                   </div>
                   <div className="note-modal-td">
                   <Form.Control 
-                    className="w-75"
+                    className="note-modal-form-width"
                     type="date" 
                     placeholder=""
                     defaultValue={ modalType === "editing" ? detail?.deadline : "" }
@@ -249,7 +249,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                   </div>
                   <div className="note-modal-td">
                     <Form.Select 
-                      className="w-75"
+                      className="note-modal-form-width"
                       placeholder=""
                       defaultValue={projectStep}
                       onChange={(e)=> {setNoteInputs({...noteInputs, step: e.target.value})}}

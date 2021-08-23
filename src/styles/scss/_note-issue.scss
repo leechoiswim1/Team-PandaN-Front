@@ -13,7 +13,8 @@
 // == note: issue board table
 // --------------------------------
 .note-issue-table{
-  width: 100%; 
+  width: 100%;
+  min-width: rem(600);
   border-collapse: separate;
   border-spacing: 0 rem(12); 
   table-layout: fixed;
@@ -157,12 +158,12 @@
   }
 
   @media screen and (max-width: 767px) {
-  .note-modal-container {
-    width: 100vw;
-    height: 100vh;
-    border-radius: 0;
+    .note-modal-container {
+      width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+    }
   }
-}
 }
 
 .note-modal-table{
@@ -199,6 +200,10 @@
     vertical-align: middle;
     display: table-cell; 
     border-bottom: 1px solid #EDEDED;
+
+    .note-modal-form-width {
+      width: 75%;
+    }
   }
 
   .cell-file-upload {
@@ -216,6 +221,12 @@
     border-bottom: 0;
   }
 
+  @media screen and (max-width: 767px) {
+    .note-modal-form-width.form-control,
+    .note-modal-form-width.form-select {
+      width: 100%
+    }
+  }
 }
 
 .note-modal-footer-button {
@@ -277,8 +288,8 @@
 
 .note-detail-wrapper {
   //----------------------
-  min-width: 300px;
-  min-height: 600px;
+  min-width: rem(600);
+  min-height: rem(600);
   width: 97.5%;  
   //----------------------
   padding: rem(32);

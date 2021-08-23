@@ -94,8 +94,8 @@ const FileUploader = (props) => {
 
 	return (
 		<>
-			<Form.Group controlId="formFile" className="mb-3">
-				<Form.Control className="w-75" type="file" onChange = {handleUploadFile} />
+			<Form.Group controlId="formFile">
+				<Form.Control className="note-modal-form-width" type="file" onChange = {handleUploadFile} />
   		</Form.Group>
 			<div className="note-file-uploader">
 				<p>각 항목 당 5MB, 최대 5개의 파일을 업로드 할 수 있습니다.</p>				
