@@ -180,7 +180,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
       { modalVisible && 
         <ModalWrapper
           visible={true} 
-          maskClosable={true}          
+          maskClosable={false}          
           onClose={handleCloseModal} 
           projectStep={projectStep} 
         >
