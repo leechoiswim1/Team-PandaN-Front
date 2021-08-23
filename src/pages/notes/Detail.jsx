@@ -1,14 +1,15 @@
-import React from "react";
+import { React, useState } from "react";
 /* == Library - style */
 import styled from "styled-components";
 import { t } from "../../util/remConverter";
 
 /* == Custom - Component */
-import { Template, ProjectHeader, ProjectMenu, NoteDetail, CommentList } from "../../components";
+import { Template, ProjectHeader, ProjectMenu, NoteDetail } from "../../components";
 
 // * == ( note - Detail ) -------------------- * //
 const Detail = ({ history, match, ...rest }) => {
   const projectId = match.params.projectId;
+
   return (
     <Template>
       <div className="content" id="content">
@@ -19,9 +20,6 @@ const Detail = ({ history, match, ...rest }) => {
             <NoteWrap>
               <NoteDetail history={history} match={match} projectId={projectId} />
             </NoteWrap>
-            <div>
-              <CommentList history={history} match={match} projectId={projectId} />
-            </div>
           </DetailInner>
         </div>
       </div>
@@ -39,6 +37,7 @@ const DetailInner = styled.div`
 `;
 
 const NoteWrap = styled.div`
+  display: flex;
   width: 100%;
   height: 100%;
   max-height: 1600px;
