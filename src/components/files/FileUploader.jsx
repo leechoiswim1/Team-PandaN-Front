@@ -11,7 +11,7 @@ import { FilePreviewer } 							from "..";
 import { useSelector, useDispatch }   from "react-redux";
 import { fileActions } 								from "../../modules/file";
 
-// * == ( Notemodal - File Upload ) -------------------- * //
+// * == ( Note - modal - File Uploader ) -------------------- * //
 const FileUploader = (props) => {
 	const dispatch = useDispatch();
 
@@ -23,6 +23,8 @@ const FileUploader = (props) => {
 	});
 
 	const fileList = useSelector((state) => state.file.files);
+	const editingFileList = props.files;
+	const newEditingFileList = editingFileList.concat(fileList)
 
 	const handleUploadFile = (e) => {
 		// input 태그를 통해 선택한 파일 객체	
@@ -30,7 +32,7 @@ const FileUploader = (props) => {
 		
 		// 파일 선택 취소 시
 		if (!file) {
-			alert("파일이 없습니다.");
+			alert("선택한 파일이 없습니다.");
 			return;
 		}
 		// 파일 용량 초과 시
@@ -71,10 +73,12 @@ const FileUploader = (props) => {
 		
 		const uploadFile = upload.promise()
 			
-		uploadFile.then(
+		uploadFile
+		.then(alert("파일을 업로드 목록에 추가합니다."))
+		.then(
 			function (data) {
-				alert("파일을 업로드 목록에 추가합니다.");
 				const { Location } = data;
+				alert("파일 업로드가 완료되었습니다.");
 				dispatch(fileActions.setPreview(file.name, newFileName, Location))
 			},
 			function (e) {
@@ -86,21 +90,20 @@ const FileUploader = (props) => {
 	return (
 		<>
 			<Form.Group controlId="formFile" className="mb-3">
-				<Form.Label className="note-modal-label">첨부 파일(선택)</Form.Label>
-				<Form.Control type="file" onChange = {handleUploadFile} />
+				<Form.Control className="w-75" type="file" onChange = {handleUploadFile} />
   		</Form.Group>
-			<Form.Text className="text-muted">
+			<div className="note-file-uploader">
+				<p>각 항목 당 5MB, 최대 5개의 파일을 업로드 할 수 있습니다.</p>				
 				<ul>					
-					<li>각 항목 당 5MB, 최대 5개의 파일을 업로드 할 수 있습니다.</li>
-					{fileList.map((file, index) => {
-						return (
-							<li key={index}>
-								<FilePreviewer file={file} />
-							</li>
-						)
+					{ editingFileList ? 
+					newEditingFileList.map((file, index) => {
+						return ( <li key={index}><FilePreviewer index={index} file={file} /></li>)
+					}) :
+					fileList.map((file, index) => {
+						return ( <li key={index}><FilePreviewer index={index} file={file} /></li>)
 					})}
 				</ul>
-			</Form.Text>
+			</div>
 		</>
 	);
 }

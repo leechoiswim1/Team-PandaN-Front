@@ -12,7 +12,6 @@ import Paging from "./Paging";
 /* Modal */
 import Modals from "./modals/Modals";
 import ProjectModal from "./modals/ProjectModal";
-import NoteModal from "./modals/NoteModal";
 import ProjectModalEdit from "./modals/ProjectModalEdit";
 import ProjectInvite from "./modals/ProjectInvite";
 import ProjectJoin from "./modals/ProjectJoin";
@@ -28,19 +27,23 @@ import ProjectMenu from "./notesShared/ProjectMenu";
 import KanbanCard from "./notesKanban/KanbanCard";
 import KanbanList from "./notesKanban/KanbanList";
 import KanbanBoard from "./notesKanban/KanbanBoard";
-import WritingNoteModal from "./notesShared/WritingNoteModal";
-import EditingNoteModal from "./notesShared/EditingNoteModal";
+
+/* == Note - modal */
+import ModalWrapper from "./notesModal/ModalWrapper";
+import ModalWriting from "./notesModal/ModalWriting";
+
 /* == Note - file control */
 import FileUploader from "./files/FileUploader";
 import FilePreviewer from "./files/FilePreviewer";
+
 /* == Note - issue list; card */
 import IssueCard from "./notesIssue/IssueCard";
 import IssueList from "./notesIssue/IssueList";
 import EmptyBoard from "./notesIssue/EmptyBoard";
-import InfiniteScroll from "./notesShared/InfiniteScroll";
 
 /* == Note - detail */
 import NoteDetail from "./notesShared/NoteDetail";
+
 /* == Note - detail - Comment */
 import CommentCard from "./comments/CommentCard";
 import CommentList from "./comments/CommentList";
@@ -59,7 +62,6 @@ export {
   Spinner,
   Paging,
   /* == Modal */
-  NoteModal,
   Modals,
   ProjectModal,
   ProjectModalEdit,
@@ -75,8 +77,10 @@ export {
   KanbanList,
   KanbanCard,
   KanbanBoard,
-  WritingNoteModal,
-  EditingNoteModal,
+  /* == Note - modals */
+  ModalWrapper,
+  ModalWriting,
+  /* == Note - file control */
   FileUploader,
   FilePreviewer,
   /* == Note - list */

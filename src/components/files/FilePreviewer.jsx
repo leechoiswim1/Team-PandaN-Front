@@ -9,7 +9,7 @@ import { aws_region, aws_poolId } 		from "../../shared/oauthenv";
 import { useSelector, useDispatch }   from "react-redux";
 import { fileActions } 								from "../../modules/file";
 
-// * == ( Notemodal - File Previewer ) -------------------- * //
+// * == ( Note - modal - File Previewer ) -------------------- * //
 const FilePreviewer = ({ file, ...rest}) => {
 	const dispatch = useDispatch();
 
@@ -58,8 +58,8 @@ const FilePreviewer = ({ file, ...rest}) => {
 
 	return (		
 		<>
-			- {file.fileName}
-			<span onClick={handleDeleteFile}>x</span>
+			{rest.index + 1}. {file.fileName}
+			<span className="note-file-remover" onClick={handleDeleteFile}> [삭제]</span>
 		</>
 	);
 }

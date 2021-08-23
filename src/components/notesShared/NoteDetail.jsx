@@ -7,14 +7,24 @@ import { Bookmark, Clock, Edit2, Trash2 } from "react-feather";
 /* == Library - date */
 import moment from "moment";
 
-/* == Custom - Icon */
+/* == Library - route */
+import { useParams }     from "react-router-dom";
+
+/* == Custom - Component & Element & Icon */
 import IconSteps from "../../elements/IconSteps";
+import Labels from "../../elements/Labels";
+import { ReactComponent as Write }    from "../../styles/images/ico-kanban-write.svg";
+import { ReactComponent as Add }      from "../../styles/images/ico-kanban-write.svg";
+import { ReactComponent as Close }    from "../../styles/images/ico-close.svg";
+import { ReactComponent as IconWorking } from "../../styles/images/icon-status-working.svg";
 import { ReactComponent as IconTitle } from "../../styles/images/icon_title.svg";
 import { ReactComponent as IconCalendar } from "../../styles/images/icon_calender.svg";
 import { ReactComponent as IconMember } from "../../styles/images/icon_member2.svg";
 import { ReactComponent as IconNote } from "../../styles/images/icon_note.svg";
+import { ReactComponent as IconLink }     from "../../styles/images/ico-link.svg";
+
 /* == Custom - Component */
-import { EditingNoteModal } from "..";
+import { ModalWriting } from "..";
 
 /* == Redux - actions */
 import { useDispatch, useSelector } from "react-redux";
@@ -22,39 +32,35 @@ import { noteActions } from '../../modules/note';
 import { noteKanbanActions } from '../../modules/noteKanban';
 
 // * == ( note detail ) -------------------- * //
-const NoteDetail = ({ history, match, ...rest }) => {
+const NoteDetail = ({ history, ...rest }) => {
   const dispatch = useDispatch();
-  const noteId = match.params.noteId;
-  const note = useSelector((state) => state.noteKanban.detail);
-  const isBookmark = note.isBookmark;
+  const { noteId } = useParams();
+
+  // state
+  const note = useSelector((state) => state.noteKanban.detail?.detail);
+  const files = useSelector((state) => state.noteKanban.detail?.files);
+
+  const project = useSelector((state) => state.project.detailList[0]);
+  const projectTitle = project?.title;
+
+  const isBookmark = note?.isBookmark;
   useEffect(() => {
     dispatch(noteKanbanActions.__getNoteDetail(noteId));
   }, [noteId]);
 
-  const deadline = note.deadline ? moment(note.deadline).format("YYYY. M. D") : "";
-  const createdAt = moment(note.createdAt).format("작성: YYYY. M. D");
-  const modifiedAt = moment(note.modifiedAt).format("수정: YYYY. M. D");
+  const deadline = note?.deadline ? moment(note.deadline).format("YYYY. M. D") : "";
+  const createdAt = moment(note?.createdAt).format("작성: YYYY. M. D");
+  const modifiedAt = moment(note?.modifiedAt).format("수정: YYYY. M. D");
 
-  let dateDiff = note.deadline ? moment(note.deadline).diff(moment(), "days") : "";
+  let dateDiff = note?.deadline ? moment(note.deadline).diff(moment(), "days") : "";
 
   // project에 노트 수정일 정보가 있을 경우 현재로부터 시간 차 구하기
-  let hourDiff = note.modifiedAt && moment(note.modifiedAt).diff(moment(), "hours");
+  let hourDiff = note?.modifiedAt && moment(note.modifiedAt).diff(moment(), "hours");
   // format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm 
-  const updated = moment(note.modifiedAt).format(" YYYY. M. D hh:mm");
+  const updated = moment(note?.modifiedAt).format(" YYYY. M. D hh:mm");
   // format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전'
-  const recentlyUpdated = moment(note.modifiedAt).fromNow();
+  const recentlyUpdated = moment(note?.modifiedAt).fromNow();
 
-  /*
-   * Function - Modal
-   * modalVisible : project menu > 노트 작성 모달의 state와 구분
-   */
-  const [modalVisible, setModalVisible] = useState(false);
-  const openModal = () => {
-    setModalVisible(true);
-  };
-  const closeModal = () => {
-    setModalVisible(false);
-  };
   /*
    * Function - delete note
    */
@@ -84,8 +90,103 @@ const NoteDetail = ({ history, match, ...rest }) => {
   };
 
   return (
-    <div className="note-detail-wrapper" style={{ height: "100%", minHeight: "400px", minWidth: "300px" }}>
-      <div className="note-detail-header" style={{ height: "5%" }}>
+    <div className="note-detail-wrapper" >
+
+      <div className="note-detail-table">
+        <div className="note-detail-tr">
+          <div className="note-detail-th cell-align-top">
+            <IconWorking width="20" height="20" fill="#767676"/>
+            <span>Project</span>    
+          </div>
+          <div className="note-detail-td cell-align-top">
+            <span>{projectTitle}</span>
+            <div>
+              {/* buttons - edit */}
+              <ModalWriting modalType="editing" />
+              {/* buttons - delete */}
+              <button type="button" onClick={deleteNote} className="note-detail-button">
+                <Trash2 />
+              </button>
+              {/* buttons - bookmark */}
+              {!isBookmark ? (
+                <button type="button" onClick={addBookmark} className="note-detail-button">
+                  <Bookmark />
+                </button>
+              ) : (
+                <button type="button" onClick={deleteBookmark} className="note-detail-button">
+                  <Bookmark fill="#387E4B" stroke="#387E4B" />
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="note-detail-tr">
+          <div className="note-detail-th cell-align-top">
+            <IconTitle />
+            제목
+          </div>
+          <div className="note-detail-td cell-text-title cell-text-bold">
+            {note?.title}
+          </div>
+        </div>
+        <div className="note-detail-tr">
+          <div className="note-detail-th">
+            <IconMember />
+            작성자
+          </div>
+          <div className="note-detail-td">
+            {note?.writer}
+          </div>
+        </div>
+        <div className="note-detail-tr">
+          <div className="note-detail-th">
+            <IconCalendar />
+            마감일        
+          </div>
+          <div className="note-detail-td cell-text-bold">
+            <Tag dateDiff={dateDiff}>{deadline}</Tag>
+          </div>
+        </div>   
+        <div className="note-detail-tr">
+          <div className="note-detail-th">
+            <IconCalendar />
+            상태
+          </div>
+          <div className="note-detail-td">
+            <Labels type={note?.step} >
+              {note?.step}
+            </Labels>       
+          </div>
+        </div>
+        <div className="note-detail-tr cell-file-upload">
+          <div className="note-detail-th cell-align-top">
+            <IconLink width="24" height="24" fill="#767676"/>
+            첨부파일
+          </div>
+          <div className="note-detail-td cell-align-top">
+            <ul>
+            {files.map((file, index) => (
+              <li key={index}>
+                {index + 1}. 
+                <a href={file.fileUrl}>{file.fileName}</a>
+              </li>
+            ))}
+            </ul>
+          </div>
+        </div>
+        <div className="note-detail-tr cell-align-top">
+          <div className="note-detail-th cell-align-top">
+            <IconNote />
+            할 일
+          </div>
+          <div className="note-detail-td">        
+            {note?.content}
+          </div>
+        </div>
+      </div>
+
+
+      {/* <div className="note-detail-header" style={{ height: "5%" }}>
         <div className="note-detail-header-step">
           <div>
             <Tag type={note.step} style={{ padding: "0px 5px", borderRadius: "10px", color: "#fff" }}>
@@ -95,18 +196,13 @@ const NoteDetail = ({ history, match, ...rest }) => {
 
           <div>
             {/* buttons - edit */}
-            <button type="button" onClick={openModal} className="note-detail-header-button">
-              <Edit2 />
-            </button>
-            {modalVisible && (
-              <EditingNoteModal note={note} noteId={noteId} visible={modalVisible} closable={true} maskClosable={true} onClose={closeModal} />
-            )}
+            {/* <ModalWriting modalType="editing" /> */}
             {/* buttons - delete */}
-            <button type="button" onClick={deleteNote} className="note-detail-header-button">
+            {/* <button type="button" onClick={deleteNote} className="note-detail-header-button">
               <Trash2 />
-            </button>
-            {/* buttons - bookmark */}
-            {!isBookmark ? (
+            </button> */}
+            {/* buttons - bookmark  */}
+            {/* {!isBookmark ? (
               <button type="button" onClick={addBookmark} className="note-detail-header-button">
                 <Bookmark />
               </button>
@@ -114,8 +210,8 @@ const NoteDetail = ({ history, match, ...rest }) => {
               <button type="button" onClick={deleteBookmark} className="note-detail-header-button">
                 <Bookmark fill="#387E4B" stroke="#387E4B" />
               </button>
-            )}
-          </div>
+            )} */}
+          {/* </div>
         </div>
       </div>
       <NoteHeader>
@@ -155,9 +251,9 @@ const NoteDetail = ({ history, match, ...rest }) => {
         <p>{createdAt}</p>
         {/* 시간 차 23시간 이상인지 ?
           format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm : 
-          format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전' */}
-        {hourDiff < -22 ? <p>{updated}</p> : <p>마지막 수정: {recentlyUpdated}</p>}        
-      </NoteFooter>
+          format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전' */} 
+        {/* {hourDiff < -22 ? <p>{updated}</p> : <p>마지막 수정: {recentlyUpdated}</p>}        
+      </NoteFooter> */}
     </div>
   );
 };
@@ -243,8 +339,11 @@ const NoteContents = styled.p`
 `;
 
 const NoteHeader = styled.div`
-height: 20%;
-min-height:100px;
+  height: 20%;
+  white-space: normal;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  min-height:100px;
 `;
 const NoteBody = styled.div`
   height: 70%;
@@ -255,7 +354,7 @@ const NoteBody = styled.div`
 
 const NoteFooter = styled.div`
   height: 5%;
-  min-hight: 30px;
+  min-height: 30px;
   align-items: center;
   text-align: center;
   display: flex;

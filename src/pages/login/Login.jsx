@@ -5,6 +5,7 @@ import styled                     from "styled-components";
 import KakaoButton                from "../../elements/KakaoButton";
 /* == Custom - Icon */
 import { ReactComponent as Logo } from "../../styles/images/logo.svg";
+import { ReactComponent as Panda }from "../../styles/images/img-panda-login.svg";
 /* == Custom - shared > OAuth setting */
 import { dev_oauthURL, oauthURL } from "../../shared/oauthenv";
 /* == Redux - actions */
@@ -17,10 +18,11 @@ const Login = ({ history }) => {
   return (
     <Wrapper>
       <Container>
-        <Logo />
-        <p style={{fontSize: "80px"}}>🐼</p>
-        <h3>세상에서 제일 쉬운 협업툴</h3>
-        <h3><b>PandaN</b>을 만나보세요!</h3>
+        <Logo style={{marginBottom: "2.75rem"}}/>
+        <Panda style={{marginBottom: "2rem"}}/>
+        <h3>안 그래도 복잡한데,</h3>
+        <h3>일까지 복잡할 필요는 없잖아요</h3>
+        <h1>협업의 시작, <span>PandaN</span>에서 판단!</h1>
         {/* 로컬 테스트 */}
         <KakaoButton type="button" onClick={()=> { window.location.href = dev_oauthURL }}/>
         {/* 배포 */}
@@ -40,6 +42,7 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
+  width : 45rem;
   padding: 4rem;
   display: flex;
   justify-content: center;
@@ -50,11 +53,46 @@ const Container = styled.div`
   background-color: #fff;
   border-radius: 2.5rem;
 
+  & h1 {
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    text-align: center;
+    letter-spacing: -0.03rem;
+    color: #9A9A9A;
+    & span {
+      color: #387E4B;
+    }
+  }
+  & h3 {
+    font-weight: bold;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    text-align: center;
+    letter-spacing: -0.03rem;
+    color: #9A9A9A;
+    & span {
+      color: #387E4B;
+    }
+  }
+
 @media (max-width: 767px){
   width: inherit;
   height: inherit;
   min-width: 300px;
   border-radius: 0;
+}
+
+@media (max-width: 375px){
+  & h1 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+  & h3 {
+    font-size: 1.0rem;
+    line-height: 1.5rem;
+  }
 }
 `;
 
