@@ -38,40 +38,46 @@ const initialState = {
     isBookmark: false,
     files: [],
   },
+  filePreview: []
 };
 
 /* == action */
 /* project - kanban */
-const GET_KANBAN_NOTES = "note_kanban/GET_KANBAN_NOTES";
-const SET_KANBAN_STEP = "note_kanban/SET_KANBAN_STEP";
-const EDIT_KANBAN_STEP = "note_kanban/GET_KANBAN_NOTES";
-/* note - detail */
-const GET_NOTE_DETAIL = "note_kanban/GET_NOTE_DETAIL";
-/* note - CRUD */
-const ADD_NOTE = "note_kanban/ADD_NOTE";
-const EDIT_NOTE = "note_kanban/EDIT_NOTE";
-const DELETE_NOTE = "note_kanban/DELETE_NOTE";
-const SET_MODIFIED_NOTE = "note_kanban/SET_MODIFIED_NOTE";
+const GET_KANBAN_NOTES  = "note_kanban/GET_KANBAN_NOTES";
+const SET_KANBAN_STEP   = "note_kanban/SET_KANBAN_STEP";
+const EDIT_KANBAN_STEP  = "note_kanban/GET_KANBAN_NOTES";
+/* note - CRUD / detail */
+const ADD_NOTE          = "note_kanban/ADD_NOTE";
+const GET_NOTE_DETAIL   = "note_detail/GET_NOTE_DETAIL";
+const EDIT_NOTE         = "note_detail/EDIT_NOTE";
+const DELETE_NOTE       = "note_detail/DELETE_NOTE";
+const SET_MODIFIED_NOTE = "note_detail/SET_MODIFIED_NOTE";
 /* bookmark - add / delete */
-const ADD_BOOKMARK = "note_kanban/ADD_BOOKMARK";
-const DELETE_BOOKMARK = "note_kanban/DELETE_BOOKMARK";
+const ADD_BOOKMARK      = "note_bookmark/ADD_BOOKMARK";
+const DELETE_BOOKMARK   = "note_bookmark/DELETE_BOOKMARK";
+/* file preview - add / delete */
+const SET_PREVIEW       = "note_file/SET_PREVIEW";
+const RESET_PREVIEW     = "note_file/RESET_PREVIEW";
+const DELETE_PREVIEW    = "note_file/DELETE_PREVIEW";
 
 /* == action creator */
 /* project - kanban */
 const getKanbanNotes = createAction(GET_KANBAN_NOTES, (kanbanNotes) => ({ kanbanNotes }));
 const setKanbanStep = createAction(SET_KANBAN_STEP, (newState) => ({ newState }));
 const editKanbanStep = createAction(EDIT_KANBAN_STEP, (noteId) => ({ noteId }));
-/* note - detail */
-const getNoteDetail = createAction(GET_NOTE_DETAIL, (note) => ({ note }));
-/* note - CRUD */
+/* note - CRUD / detail */
 const addNote = createAction(ADD_NOTE, (newNote) => ({ newNote }));
+const getNoteDetail = createAction(GET_NOTE_DETAIL, (note) => ({ note }));
 const editNote = createAction(EDIT_NOTE, (noteId) => ({ noteId }));
 const deleteNote = createAction(DELETE_NOTE, (noteId) => ({ noteId }));
 const setModifiedNote = createAction(SET_MODIFIED_NOTE, (modifiedNote) => ({ modifiedNote }));
 /* bookmark - add / delete */
 const addBookmark = createAction(ADD_BOOKMARK, (noteId) => ({ noteId }));
 const deleteBookmark = createAction(DELETE_BOOKMARK, (noteId) => ({ noteId }));
-
+/* file preview - add / delete */
+const setPreview    = createAction(SET_PREVIEW, ( fileName, awsFileName, fileUrl ) => ({ fileName, awsFileName, fileUrl }));
+const resetPreview  = createAction(RESET_PREVIEW, () => ({}));
+const deletePreview = createAction(DELETE_PREVIEW, ( fileUrl ) => ({ fileUrl }));
 
 /* == thunk function */
 /* kanban */
@@ -115,7 +121,8 @@ const __getNoteDetail =
 const __addNote =
   (projectId, newNote) =>
   async (dispatch, getState, { history }) => {
-    const files = getState().file.files
+    const files = getState().noteKanban?.filePreview
+    console.log(files)
     const _newNote = {
       ...newNote,
       files: files
@@ -254,6 +261,31 @@ const noteKanban = handleActions(
         },
       }
     },
+    [SET_PREVIEW]: (state, action) => {
+      return {
+        ...state,
+        filePreview: [
+          ...state.filePreview, 
+          {
+            fileName: action.payload.fileName,
+            awsFileName: action.payload.awsFileName,
+            fileUrl: action.payload.fileUrl,          
+          }
+        ]
+      };  
+    },
+    [RESET_PREVIEW]: (state, action) => {
+      return {
+        ...state,
+        filePreview: [],
+      };  
+    },
+    [DELETE_PREVIEW]: (state, action) => {
+      return {
+        ...state,
+        filePreview: state.filePreview.filter((file) => file.fileUrl !== action.payload.fileUrl),
+      };  
+    },
   },  
   initialState,
 );
@@ -264,15 +296,18 @@ export const noteKanbanActions = {
   __getKanbanNotes,
   __editKanbanStep,
   setKanbanStep,
-  /* note - detail */
-  __getNoteDetail,
-  /* note - CRUD */
+  /* note - CRUD / detail */
   __addNote,
+  __getNoteDetail,
   __editNote,
   __deleteNote,
   /* bookmark - add / delete */
   __addBookmark,
   __deleteBookmark,
+  /* file preview - add / delete */
+  setPreview,
+  resetPreview,
+  deletePreview,
 };
 
 export default noteKanban;

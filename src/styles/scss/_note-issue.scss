@@ -260,6 +260,9 @@
         color: $primary;
         cursor: pointer;
       }
+      svg {
+        fill: $custom-note-gray;
+      }
     }
   }
 }

@@ -21,7 +21,7 @@ import { ReactComponent as Link }     from "../../styles/images/ico-link.svg";
 /* == Redux - actions */
 import { useSelector, useDispatch }   from 'react-redux';
 import { noteKanbanActions }          from '../../modules/noteKanban';
-import { fileActions }                from '../../modules/file';
+// import { fileActions }                from '../../modules/file';
 
 // * == ( Note - modal - for writing note ) -------------------- * //
 const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
@@ -59,8 +59,9 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     e.preventDefault();
     e.stopPropagation();
 
-    // 상태 변경 : 파일 미리보기 목록 삭제
-    dispatch(fileActions.resetPreview());
+    // 상태 변경 : 모달창 클릭 시 항상 파일 미리보기 목록 삭제
+    // dispatch(fileActions.resetPreview());
+    dispatch(noteKanbanActions.resetPreview());
     setModalVisible(true)
   }
   // 모달 공통 : 클릭 시 모달창 닫힘
@@ -81,9 +82,8 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     if (noteInputs.step === "")     {window.alert("할 일의 상태를 설정하세요."); return;};
     if (noteInputs.deadline === "") {window.alert("마감일을 입력하세요."); return;};
     
-    // console.log("노트 생성 내용", noteInputs);
     // 상태 변경 : 입력값 서버에 전송
-    dispatch(fileActions.__addFiles());
+    // dispatch(fileActions.__addFiles());
     dispatch(noteKanbanActions.__addNote(projectId, noteInputs));
   
     handleCloseModal(e);
@@ -274,8 +274,8 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
               </div>
             </Form>
           </div>
-            <div className="note-modal-footer-button">
-            <h1 onClick={ modalType === "editing" ? handleEditNote : handleAddNote }>
+            <div className="note-modal-footer-button" onClick={ modalType === "editing" ? handleEditNote : handleAddNote }>
+            <h1>
               { modalType === "editing" ? "수정하기" : "만들기"}
             </h1>
             </div>
