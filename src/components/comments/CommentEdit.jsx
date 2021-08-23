@@ -119,6 +119,7 @@ const CommentBtn = styled.button`
 const CommnetBtnSide = styled.div`
   width: 100%;
   display: flex;
+  justify-content: flex-end;
 `;
 
 export default CommentEdit;
