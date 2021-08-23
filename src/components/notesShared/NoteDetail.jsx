@@ -23,7 +23,6 @@ import { ReactComponent as IconMember } from "../../styles/images/icon_member2.s
 import { ReactComponent as IconNote } from "../../styles/images/icon_note.svg";
 import { ReactComponent as IconLink }     from "../../styles/images/ico-link.svg";
 import { ReactComponent as IconFile }    from "../../styles/images/icon-status-todolist.svg";
-import { ReactComponent as IconLink } from "../../styles/images/ico-link.svg";
 import { ReactComponent as IconComment } from "../../styles/images/icon_comment.svg";
 
 /* == Custom - Component */
@@ -151,7 +150,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
             <div className="note-detail-td cell-text-bold">
               <Tag dateDiff={dateDiff}>{deadline}</Tag>
             </div>
-          </div>            
+          </div>
           <div className="note-detail-tr">
             <div className="note-detail-th">
               <IconCalendar />
