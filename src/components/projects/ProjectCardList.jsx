@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import "moment/locale/ko"
+import "moment/locale/ko";
 import styled, { css } from "styled-components";
 import { t } from "../../util/remConverter";
 import { Bookmark, FileText } from "react-feather";
@@ -12,7 +12,6 @@ import { ReactComponent as IconAdd } from "../../styles/images/Icon_AddProject.s
 const ProjectCardList = () => {
   const project_list = useSelector((state) => state.project.list);
 
-  
   return (
     <>
       <p style={{ margin: "20px 35px", fontSize: "20px", fontWeight: "700" }}>
@@ -27,7 +26,7 @@ const ProjectCardList = () => {
 
           // project에 노트 수정일 정보가 있을 경우 현재로부터 시간 차 구하기
           let hourDiff = p.recentNoteUpdateDate && moment(p.recentNoteUpdateDate).diff(moment(), "hours");
-          // format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm 
+          // format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm
           const modifiedAt = moment(p.recentNoteUpdateDate).format(" YYYY. M. D hh:mm");
           // format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전'
           const recentlyUpdated = moment(p.recentNoteUpdateDate).fromNow();
@@ -46,7 +45,7 @@ const ProjectCardList = () => {
                   >
                     {p.title}
                   </Title>
-                  <ProjectModalEdit main="main" projectId={p.projectId} title={p.title} detail={p.detail} />
+                  {p.isUpdatableAndDeletable ? <ProjectModalEdit main="main" projectId={p.projectId} title={p.title} detail={p.detail} /> : ""}
                 </div>
                 <div
                   style={{ marginTop: "15px", cursor: "pointer" }}
@@ -63,7 +62,7 @@ const ProjectCardList = () => {
               </div>
               <div style={{ height: "50%" }} />
 
-              <Footer style={{ justifyContent: "space-between", marginTop: "20px" }}>
+              <Footer style={{ justifyContent: "space-between", alignItems: "center" }}>
                 <div style={{ display: "flex", float: "left" }}>
                   <Bookmark fill="#fff" stroke="#767676" style={{ width: "15px", height: "15px" }} />
                   <DetailText>{p.bookmarkCount}</DetailText>
@@ -120,7 +119,7 @@ const Item = styled.div`
   box-sizing: border-box;
   border-radius: 20px;
   align-content: space-between;
-  box-shadow: 0px 0px 5px rgba(25, 25, 25, 0.2);
+  filter: drop-shadow(2px 4px 10px rgba(25, 25, 25, 0.1));
 
   @media (max-width: 1360px) {
     width: 30%;

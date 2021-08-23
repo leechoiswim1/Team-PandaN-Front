@@ -1,13 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 /* == Library */
 import { NavLink } from "react-router-dom";
 
-/* == Custom - Component */
-import { ProjectInvite, ModalWriting } from "..";
-import MemberToggle from "../modals/MemberToggle";
-
-// * == ( Note / project menu ) -------------------- * //
 const ProjectMenu = ({ history, match, projectId, ...rest }) => {
   return (
     <div className="project-menu">
@@ -31,16 +26,6 @@ const ProjectMenu = ({ history, match, projectId, ...rest }) => {
           </li>
         </ul>
       </nav>
-
-      
-      <div>
-        <div style={{ display: "flex" }}>
-          <MemberToggle projectId={projectId} />
-          <ProjectInvite projectId={projectId} />
-          {/* writing note modal */}
-          <ModalWriting history={history} projectId={projectId} modalType="projectMenu" />
-        </div>
-      </div>
     </div>
   );
 };
