@@ -1,20 +1,24 @@
 import React from "react";
 import moment from "moment";
-import "moment/locale/ko"
+import "moment/locale/ko";
 import styled, { css } from "styled-components";
 import { t } from "../../util/remConverter";
 import { Bookmark, FileText } from "react-feather";
 import { useSelector } from "react-redux";
 import { history } from "../../modules/configStore";
+import { ProjectModal, ProjectModalEdit } from "..";
 
-import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edit.svg";
+import { ReactComponent as IconAdd } from "../../styles/images/Icon_AddProject.svg";
 const ProjectCardList = () => {
   const project_list = useSelector((state) => state.project.list);
 
-  
   return (
     <>
-      <p style={{ margin: "20px 35px", fontSize: "20px", fontWeight: "700" }}>전체 프로젝트</p>
+      <p style={{ margin: "20px 35px", fontSize: "20px", fontWeight: "700" }}>
+        전체 프로젝트
+        <span style={{ fontSize: "14px", fontWeight: "700", color: "#BCBCBC" }}> Total {project_list.length}</span>
+      </p>
+
       <Wrap>
         {project_list.map((p, idx) => {
           const crewProfiles = p.crewProfiles;
@@ -22,7 +26,7 @@ const ProjectCardList = () => {
 
           // project에 노트 수정일 정보가 있을 경우 현재로부터 시간 차 구하기
           let hourDiff = p.recentNoteUpdateDate && moment(p.recentNoteUpdateDate).diff(moment(), "hours");
-          // format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm 
+          // format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm
           const modifiedAt = moment(p.recentNoteUpdateDate).format(" YYYY. M. D hh:mm");
           // format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전'
           const recentlyUpdated = moment(p.recentNoteUpdateDate).fromNow();
@@ -35,19 +39,13 @@ const ProjectCardList = () => {
               <div style={{ height: "30%" }}>
                 <div style={{ justifyContent: "space-between", display: "flex" }}>
                   <Title
-                    style={{ cursor: "pointer" }}
                     onClick={() => {
                       history.push(`/projects/${p.projectId}/kanban`);
                     }}
                   >
                     {p.title}
                   </Title>
-                  <IconEdit
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      history.push("/bookmark");
-                    }}
-                  />
+                  {p.isUpdatableAndDeletable ? <ProjectModalEdit main="main" projectId={p.projectId} title={p.title} detail={p.detail} /> : ""}
                 </div>
                 <div
                   style={{ marginTop: "15px", cursor: "pointer" }}
@@ -64,7 +62,7 @@ const ProjectCardList = () => {
               </div>
               <div style={{ height: "50%" }} />
 
-              <Footer style={{ justifyContent: "space-between", alignItems: "center"}}>
+              <Footer style={{ justifyContent: "space-between", alignItems: "center" }}>
                 <div style={{ display: "flex", float: "left" }}>
                   <Bookmark fill="#fff" stroke="#767676" style={{ width: "15px", height: "15px" }} />
                   <DetailText>{p.bookmarkCount}</DetailText>
@@ -104,25 +102,25 @@ const ProjectCardList = () => {
             </Item>
           );
         })}
+        <ProjectModal main="main" />
       </Wrap>
     </>
   );
 };
 
-const Item = styled.div(
-  ...t`
-   
-  width: 400px;
-  height:300px;
-  margin: 20px;
+const Item = styled.div`
+  min-width: 280px;
+  width: 370px;
+  height: 280px;
+  margin: 10px;
   padding: 25px;
-  background-color: #fff; 
-  overflow:hidden;
+  background-color: #fff;
+  overflow: hidden;
   box-sizing: border-box;
-  border-radius:20px;
+  border-radius: 20px;
   align-content: space-between;
   filter: drop-shadow(2px 4px 10px rgba(25, 25, 25, 0.1));
- 
+
   @media (max-width: 1360px) {
     width: 30%;
   }
@@ -130,10 +128,9 @@ const Item = styled.div(
     width: 50%;
   }
   @media (max-width: 720px) {
-    width: 90%;
+    width: 80%;
   }
-`,
-);
+`;
 
 const Wrap = styled.div(
   ...t`
@@ -144,28 +141,36 @@ const Wrap = styled.div(
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  
-`,
-);
-
-const Title = styled.p(
-  ...t`
-  font-size:1.25rem;
-  font-weight:700;
-  color:#191919;
-  letter-spacing: -0.03rem;
-`,
-);
-
-const Detail = styled.p(
-  ...t`
  
-  font-size:1.0rem;
-  color: #BCBCBC;
-  font-weight: 500;
-  letter-spacing: -0.03rem;
 `,
 );
+
+const Title = styled.div`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #191919;
+  cursor: pointer;
+  max-width: 88%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  &:hover {
+    color: #387e4b;
+  }
+`;
+const Detail = styled.div`
+  font-size: 1rem;
+  color: #bcbcbc;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+`;
 
 const DetailText = styled.p`
   color: #767676;

@@ -74,7 +74,7 @@ const Sidebar = (props) => {
                     <span className="menu-text">내 프로젝트 보기</span>
                   </Accordion.Header>
                   {project_side_list.length > 0 ? (
-                    <Accordion.Body>
+                    <Accordion.Body style={{ marginLeft: "18px", paddingTop: "0px" }}>
                       <ProjectList />
                     </Accordion.Body>
                   ) : (

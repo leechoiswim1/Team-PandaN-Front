@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { PropagateLoader, ClipLoader } from "react-spinners";
-import PandaImage from "../styles/images/Panda_Image.svg";
+import PandaSpinner from "../styles/images/Panda_Spinner.svg";
+import Loading from "../styles/images/Loading.svg";
 const Spinner = (props) => {
   if (!props.visible) {
     return <></>;
@@ -12,8 +13,10 @@ const Spinner = (props) => {
       {props.Home === "Home" ? (
         <SpinnerBG>
           <SpinnerInner>
-            <img src={PandaImage} alt="PandaSpinnerImage" style={{ marginBottom: "20px" }} />
-            <PropagateLoader color="#E1EDE4" size="15" />
+            {" "}
+            <img src={Loading} alt="PandaSpinnerImage" style={{ marginBottom: "20px" }} />
+            <img src={PandaSpinner} alt="PandaSpinnerImage" style={{ marginBottom: "20px" }} />
+            <PropagateLoader color="#387E4B" size="15" />
           </SpinnerInner>
         </SpinnerBG>
       ) : (
