@@ -9,7 +9,7 @@ import { t } from "../../util/remConverter";
 import { ReactComponent as IconProjectAdd } from "../../styles/images/ico-project-add.svg";
 import { ReactComponent as Write } from "../../styles/images/ico-kanban-write.svg";
 import { ReactComponent as IconAdd } from "../../styles/images/Icon_AddProject.svg";
-
+import { ReactComponent as CloseModal } from "../../styles/images/Icon_ModalClose.svg";
 import modalSideImage from "../../styles/images/modalSideImage.PNG";
 const ProjectModal = (props) => {
   const dispatch = useDispatch();
@@ -41,6 +41,14 @@ const ProjectModal = (props) => {
     setProDesc(e.target.value);
   };
 
+  const modalFalse = () => {
+    if (!(ProTitle === "") || !(ProDesc === "")) {
+      setModalState(true);
+    } else {
+      setModalState(false);
+    }
+  };
+
   return (
     <>
       {props.sidebar === "sidebar" ? (
@@ -69,36 +77,30 @@ const ProjectModal = (props) => {
       <ModalPortal>
         {modalState ? (
           <Background>
-            <Overlay onClick={() => setModalState(false)} />
-
+            <Overlay onClick={modalFalse} />
             <Window>
+              <ModalHead>
+                <ModalHeadInner>
+                  <IconProjectAdd width="25px" height="25px" fill="#000000" className="menu-icon" position="absolute" style={{ margin: "auto" }} />
+                  <ModalTitle>프로젝트 생성하기</ModalTitle>
+                </ModalHeadInner>
+
+                <CloseModal width="15px" style={{ cursor: "pointer" }} onClick={() => setModalState(false)} />
+              </ModalHead>
               <ModalBody>
                 {/* == left */}
                 <ModalBodyLeft>
-                  <div style={{ width: "100%", height: "100%" }}>
-                    <ModalBodyHead>
-                      <div style={{ display: "flex", height: "25px", margin: "0 20px" }}>
-                        <IconProjectAdd cursor="pointer" width="25px" height="25px" fill="#000000" className="menu-icon" position="absolute" />
-                        <ModalTitle>프로젝트 생성하기</ModalTitle>
-                      </div>
-                    </ModalBodyHead>
-                    <ModalBodyInner>
-                      <form>
-                        <P>프로젝트 이름</P>
-                        <Input type="text" placeholder="프로젝트 이름" onChange={changeProTitle} maxLength="30" />
-                        <P>프로젝트 내용 (선택사항)</P>
-                        <TextArea type="text" placeholder="프로젝트 내용" onChange={changeProDesc} maxLength="50" />
-                        <TextDesc>팀원들이 작업환경에 대해 쉽게 알 수 있도록 작성해주세요.</TextDesc>
-                      </form>
-                    </ModalBodyInner>
-                  </div>
+                  <ModalBodyLeftInner>
+                    <P>프로젝트 이름</P>
+                    <TextArea style={{ height: "7vh" }} type="text" placeholder="프로젝트 이름" onChange={changeProTitle} maxLength="30" />
+                    <P>프로젝트 내용 (선택사항)</P>
+                    <TextArea type="text" placeholder="프로젝트 내용" onChange={changeProDesc} maxLength="50" />
+                    <TextDesc>팀원들이 작업환경에 대해 쉽게 알 수 있도록 작성해주세요.</TextDesc>
+                  </ModalBodyLeftInner>
                 </ModalBodyLeft>
 
                 {/* == right */}
                 <ModalBodyRight>
-                  <ModalBodyRightHead>
-                    <CloseBtn onClick={() => setModalState(false)}>x</CloseBtn>
-                  </ModalBodyRightHead>
                   <ModalBodyRightInner>
                     <ModalBodyRightImage src={modalSideImage} alt="modalSideImage" />
                     <TextDesc>
@@ -108,16 +110,12 @@ const ProjectModal = (props) => {
                 </ModalBodyRight>
               </ModalBody>
 
-              <ModalFooter>
-                <ModalFooterInner>
-                  <MakeBtn
-                    onClick={() => {
-                      CreateProject();
-                    }}
-                  >
-                    프로젝트 만들러 가기
-                  </MakeBtn>
-                </ModalFooterInner>
+              <ModalFooter
+                onClick={() => {
+                  CreateProject();
+                }}
+              >
+                프로젝트 만들러 가기!
               </ModalFooter>
             </Window>
           </Background>
@@ -170,27 +168,26 @@ const Background = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.2);
   z-index: 1000;
 `;
 const Overlay = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(0, 0, 0, 0.3);
 `;
 const Window = styled.div`
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 700px;
-  height: 500px;
+  width: 900px;
+  height: 600px;
   background: #ffffff;
   border-radius: 20px;
 
-  @media (max-width: 767px) {
-    max-width: 600px;
+  @media (max-width: 768px) {
+    max-width: 720px;
     max-height: 500px;
   }
   @media (max-width: 400px) {
@@ -199,170 +196,124 @@ const Window = styled.div`
   }
 `;
 
+const ModalHead = styled.div`
+  width: 92%;
+  height: 20%;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px 20px;
+  @media (max-width: 400px) {
+    width: 80%;
+    justify-content: space-between;
+  }
+`;
+const ModalHeadInner = styled.div`
+  display: flex;
+  margin: 0 20px;
+`;
+
+const ModalTitle = styled.p`
+  font-weight: 700;
+  color: #000000;
+  font-size: 22px;
+  line-height: 36px;
+  margin: 0 0 0 10px;
+`;
+
 const ModalBody = styled.div`
   display: flex;
-  height: 80%;
+  height: 65%;
 `;
 
 const ModalBodyLeft = styled.div`
-
   margin: auto;
   height: 100%;
-  width: 55%
+  width: 60%
   @media (max-width: 400px) {
     width: 90%;
-
 `;
 
-const ModalBodyHead = styled.div(
-  ...t`
-  width: 100%;
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #c6d2de;
-  height:20%;
-`,
-);
-
-const ModalBodyInner = styled.div(
-  ...t`
+const ModalBodyLeftInner = styled.div`
   position: relative;
-  box-sizing:border-box;
+  box-sizing: border-box;
+  height: 80%;
   width: 100%;
-  padding: 0 50px;
-  top: 7%;
-  height:80%;
-  justifyContent: center;
-  alignItems:center;
-  
-  `,
-);
+`;
 
-const ModalTitle = styled.p(
-  ...t`
-  font-weight: 700; 
-  color: #000000;
-  font-size:20px;
-  margin:0 0 0 5px;
-  `,
-);
+const P = styled.p`
+  font-size: 20px;
+  font-weight: 700;
+  color: #387e4b;
+  @media (max-width: 400px) {
+    font-size: 18px;
+  }
+`;
 
-const P = styled.p(
-  ...t`
- 
-  font-size :20px;
-  font-weight :700;
-  color: #387E4B;
-`,
-);
-
-const Input = styled.input(
-  ...t`
-  width: 100%;
-  height: 5vh;
-  border: 1px solid #EDEDED;
-  margin:20px 0;
-  font-size: 18px;
-  padding: 5px;
-  font-color: #9A9A9A;
-  border-radius: 7px;
-`,
-);
-
-const TextArea = styled.textarea(
-  ...t`
-  width: 100%;
+const TextArea = styled.textarea`
+  width: 400px;
   height: 10vh;
   margin: 10px 0;
-  border: 1px solid #EDEDED;
+  border: 1px solid #ededed;
   font-size: 18px;
   padding: 5px;
-  font-color: #9A9A9A;
+  font-color: #9a9a9a;
   border-radius: 7px;
-`,
-);
-
-const TextDesc = styled.p(
-  ...t`
-  color: #9A9A9A; 
-  font-size:15px;
-  font-weight: 200;
-  `,
-);
-
-const ModalBodyRight = styled.div(
-  ...t`
-  display:block; 
-  box-sizing:border-box;
-  width: 45% ;
-  background: #E1EDE4;
-  border-top-right-radius: 27px; 
-  @media (max-width: 500px) {
-  display :none;
+  @media (max-width: 400px) {
+    width: 340px;
   }
-
-
-`,
-);
-const ModalBodyRightHead = styled.div`
-  width: 100%;
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: space-between;
-  height: 25%;
 `;
 
-const CloseBtn = styled.button`
-  position: absolute;
-  padding: 20px;
+const TextDesc = styled.p`
   color: #9a9a9a;
-  font-size: 20px;
-  font-weight: 600;
-  top: 0;
-  right: 0;
+  font-size: 14px;
+  font-weight: 400;
 `;
 
-const ModalBodyRightInner = styled.div(
-  ...t`
-  width: 90%;
-  display:block;
+const ModalBodyRight = styled.div`
+  display: block;
+  box-sizing: border-box;
+  width: 40%;
+  border-left: 1px solid #ededed;
+  @media (max-width: 500px) {
+    display: none;
+  }
+`;
+
+const ModalBodyRightInner = styled.div`
+  width: 85%;
+  height: 50%;
+  display: block;
   justify-content: center;
-  align-items:center;
-  margin: 0 auto;
-`,
-);
+  align-items: center;
+  margin: 50px auto;
+`;
 
 const ModalBodyRightImage = styled.img`
   margin: 0 0 10px 0;
+  border-radius: 10px;
 `;
 
-const ModalFooter = styled.div(
-  ...t`
+const ModalFooter = styled.div`
   box-sizing: border-box;
-  height:20%;
-  border-top: 1px solid #c6d2de;
-  display: flex;
-  `,
-);
-const ModalFooterInner = styled.div`
-  margin: auto;
-  padding: auto;
-`;
-const MakeBtn = styled.button`
-  margin: auto;
-  font-size: 18px;
-  font-weight: 500;
-  font-color: #fff;
-  cursor: pointer;
-  justifycontent: center;
-  alignitems: center;
-  width: 200px;
-  height: 40px;
+  height: 15%;
   background: #e1ede4;
-  border-radius: 15px;
+  display: flex;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin: auto;
+  font-size: 22px;
+  font-weight: 700;
+  color: #767676;
+  cursor: pointer;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  &:hover {
+    background: #387e4b;
+    color: #ffffff;
+  }
 `;
 
 const Item2 = styled.div`
