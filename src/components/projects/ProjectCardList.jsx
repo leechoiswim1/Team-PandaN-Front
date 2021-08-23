@@ -45,7 +45,7 @@ const ProjectCardList = () => {
                   >
                     {p.title}
                   </Title>
-                  <ProjectModalEdit main="main" projectId={p.projectId} title={p.title} detail={p.detail} />
+                  {p.isUpdatableAndDeletable ? <ProjectModalEdit main="main" projectId={p.projectId} title={p.title} detail={p.detail} /> : ""}
                 </div>
                 <div
                   style={{ marginTop: "15px", cursor: "pointer" }}
