@@ -24,6 +24,7 @@ const FileUploader = (props) => {
 
 	const fileList = useSelector((state) => state.file.files);
 	const editingFileList = props.files;
+	const newEditingFileList = editingFileList.concat(fileList)
 
 	const handleUploadFile = (e) => {
 		// input 태그를 통해 선택한 파일 객체	
@@ -95,7 +96,7 @@ const FileUploader = (props) => {
 				<p>각 항목 당 5MB, 최대 5개의 파일을 업로드 할 수 있습니다.</p>				
 				<ul>					
 					{ editingFileList ? 
-					editingFileList.map((file, index) => {
+					newEditingFileList.map((file, index) => {
 						return ( <li key={index}><FilePreviewer index={index} file={file} /></li>)
 					}) :
 					fileList.map((file, index) => {

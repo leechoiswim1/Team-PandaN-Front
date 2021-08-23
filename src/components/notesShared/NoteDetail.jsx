@@ -40,7 +40,6 @@ const NoteDetail = ({ history, ...rest }) => {
   const note = useSelector((state) => state.noteKanban.detail?.detail);
   const files = useSelector((state) => state.noteKanban.detail?.files);
 
-  console.log(note, files)
   const project = useSelector((state) => state.project.detailList[0]);
   const projectTitle = project?.title;
 
@@ -167,7 +166,10 @@ const NoteDetail = ({ history, ...rest }) => {
           <div className="note-detail-td cell-align-top">
             <ul>
             {files.map((file, index) => (
-              <li key={index}>파일리스트 출력 확인 : {index + 1}. {file.fileName}, {file.fileUrl}</li>
+              <li key={index}>
+                {index + 1}. 
+                <a href={file.fileUrl}>{file.fileName}</a>
+              </li>
             ))}
             </ul>
           </div>

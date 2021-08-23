@@ -73,7 +73,6 @@ export const searchApi = {
 
 /* == API - file */
 export const fileApi = {
-  addFiles: (noteId, files) => instance.post(`/api/files/${noteId}`, files),
-  editFiles: (fileId, files) => instance.put(`/api/files/${fileId}`, files),
+  // addFiles: (noteId, files) => instance.post(`/api/files/${noteId}`, files),
   deleteFile: (fileId) => instance.delete(`/api/files/${fileId}`),
 };
