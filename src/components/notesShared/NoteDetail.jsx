@@ -15,13 +15,14 @@ import IconSteps from "../../elements/IconSteps";
 import Labels from "../../elements/Labels";
 import { ReactComponent as Write }    from "../../styles/images/ico-kanban-write.svg";
 import { ReactComponent as Add }      from "../../styles/images/ico-kanban-write.svg";
-import { ReactComponent as Close }    from "../../styles/images/ico-close.svg";
+import { ReactComponent as IconClose }    from "../../styles/images/ico-close.svg";
 import { ReactComponent as IconWorking } from "../../styles/images/icon-status-working.svg";
 import { ReactComponent as IconTitle } from "../../styles/images/icon_title.svg";
 import { ReactComponent as IconCalendar } from "../../styles/images/icon_calender.svg";
 import { ReactComponent as IconMember } from "../../styles/images/icon_member2.svg";
 import { ReactComponent as IconNote } from "../../styles/images/icon_note.svg";
 import { ReactComponent as IconLink }     from "../../styles/images/ico-link.svg";
+import { ReactComponent as IconFile }    from "../../styles/images/icon-status-todolist.svg";
 
 /* == Custom - Component */
 import { ModalWriting } from "..";
@@ -30,6 +31,7 @@ import { ModalWriting } from "..";
 import { useDispatch, useSelector } from "react-redux";
 import { noteActions } from '../../modules/note';
 import { noteKanbanActions } from '../../modules/noteKanban';
+import { fileActions } from '../../modules/file';
 
 // * == ( note detail ) -------------------- * //
 const NoteDetail = ({ history, ...rest }) => {
@@ -164,14 +166,19 @@ const NoteDetail = ({ history, ...rest }) => {
             첨부파일
           </div>
           <div className="note-detail-td cell-align-top">
-            <ul>
-            {files.map((file, index) => (
-              <li key={index}>
-                {index + 1}. 
-                <a href={file.fileUrl}>{file.fileName}</a>
-              </li>
-            ))}
-            </ul>
+            { files.length === 0 ? 
+              "첨부된 파일이 없습니다." :
+              <ul>
+              {files.map((file, index) => (
+                <li key={index}>
+                  <IconLink width="24" height="24" fill="#767676" style={{marginRight: "4px"}}/>
+                  {index + 1}. 
+                  <a href={file.fileUrl}> {file.fileName}</a>
+                </li>
+              ))}
+              </ul>
+            }
+            
           </div>
         </div>
         <div className="note-detail-tr cell-align-top">
