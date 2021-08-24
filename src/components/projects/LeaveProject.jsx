@@ -3,8 +3,6 @@ import { useDispatch } from "react-redux";
 import { actionCreators as projectActions } from "../../modules/project";
 import { history } from "../../modules/configStore";
 
-import styled from "styled-components";
-
 import { ReactComponent as IconProjectEdit } from "../../styles/images/icon-project-edit.svg";
 import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edit.svg";
 

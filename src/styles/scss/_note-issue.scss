@@ -12,7 +12,7 @@
 // --------------------------------
 // == note: issue board table
 // --------------------------------
-.note-issue-table{
+.note-issue-table {
   width: 100%;
   min-width: rem(600);
   border-collapse: separate;
@@ -198,8 +198,8 @@
   .note-modal-td {
     padding: rem(16);
     vertical-align: middle;
-    display: table-cell; 
-    border-bottom: 1px solid #EDEDED;
+    display: table-cell;
+    border-bottom: 1px solid #ededed;
 
     .note-modal-form-width {
       width: 75%;
@@ -224,7 +224,7 @@
   @media screen and (max-width: 767px) {
     .note-modal-form-width.form-control,
     .note-modal-form-width.form-select {
-      width: 100%
+      width: 100%;
     }
   }
 }
@@ -290,7 +290,7 @@
   //----------------------
   min-width: rem(800);
   min-height: rem(600);
-  width: 100%;  
+  width: 100%;
   //----------------------
   padding: rem(32);
   display: flex;

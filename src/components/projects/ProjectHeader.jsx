@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 /* styled-components 및 rem 변환 모듈 */
 import styled from "styled-components";
-import { Button } from "react-bootstrap";
 
 import { actionCreators as projectActions } from "../../modules/project";
 import { useSelector, useDispatch } from "react-redux";

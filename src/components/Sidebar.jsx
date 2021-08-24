@@ -4,11 +4,6 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Container, Accordion } from "react-bootstrap";
 
-/* == Library - Icon (react-feather) */
-// https://feathericons.com/
-import { ChevronDown } from "react-feather";
-import { X } from "react-feather";
-
 import { useDispatch, useSelector } from "react-redux";
 
 import { actionCreators as projectActions } from "../modules/project";
@@ -22,9 +17,6 @@ import { ReactComponent as IconBookMark } from "../styles/images/ico-bookmark.sv
 import { ReactComponent as IconFile } from "../styles/images/ico-file.svg";
 import { ReactComponent as IconProject } from "../styles/images/ico-project.svg";
 
-/* == Redux */
-import { history } from "../modules/configStore";
-
 // * == (Sidebar) -------------------- * //
 
 const Sidebar = (props) => {
@@ -33,7 +25,7 @@ const Sidebar = (props) => {
   useEffect(() => {
     dispatch(projectActions.__setSideProject());
   }, []);
-  const sidebar = "sidebar";
+
   return (
     <nav className="sidebar">
       {/* == 로고 */}

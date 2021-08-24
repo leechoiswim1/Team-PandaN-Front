@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 /* == Library - style */
 import styled from "styled-components";
-import { t } from "../../util/remConverter";
-import { Form, Button } from "react-bootstrap";
 
 import { useDispatch } from "react-redux";
-import { history } from "../../modules/configStore";
 import { actionCreators as commentActions } from "../../modules/comment";
 
 const CommentInput = (props) => {
