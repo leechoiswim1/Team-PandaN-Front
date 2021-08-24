@@ -1,11 +1,10 @@
 import { React, useState, useEffect } from "react";
-import ModalPortal from "../../util/ModalPotal";
+
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Modal, Button } from "react-bootstrap";
-import styled from "styled-components";
-import { t } from "../../util/remConverter";
+import styled, { keyframes } from "styled-components";
 import "./dropbox.css";
 
+import ModalPortal from "../../util/ModalPotal";
 import { useDispatch, useSelector } from "react-redux";
 
 import { actionCreators as projectActions } from "../../modules/project";
@@ -83,7 +82,13 @@ const ProjectInvite = (props) => {
     </>
   );
 };
-
+const fadeIn = keyframes`
+from {
+  opacity:0; }
+to{
+    opaciry:1;
+}
+`;
 const Background = styled.div`
   position: fixed;
   overflow-x: hidden;
@@ -111,7 +116,10 @@ const Window = styled.div`
   height: 430px;
   background: #ffffff;
   border-radius: 20px;
-
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-name: ${fadeIn};
+  animation-fill-mode: forwards;
   @media (max-width: 400px) {
     max-width: 350px;
     max-height: 400px;

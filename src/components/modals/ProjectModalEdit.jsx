@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import ModalPortal from "../../util/ModalPotal";
 
 /* == Library */
-
-import styled from "styled-components";
-import { t } from "../../util/remConverter";
+import styled, { keyframes } from "styled-components";
 
 /* == Custom - Component */
 import { actionCreators as projectActions } from "../../modules/project";
@@ -142,7 +140,13 @@ const ProjectModalEdit = (props) => {
     </>
   );
 };
-
+const fadeIn = keyframes`
+from {
+  opacity:0; }
+to{
+    opaciry:1;
+}
+`;
 const Background = styled.div`
   position: fixed;
   overflow-x: hidden;
@@ -169,7 +173,10 @@ const Window = styled.div`
   height: 600px;
   background: #ffffff;
   border-radius: 20px;
-
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-name: ${fadeIn};
+  animation-fill-mode: forwards;
   @media (max-width: 768px) {
     max-width: 720px;
     max-height: 500px;
