@@ -38,7 +38,9 @@ const initialState = {
     isBookmark: false,
     files: [],
   },
-  filePreview: []
+  filePreview: [],
+  is_loading: false,
+  is_locked: false
 };
 
 /* == action */
@@ -52,6 +54,7 @@ const GET_NOTE_DETAIL   = "note_detail/GET_NOTE_DETAIL";
 const EDIT_NOTE         = "note_detail/EDIT_NOTE";
 const DELETE_NOTE       = "note_detail/DELETE_NOTE";
 const SET_MODIFIED_NOTE = "note_detail/SET_MODIFIED_NOTE";
+const CHECK_EDITMODE_LOCKED = "note_detail/CHECK_EDITMODE_LOCKED";
 /* bookmark - add / delete */
 const ADD_BOOKMARK      = "note_bookmark/ADD_BOOKMARK";
 const DELETE_BOOKMARK   = "note_bookmark/DELETE_BOOKMARK";
@@ -74,6 +77,7 @@ const getNoteDetail = createAction(GET_NOTE_DETAIL, (note) => ({ note }));
 const editNote = createAction(EDIT_NOTE, (noteId) => ({ noteId }));
 const deleteNote = createAction(DELETE_NOTE, (noteId) => ({ noteId }));
 const setModifiedNote = createAction(SET_MODIFIED_NOTE, (modifiedNote) => ({ modifiedNote }));
+const checkEditmodeLocked = createAction(CHECK_EDITMODE_LOCKED, ( is_locked ) => ({ is_locked }));
 /* bookmark - add / delete */
 const addBookmark = createAction(ADD_BOOKMARK, (noteId) => ({ noteId }));
 const deleteBookmark = createAction(DELETE_BOOKMARK, (noteId) => ({ noteId }));
@@ -120,6 +124,45 @@ const __getNoteDetail =
     try {
       const { data } = await noteApi.getNoteDetail(noteId);
       dispatch(getNoteDetail(data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  
+/* note - detail page ; lock manager */
+const __checkEditmodeLocked =
+  (noteId) =>
+  async (dispatch, getState, { history }) => {
+    try {
+      console.log("7. 잠겼는지 확인하기 전", getState().noteKanban.is_locked );
+      const { data } = await noteApi.checkEditmodeLocked(noteId);
+      console.log("잠겼음?", data);
+      dispatch(checkEditmodeLocked( data ));
+      console.log("8. 잠김 확인 후 응답", getState().noteKanban.is_locked );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+const __sendWritingSignal =
+  (noteId) =>
+  async (dispatch, getState, { history }) => {
+    try {
+      console.log("사용 중이라는 요청 보내기 전");
+      const { data } = await noteApi.sendWritingSignal(noteId);      
+      console.log("사용 중이라는 요청 보냈음");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+const __sendLockSignal =
+  (noteId) =>
+  async (dispatch, getState, { history }) => {
+    try {
+      console.log("0. 잠금 요청 보냄");
+      const response = await noteApi.sendLockSignal(noteId);
+      console.log("1. 잠금 풀림", response);
     } catch (e) {
       console.log(e);
     }
@@ -258,6 +301,13 @@ const noteKanban = handleActions(
         is_loading: false
       };
     },
+    [CHECK_EDITMODE_LOCKED]: (state, action) => {
+
+      return {
+        ...state,
+        is_locked: action.payload.is_locked
+      };
+    },
     [DELETE_NOTE]: (state, action) => {
       return {
         ...state,
@@ -334,6 +384,9 @@ export const noteKanbanActions = {
   __getNoteDetail,
   __editNote,
   __deleteNote,
+  __checkEditmodeLocked,
+  __sendWritingSignal,
+  __sendLockSignal,
   /* bookmark - add / delete */
   __addBookmark,
   __deleteBookmark,

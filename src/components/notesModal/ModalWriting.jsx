@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 /* == Library - Style / Bootstrap / Icon */
 import styled from "styled-components";
@@ -34,7 +34,8 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
   // case : modalType === "editing"
   const { detail, files } = useSelector((state) => state.noteKanban?.detail);
   const { title, content, deadline } = detail ? detail : "";
-  const fileList = useSelector((state) => state.noteKanban?.filePreview)
+  const fileList = useSelector((state) => state.noteKanban?.filePreview);
+  const is_locked = useSelector((state) => state.noteKanban?.is_locked);
   // state
   const [modalVisible, setModalVisible] = useState(false)
   // state : 노트 생성 시 
@@ -53,23 +54,74 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     files: files,
   }); 
 
+  // function useInterval(callback, delay) {
+  //   const savedCallback = useRef();
+  
+  //   // Remember the latest callback.
+  //   useEffect(() => {
+  //     savedCallback.current = callback;
+  //   }, [callback]);
+  
+  //   // Set up the interval.
+  //   useEffect(() => {
+  //     function tick() {
+  //       savedCallback.current();
+  //     }
+  //     if (delay !== null) {
+  //       let id = setInterval(tick, delay);
+  //       return () => clearInterval(id);
+  //     }
+  //   }, [delay]);
+  // }
+
+  // // 주기적으로 보내는 요청
+  // useInterval(() => {
+  //   dispatch(noteKanbanActions.__sendWritingSignal(noteId));
+  // }, ( modalType === "editing" && modalVisible ) ? 3000 : null);
+
+  // useEffect(() => {
+  //   const sendSignal = setTimeout(() => {
+  //     dispatch(noteKanbanActions.__sendWritingSignal(noteId));
+  //   }, 5000);
+
+  //   return () => {
+  //     clearTimeout(sendSignal);
+  //   };
+  //   // dispatch(noteKanbanActions.__sendWritingSignal(noteId));
+  // }); 
+
+
   // functions 
   // 모달 공통 : 클릭 시 모달창 열림
+  
   const handleOpenModal = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    // 상태 변경 
-    // case 1: 노트 수정의 경우 상세정보에 있는 파일 목록을 모달창 클릭 시 파일 미리보기 목록에 넣어주기
-    if (modalType ==="editing") {
-      dispatch(noteKanbanActions.setListPreview(files));
-    } 
-    // case 2: 노트 생성의 경우 모달창 클릭 시 파일 미리보기 목록 삭제
-    else {
-      dispatch(noteKanbanActions.resetPreview());
-    }
+    // if (modalType ==="editing") {
+    //   dispatch(noteKanbanActions.__checkEditmodeLocked(noteId));
+    // }
+    // // 상태 변경 
+    // // case 1: 노트 수정의 경우 상세정보에 있는 파일 목록을 모달창 클릭 시 파일 미리보기 목록에 넣어주기
+    // if (modalType ==="editing") {
+    //   if (!is_locked) {
+    //     dispatch(noteKanbanActions.__sendLockSignal(noteId));
+    //     dispatch(noteKanbanActions.setListPreview(files));
+    //     setModalVisible(true);
+    //   }
+    //   else {
+    //     window.alert("다른 사용자가 글을 수정 중입니다.");
+    //     return;
+    //   }
+    // } 
+    // // case 2: 노트 생성의 경우 모달창 클릭 시 파일 미리보기 목록 삭제
+    // else {
+    //   dispatch(noteKanbanActions.resetPreview());
+    //   setModalVisible(true);
+    // }
     
-    setModalVisible(true)
+    setModalVisible(true);
+
   }
   // 모달 공통 : 클릭 시 모달창 닫힘
   const handleCloseModal = (e) => {
