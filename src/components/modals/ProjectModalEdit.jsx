@@ -66,7 +66,11 @@ const ProjectModalEdit = (props) => {
       {props.main ? (
         <IconEdit style={{ cursor: "pointer" }} onClick={() => setModalState(true)} />
       ) : (
-        <IconProjectEdit style={{ cursor: "pointer", width: "22px", height: "22px", marginTop: "7px" }} onClick={() => setModalState(true)} />
+        <IconProjectEdit
+          fill="#9A9A9A"
+          style={{ cursor: "pointer", width: "22px", height: "22px", marginTop: "7px" }}
+          onClick={() => setModalState(true)}
+        />
       )}
 
       <ModalPortal>
@@ -76,7 +80,7 @@ const ProjectModalEdit = (props) => {
             <Window>
               <ModalHead>
                 <ModalHeadInner>
-                  <IconProjectEdit style={{ width: "25px", height: "25px", marginTop: "5px" }} className="menu-icon" />
+                  <IconProjectEdit fill="#000000" style={{ width: "25px", height: "25px", marginTop: "5px" }} className="menu-icon" />
                   <ModalTitle>프로젝트 수정하기</ModalTitle>
                 </ModalHeadInner>
                 <CloseModal width="15px" style={{ cursor: "pointer" }} onClick={() => setModalState(false)} />
@@ -95,6 +99,7 @@ const ProjectModalEdit = (props) => {
                       maxLength="30"
                     />
                     <P>프로젝트 내용 (선택사항)</P>
+
                     <TextArea type="text" placeholder="프로젝트 내용" onChange={changeProDesc} defaultValue={detail} maxLength="50" />
                     <TextDesc>팀원들이 작업환경에 대해 쉽게 알 수 있도록 수정해주세요.</TextDesc>
                   </ModalBodyLeftInner>
@@ -296,16 +301,14 @@ const ModalEditBtn = styled.div`
   align-items: center;
   cursor: pointer;
   size: 22px;
-  color: #767676;
+  color: #387e4b;
   background: #fafbfc;
   margin: auto;
   height: 100%;
   width: 50%;
   border-bottom-left-radius: 20px;
-
   &:hover {
-    background: #fafbfc;
-    color: #387e4b;
+    background: #e1ede4;
   }
 `;
 const ModalDeleteBtn = styled.div`
@@ -314,15 +317,15 @@ const ModalDeleteBtn = styled.div`
   align-items: center;
   cursor: pointer;
   size: 22px;
-  color: #767676;
-  background: #e1ede4;
+  color: #ffffff;
+  background: #387e4b;
   margin: auto;
   height: 100%;
   width: 50%;
   border-bottom-right-radius: 20px;
   &:hover {
-    background: #387e4b;
-    color: #ffffff;
+    background: #e1ede4;
+    color: #387e4b;
   }
 `;
 

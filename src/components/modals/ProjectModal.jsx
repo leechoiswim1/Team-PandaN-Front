@@ -297,21 +297,21 @@ const ModalBodyRightImage = styled.img`
 const ModalFooter = styled.div`
   box-sizing: border-box;
   height: 15%;
-  background: #e1ede4;
+  background: #387e4b;
   display: flex;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   margin: auto;
   font-size: 22px;
   font-weight: 700;
-  color: #767676;
+  color: #ffffff;
   cursor: pointer;
   justify-content: center;
   text-align: center;
   align-items: center;
   &:hover {
-    background: #387e4b;
-    color: #ffffff;
+    background: #E1EDE4;
+    color: #387e4b;
   }
 `;
 

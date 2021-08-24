@@ -100,7 +100,7 @@ const ProjectInviteBtn = styled.div`
   cursor: pointer;
   &:hover {
     background: #e1ede4;
-    color: #000000;
+    color: #767676;
   }
 `;
 const EmptyProjectBtn = styled.div`
@@ -237,21 +237,21 @@ const Input = styled.input`
 const ModalFooter = styled.div`
   box-sizing: border-box;
   height: 20%;
-  background: #e1ede4;
   display: flex;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   margin: auto;
   font-size: 22px;
   font-weight: 700;
-  color: #767676;
   cursor: pointer;
   justify-content: center;
   text-align: center;
   align-items: center;
+  background: #387e4b;
+  color: #ffffff;
   &:hover {
-    background: #387e4b;
-    color: #ffffff;
+    background: #e1ede4;
+    color: #767676;
   }
 `;
 
