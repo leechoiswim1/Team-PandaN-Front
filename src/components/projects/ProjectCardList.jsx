@@ -79,9 +79,9 @@ const ProjectCardList = () => {
                         const http = c.substring(0, 4);
 
                         return (
-                          <>
-                            {http == "http" ? (
-                              <img src={c} style={{ width: "20px", height: "20px", borderRadius: "10px" }} />
+                          <React.Fragment key={idx}>
+                            {http === "http" ? (
+                              <img src={c} style={{ width: "20px", height: "20px", borderRadius: "10px" }} alt="crew"/>
                             ) : (
                               <img
                                 src="https://e7.pngegg.com/pngimages/287/501/png-clipart-giant-panda-emoji-coloring-book-drawing-sticker-emoji-child-face-thumbnail.png"
@@ -90,11 +90,10 @@ const ProjectCardList = () => {
                                   height: "20px",
                                   borderRadius: "10px",
                                 }}
-                                key={idx}
                                 alt="crew"
                               />
                             )}
-                          </>
+                          </React.Fragment>
                         );
                       })}
                     </div>

@@ -12,7 +12,7 @@ import noteKanban from "./noteKanban";
 import user from "./user";
 import comment from "./comment";
 import search from "./search";
-import file from "./file";
+// import file from "./file";
 
 export const history = createBrowserHistory();
 /* == Main - Root reducer */
@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
   user,
   comment,
   search,
-  file,
+  // file,
   router: connectRouter(history),
 });
 

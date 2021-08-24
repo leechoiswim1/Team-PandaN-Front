@@ -44,6 +44,10 @@ export const noteApi = {
   getProjectMyNotes: (projectId, _page, size) => instance.get(`/api/projects/${projectId}/mynotes?page=${_page}&size=${size}`),
   /* detail */
   getNoteDetail: (noteId) => instance.get(`/api/notes/${noteId}`),
+  /* detail page ; lock manager */
+  checkEditmodeLocked: (noteId) => instance.get(`/api/notes/is-lock/${noteId}`),
+  sendWritingSignal: (noteId) => instance.post(`/api/notes/writing/${noteId}`),
+  sendLockSignal: (noteId) => instance.post(`/api/notes/start-lock-manager/${noteId}`),
   /* note */
   addNote: (noteId, newNote) => instance.post(`/api/notes/${noteId}`, newNote),
   editNote: (noteId, newNote) => instance.put(`/api/notes/details/${noteId}`, newNote),

@@ -32,14 +32,14 @@ const IssueList = ({ history, notes, projectId, ...rest }) => {
     <>
       <div className="table-responsive">
         <table className="table note-issue-table">
-          <colgroup>
+          <colgroup className="note-issue-colgroup">
+            <col width="7%"/>
+            <col width="7%"/>
+            <col />
+            <col />
+            <col width="20%"/>
+            <col width="20%"/>
             <col width="5%"/>
-            <col width="5%"/>
-            <col width="30%"/>
-            <col width="25%"/>
-            <col width="15%"/>
-            <col width="15%"/>
-            <col width="15%"/>
           </colgroup>
           <thead>
             <tr>
