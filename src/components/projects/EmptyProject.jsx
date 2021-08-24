@@ -7,12 +7,11 @@ import PandaEmpty from "../../styles/images/Panda_EmptyProject.svg";
 import PlanBetterStartEasier from "../../styles/images/PlanBetter_StartEasier.svg";
 const EmptyProject = () => {
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <Background>
       <CenterWrap>
         <CenterBox>
-          <img src={PandaEmpty} />
-          <img src={PlanBetterStartEasier} style={{ margin: "20px 0px" }} />
-
+          <PandaEmptyImg src={PandaEmpty} alt={PandaEmpty} />
+          <PlanBetterStartEasierImg src={PlanBetterStartEasier} alt={PlanBetterStartEasier} />
           <CenterText>
             세상에서 제일 쉬운 협업툴 <span style={{ color: "#387E4B", fontWeight: "700" }}>PandaN</span>으로 프로젝트를 관리하세요!
           </CenterText>
@@ -22,45 +21,49 @@ const EmptyProject = () => {
           </CenterBtn>
         </CenterBox>
       </CenterWrap>
-    </div>
+    </Background>
   );
 };
 
+const Background = styled.div`
+  width: 90vw;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+`;
+
 const CenterWrap = styled.div`
   display: flex;
-  flex-direction: column;
-  position: absolute;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  position: relative;
+  width: 90%;
   height: 100%;
-  left: 60%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  @media (max-width: 1200px) {
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-  @media (max-width: 1200px) {
-    left: 50%;
-    top: 55%;
-    transform: translate(-50%, -50%);
+  margin-left: 0px;
+  @media (max-width: 400px) {
+    margin: auto;
   }
 `;
 
 const CenterBox = styled.div`
   display: block;
   margin: auto;
-  flex-direction: column;
   display: flex;
-  justify-content: center;
   align-items: center;
-  @media (max-width: 600px) {
-    width: 70%;
+  justify-content: center;
+  flex-direction: column;
+`;
+const PandaEmptyImg = styled.img`
+  width: 70%;
+  height: 70%;
+  @media (max-width: 400px) {
+    width: 100%;
+    height: 100%;
   }
 `;
-
+const PlanBetterStartEasierImg = styled.img`
+  margin: 20px 0px;
+  width: 80%;
+`;
 const CenterBtn = styled.div`
   display: flex;
   margin: 50px auto;
@@ -77,7 +80,6 @@ const CenterText = styled.div`
   font-weight: 500;
   font-size: 22px;
   line-height: 36px;
-  margin-top: 10px;
   display: flex;
   @media (max-width: 600px) {
     display: none;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import ModalPortal from "../../util/ModalPotal";
 
 import { actionCreators as projectActions } from "../../modules/project";
@@ -125,6 +125,15 @@ const ProjectModal = (props) => {
     </>
   );
 };
+
+const fadeIn = keyframes`
+from {
+  opacity:0; }
+to{
+    opaciry:1;
+}
+`;
+
 const EmptyProjectBtn = styled.div`
   background: #e1ede4;
   width: 329px;
@@ -184,6 +193,10 @@ const Window = styled.div`
   height: 600px;
   background: #ffffff;
   border-radius: 20px;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-name: ${fadeIn};
+  animation-fill-mode: forwards;
 
   @media (max-width: 768px) {
     max-width: 720px;
@@ -297,21 +310,21 @@ const ModalBodyRightImage = styled.img`
 const ModalFooter = styled.div`
   box-sizing: border-box;
   height: 15%;
-  background: #e1ede4;
+  background: #387e4b;
   display: flex;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   margin: auto;
   font-size: 22px;
   font-weight: 700;
-  color: #767676;
+  color: #ffffff;
   cursor: pointer;
   justify-content: center;
   text-align: center;
   align-items: center;
   &:hover {
-    background: #387e4b;
-    color: #ffffff;
+    background: #e1ede4;
+    color: #387e4b;
   }
 `;
 
