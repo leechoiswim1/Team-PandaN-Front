@@ -50,7 +50,6 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     }, [delay]);
   }
 
-
   // subscribe 
   // case : modalType === "editing"
   const writer = useSelector(state => state.noteKanban.writer ? state.noteKanban.writer : "");
@@ -58,7 +57,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
   const { detail, files } = useSelector((state) => state.noteKanban?.detail);
   const { title, content, deadline } = detail ? detail : "";
   const fileList = useSelector((state) => state.noteKanban?.filePreview);
-  const is_locked = useSelector((state) => state.noteKanban?.is_locked);
+  const isLocked = useSelector((state) => state?.noteKanban?.locked);
 
   // state
   const [modalVisible, setModalVisible] = useState(false)
@@ -110,10 +109,22 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     async function CheckEditMode() {
       try {
         const result1 =  await dispatch(noteKanbanActions.__checkEditmodeLocked(noteId));
-        if (!is_locked) {
-          setModalVisible(true);
+
+        if (!isLocked) {
+          console.log(`모달 안 잠김 isLocked: ${isLocked}`);
+          dispatch(noteKanbanActions.__sendLockSignal(noteId));
+          console.log(`모달 컴포넌트 true?: ${isLocked} 잠금 시그널 보냄`);
           dispatch(noteKanbanActions.setListPreview(files));
-          const result2 = await dispatch(noteKanbanActions.__sendLockSignal(noteId));
+          console.log("모달 컴포넌트 : 모달창 열리기 전!");
+          setModalVisible(true);
+          console.log("모달 컴포넌트 : 모달창 열렸음!");
+          // 1. setModalVisible(true);
+          // 2. dispatch(noteKanbanActions.setListPreview(files));
+          // 3. const result2 = await dispatch(noteKanbanActions.__sendLockSignal(noteId));
+        } else {
+          console.log(`모달 잠김 isLocked: ${isLocked}`);
+          console.log(`모달 컴포넌트 : 모달창 잠겨있음, isLocked true?: ${isLocked}`);
+          return;
         }
       } catch {
         console.log("error");
@@ -136,8 +147,13 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
   // 모달 공통 : 클릭 시 모달창 닫힘
   const handleCloseModal = (e) => {
     e.preventDefault();
-    e.stopPropagation();    
+    e.stopPropagation();
+
+    console.log("모달창 닫히기 전!")   
+    dispatch(noteKanbanActions.toggleLocked( true ));
     setModalVisible(false);
+    console.log("모달창 닫힘!")
+    
     // // case 1: 노트 수정의 경우 한 번 더 확인
     // if (modalType ==="editing") {
     //   const result = window.confirm("정말로 창을 닫으시겠습니까? 변경된 정보가 저장되지 않습니다.");

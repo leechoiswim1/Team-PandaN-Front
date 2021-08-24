@@ -39,10 +39,8 @@ const initialState = {
     files: [],
   },
   filePreview: [],
-  is_loading: false,
-  is_locked: false,
-  writer: "",
-  sameUser: false,
+  isLoading: false,
+  isLocked: false,  
 };
 
 /* == action */
@@ -57,7 +55,7 @@ const EDIT_NOTE         = "note_detail/EDIT_NOTE";
 const DELETE_NOTE       = "note_detail/DELETE_NOTE";
 const SET_MODIFIED_NOTE = "note_detail/SET_MODIFIED_NOTE";
 /* note - edit mode ; lock manager */
-const CHECK_EDITMODE_LOCKED = "note_detail/CHECK_EDITMODE_LOCKED";
+const TOGGLE_LOCKED = "note_detail/TOGGLE_LOCKED";
 /* bookmark - add / delete */
 const ADD_BOOKMARK      = "note_bookmark/ADD_BOOKMARK";
 const DELETE_BOOKMARK   = "note_bookmark/DELETE_BOOKMARK";
@@ -81,7 +79,7 @@ const editNote = createAction(EDIT_NOTE, (noteId) => ({ noteId }));
 const deleteNote = createAction(DELETE_NOTE, (noteId) => ({ noteId }));
 const setModifiedNote = createAction(SET_MODIFIED_NOTE, (modifiedNote) => ({ modifiedNote }));
 /* note edit mode ; lock manager */
-const checkEditmodeLocked = createAction(CHECK_EDITMODE_LOCKED, ( is_locked, writer, sameUser ) => ({ is_locked, writer, sameUser }));
+const toggleLocked = createAction(TOGGLE_LOCKED, ( isLocked ) => ({ isLocked }));
 /* bookmark - add / delete */
 const addBookmark = createAction(ADD_BOOKMARK, (noteId) => ({ noteId }));
 const deleteBookmark = createAction(DELETE_BOOKMARK, (noteId) => ({ noteId }));
@@ -91,7 +89,7 @@ const resetPreview  = createAction(RESET_PREVIEW, () => ({}));
 const deletePreview = createAction(DELETE_PREVIEW, ( fileUrl ) => ({ fileUrl }));
 const setListPreview = createAction(SET_LIST_PREVIEW, ( fileList ) => ({ fileList }));
 
-const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+const loading = createAction(LOADING, (isLoading) => ({ isLoading }));
 
 /* == thunk function */
 /* kanban */
@@ -140,55 +138,73 @@ const __getNoteDetail =
 const __checkEditmodeLocked =
   (noteId) =>
   async (dispatch, getState, { history }) => {
+    const isLocked = getState().noteKanban.isLocked;
     try {
       const { data } = await noteApi.checkEditmodeLocked(noteId);
       const { locked, writer, sameUser } = data;
 
+      console.log(`1. locked 응답 옴, 서버 응답: ${locked}, isLocked: ${isLocked}`);
+
       // edit mode 잠그기
       // case 1 : 안 잠겼을 경우, locked: true로 만들고 수정 모달 잠가 줄 것
       if ( !locked ) {
-        dispatch(checkEditmodeLocked( true, writer, sameUser ));
+        dispatch(toggleLocked( true ));
+        console.log(`1-1. locked 응답 온 후 락매니저 실행 전 리덕스 수정 함, 서버 응답: ${locked}, isLocked: ${isLocked}`);
       }  
     
       // case 2 : 잠겼을 경우
       if ( locked ) {
-        dispatch(checkEditmodeLocked( locked, writer, sameUser ));
+        dispatch(toggleLocked( true ));
+        console.log(`1-2. locked 응답 온 후 잠겨 있을 때, 서버 응답 true?: ${locked}, isLocked true?: ${isLocked}`);
         // case 2-1 : 동일한 사용자가 창을 껐다가 다시 진입 시도할 때
-        if ( sameUser ) window.alert("잠시 뒤에 시도해 주세요.");
-        // case 2-2 : 다른 사용자가 작성 중일 때
-        else window.alert(`${writer}님이 글을 수정 중입니다. 잠시 뒤에 시도해 주세요.`);
+        if ( sameUser ) {
+          console.log(`동일 작성자일 때, 서버 응답 true?: ${locked}, isLocked true?: ${isLocked}`);
+          window.alert("잠시 뒤에 시도해 주세요.");
           return;
+        }
+        // case 2-2 : 다른 사용자가 작성 중일 때
+        else { 
+          console.log(`다른 작성자일 때, 서버 응답 true?: ${locked}, isLocked true?: ${isLocked}`);
+          window.alert(`${writer}님이 글을 수정 중입니다. 잠시 뒤에 시도해 주세요.`);
+          return;
+        }
       }
     } catch (e) {
       console.log(e);
     }
   };
 
-// 수정 모달 진입 시점에 한 번 호출
+// 수정 모달 진입 시점에 한 번 호출: lock manager
 // 수정 모달 잠금 요청
 const __sendLockSignal =
 (noteId) =>
 async (dispatch, getState, { history }) => {
+  const isLocked = getState().noteKanban.isLocked;
   try {
     // 수정 모달 잠가 줄 것
-    dispatch(checkEditmodeLocked( true ));
+    dispatch(toggleLocked( true ));
+    console.log(`2-1. 락매니저 요청 보냄, isLocked true?: ${isLocked}`);
     const response = await noteApi.sendLockSignal(noteId);
     // 잠금이 풀릴 때 서버로부터 응답이 옴, 그 후 수정 모달을 접근가능 하도록 풀어 줄 것
-    const __changeEditmode = await dispatch(checkEditmodeLocked( false ));    
+    const __changeEditmode = await dispatch(toggleLocked( false ));    
+    console.log(`2-2. 락매니저 종료 응답, isLocked false?: ${isLocked}`);
   } catch (e) {
     console.log(e);
   }
 };
 
-// 수정 모달 진입 시점에 호출 되며, 주기적으로 요청을 보냄
+// 락매니저: 수정 모달 진입 시점에 호출 되며, 주기적으로 요청을 보냄
 // 수정 모달 사용 중임을 주기적으로(약속된 간격으로) 서버에 알려줌
 const __sendWritingSignal =
   (noteId) =>
-  async (dispatch, getState, { history }) => {    
+  async (dispatch, getState, { history }) => {   
+    const isLocked = getState().noteKanban.isLocked; 
     try {
+      console.log(`3-1. 사용 중, isLocked true?: ${isLocked}`);
       const { data } = await noteApi.sendWritingSignal(noteId);  
       // 수정 모달 잠금 유지
-      dispatch(checkEditmodeLocked( true ));    
+      dispatch(toggleLocked( true ));
+      console.log(`3-2. 사용 중에 대한 응답, isLocked true?: ${isLocked}`);
     } catch (e) {
       console.log(e);
     }
@@ -223,15 +239,19 @@ const __editNote =
     // 없는 파일은 fileId : 0 ; 추가
     newFiles.forEach(newFile => newFile.fileId = 0);
     const _newFileList = oldFiles.concat(newFiles)
-
+    // 요청 바디 꾸리기
     const _newModifiedNote = {
-      // ...modifiedNote,
-      // files: _newFileList
+      content: modifiedNote.content,
+      title: modifiedNote.title,
+      deadline: modifiedNote.deadline,
+      files: _newFileList
     }
-    // console.log("요청 보내기 전", _newModifiedNote)
+    console.log("요청 보내기 전", _newModifiedNote)
+  
     try {
-      // const { data } = await noteApi.editNote(noteId, _newModifiedNote);
-      // dispatch(setModifiedNote(data));
+      const { data } = await noteApi.editNote(noteId, _newModifiedNote);
+      console.log("요청 보낸 후", data)
+      dispatch(setModifiedNote(data));
     } catch (e) {
       console.log(e);
     }
@@ -278,21 +298,21 @@ const noteKanban = handleActions(
       return {
         ...state,
         kanban: action.payload.newState,
-        is_loading: false
+        isLoading: false
       };
     },
     [GET_KANBAN_NOTES]: (state, action) => {
       return {
         ...state,
         kanban: action.payload.kanbanNotes,
-        is_loading: false
+        isLoading: false
       };
     },
     [GET_NOTE_DETAIL]: (state, action) => {
       return {
         ...state,
         detail: action.payload.note,
-        is_loading: false
+        isLoading: false
       };
     },
     [ADD_NOTE]: (state, action) => {
@@ -309,30 +329,30 @@ const noteKanban = handleActions(
             return step;
           }
         }),
-        is_loading: false
+        isLoading: false
       };
     },
     [SET_MODIFIED_NOTE]: (state, action) => {
-      const note = action.payload.modifiedNote;
+      const { detail, files } = action.payload.modifiedNote;
       return {
         ...state,
         detail: {
           ...state.detail,
-          noteId: note.noteId,
-          title: note.title,
-          content: note.content,
-          deadline: note.deadline,
-          step: note.step,
+          noteId: detail.noteId,
+          title: detail.title,
+          content: detail.content,
+          deadline: detail.deadline,
+          step: detail.step,
+          files: files,
         },
-        is_loading: false
+        
+        isLoading: false
       };
     },
-    [CHECK_EDITMODE_LOCKED]: (state, action) => {
+    [TOGGLE_LOCKED]: (state, action) => {
       return {
         ...state,
-        is_locked: action.payload.is_locked,
-        writer: action.payload.writer,
-        sameUser: action.payload.sameUser
+        isLocked: action.payload.isLocked,
       };
     },
     [DELETE_NOTE]: (state, action) => {
@@ -393,7 +413,7 @@ const noteKanban = handleActions(
     [LOADING]: (state, action) => {
       return {
         ...state,
-        is_loading: action.payload.is_loading
+        isLoading: action.payload.isLoading
       };  
     },
   },  
@@ -412,6 +432,7 @@ export const noteKanbanActions = {
   __editNote,
   __deleteNote,
   /* note - edit mode ; lock manager */
+  toggleLocked,
   __checkEditmodeLocked,
   __sendLockSignal,
   __sendWritingSignal,
