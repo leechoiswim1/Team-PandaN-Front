@@ -25,7 +25,7 @@ const LeaveProject = (props) => {
       {props.main ? (
         <IconEdit style={{ cursor: "pointer" }} onClick={leaveProject} />
       ) : (
-        <IconProjectEdit style={{ cursor: "pointer", width: "22px", height: "22px", marginTop: "7px" }} onClick={leaveProject} />
+        <IconProjectEdit fill="#9A9A9A" style={{ cursor: "pointer", width: "22px", height: "22px", marginTop: "7px" }} onClick={leaveProject} />
       )}
     </div>
   );
