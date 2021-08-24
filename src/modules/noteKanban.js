@@ -40,7 +40,9 @@ const initialState = {
   },
   filePreview: [],
   is_loading: false,
-  is_locked: false
+  is_locked: false,
+  writer: "",
+  sameUser: false,
 };
 
 /* == action */
@@ -54,6 +56,7 @@ const GET_NOTE_DETAIL   = "note_detail/GET_NOTE_DETAIL";
 const EDIT_NOTE         = "note_detail/EDIT_NOTE";
 const DELETE_NOTE       = "note_detail/DELETE_NOTE";
 const SET_MODIFIED_NOTE = "note_detail/SET_MODIFIED_NOTE";
+/* note - edit mode ; lock manager */
 const CHECK_EDITMODE_LOCKED = "note_detail/CHECK_EDITMODE_LOCKED";
 /* bookmark - add / delete */
 const ADD_BOOKMARK      = "note_bookmark/ADD_BOOKMARK";
@@ -77,7 +80,8 @@ const getNoteDetail = createAction(GET_NOTE_DETAIL, (note) => ({ note }));
 const editNote = createAction(EDIT_NOTE, (noteId) => ({ noteId }));
 const deleteNote = createAction(DELETE_NOTE, (noteId) => ({ noteId }));
 const setModifiedNote = createAction(SET_MODIFIED_NOTE, (modifiedNote) => ({ modifiedNote }));
-const checkEditmodeLocked = createAction(CHECK_EDITMODE_LOCKED, ( is_locked ) => ({ is_locked }));
+/* note edit mode ; lock manager */
+const checkEditmodeLocked = createAction(CHECK_EDITMODE_LOCKED, ( is_locked, writer, sameUser ) => ({ is_locked, writer, sameUser }));
 /* bookmark - add / delete */
 const addBookmark = createAction(ADD_BOOKMARK, (noteId) => ({ noteId }));
 const deleteBookmark = createAction(DELETE_BOOKMARK, (noteId) => ({ noteId }));
@@ -129,40 +133,62 @@ const __getNoteDetail =
     }
   };
   
-/* note - detail page ; lock manager */
+/* note - edit mode ; lock manager */
+
+// 수정모드에서 모달창 버튼 눌러 진입 시도 시 호출
+// 수정모드에 진입할 수 있는지 여부 업데이트 해 주기 전 처리
 const __checkEditmodeLocked =
   (noteId) =>
   async (dispatch, getState, { history }) => {
     try {
-      console.log("7. 잠겼는지 확인하기 전", getState().noteKanban.is_locked );
       const { data } = await noteApi.checkEditmodeLocked(noteId);
-      console.log("잠겼음?", data);
-      dispatch(checkEditmodeLocked( data ));
-      console.log("8. 잠김 확인 후 응답", getState().noteKanban.is_locked );
+      const { locked, writer, sameUser } = data;
+
+      // edit mode 잠그기
+      // case 1 : 안 잠겼을 경우, locked: true로 만들고 수정 모달 잠가 줄 것
+      if ( !locked ) {
+        dispatch(checkEditmodeLocked( true, writer, sameUser ));
+      }  
+    
+      // case 2 : 잠겼을 경우
+      if ( locked ) {
+        dispatch(checkEditmodeLocked( locked, writer, sameUser ));
+        // case 2-1 : 동일한 사용자가 창을 껐다가 다시 진입 시도할 때
+        if ( sameUser ) window.alert("잠시 뒤에 시도해 주세요.");
+        // case 2-2 : 다른 사용자가 작성 중일 때
+        else window.alert(`${writer}님이 글을 수정 중입니다. 잠시 뒤에 시도해 주세요.`);
+          return;
+      }
     } catch (e) {
       console.log(e);
     }
   };
 
+// 수정 모달 진입 시점에 한 번 호출
+// 수정 모달 잠금 요청
+const __sendLockSignal =
+(noteId) =>
+async (dispatch, getState, { history }) => {
+  try {
+    // 수정 모달 잠가 줄 것
+    dispatch(checkEditmodeLocked( true ));
+    const response = await noteApi.sendLockSignal(noteId);
+    // 잠금이 풀릴 때 서버로부터 응답이 옴, 그 후 수정 모달을 접근가능 하도록 풀어 줄 것
+    const __changeEditmode = await dispatch(checkEditmodeLocked( false ));    
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+// 수정 모달 진입 시점에 호출 되며, 주기적으로 요청을 보냄
+// 수정 모달 사용 중임을 주기적으로(약속된 간격으로) 서버에 알려줌
 const __sendWritingSignal =
   (noteId) =>
-  async (dispatch, getState, { history }) => {
+  async (dispatch, getState, { history }) => {    
     try {
-      console.log("사용 중이라는 요청 보내기 전");
-      const { data } = await noteApi.sendWritingSignal(noteId);      
-      console.log("사용 중이라는 요청 보냈음");
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-const __sendLockSignal =
-  (noteId) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      console.log("0. 잠금 요청 보냄");
-      const response = await noteApi.sendLockSignal(noteId);
-      console.log("1. 잠금 풀림", response);
+      const { data } = await noteApi.sendWritingSignal(noteId);  
+      // 수정 모달 잠금 유지
+      dispatch(checkEditmodeLocked( true ));    
     } catch (e) {
       console.log(e);
     }
@@ -302,10 +328,11 @@ const noteKanban = handleActions(
       };
     },
     [CHECK_EDITMODE_LOCKED]: (state, action) => {
-
       return {
         ...state,
-        is_locked: action.payload.is_locked
+        is_locked: action.payload.is_locked,
+        writer: action.payload.writer,
+        sameUser: action.payload.sameUser
       };
     },
     [DELETE_NOTE]: (state, action) => {
@@ -384,9 +411,10 @@ export const noteKanbanActions = {
   __getNoteDetail,
   __editNote,
   __deleteNote,
+  /* note - edit mode ; lock manager */
   __checkEditmodeLocked,
-  __sendWritingSignal,
   __sendLockSignal,
+  __sendWritingSignal,
   /* bookmark - add / delete */
   __addBookmark,
   __deleteBookmark,
