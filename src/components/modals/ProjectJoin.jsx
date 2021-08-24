@@ -1,8 +1,7 @@
 import { React, useState } from "react";
 import ModalPortal from "../../util/ModalPotal";
 
-import styled from "styled-components";
-import { t } from "../../util/remConverter";
+import styled, { keyframes } from "styled-components";
 
 import { actionCreators as projectActions } from "../../modules/project";
 import { useDispatch } from "react-redux";
@@ -84,6 +83,13 @@ const ProjectJoin = (props) => {
     </>
   );
 };
+const fadeIn = keyframes`
+from {
+  opacity:0; }
+to{
+    opaciry:1;
+}
+`;
 const ProjectInviteBtn = styled.div`
   display: block;
   widht: 240px;
@@ -100,7 +106,7 @@ const ProjectInviteBtn = styled.div`
   cursor: pointer;
   &:hover {
     background: #e1ede4;
-    color: #000000;
+    color: #767676;
   }
 `;
 const EmptyProjectBtn = styled.div`
@@ -162,7 +168,10 @@ const Window = styled.div`
   height: 430px;
   background: #ffffff;
   border-radius: 20px;
-
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-name: ${fadeIn};
+  animation-fill-mode: forwards;
   @media (max-width: 400px) {
     max-width: 350px;
     max-height: 400px;
@@ -237,21 +246,21 @@ const Input = styled.input`
 const ModalFooter = styled.div`
   box-sizing: border-box;
   height: 20%;
-  background: #e1ede4;
   display: flex;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   margin: auto;
   font-size: 22px;
   font-weight: 700;
-  color: #767676;
   cursor: pointer;
   justify-content: center;
   text-align: center;
   align-items: center;
+  background: #387e4b;
+  color: #ffffff;
   &:hover {
-    background: #387e4b;
-    color: #ffffff;
+    background: #e1ede4;
+    color: #767676;
   }
 `;
 

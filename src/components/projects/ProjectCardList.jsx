@@ -132,6 +132,9 @@ const Item = styled.div`
   @media (max-width: 720px) {
     width: 80%;
   }
+  &:hover {
+    border: 2px solid #fff;
+  }
 `;
 
 const Wrap = styled.div(
