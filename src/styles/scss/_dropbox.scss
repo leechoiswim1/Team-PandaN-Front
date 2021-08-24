@@ -32,7 +32,7 @@
 }
 
 .dropdown-content {
-  display: none;
+  display: block;
   position: absolute;
   width: 200px;
   min-height: 360px;
@@ -42,6 +42,16 @@
   background: #f9f9f9;
   border: 2px solid #dedede;
   z-index: 1;
+  animation: growDown 400ms ease-in-out forwards;
+  transform-origin: top center;
+  @keyframes growDown {
+    0% {
+      transform: scaleY(0);
+    }
+    100% {
+      transform: scaleY(1);
+    }
+  }
 }
 
 .dropdown:hover .dropdown-content {
