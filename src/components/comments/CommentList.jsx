@@ -71,10 +71,9 @@ const Wrapper = styled.div`
   background-color: #ffffff;
   border-radius: 1rem;
   box-shadow: 5px 10px 20px rgba(25, 25, 25, 0.1);
-  @media (max-width: 800px) {
-    min-width: 300px;
-    margin-right: 25px;
-    // margin-top:20px;
+  @media (max-width: 400px) {
+    width: 100%;
+    margin: 10px 0px 0px 0px;
   }
 `;
 

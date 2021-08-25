@@ -93,7 +93,7 @@ const Card = styled.div`
   background: #fff;
   margin: 20px auto;
   padding: 10px;
-  min-width: 280px;
+  min-width: 250px;
   border-radius: 10px;
   &:hover {
     background-color: #e1ede4;

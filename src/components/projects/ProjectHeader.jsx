@@ -35,7 +35,7 @@ const ProjectHeader = ({ match }) => {
           >
             {project_detail_list.title}{" "}
           </ProjectHeaderTitle>
-          <div style={{ marginLeft: "10px" }}>
+          <div style={{ margin: "4px 0px 0px 10px" }}>
             {isUpdatableAndDeletable ? (
               <ProjectModalEdit projectId={project_detail_list.projectId} title={project_detail_list.title} detail={project_detail_list.detail} />
             ) : (
@@ -89,6 +89,8 @@ const ProjectTitleWrap = styled.div`
     justify-content: space-between;
     width: 100%;
     margin: auto;
+  }
+  &svg {
   }
 `;
 const ProjectHeaderTitle = styled.p`

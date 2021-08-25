@@ -94,7 +94,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
   };
 
   return (
-    <div style={{ display: "flex" }}>
+    <NoteDetailWrap>
       <div className="note-detail-wrapper">
         <div className="note-detail-table">
           <div className="note-detail-tr">
@@ -123,7 +123,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
                 )}
                 {/* buttons - comment */}
                 <button type="button" onClick={() => setShowCmt(!showCmt)} className="note-detail-button">
-                  <IconComment fill="#387E4B" />
+                  <IconComment fill="#387E4B" stroke="#387E4B" />
                 </button>
               </div>
             </div>
@@ -253,10 +253,17 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
       </NoteFooter> */}
       </div>
       <CommentList comment={showCmt} history={history} match={match} projectId={projectId} />
-    </div>
+    </NoteDetailWrap>
   );
 };
 
+const NoteDetailWrap = styled.div`
+  display: flex;
+  @media (max-width: 400px) {
+    display: block;
+    width: 100%;
+  }
+`;
 const Tag = styled.div`
   ${(props) =>
     !props.type &&

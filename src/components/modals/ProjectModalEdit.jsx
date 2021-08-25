@@ -65,11 +65,7 @@ const ProjectModalEdit = (props) => {
       {props.main ? (
         <IconEdit style={{ cursor: "pointer" }} onClick={() => setModalState(true)} />
       ) : (
-        <IconProjectEdit
-          fill="#9A9A9A"
-          style={{ cursor: "pointer", width: "22px", height: "22px", marginTop: "7px" }}
-          onClick={() => setModalState(true)}
-        />
+        <IconProjectEditCss fill="#9A9A9A" onClick={() => setModalState(true)} />
       )}
 
       <ModalPortal>
@@ -141,6 +137,27 @@ const ProjectModalEdit = (props) => {
     </>
   );
 };
+
+const IconProjectEditCss = styled(IconProjectEdit)`
+cursor: pointer; 
+width: 22px; 
+height: 22px; 
+margin-top: 2px;
+&:hover {
+  fill:#387E4B;
+  animation: spin 7s linear infinite;
+    animation-delay: 0;
+    @keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+`;
+
 const fadeIn = keyframes`
 from {
   opacity:0; }
