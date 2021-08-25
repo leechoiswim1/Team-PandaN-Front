@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 
 /* == Library - Style / Bootstrap / Icon */
-import styled from "styled-components";
-import { Button, Form }               from "react-bootstrap";
+import { Form }                       from "react-bootstrap";
 import { Edit2 }                      from "react-feather";
 
 /* == Library - route */
@@ -10,7 +9,6 @@ import { useLocation, useParams }     from "react-router-dom";
 
 /* == Custom - Component & Element & Icon */
 import { ModalWrapper, FileUploader } from "..";
-import { ReactComponent as Write }    from "../../styles/images/ico-kanban-write.svg";
 import { ReactComponent as Add }      from "../../styles/images/ico-kanban-write.svg";
 import { ReactComponent as Close }    from "../../styles/images/ico-close.svg";
 import { ReactComponent as Title }    from "../../styles/images/icon_title.svg";
@@ -18,27 +16,28 @@ import { ReactComponent as Calendar } from "../../styles/images/icon_calender.sv
 import { ReactComponent as Note }     from "../../styles/images/icon_note.svg";
 import { ReactComponent as Link }     from "../../styles/images/ico-link.svg";
 
+/* == Axios - instance 및 api 요청 함수 */
+import { noteApi }                    from "../../shared/api";
 /* == Redux - actions */
 import { useSelector, useDispatch }   from 'react-redux';
 import { noteKanbanActions }          from '../../modules/noteKanban';
-// import { fileActions }                from '../../modules/file';
 
 // * == ( Note - modal - for editing note ) -------------------- * //
 const ModalEditing = ({ history, note, ...rest}) => {
-  // hooks - custom
+  // -----------------------------------------------------------
+  // * == hooks / custom hooks
+  // ----------------------------------------------------------- 
   const dispatch = useDispatch();
-  const location = useLocation();
   const { projectId, noteId } =  useParams();
-  // hooks - custom
   function useInterval(callback, delay) {
     const savedCallback = useRef();
   
-    // Remember the latest callback.
+    // 파라메터로 들어오는 콜백 
     useEffect(() => {
       savedCallback.current = callback;
     }, [callback]);
   
-    // Set up the interval.
+    // 인터벌 간격 설정
     useEffect(() => {
       function tick() {
         savedCallback.current();
@@ -48,139 +47,135 @@ const ModalEditing = ({ history, note, ...rest}) => {
         return () => clearInterval(id);
       }
     }, [delay]);
-  }
-
-  // subscribe 
-  // case : modalType === "editing"  
-  const { detail, files } = useSelector((state) => state.noteKanban?.detail);
-  const { title, content, deadline } = detail ? detail : "";
-  const fileList = useSelector((state) => state.noteKanban?.filePreview);
-  const isLocked = useSelector((state) => state?.noteKanban?.isLocked);
-  const sameUser = useSelector((state) => state?.noteKanban?.sameUser);
-  const writer = useSelector((state) => state?.noteKanban?.writer);
-  // console.log("모달 창 렌더 전: isLocked : ", isLocked);
-  // console.log("모달 창 렌더 전: sameUser : ", sameUser);
-  // console.log("모달 창 렌더 전: writer : ", writer);
-
-  // state
-  const [modalVisible, setModalVisible] = useState(false)
+  };
+  // -----------------------------------------------------------
+  // * == subscribe state
+  // ----------------------------------------------------------- 
+  const { files } = useSelector((state) => state.noteKanban?.detail);
+  const fileList  = useSelector((state) => state.noteKanban?.filePreview);
+  // -----------------------------------------------------------
+  // * == set state
+  // ----------------------------------------------------------- 
+  const [modalVisible, setModalVisible] = useState(false);
   const [noteModifiedInputs, setNoteModifiedInputs] = useState({
     title: note?.title,
     content: note?.content,
     deadline: note?.deadline,
     files: fileList,
-  });   
+  });
+  // -----------------------------------------------------------
+  // * == functions : request to REST API
+  // -----------------------------------------------------------   
+  /**
+   * __sendLockSignal
+   * @param {number} noteId ; 해당 노트의 noteId
+   *  - 수정 모달 진입하며 최초에 한 번 호출, 해당 노트 lock manger 잠금 요청
+   *  - 수정 모달 종료 후 서버에서 lock manger 풀림 응답 받음
+   */
+  const __sendLockSignal = (noteId) =>
+    async (dispatch, getState, { history }) => {
+      try {
+        const response = await noteApi.sendLockSignal(noteId);
+        // 해당 응답은 모달 창 종료 후 lock manager 풀렸을 때 받게 됨
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    
+  /**
+   * __sendWritingSignal
+   * @param {number} noteId ; 해당 노트의 noteId
+   *  - 수정 모달 진입 후 __sendLockSignal 요청 보낸 뒤 호출 되며, 주기적으로 요청을 보냄
+   *  - 잠금 유지를 위해 사용자가 해당 노트를 수정 중임을 약속된 간격으로 서버에 알려줌
+   *  - 요청이 들어가지 않을 경우(모달 창을 종료했을 경우) 해당 노트 잠금 해제
+   */
+  const __sendWritingSignal = (noteId) =>
+    async (dispatch, getState, { history }) => {
+      try {
+        const { data } = await noteApi.sendWritingSignal(noteId);  
+      } catch (e) {
+        console.log(e);
+      }
+    };
 
-  // 주기적으로 보내는 요청: 3s
-  // useInterval(() => {
-  //   dispatch(noteKanbanActions.__sendWritingSignal(noteId));
-  // }, 3000);
+  // * == 모달 창이 열려있을 때 해당 간격으로 __sendWritingSignal 호출
+  useInterval(() => {
+    dispatch(__sendWritingSignal(noteId));
+  }, ( modalVisible ) ? 3000 : null);
 
-  // useEffect(() => {
-  //   const sendSignal = setTimeout(() => {
-  //     dispatch(noteKanbanActions.__sendWritingSignal(noteId));
-  //   }, 5000);
+  /**
+   * __checkEditmodeLocked
+   * @param {number} noteId ; 해당 노트의 noteId
+   *  - 수정 버튼을 클릭하였을 때 호출
+   *  - case 1 : 수정 모달 사용할 수 있을 때 모달창 진입 및 진입 후 과정
+   *  - 요청이 들어가지 않을 경우(모달 창을 종료했을 경우) 해당 노트 잠금 해제
+   */
+  const __checkEditmodeLocked = (noteId) => 
+    async (dispatch, getState, { history }) => {
+      try {
+        // 1. 해당 노트가 잠겼는지 확인 요청
+        const { data } = await noteApi.checkEditmodeLocked(noteId);
+        // 1-1. 1에 대한 응답을 받은 후 실행
+        const { locked, writer, sameUser } = data;
+        // 2. 수정 모달 진입
+        // case 1. 안 잠겼을 경우: 모달 창을 띄운 다음, lock manager 실행 요청 및 해당 노트의 기존 파일 미리보기 셋업
+        if ( !locked ) {
+          setModalVisible(true);
+          dispatch(__sendLockSignal(noteId));
+          dispatch(noteKanbanActions.setListPreview(files));
+        } 
+        // case 2. 잠겼을 경우
+        else {
+          //case 2-1 : 동일한 사용자가 창을 껐다가 다시 진입 시도할 때
+          if ( sameUser ) { window.alert("잠시 뒤에 시도해 주세요."); return; }
+          // case 2-2 : 다른 사용자가 작성 중일 때
+          else { window.alert(`${writer}님이 글을 수정 중입니다. 잠시 뒤에 시도해 주세요.`); return; }
+        }
+      } catch (e) {
+        console.log(e);
+      };  
+    }  
 
-  //   return () => {
-  //     clearTimeout(sendSignal);
-  //   };
-  //   // dispatch(noteKanbanActions.__sendWritingSignal(noteId));
-  // }); 
-
-  // functions 
+  // -----------------------------------------------------------
+  // * == functions : handler
+  // -----------------------------------------------------------   
   // 모달 공통 : 클릭 시 모달창 열림
+  // ----------------------------------------------------------- 
   const handleOpenModal = (e) => {
     e.preventDefault();
     e.stopPropagation();
-
-
-    // promise
-    // 1. 수정 모달 창 잠겼는가 체크, 
-    //    응답 : 잠겼는지 여부(boolean), 작성자가 누구인지, 응답이 오면 다음 실행
-    // 2-1. case 1. 열려있을 때 : 모달창을 열면서, 서버로 모달창 잠가 달라는 요청 보냄, 동시에 리덕스 상에서도 잠금
-    //      그 후 파일 미리보기 준비 
-    // 2-2. case 2. 닫혀있을 때 : writer 누구인지, 모달창 진입자와 현재 사용자가 동일인인지 체크(모달창을 닫고 다시 여는 경우 고려)
-
-    // async function CheckEditMode() {
-    //   try {
-    //     const result1 =  await dispatch(noteKanbanActions.__checkEditmodeLocked(noteId));
-
-    //     if (isLocked) {
-    //       console.log(`isLocked가 true일때 출력됨, 모달 잠김 isLocked: ${isLocked}`);
-    //       // case 2-1 : 동일한 사용자가 창을 껐다가 다시 진입 시도할 때
-    //       if ( sameUser ) {
-    //         console.log(`동일 작성자일 때, sameUser true: ${isLocked}, isLocked true?: ${isLocked}`);
-    //         window.alert("잠시 뒤에 시도해 주세요.");
-    //         return;
-    //       }
-    //       // case 2-2 : 다른 사용자가 작성 중일 때
-    //       else { 
-    //         console.log(`다른 작성자일 때, writer: ${writer}, isLocked true?: ${isLocked}`);
-    //         window.alert(`${writer}님이 글을 수정 중입니다. 잠시 뒤에 시도해 주세요.`);
-    //         return;
-    //       }
-    //     } else {
-    //       console.log(`isLocked가 falsy일때 출력됨, 모달 안 잠김 isLocked: ${isLocked}`);
-    //       dispatch(noteKanbanActions.__sendLockSignal(noteId));
-    //       console.log(`모달 컴포넌트 true?: ${isLocked} 잠금 시그널 보냄`);
-    //       dispatch(noteKanbanActions.setListPreview(files));
-    //       setModalVisible(true);
-    //       // dispatch(noteKanbanActions.toggleLocked( isLocked ));
-    //       console.log("모달 창 렌더 후: isLocked : ", isLocked)
-    //       console.log("모달 창 렌더 후: writer : ", writer)
-    //       console.log("모달 창 렌더 후: sameUser :", sameUser)
-    //       // 1. setModalVisible(true);
-    //       // 2. dispatch(noteKanbanActions.setListPreview(files));
-    //       // 3. const result2 = await dispatch(noteKanbanActions.__sendLockSignal(noteId));
-    //     } 
-    //   } catch {
-    //     console.log("error");
-    //   } 
-    // };
-    
-    // CheckEditMode();
-    dispatch(noteKanbanActions.setListPreview(files));
-    setModalVisible(true);
+    dispatch(__checkEditmodeLocked(noteId));  
   };
 
+  // -----------------------------------------------------------   
   // 모달 공통 : 클릭 시 모달창 닫힘
+  // ----------------------------------------------------------- 
   const handleCloseModal = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    localStorage.removeItem("noteDetail");
 
-    // dispatch(noteKanbanActions.toggleLocked( false ));
-    setModalVisible(false);
-    
-    // // case 1: 노트 수정의 경우 한 번 더 확인
-    // if (modalType ==="editing") {
-    //   const result = window.confirm("정말로 창을 닫으시겠습니까? 변경된 정보가 저장되지 않습니다.");
-    // 	if (result) {
-    //     setModalVisible(false);
-    //   } else return;
-    // } 
-    // // case 2: 노트 생성의 경우
-    // else setModalVisible(false);    
+    const result = window.confirm("정말로 창을 닫으시겠습니까? 수정한 내용이 저장되지 않습니다.");
+    if (result) {
+      setModalVisible(false);
+    } else return;
   }
 
-  // 노트 수정 시 : 제출 시 노트 수정 요청
+  // -----------------------------------------------------------   
+  // 노트 수정 제출 : 클릭 시 내용 수정 요청
+  // ----------------------------------------------------------- 
   const handleEditNote = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     if (noteModifiedInputs.title === "")    {window.alert("할 일을 입력하세요."); return;};
     if (noteModifiedInputs.content === "")  {window.alert("할 일에 대한 설명을 추가하세요."); return;};
-    if (noteModifiedInputs.deadline === "") {window.alert("마감일을 입력하세요."); return;}
+    if (noteModifiedInputs.deadline === "") {window.alert("마감일을 입력하세요."); return;};
 
     // 파일 최대 첨부 개수 초과 시
-		if (fileList.length > 5 ) {
-			alert("최대 5개의 파일까지 업로드 할 수 있습니다.");
-			return;
-    }
-    
-    // console.log(noteModifiedInputs)
+		if (fileList.length > 5 ) { window.alert("최대 5개의 파일까지 업로드 할 수 있습니다."); return; };
+    // 해당 noteId, 수정된 내용 서버로 요청 보낸 후 모달창 종료
     dispatch(noteKanbanActions.__editNote(noteId, noteModifiedInputs));
-    handleCloseModal(e);
+    setModalVisible(false);
   };
 
   return (
@@ -280,7 +275,7 @@ const ModalEditing = ({ history, note, ...rest}) => {
             </Form>
           </div>
             <div className="note-modal-footer-button" onClick={handleEditNote}>
-            <h1>수정하기</h1>
+            <h1>할 일 수정하기</h1>
             </div>
         </div>
         </ModalWrapper>
