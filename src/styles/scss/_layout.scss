@@ -75,7 +75,7 @@ $header-height: rem(80);
 .btn-hamburger {
   position: absolute;
   top: rem(20);
-  left: rem(10);
+  left: rem(30);
   z-index: 1;
   background-color: #286639;
   padding: rem(5);
@@ -98,9 +98,10 @@ $header-height: rem(80);
   right: 0 !important;
   left: 0 !important;
   background-color: #ffffff;
-  padding: rem(10);
+  padding: rem(30);
   // inset: inherit !important;
   transform: inherit !important;
+  box-shadow: rgb(0 0 0 / 20%) 0px 20px 30px;
 
   .input-group {
     height: 100%;
@@ -223,6 +224,11 @@ $header-height: rem(80);
         }
       }
     }
+  }
+
+  .menu-text {
+    display: inline-block;
+    margin-left: rem(3);
   }
 
   .menu-link {
@@ -377,10 +383,6 @@ $header-height: rem(80);
     display: inline-flex;
     align-items: center;
     justify-content: flex-end;
-  }
-  .btn-hamburger {
-    top: rem(20);
-    left: rem(30);
   }
   [aria-expanded="true"] + header {
     background-color: #ffffff;
