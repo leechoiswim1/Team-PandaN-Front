@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { history } from "../../modules/configStore";
-import { ReactComponent as Write } from "../../styles/images/ico-kanban-write.svg";
 const ProjectList = () => {
   const project_side_list = useSelector((state) => state.project.sideList);
 

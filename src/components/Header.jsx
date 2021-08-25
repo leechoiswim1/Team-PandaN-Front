@@ -190,7 +190,7 @@ const Header = (props) => {
 const DropdownDivider = styled.hr`
   width: 90%;
   height: 1px;
-  background: #EDEDED;
+  background: #ededed;
   @media (max-width: 400px) {
     width: 100%;
   }

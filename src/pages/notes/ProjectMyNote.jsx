@@ -21,7 +21,7 @@ const ProjectMyNote = ({ history, match, ...rest }) => {
   }, []);
 
   return (
-    <Template>
+    <Template match={match}>
       <div className="content" id="content">
         <ProjectHeader match={match} />
         <ProjectMenu history={history} match={match} projectId={projectId} />

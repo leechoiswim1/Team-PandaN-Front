@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { noteActions } from "../modules/note";
+
 import Spinner from "./Spinner";
 
 const Paging = (props) => {

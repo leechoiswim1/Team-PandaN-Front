@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import moment from "moment";
 /* == Library - style */
 import styled from "styled-components";
-import { t } from "../../util/remConverter";
-import { Form, Button } from "react-bootstrap";
 import CommentEdit from "./CommentEdit";
 
 import { actionCreators as commentActions } from "../../modules/comment";
 import { useSelector, useDispatch } from "react-redux";
-import { Bookmark, Clock, Edit2, Trash2 } from "react-feather";
+import { Edit2, Trash2 } from "react-feather";
 
 import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edit.svg";
 
@@ -40,7 +38,6 @@ const CommentCard = (props) => {
   var writerProfileImg1 = "" + writerProfileImg;
   const http = writerProfileImg1.substring(0, 4);
 
-  console.log(http);
   const userProfileImage =
     http === "http"
       ? writerProfileImg
@@ -48,8 +45,8 @@ const CommentCard = (props) => {
 
   return (
     <Card>
-      <CardBody>
-        <CardHeader>
+      <div>
+        <div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>
               <img src={userProfileImage} alt="userProfileImage" style={{ width: "25px", height: "25px", borderRadius: "12.5px" }} />
@@ -83,54 +80,31 @@ const CommentCard = (props) => {
               ""
             )}
           </div>
-        </CardHeader>
+        </div>
         <Comment>{content}</Comment>
-      </CardBody>
+      </div>
       {isEditMode ? <CommentEdit props={props} isEditMode /> : ""}
     </Card>
   );
 };
 
-const Card = styled.div(
-  ...t`
+const Card = styled.div`
   width: 90%;
   background: #fff;
   margin: 20px auto;
   padding: 10px;
-  min-width:280px;
+  min-width: 250px;
   border-radius: 10px;
-
-
   &:hover {
     background-color: #e1ede4;
   }
- 
-`,
-);
+`;
 
-const CardHeader = styled.div(
-  ...t`
-`,
-);
-
-const Comment = styled.div(
-  ...t`
+const Comment = styled.div`
   margin-top: 8px;
   white-space: pre-wrap;
   word-break: keep-all;
   overflow-wrap: break-word;
-  color:#767676;
-`,
-);
-
-const MenuToggle = styled.div`
-  padding: 5px;
-  float: right;
-  background: #fff;
-  border: 1px solid #767676;
-  border-radius: 10px;
+  color: #767676;
 `;
-
-const CardBody = styled.div``;
-
 export default CommentCard;

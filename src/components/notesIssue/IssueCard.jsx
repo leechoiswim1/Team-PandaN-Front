@@ -3,8 +3,6 @@ import React from "react";
 import { Bookmark } from "react-feather";
 /* == Library - date */
 import moment from "moment";
-/* == Library - router */
-import { Link } from "react-router-dom";
 
 /* == Custom - icon */
 import IconSteps from "../../elements/IconSteps";
@@ -32,7 +30,7 @@ const IssueCard = (props) => {
     } else return;
   };
 
-  return ( 
+  return (
     <>
       <td>
         <IconSteps type={step} />

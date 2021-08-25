@@ -1,8 +1,7 @@
 import React from "react";
 import moment from "moment";
 import "moment/locale/ko";
-import styled, { css } from "styled-components";
-import { t } from "../../util/remConverter";
+import styled from "styled-components";
 import { Bookmark, FileText } from "react-feather";
 import { useSelector } from "react-redux";
 import { history } from "../../modules/configStore";
@@ -81,7 +80,7 @@ const ProjectCardList = () => {
                         return (
                           <React.Fragment key={idx}>
                             {http === "http" ? (
-                              <img src={c} style={{ width: "20px", height: "20px", borderRadius: "10px" }} alt="crew"/>
+                              <img src={c} style={{ width: "20px", height: "20px", borderRadius: "10px" }} alt="crew" />
                             ) : (
                               <img
                                 src="https://e7.pngegg.com/pngimages/287/501/png-clipart-giant-panda-emoji-coloring-book-drawing-sticker-emoji-child-face-thumbnail.png"
@@ -137,18 +136,15 @@ const Item = styled.div`
   }
 `;
 
-const Wrap = styled.div(
-  ...t`
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  margin:20px 30px ;
+const Wrap = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 20px 30px;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
- 
-`,
-);
+`;
 
 const Title = styled.div`
   font-size: 1.5rem;

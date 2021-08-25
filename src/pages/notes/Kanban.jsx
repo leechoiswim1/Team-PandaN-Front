@@ -7,7 +7,6 @@ import { Template, ProjectHeader, ProjectMenu, KanbanBoard, Spinner } from "../.
 /* == Redux - actions */
 import { useSelector, useDispatch } from "react-redux";
 import { noteKanbanActions } from "../../modules/noteKanban";
-import { actionCreators as projectActions } from "../../modules/project";
 
 // * == ( note - Kanban ) -------------------- * //
 const Kanban = ({ history, match, ...rest }) => {
@@ -17,9 +16,9 @@ const Kanban = ({ history, match, ...rest }) => {
   useEffect(() => {
     dispatch(noteKanbanActions.__getKanbanNotes(projectId));
   }, [projectId]);
-  
+
   return (
-    <Template>
+    <Template match={match}>
       <Spinner visible={isLoading} />
       <main className="content" id="content">
         <ProjectHeader match={match} />

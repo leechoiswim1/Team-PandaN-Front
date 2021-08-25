@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 /* == Redux - actions */
-import { useSelector, useDispatch }     from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 /* == Axios - instance */
 const instance = axios.create({
@@ -17,14 +17,15 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
-const __testJoinProject = () => 
+const __testJoinProject =
+  () =>
   async (dispatch, getState, { history }) => {
     try {
-      const { data } = await instance.post('/api/test/invite');
-      window.alert("프로젝트 진입 성공")
+      const { data } = await instance.post("/api/test/invite");
+      window.alert("프로젝트 진입 성공");
       history.push("/");
     } catch (e) {
-      console.log("실행 실패")
+      console.log("실행 실패");
       console.log(e);
     }
   };
@@ -35,8 +36,8 @@ const TestUser = ({ history }) => {
     e.preventDefault();
     e.stopPropagation();
 
-    dispatch(__testJoinProject())
-  }
+    dispatch(__testJoinProject());
+  };
   return (
     <div>
       <div>
