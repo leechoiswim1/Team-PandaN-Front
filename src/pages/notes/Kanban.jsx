@@ -18,7 +18,7 @@ const Kanban = ({ history, match, ...rest }) => {
   }, [projectId]);
 
   return (
-    <Template>
+    <Template match={match}>
       <Spinner visible={isLoading} />
       <main className="content" id="content">
         <ProjectHeader match={match} />
