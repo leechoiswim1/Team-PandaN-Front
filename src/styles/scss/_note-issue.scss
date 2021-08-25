@@ -242,14 +242,16 @@
   border-bottom-left-radius: rem(40);
   border-bottom-right-radius: rem(40);
   transition: all 0.2s ease-in-out;
+  color: #ffffff;
   & h1 {
     font-weight: bold;
     font-size: rem(20);
-    color: #ffffff;
+    
     letter-spacing: $letter-spacing;
   }
   &:hover {
-    background-color: #3f6a44;
+    background-color: #e1ede4;
+    color: $primary;
   }
 }
 

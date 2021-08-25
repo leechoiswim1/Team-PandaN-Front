@@ -33,6 +33,7 @@ import KanbanBoard from "./notesKanban/KanbanBoard";
 /* == Note - modal */
 import ModalWrapper from "./notesModal/ModalWrapper";
 import ModalWriting from "./notesModal/ModalWriting";
+import ModalEditing from "./notesModal/ModalEditing";
 
 /* == Note - file control */
 import FileUploader from "./files/FileUploader";
@@ -84,6 +85,7 @@ export {
   /* == Note - modals */
   ModalWrapper,
   ModalWriting,
+  ModalEditing,
   /* == Note - file control */
   FileUploader,
   FilePreviewer,

@@ -16,6 +16,8 @@ const ProjectMyNote = ({ history, match, ...rest }) => {
   const projectId = match.params.projectId;
   const isLoading = useSelector((state) => state.note.is_loading);
   const paging = useSelector((state) => state.note.projectNotePaging);
+  const projectTitle = useSelector((state) => state.project.detailList[0]?.title);
+  
   useEffect(() => {
     dispatch(noteActions.__getProjectMyNotes(projectId, paging.pageNumber, paging.size));
   }, []);
@@ -28,7 +30,7 @@ const ProjectMyNote = ({ history, match, ...rest }) => {
         <div className="note-board-container" style={{ height: "90%" }}>
           <div style={{ height: "90%" }}>
             <p style={{ fontWeight: "500" }}>
-              프로젝트에서 내가 작성한 문서 총 <span style={{ color: "#387E4B", fontWeight: "700", fontSize: "16px" }}>{paging.totalElements}</span>개
+              "{projectTitle}"에서 내가 작성한 문서 총 <span style={{ color: "#387E4B", fontWeight: "700", fontSize: "16px" }}>{paging.totalElements}</span>개
             </p>
             {myNote && <IssueList history={history} notes={myNote} projectId={projectId} type="projectMyNote" />}
             {myNote.length === 0 && <EmptyBoard type="projectMyNote" />}

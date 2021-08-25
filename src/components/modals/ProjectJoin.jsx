@@ -258,6 +258,7 @@ const ModalFooter = styled.div`
   align-items: center;
   background: #387e4b;
   color: #ffffff;
+  transition: all 0.2s ease-in-out;
   &:hover {
     background: #e1ede4;
     color: #767676;
