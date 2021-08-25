@@ -50,7 +50,7 @@ const Search = ({ history }) => {
         </h2>
 
           <div className="table-responsive">
-            <table className="table data-table">
+            <table className="table note-issue-table">
               <thead>
                 <tr>
                   <th>문서제목</th>

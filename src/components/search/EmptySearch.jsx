@@ -24,7 +24,7 @@ const EmptySearch = ({ history, searchResult }) => {
   return (
     <>
       <tr>
-      <h1>검색결과가 없슴니다.</h1>
+        <td colspan="5"><p>검색결과가 없습니다.</p></td>
       </tr>
     </>
   );
