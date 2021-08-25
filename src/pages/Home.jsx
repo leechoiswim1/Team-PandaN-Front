@@ -10,7 +10,7 @@ import { Spinner } from "../components";
 
 // import { Container, Row, Col, Button, Alert, Breadcrumb, Card, Form } from 'react-bootstrap';
 
-const Home = ({ history }) => {
+const Home = ({ history, match }) => {
   const is_loading = useSelector((state) => state.project.is_loading);
   const project_list = useSelector((state) => state.project.list);
   const project_list_length = project_list.length;
@@ -22,7 +22,7 @@ const Home = ({ history }) => {
   return (
     <>
       <Spinner visible={is_loading} Home={"Home"} />
-      <Template>
+      <Template match={match}>
         <main className="content" id="content">
           {project_list.length > 0 ? <ProjectCardList /> : <EmptyProject />}
         </main>

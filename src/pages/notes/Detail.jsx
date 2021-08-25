@@ -12,7 +12,7 @@ const Detail = ({ history, match, ...rest }) => {
   const projectId = match.params.projectId;
   const isLoading = useSelector((state) => state.noteKanban.is_loading);
   return (
-    <Template>
+    <Template match={match}>
       <Spinner visible={isLoading} />
       <div className="content" id="content">
         <ProjectHeader match={match} />

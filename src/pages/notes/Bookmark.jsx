@@ -20,7 +20,7 @@ const Bookmark = ({ history, match, ...rest }) => {
   }, [dispatch, paging]);
 
   return (
-    <Template>
+    <Template match={match}>
       <div className="content" id="content">
         <div className="note-board-container" style={{ height: "100%" }}>
           <p style={{ fontWeight: "500" }}>
