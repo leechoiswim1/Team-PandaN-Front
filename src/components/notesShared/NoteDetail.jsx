@@ -26,7 +26,7 @@ import { ReactComponent as IconFile }    from "../../styles/images/icon-status-t
 import { ReactComponent as IconComment } from "../../styles/images/icon_comment.svg";
 
 /* == Custom - Component */
-import { ModalWriting, CommentList } from "..";
+import { ModalEditing, CommentList } from "..";
 
 /* == Redux - actions */
 import { useDispatch, useSelector } from "react-redux";
@@ -106,7 +106,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
               <span>{projectTitle}</span>
               <div>
                 {/* buttons - edit */}
-                <ModalWriting modalType="editing" />
+                <ModalEditing modalType="editing" note={note}/>
                 {/* buttons - delete */}
                 <button type="button" onClick={deleteNote} className="note-detail-button">
                   <Trash2 />

@@ -41,6 +41,8 @@ const initialState = {
   filePreview: [],
   isLoading: false,
   isLocked: false,  
+  writer: "",
+  sameUser: "",
 };
 
 /* == action */
@@ -77,9 +79,9 @@ const addNote = createAction(ADD_NOTE, (newNote) => ({ newNote }));
 const getNoteDetail = createAction(GET_NOTE_DETAIL, (note) => ({ note }));
 const editNote = createAction(EDIT_NOTE, (noteId) => ({ noteId }));
 const deleteNote = createAction(DELETE_NOTE, (noteId) => ({ noteId }));
-const setModifiedNote = createAction(SET_MODIFIED_NOTE, (modifiedNote) => ({ modifiedNote }));
+const setModifiedNote = createAction(SET_MODIFIED_NOTE, ( detail, files ) => ({ detail, files }));
 /* note edit mode ; lock manager */
-const toggleLocked = createAction(TOGGLE_LOCKED, ( isLocked ) => ({ isLocked }));
+const toggleLocked = createAction(TOGGLE_LOCKED, ( isLocked, writer, sameUser ) => ({ isLocked, writer, sameUser }));
 /* bookmark - add / delete */
 const addBookmark = createAction(ADD_BOOKMARK, (noteId) => ({ noteId }));
 const deleteBookmark = createAction(DELETE_BOOKMARK, (noteId) => ({ noteId }));
@@ -125,6 +127,7 @@ const __getNoteDetail =
     dispatch(loading(true));
     try {
       const { data } = await noteApi.getNoteDetail(noteId);
+      console.log("노트 상세 응답",  data);
       dispatch(getNoteDetail(data));
     } catch (e) {
       console.log(e);
@@ -139,36 +142,41 @@ const __checkEditmodeLocked =
   (noteId) =>
   async (dispatch, getState, { history }) => {
     const isLocked = getState().noteKanban.isLocked;
+    const writer = getState().noteKanban.writer;
+    const sameUser = getState().noteKanban.sameUser;
     try {
       const { data } = await noteApi.checkEditmodeLocked(noteId);
+      console.log(data)
       const { locked, writer, sameUser } = data;
-
-      console.log(`1. locked 응답 옴, 서버 응답: ${locked}, isLocked: ${isLocked}`);
-
-      // edit mode 잠그기
-      // case 1 : 안 잠겼을 경우, locked: true로 만들고 수정 모달 잠가 줄 것
-      if ( !locked ) {
-        dispatch(toggleLocked( true ));
-        console.log(`1-1. locked 응답 온 후 락매니저 실행 전 리덕스 수정 함, 서버 응답: ${locked}, isLocked: ${isLocked}`);
-      }  
+      
+      console.log(`1. locked 응답 옴, locked: ${locked}, writer: ${writer}, sameUser: ${sameUser}, isLocked: ${isLocked}`)
+      dispatch(toggleLocked( locked , writer, sameUser ));
+      
+      // // thunk 안에서 사용자 거를 경우
+      // // edit mode 잠그기
+      // // case 1 : 안 잠겼을 경우, locked: true로 만들고 수정 모달 잠가 줄 것
+      // if ( !locked ) {
+      //   dispatch(toggleLocked( locked , writer, sameUser ));
+      //   console.log(`1-1. locked 응답 온 후 락매니저 실행 전 리덕스 수정 함, 서버 응답: ${locked}, isLocked: ${isLocked}`);
+      // }  
     
-      // case 2 : 잠겼을 경우
-      if ( locked ) {
-        dispatch(toggleLocked( true ));
-        console.log(`1-2. locked 응답 온 후 잠겨 있을 때, 서버 응답 true?: ${locked}, isLocked true?: ${isLocked}`);
-        // case 2-1 : 동일한 사용자가 창을 껐다가 다시 진입 시도할 때
-        if ( sameUser ) {
-          console.log(`동일 작성자일 때, 서버 응답 true?: ${locked}, isLocked true?: ${isLocked}`);
-          window.alert("잠시 뒤에 시도해 주세요.");
-          return;
-        }
-        // case 2-2 : 다른 사용자가 작성 중일 때
-        else { 
-          console.log(`다른 작성자일 때, 서버 응답 true?: ${locked}, isLocked true?: ${isLocked}`);
-          window.alert(`${writer}님이 글을 수정 중입니다. 잠시 뒤에 시도해 주세요.`);
-          return;
-        }
-      }
+      // // case 2 : 잠겼을 경우
+      // if ( locked ) {
+      //   dispatch(toggleLocked( locked, writer, sameUser ));
+      //   console.log(`1-2. locked 응답 온 후 잠겨 있을 때, 서버 응답 true?: ${locked}, isLocked true?: ${isLocked}`);
+      //   // case 2-1 : 동일한 사용자가 창을 껐다가 다시 진입 시도할 때
+      //   if ( sameUser ) {
+      //     console.log(`동일 작성자일 때, 서버 응답 true?: ${locked}, isLocked true?: ${isLocked}`);
+      //     window.alert("잠시 뒤에 시도해 주세요.");
+      //     return;
+      //   }
+      //   // case 2-2 : 다른 사용자가 작성 중일 때
+      //   else { 
+      //     console.log(`다른 작성자일 때, 서버 응답 true?: ${locked}, isLocked true?: ${isLocked}`);
+      //     window.alert(`${writer}님이 글을 수정 중입니다. 잠시 뒤에 시도해 주세요.`);
+      //     return;
+      //   }
+      // }
     } catch (e) {
       console.log(e);
     }
@@ -183,11 +191,11 @@ async (dispatch, getState, { history }) => {
   try {
     // 수정 모달 잠가 줄 것
     dispatch(toggleLocked( true ));
-    console.log(`2-1. 락매니저 요청 보냄, isLocked true?: ${isLocked}`);
+    console.log(`2-1. 락매니저 요청 보냄, isLocked true로 바뀜`);
     const response = await noteApi.sendLockSignal(noteId);
     // 잠금이 풀릴 때 서버로부터 응답이 옴, 그 후 수정 모달을 접근가능 하도록 풀어 줄 것
-    const __changeEditmode = await dispatch(toggleLocked( false ));    
-    console.log(`2-2. 락매니저 종료 응답, isLocked false?: ${isLocked}`);
+    const __changeEditmode = dispatch(toggleLocked( false ));    
+    console.log(`2-2. 락매니저 종료 응답, isLocked false로 바뀜`);
   } catch (e) {
     console.log(e);
   }
@@ -200,11 +208,11 @@ const __sendWritingSignal =
   async (dispatch, getState, { history }) => {   
     const isLocked = getState().noteKanban.isLocked; 
     try {
-      console.log(`3-1. 사용 중, isLocked true?: ${isLocked}`);
+      console.log(`3-1. 사용 중, isLocked : ${isLocked}`);
       const { data } = await noteApi.sendWritingSignal(noteId);  
       // 수정 모달 잠금 유지
       dispatch(toggleLocked( true ));
-      console.log(`3-2. 사용 중에 대한 응답, isLocked true?: ${isLocked}`);
+      console.log(`3-2. 사용 중에 대한 응답, isLocked : ${isLocked}`);
     } catch (e) {
       console.log(e);
     }
@@ -229,8 +237,14 @@ const __addNote =
 const __editNote =
   (noteId, modifiedNote) =>
   async (dispatch, getState, { history }) => {
+    const detail = getState().noteKanban.detail.detail;
+    const content = detail?.content;
+    const title = detail?.title;
+    const deadline = detail?.deadline;
+  
     const files = 
       getState().noteKanban.filePreview ? getState().noteKanban.filePreview : [];
+
     // awsFileName 제거
     files.map(file => delete file.awsFileName); 
     // fileId가 있는 것과 없는 것 분리
@@ -241,17 +255,16 @@ const __editNote =
     const _newFileList = oldFiles.concat(newFiles)
     // 요청 바디 꾸리기
     const _newModifiedNote = {
-      content: modifiedNote.content,
-      title: modifiedNote.title,
-      deadline: modifiedNote.deadline,
+      content: ( modifiedNote.content === undefined ? content : modifiedNote.content ),
+      title: ( modifiedNote.title === undefined ? title : modifiedNote.title ),
+      deadline: ( modifiedNote.deadline === undefined ? deadline : modifiedNote.deadline ),
       files: _newFileList
-    }
-    console.log("요청 보내기 전", _newModifiedNote)
-  
+    } 
     try {
       const { data } = await noteApi.editNote(noteId, _newModifiedNote);
-      console.log("요청 보낸 후", data)
-      dispatch(setModifiedNote(data));
+      delete data["files"];
+      // console.log(data, _newFileList)
+      dispatch(setModifiedNote(data, _newFileList));
     } catch (e) {
       console.log(e);
     }
@@ -333,19 +346,14 @@ const noteKanban = handleActions(
       };
     },
     [SET_MODIFIED_NOTE]: (state, action) => {
-      const { detail, files } = action.payload.modifiedNote;
+      // console.log(action.payload.files)
+      // console.log(action.payload.detail)
       return {
         ...state,
-        detail: {
-          ...state.detail,
-          noteId: detail.noteId,
-          title: detail.title,
-          content: detail.content,
-          deadline: detail.deadline,
-          step: detail.step,
-          files: files,
-        },
-        
+        detail: { 
+          detail : { ...state.detail.detail, ...action.payload.detail},
+          files : action.payload.files,
+        },  
         isLoading: false
       };
     },
@@ -353,6 +361,8 @@ const noteKanban = handleActions(
       return {
         ...state,
         isLocked: action.payload.isLocked,
+        writer: action.payload.writer,
+        sameUser: action.payload.sameUser,
       };
     },
     [DELETE_NOTE]: (state, action) => {
