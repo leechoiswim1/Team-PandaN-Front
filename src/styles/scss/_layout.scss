@@ -21,7 +21,9 @@ $sidebar-width-md: rem(85);
 $header-height: rem(80);
 
 .col-wrap {
-  background-color: #f9f9f9;
+  // background-color: #f9f9f9;
+  // 헤더 디자인 변경 내용 반영 위해 배경색 변경합니다.
+  background-color: #FFFFFF;
 }
 .col-left,
 .col-right {
