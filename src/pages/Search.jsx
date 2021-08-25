@@ -51,23 +51,24 @@ const Search = ({ history, match }) => {
           </small>
         </h2>
 
-        <div className="table-responsive">
-          <table className="table data-table">
-            <thead>
-              <tr>
-                <th>문서제목</th>
-                <th>프로젝트명</th>
-                <th>작성자</th>
-                <th>작성날짜</th>
-                <th>상태</th>
-              </tr>
-            </thead>
-            <tbody>
-              {searchResult && <SearchList history={history} searchResult={searchResult} />}
-              {searchResult?.length === 0 && <EmptySearch />}
-            </tbody>
-          </table>
-        </div>
+          <div className="table-responsive">
+            <table className="table note-issue-table">
+              <thead>
+                <tr>
+                  <th>문서제목</th>
+                  <th>프로젝트명</th>
+                  <th>작성자</th>
+                  <th>작성날짜</th>
+                  <th>상태</th>
+                </tr>
+              </thead>
+              <tbody>
+              { searchResult && <SearchList history={history} searchResult={searchResult}/> } 
+              { searchResult?.length === 0 && <EmptySearch/> }
+              </tbody>
+            </table>
+          </div>
+        
       </Container>
     </Template>
   );
