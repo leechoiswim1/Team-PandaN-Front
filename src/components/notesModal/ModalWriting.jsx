@@ -110,8 +110,8 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
       { modalType === "projectMenu" && 
       <>
         <div class="dropdown">
-          <button class="dropbtn" onClick={handleOpenModal} style={{backgroundColor: "#387E4B", color: "#FFFFFF"}}>
-            <Write fill="#FFFFFF" width="14" height="14" style={{ marginRight: "4px"}}/>
+          <button class="dropbtn-writing-modal" onClick={handleOpenModal} >
+            <Write fill="#FFFFFF" width="14" height="14" style={{ marginRight: "4px", marginTop: "2px"}}/>
             할 일 만들기
           </button>
         </div>

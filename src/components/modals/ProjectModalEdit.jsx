@@ -332,6 +332,7 @@ const ModalEditBtn = styled.div`
   height: 100%;
   width: 50%;
   border-bottom-left-radius: 20px;
+  transition: all 0.2s ease-in-out;
   &:hover {
     background: #e1ede4;
   }
@@ -348,6 +349,7 @@ const ModalDeleteBtn = styled.div`
   height: 100%;
   width: 50%;
   border-bottom-right-radius: 20px;
+  transition: all 0.2s ease-in-out;
   &:hover {
     background: #e1ede4;
     color: #387e4b;
