@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 /* == Library - Style / Bootstrap / Icon */
 import styled from "styled-components";
@@ -21,7 +21,7 @@ import { ReactComponent as Link }     from "../../styles/images/ico-link.svg";
 /* == Redux - actions */
 import { useSelector, useDispatch }   from 'react-redux';
 import { noteKanbanActions }          from '../../modules/noteKanban';
-import { fileActions }                from '../../modules/file';
+// import { fileActions }                from '../../modules/file';
 
 // * == ( Note - modal - for writing note ) -------------------- * //
 const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
@@ -34,7 +34,8 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
   // case : modalType === "editing"
   const { detail, files } = useSelector((state) => state.noteKanban?.detail);
   const { title, content, deadline } = detail ? detail : "";
-
+  const fileList = useSelector((state) => state.noteKanban?.filePreview);
+  const is_locked = useSelector((state) => state.noteKanban?.is_locked);
   // state
   const [modalVisible, setModalVisible] = useState(false)
   // state : 노트 생성 시 
@@ -53,22 +54,89 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     files: files,
   }); 
 
+  // function useInterval(callback, delay) {
+  //   const savedCallback = useRef();
+  
+  //   // Remember the latest callback.
+  //   useEffect(() => {
+  //     savedCallback.current = callback;
+  //   }, [callback]);
+  
+  //   // Set up the interval.
+  //   useEffect(() => {
+  //     function tick() {
+  //       savedCallback.current();
+  //     }
+  //     if (delay !== null) {
+  //       let id = setInterval(tick, delay);
+  //       return () => clearInterval(id);
+  //     }
+  //   }, [delay]);
+  // }
+
+  // // 주기적으로 보내는 요청
+  // useInterval(() => {
+  //   dispatch(noteKanbanActions.__sendWritingSignal(noteId));
+  // }, ( modalType === "editing" && modalVisible ) ? 3000 : null);
+
+  // useEffect(() => {
+  //   const sendSignal = setTimeout(() => {
+  //     dispatch(noteKanbanActions.__sendWritingSignal(noteId));
+  //   }, 5000);
+
+  //   return () => {
+  //     clearTimeout(sendSignal);
+  //   };
+  //   // dispatch(noteKanbanActions.__sendWritingSignal(noteId));
+  // }); 
+
+
   // functions 
   // 모달 공통 : 클릭 시 모달창 열림
+  
   const handleOpenModal = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    // 상태 변경 : 파일 미리보기 목록 삭제
-    dispatch(fileActions.resetPreview());
-    setModalVisible(true)
+    // if (modalType ==="editing") {
+    //   dispatch(noteKanbanActions.__checkEditmodeLocked(noteId));
+    // }
+    // // 상태 변경 
+    // // case 1: 노트 수정의 경우 상세정보에 있는 파일 목록을 모달창 클릭 시 파일 미리보기 목록에 넣어주기
+    // if (modalType ==="editing") {
+    //   if (!is_locked) {
+    //     dispatch(noteKanbanActions.__sendLockSignal(noteId));
+    //     dispatch(noteKanbanActions.setListPreview(files));
+    //     setModalVisible(true);
+    //   }
+    //   else {
+    //     window.alert("다른 사용자가 글을 수정 중입니다.");
+    //     return;
+    //   }
+    // } 
+    // // case 2: 노트 생성의 경우 모달창 클릭 시 파일 미리보기 목록 삭제
+    // else {
+    //   dispatch(noteKanbanActions.resetPreview());
+    //   setModalVisible(true);
+    // }
+    
+    setModalVisible(true);
+
   }
   // 모달 공통 : 클릭 시 모달창 닫힘
   const handleCloseModal = (e) => {
     e.preventDefault();
-    e.stopPropagation();
-
-    setModalVisible(false)
+    e.stopPropagation();    
+    setModalVisible(false);
+    // // case 1: 노트 수정의 경우 한 번 더 확인
+    // if (modalType ==="editing") {
+    //   const result = window.confirm("정말로 창을 닫으시겠습니까? 변경된 정보가 저장되지 않습니다.");
+    // 	if (result) {
+    //     setModalVisible(false);
+    //   } else return;
+    // } 
+    // // case 2: 노트 생성의 경우
+    // else setModalVisible(false);    
   }
 
   // 노트 생성 시 : 제출 시 노트 생성 요청
@@ -81,9 +149,13 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     if (noteInputs.step === "")     {window.alert("할 일의 상태를 설정하세요."); return;};
     if (noteInputs.deadline === "") {window.alert("마감일을 입력하세요."); return;};
     
-    // console.log("노트 생성 내용", noteInputs);
+    // 파일 최대 첨부 개수 초과 시
+		if (fileList.length > 5 ) {
+			alert("최대 5개의 파일까지 업로드 할 수 있습니다.");
+			return;
+    }
+    
     // 상태 변경 : 입력값 서버에 전송
-    dispatch(fileActions.__addFiles());
     dispatch(noteKanbanActions.__addNote(projectId, noteInputs));
   
     handleCloseModal(e);
@@ -94,9 +166,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     // if (!noteId) {
     //   history.push(location.pathname);
     // }
-    history.push(`/projects/${projectId}/kanban`);    
-
-    
+    history.push(`/projects/${projectId}/kanban`); 
   };
 
   // 노트 수정 시 : 제출 시 노트 수정 요청
@@ -108,10 +178,16 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     if (noteModifiedInputs.content === "")  {window.alert("할 일에 대한 설명을 추가하세요."); return;};
     if (noteModifiedInputs.deadline === "") {window.alert("마감일을 입력하세요."); return;}
 
-    // console.log("수정 노트 내용", noteModifiedInputs);
+    // 파일 최대 첨부 개수 초과 시
+		if (fileList.length > 5 ) {
+			alert("최대 5개의 파일까지 업로드 할 수 있습니다.");
+			return;
+    }
+    
     dispatch(noteKanbanActions.__editNote(noteId, noteModifiedInputs));
     handleCloseModal(e);
   };
+
 
   return (
     <>
@@ -130,10 +206,14 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
       {/* 프로젝트 메뉴에서 보이는 노트 작성 위한 ' 할 일 만들기 ' 버튼 ------------ */}
       {/* ---------------------------------------------------------------- */}
       { modalType === "projectMenu" && 
-      <StyledBtn variant="primary" size="sm" onClick={handleOpenModal}>
-        <Write fill="#FFFFFF" width="14" height="14" />
-        할 일 만들기
-      </StyledBtn>
+      <>
+        <div class="dropdown">
+          <button class="dropbtn" onClick={handleOpenModal} style={{backgroundColor: "#387E4B", color: "#FFFFFF"}}>
+            <Write fill="#FFFFFF" width="14" height="14" style={{ marginRight: "4px"}}/>
+            할 일 만들기
+          </button>
+        </div>
+      </>
       }
       {/* ---------------------------------------------------------------- */}
       {/* case3. props.modalType === "editing" --------------------------- */}
@@ -152,7 +232,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
       { modalVisible && 
         <ModalWrapper
           visible={true} 
-          maskClosable={true}          
+          maskClosable={false}          
           onClose={handleCloseModal} 
           projectStep={projectStep} 
         >
@@ -179,7 +259,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                   </div>
                   <div className="note-modal-td">
                       <Form.Control
-                        className="w-75"
+                        className="note-modal-form-width"
                         type="text" 
                         placeholder="제목을 입력해 주세요. 최대 255자까지 입력 가능합니다." 
                         maxLength={255}
@@ -200,7 +280,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                   </div>
                   <div className="note-modal-td">
                   <Form.Control 
-                    className="w-75"
+                    className="note-modal-form-width"
                     type="date" 
                     placeholder=""
                     defaultValue={ modalType === "editing" ? detail?.deadline : "" }
@@ -225,7 +305,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                   </div>
                   <div className="note-modal-td">
                     <Form.Select 
-                      className="w-75"
+                      className="note-modal-form-width"
                       placeholder=""
                       defaultValue={projectStep}
                       onChange={(e)=> {setNoteInputs({...noteInputs, step: e.target.value})}}
@@ -274,8 +354,8 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
               </div>
             </Form>
           </div>
-            <div className="note-modal-footer-button">
-            <h1 onClick={ modalType === "editing" ? handleEditNote : handleAddNote }>
+            <div className="note-modal-footer-button" onClick={ modalType === "editing" ? handleEditNote : handleAddNote }>
+            <h1>
               { modalType === "editing" ? "수정하기" : "만들기"}
             </h1>
             </div>

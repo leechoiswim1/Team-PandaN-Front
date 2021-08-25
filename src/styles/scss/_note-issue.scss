@@ -12,8 +12,9 @@
 // --------------------------------
 // == note: issue board table
 // --------------------------------
-.note-issue-table {
+.note-issue-table{
   width: 100%;
+  min-width: rem(600);
   border-collapse: separate;
   border-spacing: 0 rem(12);
   table-layout: fixed;
@@ -197,8 +198,12 @@
   .note-modal-td {
     padding: rem(16);
     vertical-align: middle;
-    display: table-cell;
-    border-bottom: 1px solid #ededed;
+    display: table-cell; 
+    border-bottom: 1px solid #EDEDED;
+
+    .note-modal-form-width {
+      width: 75%;
+    }
   }
 
   .cell-file-upload {
@@ -214,6 +219,13 @@
   }
   & .note-modal-tr:last-child .note-modal-td {
     border-bottom: 0;
+  }
+
+  @media screen and (max-width: 767px) {
+    .note-modal-form-width.form-control,
+    .note-modal-form-width.form-select {
+      width: 100%
+    }
   }
 }
 
@@ -259,6 +271,9 @@
         color: $primary;
         cursor: pointer;
       }
+      svg {
+        fill: $custom-note-gray;
+      }
     }
   }
 }
@@ -273,9 +288,9 @@
 
 .note-detail-wrapper {
   //----------------------
-  min-width: 300px;
-  min-height: 600px;
-  width: 97.5%;
+  min-width: rem(800);
+  min-height: rem(600);
+  width: 100%;  
   //----------------------
   padding: rem(32);
   display: flex;
