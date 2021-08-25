@@ -85,6 +85,9 @@
         overflow: hidden;
         text-overflow: ellipsis;
         cursor: pointer;
+        &:hover {
+          color: #387e4b;
+        }
       }
       // project title
       &:nth-child(4) {
@@ -299,6 +302,9 @@
   border-radius: rem(20);
   box-shadow: rem(2) rem(4) rem(20) rgba(25, 25, 25, 0.1);
   overflow-y: auto;
+  @media screen and (max-width: 767px) {
+    min-width: rem(300);
+  }
   &::-webkit-scrollbar {
     width: 5px;
   }
@@ -484,7 +490,7 @@
     justify-content: space-between;
     border-bottom: 0;
     span {
-      font-size: rem(14);
+      font-size: rem(16);
       letter-spacing: -0.03em;
       color: $primary;
     }
