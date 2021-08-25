@@ -2,8 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 
 /* == Library - Style / Bootstrap / Icon */
 import styled from "styled-components";
-import { Button, Form }               from "react-bootstrap";
-import { Edit2 }                      from "react-feather";
+import { Form }                       from "react-bootstrap";
 
 /* == Library - route */
 import { useLocation, useParams }     from "react-router-dom";
@@ -21,19 +20,21 @@ import { ReactComponent as Link }     from "../../styles/images/ico-link.svg";
 /* == Redux - actions */
 import { useSelector, useDispatch }   from 'react-redux';
 import { noteKanbanActions }          from '../../modules/noteKanban';
-// import { fileActions }                from '../../modules/file';
 
 // * == ( Note - modal - for writing note ) -------------------- * //
 const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
-  // hooks
+  // -----------------------------------------------------------
+  // * == hooks
+  // ----------------------------------------------------------- 
   const dispatch = useDispatch();
-  const location = useLocation();
   const { projectId, noteId } =  useParams();
- 
-  // subscribe 
+  // -----------------------------------------------------------
+  // * == subscribe state
+  // ----------------------------------------------------------- 
   const fileList = useSelector((state) => state.noteKanban?.filePreview);
-
-  // state
+  // -----------------------------------------------------------
+  // * == subscribe state
+  // ----------------------------------------------------------- 
   const [modalVisible, setModalVisible] = useState(false)
   const [noteInputs, setNoteInputs] = useState({
     title: "",
@@ -43,26 +44,32 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     files: [],
   });
 
-  // functions 
+  // -----------------------------------------------------------
+  // * == functions : handler
+  // -----------------------------------------------------------   
   // 모달 공통 : 클릭 시 모달창 열림
+  // ----------------------------------------------------------- 
   const handleOpenModal = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    // 파일 미리보기 reset
-    dispatch(noteKanbanActions.resetPreview());
+    dispatch(noteKanbanActions.resetPreview()); // 파일 미리보기 reset
     setModalVisible(true);
   } 
-
+  // -----------------------------------------------------------   
   // 모달 공통 : 클릭 시 모달창 닫힘
+  // ----------------------------------------------------------- 
   const handleCloseModal = (e) => {
     e.preventDefault();
     e.stopPropagation();
-
-    setModalVisible(false);
+    const result = window.confirm("정말로 창을 닫으시겠습니까? 작성한 내용이 저장되지 않습니다.");
+    if (result) {
+      setModalVisible(false);
+    } else return;
   }
 
-  // functions - 생성 / 수정
-  // 노트 생성 시 : 제출 시 노트 생성 요청
+  // -----------------------------------------------------------   
+  // 노트 작성 제출 : 클릭 시 내용 작성 요청
+  // ----------------------------------------------------------- 
   const handleAddNote = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -78,16 +85,9 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
 			return;
     }
     
-    // 상태 변경 : 입력값 서버에 전송
+    // 해당 noteId, 입력 내용 서버로 요청 보낸 후 모달창 종료, 이후 해당 프로젝트의 칸반 페이지로 이동
     dispatch(noteKanbanActions.__addNote(projectId, noteInputs));
-  
-    handleCloseModal(e);
-
-    // 게시판 형 페이지에서 작성 시 게시판 형 페이지 리덕스에서 노트 추가 필요
-
-    // if (!noteId) {
-    //   history.push(location.pathname);
-    // }
+    setModalVisible(false);
     history.push(`/projects/${projectId}/kanban`); 
   };
 
@@ -227,7 +227,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
             </Form>
           </div>
             <div className="note-modal-footer-button" onClick={handleAddNote}>
-            <h1>만들기</h1>
+            <h1>할 일 만들기</h1>
             </div>
         </div>
         </ModalWrapper>
@@ -245,15 +245,4 @@ const KanbanColBtn = styled.div`
   align-items: center;
 `
 
-const StyledBtn = styled(Button)`
-  width: 120px;
-  height: 38px;
-  background-color: #387E4B;
-  color: #FFFFFF;
-  border: 1px solid #EDEDED;
-  font-weight: 500;
-  font-size: 15.5px;
-  border-radius: 10px;
-  & svg { margin: -2px 8px 0 0; }
-`
 export default ModalWriting;

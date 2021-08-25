@@ -35,9 +35,9 @@ const ModalWrapper = ( { visible, maskClosable, onClose, children, ...rest } ) =
         tabIndex="-1" 
         visible={visible}
         onClick={maskClosable ? onMaskClick : null}>
-        <Window>
+        {/* <Window> */}
           {children}
-        </Window>
+        {/* </Window> */}
       </Wrapper>
     </>
   )
@@ -66,14 +66,11 @@ const Wrapper = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   outline: 0;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.1);
 `
 const fadeIn = keyframes`
-from {
-  opacity:0; }
-to{
-    opaciry:1;
-}
+  from { opacity:0; }
+  to{ opaciry:1; }
 `;
 
 const Window = styled.div`

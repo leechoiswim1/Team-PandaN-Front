@@ -27,7 +27,7 @@ const ProjectMyNote = ({ history, match, ...rest }) => {
       <div className="content" id="content">
         <ProjectHeader match={match} />
         <ProjectMenu history={history} match={match} projectId={projectId} />
-        <div className="note-board-container" style={{ height: "90%" }}>
+        <div className="note-project-board-container" style={{ height: "90%" }}>
           <div style={{ height: "90%" }}>
             <p style={{ fontWeight: "500" }}>
               "{projectTitle}"에서 내가 작성한 문서 총 <span style={{ color: "#387E4B", fontWeight: "700", fontSize: "16px" }}>{paging.totalElements}</span>개
@@ -35,7 +35,7 @@ const ProjectMyNote = ({ history, match, ...rest }) => {
             {myNote && <IssueList history={history} notes={myNote} projectId={projectId} type="projectMyNote" />}
             {myNote.length === 0 && <EmptyBoard type="projectMyNote" />}
           </div>
-          <div style={{ height: "10%" }}>
+          <div style={{ height: "10%", display: "flex", width: "100%", alignItems:"center", justifyContent: "center"}}>
             <Paging paging={paging} module={noteActions.__getProjectMyNotes} projectId={projectId} isLoading={isLoading} />
           </div>
         </div>
