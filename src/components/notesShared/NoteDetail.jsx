@@ -52,8 +52,8 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
   }, [noteId]);
 
   const deadline = note?.deadline ? moment(note.deadline).format("YYYY. M. D") : "";
-  const createdAt = moment(note?.createdAt).format("작성: YYYY. M. D");
-  const modifiedAt = moment(note?.modifiedAt).format("수정: YYYY. M. D");
+  const createdAt = moment(note?.createdAt).format("YYYY. M. D");
+  const modifiedAt = moment(note?.modifiedAt).format("YYYY. M. D");
 
   let dateDiff = note?.deadline ? moment(note.deadline).diff(moment(), "days") : "";
 
@@ -146,8 +146,10 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
               <IconCalendar />
               마감일
             </div>
-            <div className="note-detail-td cell-text-bold">
-              <Tag dateDiff={dateDiff}>{deadline}</Tag>
+            <div className="note-detail-td" >
+              <Tag dateDiff={dateDiff}>
+                <span style={{fontWeight: "bold"}}>{deadline}</span>
+              </Tag>
             </div>
           </div>
           <div className="note-detail-tr">
@@ -178,7 +180,20 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
             <div className="note-detail-th cell-align-top">
               <IconNote />할 일
             </div>
-            <div className="note-detail-td">{note?.content}</div>
+            <div className="note-detail-td">
+              {note?.content}
+              <div style={{display:"flex", justifyContent:"space-between"}}>
+                <div>
+                  {createdAt}
+                </div>
+                <div>
+                    {/* 시간 차 23시간 이상인지 ?
+                      format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm : 
+                      format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전' */}
+                    {hourDiff < -22 ? <p>{updated}</p> : <p>마지막 수정: {recentlyUpdated}</p>}
+                </div>
+              </div>
+            </div>            
           </div>
         </div>
 
@@ -264,6 +279,7 @@ const NoteDetailWrap = styled.div`
   }
 `;
 const Tag = styled.div`
+  display: inline-block;
   ${(props) =>
     !props.type &&
     css`

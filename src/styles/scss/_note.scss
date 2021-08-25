@@ -41,6 +41,13 @@ $custom-background-light-gray: #F9F9F9;
       color: $primary;
     }
   }
+  @media screen and (max-width: 767px) {
+    li {
+      margin-right: rem(12);
+      line-height: rem(30);
+      font-size: rem(16);
+    }
+  }
 }
 
 .project-menu-active {
