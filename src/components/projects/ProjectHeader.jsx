@@ -28,7 +28,6 @@ const ProjectHeader = ({ match }) => {
       <Left>
         <ProjectTitleWrap>
           <ProjectHeaderTitle
-            style={{ cursor: "pointer" }}
             onClick={() => {
               history.push(history.push(`/projects/${project_detail_list.projectId}/kanban`));
             }}
@@ -96,8 +95,11 @@ const ProjectTitleWrap = styled.div`
 const ProjectHeaderTitle = styled.p`
   font-weight: bold;
   font-size: 24px;
-
+  cursor: pointer;
   color: #191919;
+  &:hover {
+    color: #387e4b;
+  }
   @media (max-width: 900px) {
     font-size: 20px;
     white-space: nowrap;
