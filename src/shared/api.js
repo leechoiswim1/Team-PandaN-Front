@@ -3,13 +3,20 @@ import axios from "axios";
 /* == Axios - instance */
 const instance = axios.create({
   baseURL: "http://blossomwhale.shop",
-  headers: {},
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Content-Type": "application/json",
+  },
 });
 
 /* == Axios - interceptor for sending accessToken */
 instance.interceptors.request.use((config) => {
   const TOKEN = document.cookie.split("=")[1];
-  config.headers.TOKEN = TOKEN;
+  config.headers["TOKEN"] = TOKEN;
+  config.headers["Access-Control-Allow-Origin"] = "*";
+  config.headers["Access-Control-Allow-Headers"] = "Content-Type";
+  config.headers["Content-Type"] = "application/json";
   return config;
 });
 
