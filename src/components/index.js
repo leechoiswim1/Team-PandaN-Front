@@ -46,6 +46,7 @@ import EmptyBoard from "./notesIssue/EmptyBoard";
 
 /* == Note - detail */
 import NoteDetail from "./notesShared/NoteDetail";
+import NoteDetailCopy from "./notesShared/NoteDetailCopy";
 
 /* == Note - detail - Comment */
 import CommentCard from "./comments/CommentCard";
@@ -95,6 +96,7 @@ export {
   EmptyBoard,
   /* == Note - detail */
   NoteDetail,
+  NoteDetailCopy,
   /* == Note - detail - Comment */
   CommentCard,
   CommentList,

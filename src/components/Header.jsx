@@ -155,7 +155,6 @@ const Header = (props) => {
                 <img
                   src={userImage}
                   alt="profileImage"
-                  style={{width: "40px", height: "40px", borderRadius: "20px"}}
                   className="dropdown-profile"
                 />
               </Dropdown.Toggle>
@@ -171,7 +170,7 @@ const Header = (props) => {
                   <p className="dropdown-name">{user.name}</p>
                   <p className="dropdown-email">{user.email}</p>
                 </Dropdown.ItemText>
-                <DropdownDivider />
+                <Dropdown.Divider style={{borderTop: "0"}}/>
                 <Dropdown.ItemText>
                   {/* == 로그아웃 */}
                   <Button variant="primary" size="sm" className="d-block w-100" onClick={logout}>
@@ -187,13 +186,13 @@ const Header = (props) => {
   );   
 };
 
-const DropdownDivider = styled.hr`
-  width: 90%;
-  height: 1px;
-  background: #ededed;
-  @media (max-width: 400px) {
-    width: 100%;
-  }
-`;
+// const DropdownDivider = styled.hr`
+//   width: 90%;
+//   height: 1px;
+//   background: #ededed;
+//   @media (max-width: 400px) {
+//     width: 100%;
+//   }
+// `;
 
 export default Header;
