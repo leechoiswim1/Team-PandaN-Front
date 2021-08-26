@@ -40,8 +40,8 @@ const FileUploader = (props) => {
 			return;
 		}
 		// 파일 용량 초과 시
-		if (file.size > 5000000) {
-			alert("5MB 이하의 파일만 업로드 할 수 있습니다.");
+		if (file.size > 3000000) {
+			alert("3MB 이하의 파일만 업로드 할 수 있습니다.");
 			return;
 		}
 		// 파일 최대 첨부 개수 초과 시
@@ -72,7 +72,7 @@ const FileUploader = (props) => {
 				Bucket: "front.blossomwhale.shop.file", 				
 				Key: awsFileName,
 				Body: file,
-				Conditions: [["content-length-range", 100, 5000000]], // 용량 제한 100Byte - 5MB
+				Conditions: [["content-length-range", 100, 3000000]], // 용량 제한 100Byte - 3MB
 			},
 		})	
 		
@@ -98,7 +98,7 @@ const FileUploader = (props) => {
 				<Form.Control className="note-modal-form-width" type="file" onChange = {handleUploadFile} />
   		</Form.Group>
 			<div className="note-file-uploader">
-				<p>각 항목 당 5MB, 최대 5개의 파일을 업로드 할 수 있습니다.</p>				
+				<p>각 항목 당 3MB, 최대 5개의 파일을 업로드 할 수 있습니다.</p>				
 				<ul>					
 					{ fileList.map((file, index) => {
 						return ( 
