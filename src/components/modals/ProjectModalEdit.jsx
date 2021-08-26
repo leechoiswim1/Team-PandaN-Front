@@ -30,6 +30,7 @@ const ProjectModalEdit = (props) => {
   const deleteProject = () => {
     if (window.confirm("정말로 프로젝트를 지우시겠습니까?😲") === true) {
       dispatch(projectActions.__deleteProject(id));
+      setModalState(false);
       history.push("/");
     } else {
       return;

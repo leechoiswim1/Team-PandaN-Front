@@ -62,7 +62,7 @@ const ProjectHeaderWrap = styled.div`
   display: flex;
   justify-content: space-between;
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     flex-direction: column;
     margin: auto;
     padding: 10px 20px;
@@ -75,7 +75,7 @@ const Left = styled.div`
 
 const Right = styled.div`
   display: flex;
-  @media (max-width: 900px) {
+  @media (max-width: 768px) {
     width:100%
     margin: auto;
     float:right;
@@ -84,7 +84,7 @@ const Right = styled.div`
 `;
 const ProjectTitleWrap = styled.div`
   display: flex;
-  @media (max-width: 900px) {
+  @media (max-width: 768px) {
     justify-content: space-between;
     width: 100%;
     margin: auto;
@@ -106,13 +106,13 @@ const ProjectHeaderTitle = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     font-size: 18px;
   }
 `;
 const ProjectDetailWrap = styled.div`
   display: flex;
-  @media (max-width: 900px) {
+  @media (max-width: 768px) {
     justify-content: space-between;
     width: 100%;
     margin: auto;
@@ -129,7 +129,7 @@ const ProjectHeaderDetail = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     font-size: 12px;
     white-space: nowrap;
     overflow: hidden;
