@@ -71,6 +71,7 @@ const Wrapper = styled.div`
   box-shadow: 5px 10px 20px rgba(25, 25, 25, 0.1);
   @media (max-width: 768px) {
     width: 100%;
+    max-height: 600px;
     margin: 10px 0px 0px 0px;
   }
 `;

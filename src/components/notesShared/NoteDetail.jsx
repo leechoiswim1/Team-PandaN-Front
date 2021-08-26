@@ -189,13 +189,15 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
               </ContentRight>
             </Content>
           </DetailContent>
-          <LastContent>
-            <div>최초 작성일 : {createdAt}</div>
-            <div>{hourDiff < -22 ? <p>{updated}</p> : <p>마지막 수정: {recentlyUpdated}</p>}</div>
-          </LastContent>
-          <CommentFisrtBox>
-            <CommentList comment={showCmt} history={history} match={match} projectId={projectId} />
-          </CommentFisrtBox>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <LastContent>
+              <div>최초 작성일 : {createdAt}</div>
+              <div>{hourDiff < -22 ? <p>{updated}</p> : <p>마지막 수정: {recentlyUpdated}</p>}</div>
+            </LastContent>
+            <CommentFisrtBox>
+              <CommentList comment={showCmt} history={history} match={match} projectId={projectId} />
+            </CommentFisrtBox>
+          </div>
         </DetailInner>
         <CommentSecondBox>
           <CommentList comment={showCmt} history={history} match={match} projectId={projectId} />
