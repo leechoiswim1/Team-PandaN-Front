@@ -64,14 +64,14 @@ const Wrapper = styled.div`
   width: 400px;
   height: 100%;
   max-height: 1600px;
-  min-height: 400px;
+  min-height: 300px;
   margin-left: 10px;
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
   border-radius: 1rem;
   box-shadow: 5px 10px 20px rgba(25, 25, 25, 0.1);
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     width: 100%;
     margin: 10px 0px 0px 0px;
   }

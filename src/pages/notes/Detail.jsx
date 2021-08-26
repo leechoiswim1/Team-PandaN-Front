@@ -3,7 +3,7 @@ import { React, useState } from "react";
 import styled from "styled-components";
 
 /* == Custom - Component */
-import { Template, ProjectHeader, ProjectMenu, NoteDetail, CommentList, Spinner } from "../../components";
+import { Template, ProjectHeader, ProjectMenu, NoteDetail, Spinner } from "../../components";
 /* == Redux */
 import { useSelector } from "react-redux";
 
