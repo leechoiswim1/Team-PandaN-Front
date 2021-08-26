@@ -39,8 +39,10 @@ const initialState = {
     files: [],
   },
   filePreview: [],
-  is_loading: false,
-  is_locked: false
+  isLoading: false,
+  isLocked: false,  
+  writer: "",
+  sameUser: "",
 };
 
 /* == action */
@@ -54,7 +56,6 @@ const GET_NOTE_DETAIL   = "note_detail/GET_NOTE_DETAIL";
 const EDIT_NOTE         = "note_detail/EDIT_NOTE";
 const DELETE_NOTE       = "note_detail/DELETE_NOTE";
 const SET_MODIFIED_NOTE = "note_detail/SET_MODIFIED_NOTE";
-const CHECK_EDITMODE_LOCKED = "note_detail/CHECK_EDITMODE_LOCKED";
 /* bookmark - add / delete */
 const ADD_BOOKMARK      = "note_bookmark/ADD_BOOKMARK";
 const DELETE_BOOKMARK   = "note_bookmark/DELETE_BOOKMARK";
@@ -76,8 +77,7 @@ const addNote = createAction(ADD_NOTE, (newNote) => ({ newNote }));
 const getNoteDetail = createAction(GET_NOTE_DETAIL, (note) => ({ note }));
 const editNote = createAction(EDIT_NOTE, (noteId) => ({ noteId }));
 const deleteNote = createAction(DELETE_NOTE, (noteId) => ({ noteId }));
-const setModifiedNote = createAction(SET_MODIFIED_NOTE, (modifiedNote) => ({ modifiedNote }));
-const checkEditmodeLocked = createAction(CHECK_EDITMODE_LOCKED, ( is_locked ) => ({ is_locked }));
+const setModifiedNote = createAction(SET_MODIFIED_NOTE, ( detail, files ) => ({ detail, files }));
 /* bookmark - add / delete */
 const addBookmark = createAction(ADD_BOOKMARK, (noteId) => ({ noteId }));
 const deleteBookmark = createAction(DELETE_BOOKMARK, (noteId) => ({ noteId }));
@@ -87,7 +87,7 @@ const resetPreview  = createAction(RESET_PREVIEW, () => ({}));
 const deletePreview = createAction(DELETE_PREVIEW, ( fileUrl ) => ({ fileUrl }));
 const setListPreview = createAction(SET_LIST_PREVIEW, ( fileList ) => ({ fileList }));
 
-const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+const loading = createAction(LOADING, (isLoading) => ({ isLoading }));
 
 /* == thunk function */
 /* kanban */
@@ -123,51 +123,13 @@ const __getNoteDetail =
     dispatch(loading(true));
     try {
       const { data } = await noteApi.getNoteDetail(noteId);
+      console.log("노트 상세 응답",  data);
       dispatch(getNoteDetail(data));
     } catch (e) {
       console.log(e);
     }
   };
   
-/* note - detail page ; lock manager */
-const __checkEditmodeLocked =
-  (noteId) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      console.log("7. 잠겼는지 확인하기 전", getState().noteKanban.is_locked );
-      const { data } = await noteApi.checkEditmodeLocked(noteId);
-      console.log("잠겼음?", data);
-      dispatch(checkEditmodeLocked( data ));
-      console.log("8. 잠김 확인 후 응답", getState().noteKanban.is_locked );
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-const __sendWritingSignal =
-  (noteId) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      console.log("사용 중이라는 요청 보내기 전");
-      const { data } = await noteApi.sendWritingSignal(noteId);      
-      console.log("사용 중이라는 요청 보냈음");
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-const __sendLockSignal =
-  (noteId) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      console.log("0. 잠금 요청 보냄");
-      const response = await noteApi.sendLockSignal(noteId);
-      console.log("1. 잠금 풀림", response);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
 /* note - CRUD */
 const __addNote =
   (projectId, newNote) =>
@@ -187,8 +149,14 @@ const __addNote =
 const __editNote =
   (noteId, modifiedNote) =>
   async (dispatch, getState, { history }) => {
+    const detail = getState().noteKanban.detail.detail;
+    const content = detail?.content;
+    const title = detail?.title;
+    const deadline = detail?.deadline;
+  
     const files = 
       getState().noteKanban.filePreview ? getState().noteKanban.filePreview : [];
+
     // awsFileName 제거
     files.map(file => delete file.awsFileName); 
     // fileId가 있는 것과 없는 것 분리
@@ -197,15 +165,17 @@ const __editNote =
     // 없는 파일은 fileId : 0 ; 추가
     newFiles.forEach(newFile => newFile.fileId = 0);
     const _newFileList = oldFiles.concat(newFiles)
-
+    // 요청 바디 꾸리기
     const _newModifiedNote = {
-      // ...modifiedNote,
-      // files: _newFileList
-    }
-    // console.log("요청 보내기 전", _newModifiedNote)
+      content: ( modifiedNote.content === undefined ? content : modifiedNote.content ),
+      title: ( modifiedNote.title === undefined ? title : modifiedNote.title ),
+      deadline: ( modifiedNote.deadline === undefined ? deadline : modifiedNote.deadline ),
+      files: _newFileList
+    } 
     try {
-      // const { data } = await noteApi.editNote(noteId, _newModifiedNote);
-      // dispatch(setModifiedNote(data));
+      const { data } = await noteApi.editNote(noteId, _newModifiedNote);
+      delete data["files"];
+      dispatch(setModifiedNote(data, _newFileList));
     } catch (e) {
       console.log(e);
     }
@@ -252,21 +222,21 @@ const noteKanban = handleActions(
       return {
         ...state,
         kanban: action.payload.newState,
-        is_loading: false
+        isLoading: false
       };
     },
     [GET_KANBAN_NOTES]: (state, action) => {
       return {
         ...state,
         kanban: action.payload.kanbanNotes,
-        is_loading: false
+        isLoading: false
       };
     },
     [GET_NOTE_DETAIL]: (state, action) => {
       return {
         ...state,
         detail: action.payload.note,
-        is_loading: false
+        isLoading: false
       };
     },
     [ADD_NOTE]: (state, action) => {
@@ -283,29 +253,17 @@ const noteKanban = handleActions(
             return step;
           }
         }),
-        is_loading: false
+        isLoading: false
       };
     },
     [SET_MODIFIED_NOTE]: (state, action) => {
-      const note = action.payload.modifiedNote;
       return {
         ...state,
-        detail: {
-          ...state.detail,
-          noteId: note.noteId,
-          title: note.title,
-          content: note.content,
-          deadline: note.deadline,
-          step: note.step,
-        },
-        is_loading: false
-      };
-    },
-    [CHECK_EDITMODE_LOCKED]: (state, action) => {
-
-      return {
-        ...state,
-        is_locked: action.payload.is_locked
+        detail: { 
+          detail : { ...state.detail.detail, ...action.payload.detail},
+          files : action.payload.files,
+        },  
+        isLoading: false
       };
     },
     [DELETE_NOTE]: (state, action) => {
@@ -366,7 +324,7 @@ const noteKanban = handleActions(
     [LOADING]: (state, action) => {
       return {
         ...state,
-        is_loading: action.payload.is_loading
+        isLoading: action.payload.isLoading
       };  
     },
   },  
@@ -384,9 +342,6 @@ export const noteKanbanActions = {
   __getNoteDetail,
   __editNote,
   __deleteNote,
-  __checkEditmodeLocked,
-  __sendWritingSignal,
-  __sendLockSignal,
   /* bookmark - add / delete */
   __addBookmark,
   __deleteBookmark,

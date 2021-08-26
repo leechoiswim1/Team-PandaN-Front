@@ -24,6 +24,8 @@ import { ReactComponent as IconNote } from "../../styles/images/icon_note.svg";
 import { ReactComponent as IconLink } from "../../styles/images/ico-link.svg";
 import { ReactComponent as IconComment } from "../../styles/images/icon_comment.svg";
 
+/* == Custom - Component */
+import { ModalWriting } from "..";
 import { ModalEditing, CommentList } from "..";
 
 /* == Redux - actions */
@@ -50,8 +52,8 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
   }, [noteId]);
 
   const deadline = note?.deadline ? moment(note.deadline).format("YYYY. M. D") : "";
-  const createdAt = moment(note?.createdAt).format("작성: YYYY. M. D");
-  const modifiedAt = moment(note?.modifiedAt).format("수정: YYYY. M. D");
+  const createdAt = moment(note?.createdAt).format("YYYY. M. D");
+  const modifiedAt = moment(note?.modifiedAt).format("YYYY. M. D");
 
   let dateDiff = note?.deadline ? moment(note.deadline).diff(moment(), "days") : "";
 
@@ -382,6 +384,7 @@ const ContentRight = styled.div`
   }
 `;
 const Tag = styled.div`
+  display: inline-block;
   ${(props) =>
     !props.type &&
     css`

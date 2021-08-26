@@ -12,7 +12,14 @@
   text-align: center;
   align-items: center;
   margin: 5px 10px;
+  transition: all 0.2s ease-in-out; 
 }
+.dropbtn-writing-modal{
+  @extend .dropbtn;
+  background-color: #387E4B;
+  color: #FFFFFF;
+}
+
 @media all and (max-width: 400px) {
   .dropbtn {
     width: 80px;
@@ -61,6 +68,14 @@
 .dropdown:hover .dropbtn {
   background-color: #387e4b;
   color: #ffffff;
+}
+
+.dropdown:hover .dropbtn-writing-modal {
+  background-color: #e1ede4;
+  color: #767676;
+  & svg {
+    fill: #767676;
+  }
 }
 
 .dropbtn:hover svg {
