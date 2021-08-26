@@ -86,9 +86,9 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
   };
 
   return (
-    <div>
+    <div style={{ width: "100%", height: "90%" }}>
       <NoteDetailWrap>
-        <NoteDetailInner>
+        <DetailInner>
           <DetailContent>
             <Content>
               <ContentLeft>
@@ -180,20 +180,28 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
                 </ul>
               </ContentRight>
             </Content>
-
             <Content style={{ border: "none" }}>
               <ContentLeftLast>
                 <IconNote /> <MenuName>할 일</MenuName>
               </ContentLeftLast>
-              <ContentRight>{note?.content}</ContentRight>
+              <ContentRight style={{ flexDirection: "column" }}>
+                <div> {note?.content}</div>
+              </ContentRight>
             </Content>
           </DetailContent>
-          <LastContent>
-            <div>최초 작성일 : {createdAt}</div>
-            <div>{hourDiff < -22 ? <p>{updated}</p> : <p>마지막 수정: {recentlyUpdated}</p>}</div>
-          </LastContent>
-        </NoteDetailInner>
-        <CommentList comment={showCmt} history={history} match={match} projectId={projectId} />
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <LastContent>
+              <div>최초 작성일 : {createdAt}</div>
+              <div>{hourDiff < -22 ? <p>{updated}</p> : <p>마지막 수정: {recentlyUpdated}</p>}</div>
+            </LastContent>
+            <CommentFisrtBox>
+              <CommentList comment={showCmt} history={history} match={match} projectId={projectId} />
+            </CommentFisrtBox>
+          </div>
+        </DetailInner>
+        <CommentSecondBox>
+          <CommentList comment={showCmt} history={history} match={match} projectId={projectId} />
+        </CommentSecondBox>
       </NoteDetailWrap>
       <BottomButton>
         {/* buttons - edit */}
@@ -223,44 +231,30 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
   );
 };
 
-const List = styled.li`
-  @media (max-width: 768px) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 150px;
-  }
-`;
-
-const BottomButton = styled.div`
+const CommentFisrtBox = styled.div`
   @media (min-width: 769px) {
     display: none;
   }
   @media (max-width: 768px) {
     display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    margin-top: 20px;
-    background-color: #f9f9f9;
+    flex-direction: column;
   }
 `;
 
-const ContentText = styled.p`
-  font-size: 16px;
-  letter-spacing: -0.03em;
-  color: #191919;
-  font-weight: bold;
+const CommentSecondBox = styled.div`
   @media (max-width: 768px) {
-    font-size: 14px;
+    display: none;
   }
 `;
+
 const NoteDetailWrap = styled.div`
   display: flex;
   width: 100%;
+  height: 100%;
+  justify-content: space-between;
   overflow-y: auto;
   @media (max-width: 768px) {
-    flex-direction: column;
-    height: 95%;
+    display: block;
   }
   &::-webkit-scrollbar {
     width: 5px;
@@ -271,23 +265,22 @@ const NoteDetailWrap = styled.div`
     border-top-left-radius: 50px;
     border-bottom-right-radius: 50px;
   }
-  @media (max-width: 768px) {
-    font-size: 14px;
-  }
 `;
-const NoteDetailInner = styled.div`
-  width: 100%;
-  padding: 16px;
+const DetailInner = styled.div`
   display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
   flex-direction: column;
-  justify-content: space-between;
   background-color: #ffffff;
+  justify-content: space-between;
   border-radius: rem(20);
   box-shadow: rem(2) rem(4) rem(20) rgba(25, 25, 25, 0.1);
   overflow-y: auto;
   border-radius: 15px;
   @media (max-width: 768px) {
     width: 100%;
+
     padding: 8px 0px;
   }
   &::-webkit-scrollbar {
@@ -306,16 +299,16 @@ const DetailContent = styled.div`
   margin: 10px;
 `;
 
-const TopRight = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-`;
-
-const InnerButton = styled.div`
-  display: flex;
-  @media (max-width: 768px) {
+const BottomButton = styled.div`
+  @media (min-width: 769px) {
     display: none;
+  }
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 20px 0px 20px 0px;
+    background-color: #f9f9f9;
   }
 `;
 
@@ -337,11 +330,6 @@ const Button = styled.div`
     content: "";
   }
 `;
-const ProjectTitle = styled.div`
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`;
 
 const Content = styled.div`
   vertical-align: middle;
@@ -351,9 +339,6 @@ const Content = styled.div`
   border-bottom: 1px solid #ededed;
 `;
 
-const MenuName = styled.div`
-  margin: 0px 15px;
-`;
 const ContentLeft = styled.div`
   vertical-align: middle;
   display: flex;
@@ -370,6 +355,39 @@ const ContentLeft = styled.div`
     width: 160px;
   }
 `;
+
+const ContentText = styled.p`
+  font-size: 16px;
+  letter-spacing: -0.03em;
+  color: #191919;
+  font-weight: bold;
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+`;
+const TopRight = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const InnerButton = styled.div`
+  display: flex;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const ProjectTitle = styled.div`
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+const MenuName = styled.div`
+  margin: 0px 15px;
+`;
+
 const ContentLeftLast = styled.div`
   vertical-align: middle;
   display: flex;
@@ -397,12 +415,21 @@ const ContentRight = styled.div`
   }
 `;
 
+const List = styled.li`
+  @media (max-width: 768px) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 150px;
+  }
+`;
+
 const LastContent = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: 10px;
   font-size: 12px;
   color: #767676;
-  margin: 10px;
 `;
 
 const Tag = styled.div`

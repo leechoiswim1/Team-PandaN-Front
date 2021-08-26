@@ -39,7 +39,7 @@ const CenterWrap = styled.div`
   width: 90%;
   height: 100%;
   margin-left: 0px;
-  @media (max-width: 400px) {
+  @media (max-width: 767px) {
     margin: auto;
   }
 `;
@@ -53,24 +53,24 @@ const CenterBox = styled.div`
   flex-direction: column;
 `;
 const PandaEmptyImg = styled.img`
-  width: 70%;
-  height: 70%;
-  @media (max-width: 400px) {
-    width: 100%;
-    height: 100%;
+  width: 454px;
+  height: 336px;
+  @media (max-width: 767px) {
+    height: 70%;
   }
 `;
 const PlanBetterStartEasierImg = styled.img`
   margin: 20px 0px;
-  width: 80%;
+  width: 781px;
+  height: 36px;
 `;
 const CenterBtn = styled.div`
   display: flex;
   margin: 50px auto;
   width: 700px;
-  @media (max-width: 600px) {
+  @media (max-width: 767px) {
     flex-direction: column;
-    max-width: 200px;
+    max-width: 250px;
     max-height: 150px;
     margin: auto;
   }
@@ -81,7 +81,7 @@ const CenterText = styled.div`
   font-size: 22px;
   line-height: 36px;
   display: flex;
-  @media (max-width: 600px) {
+  @media (max-width: 767px) {
     display: none;
   }
 `;
