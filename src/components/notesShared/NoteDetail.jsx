@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 /* == Library - style */
 import styled, { css } from "styled-components";
-import { Bookmark, Clock, Edit2, Trash2 } from "react-feather";
+import { Bookmark, MessageCircle, Trash2 } from "react-feather";
 
 /* == Library - date */
 import moment from "moment";
@@ -11,26 +11,19 @@ import moment from "moment";
 import { useParams } from "react-router-dom";
 
 /* == Custom - Component & Element & Icon */
-import IconSteps from "../../elements/IconSteps";
 import Labels from "../../elements/Labels";
-import { ReactComponent as Write } from "../../styles/images/ico-kanban-write.svg";
-import { ReactComponent as Add } from "../../styles/images/ico-kanban-write.svg";
-import { ReactComponent as Close } from "../../styles/images/ico-close.svg";
 import { ReactComponent as IconWorking } from "../../styles/images/icon-status-working.svg";
 import { ReactComponent as IconTitle } from "../../styles/images/icon_title.svg";
 import { ReactComponent as IconCalendar } from "../../styles/images/icon_calender.svg";
 import { ReactComponent as IconMember } from "../../styles/images/icon_member2.svg";
 import { ReactComponent as IconNote } from "../../styles/images/icon_note.svg";
 import { ReactComponent as IconLink } from "../../styles/images/ico-link.svg";
-import { ReactComponent as IconComment } from "../../styles/images/icon_comment.svg";
 
 /* == Custom - Component */
-import { ModalWriting } from "..";
 import { ModalEditing, CommentList } from "..";
 
 /* == Redux - actions */
 import { useDispatch, useSelector } from "react-redux";
-import { noteActions } from "../../modules/note";
 import { noteKanbanActions } from "../../modules/noteKanban";
 
 // * == ( note detail ) -------------------- * //
@@ -117,7 +110,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
             )}
             {/* buttons - comment */}
             <Button onClick={() => setShowCmt(!showCmt)}>
-              <IconComment fill="#387E4B" stroke="#387E4B" />
+              <MessageCircle />
             </Button>
           </TopButton>
           <Content>
@@ -151,7 +144,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
                   )}
                   {/* buttons - comment */}
                   <Button onClick={() => setShowCmt(!showCmt)}>
-                    <IconComment fill="#387E4B" stroke="#387E4B" />
+                    <MessageCircle />
                   </Button>
                 </InnerButton>
               </TopRight>
@@ -216,6 +209,10 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
             </ContentLeftLast>
             <ContentRight>{note?.content} </ContentRight>
           </Content>
+          <LastContent>
+            <div>최초 작성일 : {createdAt}</div>
+            <div>{hourDiff < -22 ? <p>{updated}</p> : <p>마지막 수정: {recentlyUpdated}</p>}</div>
+          </LastContent>
         </DetailContent>
       </DetailComment>
       <CommentList comment={showCmt} history={history} match={match} projectId={projectId} />
@@ -300,24 +297,24 @@ const TopRight = styled.div`
 `;
 
 const InnerButton = styled.div`
+  display: flex;
   @media (max-width: 768px) {
     display: none;
   }
 `;
 
-const Button = styled.button`
+const Button = styled.div`
   margin: 0px 15px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  color: $primary;
+  color: #387e4b;
   &:hover {
-    color: $primary;
-    transform: scale(1.05);
+    color: #191919;
   }
   &::after {
     content: "|";
     float: right;
-    color: $custom-note-gray;
+    color: #dadada;
     margin-right: -1rem;
   }
   &:last-child::after {
@@ -383,6 +380,14 @@ const ContentRight = styled.div`
     font-size: 14px;
   }
 `;
+
+const LastContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #767676;
+`;
+
 const Tag = styled.div`
   display: inline-block;
   ${(props) =>
