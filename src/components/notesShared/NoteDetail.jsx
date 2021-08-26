@@ -86,137 +86,140 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
   };
 
   return (
-    <NoteDetailWrap>
-      <DetailComment>
-        <DetailContent>
-          <TopButton>
-            {/* buttons - edit */}
-            <Button>
-              <ModalEditing modalType="editing" note={note} />
-            </Button>
-            {/* buttons - delete */}
-            <Button onClick={deleteNote}>
-              <Trash2 />
-            </Button>
-            {/* buttons - bookmark */}
-            {!isBookmark ? (
-              <Button onClick={addBookmark}>
-                <Bookmark />
-              </Button>
-            ) : (
-              <Button onClick={deleteBookmark}>
-                <Bookmark fill="#387E4B" stroke="#387E4B" />
-              </Button>
-            )}
-            {/* buttons - comment */}
-            <Button onClick={() => setShowCmt(!showCmt)}>
-              <MessageCircle />
-            </Button>
-          </TopButton>
-          <Content>
-            <ContentLeft>
-              <IconWorking width="20" height="20" fill="#767676" />
-              <MenuName>Project</MenuName>
-            </ContentLeft>
-            <ContentRight>
-              <TopRight>
-                <ProjectTitle>
-                  <ContentText style={{ color: "#387E4B" }}>{projectTitle}</ContentText>
-                </ProjectTitle>
-                <InnerButton>
-                  {/* buttons - edit */}
-                  <Button>
-                    <ModalEditing modalType="editing" note={note} />
-                  </Button>
-                  {/* buttons - delete */}
-                  <Button onClick={deleteNote}>
-                    <Trash2 />
-                  </Button>
-                  {/* buttons - bookmark */}
-                  {!isBookmark ? (
-                    <Button onClick={addBookmark}>
-                      <Bookmark />
+    <div>
+      <NoteDetailWrap>
+        <NoteDetailInner>
+          <DetailContent>
+            <Content>
+              <ContentLeft>
+                <IconWorking width="20" height="20" fill="#767676" />
+                <MenuName>Project</MenuName>
+              </ContentLeft>
+              <ContentRight>
+                <TopRight>
+                  <ProjectTitle>
+                    <ContentText style={{ color: "#387E4B" }}>{projectTitle}</ContentText>
+                  </ProjectTitle>
+                  <InnerButton>
+                    {/* buttons - edit */}
+                    <Button>
+                      <ModalEditing modalType="editing" note={note} />
                     </Button>
-                  ) : (
-                    <Button onClick={deleteBookmark}>
-                      <Bookmark fill="#387E4B" stroke="#387E4B" />
+                    {/* buttons - delete */}
+                    <Button onClick={deleteNote}>
+                      <Trash2 />
                     </Button>
-                  )}
-                  {/* buttons - comment */}
-                  <Button onClick={() => setShowCmt(!showCmt)}>
-                    <MessageCircle />
-                  </Button>
-                </InnerButton>
-              </TopRight>
-            </ContentRight>
-          </Content>
-          <Content>
-            <ContentLeft>
-              <IconTitle />
-              <MenuName>제목</MenuName>
-            </ContentLeft>
-            <ContentRight>
-              <ContentText>{note?.title}</ContentText>
-            </ContentRight>
-          </Content>
-          <Content>
-            <ContentLeft>
-              <IconMember />
-              <MenuName>작성자</MenuName>
-            </ContentLeft>
-            <ContentRight>
-              <ContentText>{note?.writer} </ContentText>{" "}
-            </ContentRight>
-          </Content>
-          <Content>
-            <ContentLeft>
-              <IconCalendar />
-              <MenuName>마감일</MenuName>
-            </ContentLeft>
-            <ContentRight>
-              <Tag style={{ fontWeight: "bold" }} dateDiff={dateDiff}>
-                {deadline}
-              </Tag>
-            </ContentRight>
-          </Content>
-          <Content>
-            <ContentLeft>
-              <IconCalendar />
-              <MenuName>상태</MenuName>
-            </ContentLeft>
-            <ContentRight>
-              <Labels type={note?.step}>{note?.step}</Labels>
-            </ContentRight>
-          </Content>
-          <Content>
-            <ContentLeft>
-              <IconLink width="24" height="24" fill="#767676" />
-              <MenuName>첨부파일</MenuName>
-            </ContentLeft>
-            <ContentRight style={{ verticalAlign: "top" }}>
-              <ul>
-                {files.map((file, index) => (
-                  <List key={index}>
-                    {index + 1}.<a href={file.fileUrl}>{file.fileName}</a>
-                  </List>
-                ))}
-              </ul>
-            </ContentRight>
-          </Content>
-          <Content style={{ border: "none" }}>
-            <ContentLeftLast>
-              <IconNote /> <MenuName>할 일</MenuName>
-            </ContentLeftLast>
-            <ContentRight>{note?.content} </ContentRight>
-          </Content>
+                    {/* buttons - bookmark */}
+                    {!isBookmark ? (
+                      <Button onClick={addBookmark}>
+                        <Bookmark />
+                      </Button>
+                    ) : (
+                      <Button onClick={deleteBookmark}>
+                        <Bookmark fill="#387E4B" stroke="#387E4B" />
+                      </Button>
+                    )}
+                    {/* buttons - comment */}
+                    <Button onClick={() => setShowCmt(!showCmt)}>
+                      <MessageCircle />
+                    </Button>
+                  </InnerButton>
+                </TopRight>
+              </ContentRight>
+            </Content>
+            <Content>
+              <ContentLeft>
+                <IconTitle />
+                <MenuName>제목</MenuName>
+              </ContentLeft>
+              <ContentRight>
+                <ContentText>{note?.title}</ContentText>
+              </ContentRight>
+            </Content>
+            <Content>
+              <ContentLeft>
+                <IconMember />
+                <MenuName>작성자</MenuName>
+              </ContentLeft>
+              <ContentRight>
+                <ContentText>{note?.writer} </ContentText>{" "}
+              </ContentRight>
+            </Content>
+            <Content>
+              <ContentLeft>
+                <IconCalendar />
+                <MenuName>마감일</MenuName>
+              </ContentLeft>
+              <ContentRight>
+                <Tag style={{ fontWeight: "bold" }} dateDiff={dateDiff}>
+                  {deadline}
+                </Tag>
+              </ContentRight>
+            </Content>
+            <Content>
+              <ContentLeft>
+                <IconCalendar />
+                <MenuName>상태</MenuName>
+              </ContentLeft>
+              <ContentRight>
+                <Labels type={note?.step}>{note?.step}</Labels>
+              </ContentRight>
+            </Content>
+            <Content>
+              <ContentLeft>
+                <IconLink width="24" height="24" fill="#767676" />
+                <MenuName>첨부파일</MenuName>
+              </ContentLeft>
+              <ContentRight style={{ verticalAlign: "top" }}>
+                <ul>
+                  {files.map((file, index) => (
+                    <List key={index}>
+                      {index + 1}.<a href={file.fileUrl}>{file.fileName}</a>
+                    </List>
+                  ))}
+                </ul>
+              </ContentRight>
+            </Content>
+
+            <Content style={{ border: "none" }}>
+              <ContentLeftLast>
+                <IconNote /> <MenuName>할 일</MenuName>
+              </ContentLeftLast>
+              <ContentRight>{note?.content}</ContentRight>
+            </Content>
+          </DetailContent>
           <LastContent>
             <div>최초 작성일 : {createdAt}</div>
             <div>{hourDiff < -22 ? <p>{updated}</p> : <p>마지막 수정: {recentlyUpdated}</p>}</div>
           </LastContent>
-        </DetailContent>
-      </DetailComment>
-      <CommentList comment={showCmt} history={history} match={match} projectId={projectId} />
-    </NoteDetailWrap>
+        </NoteDetailInner>
+        <CommentList comment={showCmt} history={history} match={match} projectId={projectId} />
+      </NoteDetailWrap>
+      <BottomButton>
+        {/* buttons - edit */}
+        <Button>
+          <ModalEditing modalType="editing" note={note} />
+        </Button>
+        {/* buttons - delete */}
+        <Button onClick={deleteNote}>
+          <Trash2 />
+        </Button>
+        {/* buttons - bookmark */}
+        {!isBookmark ? (
+          <Button onClick={addBookmark}>
+            <Bookmark />
+          </Button>
+        ) : (
+          <Button onClick={deleteBookmark}>
+            <Bookmark fill="#387E4B" stroke="#387E4B" />
+          </Button>
+        )}
+        {/* buttons - comment */}
+        <Button onClick={() => setShowCmt(!showCmt)}>
+          <MessageCircle />
+        </Button>
+      </BottomButton>
+    </div>
   );
 };
 
@@ -229,14 +232,16 @@ const List = styled.li`
   }
 `;
 
-const TopButton = styled.div`
+const BottomButton = styled.div`
   @media (min-width: 769px) {
     display: none;
   }
   @media (max-width: 768px) {
     display: flex;
+    align-items: flex-end;
     justify-content: center;
-    margin: 10px 0px 20px 0px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
   }
 `;
 
@@ -252,18 +257,30 @@ const ContentText = styled.p`
 const NoteDetailWrap = styled.div`
   display: flex;
   width: 100%;
-  justify-content: space-between;
   overflow-y: auto;
   @media (max-width: 768px) {
-    display: block;
+    flex-direction: column;
+    height: 95%;
+  }
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e1ede4;
+    border: 5px solid #e1ede4;
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
+  @media (max-width: 768px) {
+    font-size: 14px;
   }
 `;
-const DetailComment = styled.div`
+const NoteDetailInner = styled.div`
   width: 100%;
-  height: 100%;
   padding: 16px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   background-color: #ffffff;
   border-radius: rem(20);
   box-shadow: rem(2) rem(4) rem(20) rgba(25, 25, 25, 0.1);
@@ -271,7 +288,6 @@ const DetailComment = styled.div`
   border-radius: 15px;
   @media (max-width: 768px) {
     width: 100%;
-
     padding: 8px 0px;
   }
   &::-webkit-scrollbar {
@@ -386,6 +402,7 @@ const LastContent = styled.div`
   justify-content: space-between;
   font-size: 12px;
   color: #767676;
+  margin: 10px;
 `;
 
 const Tag = styled.div`
