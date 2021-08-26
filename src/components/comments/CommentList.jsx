@@ -61,10 +61,8 @@ const CommentList = (props) => {
 
 const Wrapper = styled.div`
   position: sticky;
-  width: 400px;
+  width: 320px;
   height: 100%;
-  max-height: 1600px;
-  // min-height: 400px;
   margin-left: 10px;
   display: flex;
   flex-direction: column;

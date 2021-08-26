@@ -52,18 +52,6 @@ const MemberDropBox = (props) => {
             <img src={user.picture} style={{ width: "40px", height: "40px", borderRadius: "20px" }} alt={user.picture} />
             <div style={{ margin: "auto 10px", textAlign: "left" }}>
               <p style={{ color: "#191919", fontWeight: "400", fontSize: "16px" }}>{user.name}</p>
-              <p
-                style={{
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  color: "#767676",
-                  fontWeight: "400",
-                  fontSize: "14px",
-                }}
-              >
-                {user.email}
-              </p>
             </div>
           </DropdownHeader>
           <hr style={{ width: "90%", margin: "5px auto", border: "1px solid #E4E4E4" }} />

@@ -12,15 +12,15 @@
   text-align: center;
   align-items: center;
   margin: 5px 10px;
-  transition: all 0.2s ease-in-out; 
+  transition: all 0.2s ease-in-out;
 }
-.dropbtn-writing-modal{
+.dropbtn-writing-modal {
   @extend .dropbtn;
-  background-color: #387E4B;
-  color: #FFFFFF;
+  background-color: #387e4b;
+  color: #ffffff;
 }
 
-@media all and (max-width: 400px) {
+@media all and (max-width: 600px) {
   .dropbtn {
     width: 80px;
     height: 30px;

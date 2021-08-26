@@ -56,11 +56,13 @@ const CommentCard = (props) => {
             {/* 시간 차 23시간 이상인지 ?
               format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm : 
               format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전' */}
-            {hourDiff < -22 ? (
-              <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "20px" }}>{updated}</p>
-            ) : (
-              <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "20px" }}>{recentlyUpdated}</p>
-            )}
+            <div>
+              {hourDiff < -22 ? (
+                <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "20px" }}>{updated}</p>
+              ) : (
+                <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "20px" }}>{recentlyUpdated}</p>
+              )}
+            </div>
             {userName === writer ? (
               <div class="dropdown_cmt">
                 <div class="dropbtn_cmt">

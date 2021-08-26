@@ -31,6 +31,7 @@ const Detail = ({ history, match, ...rest }) => {
 
 const DetailInner = styled.div`
   width: 100%;
+  // height: 100%;
   display: flex;
   justify-content: space-between;
   // @media (max-width: 800px) {
