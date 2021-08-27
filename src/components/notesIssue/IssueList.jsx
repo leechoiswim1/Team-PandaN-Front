@@ -20,7 +20,7 @@ import { noteActions } from "../../modules/note";
 import { IssueCard } from "..";
 
 // * == ( IssueList / Note ) -------------------- * //
-const IssueList = ({ history, notes, projectId, ...rest }) => {
+const IssueList = ({ history, notes, type, projectId, ...rest }) => {
   /* 
   - 상위 페이지 : Bookmark, MyNote, ProjectIssue, ProjectMyNote
   - 상위 페이지에서 넘겨받은 notes의 각 노트 해당 속성값을 issue card에 props로 넣어줍니다.  
@@ -31,6 +31,17 @@ const IssueList = ({ history, notes, projectId, ...rest }) => {
   return (
     <>
       <div className="table-responsive">
+        <p style={{ fontWeight: "500" }}>
+          { type === "bookmark" && "북마크 " }
+          { type === "myNote" && "내가 작성한 문서 " }
+          { type === "projectIssue" && `[${rest.projectTitle}]의 문서 ` }
+          { type === "projectMyNote" && `[${rest.projectTitle}]에 내가 작성한 문서 ` }
+          총
+          <span style={{ color: "#387E4B", fontWeight: "700", fontSize: "16px", margin: "0px 4px"}}>
+            {rest.totalElements}
+          </span>
+          개
+        </p>
         <table className="table note-issue-table">
           <colgroup className="note-issue-colgroup">
             <col width="7%"/>

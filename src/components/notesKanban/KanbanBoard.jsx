@@ -50,7 +50,7 @@ const KanbanBoard = ({ history, match }) => {
       const _newState = Object.values(newState);
       dispatch(noteKanbanActions.setKanbanStep(_newState)); 
 
-      console.log("이동하는 노트", draggableId, source.index)
+      // console.log("이동하는 노트", draggableId, source.index)
 
       // 스텝 이동 순서 변경 서버로 요청 보내기
       // 칸반 스텝 최상단 노트 이동할 때
@@ -172,7 +172,7 @@ const KanbanBoard = ({ history, match }) => {
     <DragDropContext onDragEnd={(result) => onDragEnd(result, projects)}>
       {projects.map((project, index) => {
         return (
-          <div key={index}>
+          <div key={index} style={{width: "25%", minWidth: "320px"}}>
             <Droppable droppableId={String(index)}>
               {(provided, snapshot) => {
                 return ( 

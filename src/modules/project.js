@@ -21,6 +21,7 @@ const setDetailProject = createAction(SET_DETAIL_PROJECT, (projectDetail) => ({
 }));
 
 const setSideProject = createAction(SET_SIDE_PROJECT, (projects) => ({ projects }));
+
 const addProject = createAction(ADD_PROJECT, (project) => ({ project }));
 
 const deleteProject = createAction(DELETE_PROJECT, (projectId) => ({
@@ -119,7 +120,7 @@ const __editProject =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await projectApi.putProject(projectId, project);
-      console.log(data);
+      // console.log(data);
       window.alert("프로젝트가 성공적으로 수정됐습니다!🐼");
       dispatch(editProject(data));
       dispatch(__setSideProject());
@@ -132,7 +133,7 @@ const __editProject =
 const __leaveProject =
   (projectId) =>
   async (dispatch, getState, { history }) => {
-    console.log(projectId);
+    // console.log(projectId);
     try {
       const { data } = await projectApi.leaveProject(projectId);
       window.alert("프로젝트를 성공적으로 탈퇴했습니다!🐼");
@@ -175,6 +176,19 @@ const __checkProjectCrews =
       const data = await projectApi.getProjectCrews(projectId);
 
       dispatch(checkProjectCrews(data.data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+const __getGuideProject =
+  () =>
+  async (dispatch, getState, { history }) => {
+    try {
+      const data = await projectApi.postGuideProject();
+      console.log(data);
+      history.push("/projects");
+      // dispatch(setProject(data.data));
     } catch (e) {
       console.log(e);
     }
@@ -255,6 +269,7 @@ const actionCreators = {
   __inviteProject,
   __joinProject,
   __checkProjectCrews,
+  __getGuideProject,
 };
 
 export { actionCreators };

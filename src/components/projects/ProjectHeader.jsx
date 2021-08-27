@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 
 /* styled-components 및 rem 변환 모듈 */
 import styled from "styled-components";
+import { t } from "../../util/remConverter";
 
 import { actionCreators as projectActions } from "../../modules/project";
 import { useSelector, useDispatch } from "react-redux";
@@ -34,13 +35,13 @@ const ProjectHeader = ({ match }) => {
           >
             {project_detail_list.title}{" "}
           </ProjectHeaderTitle>
-          <div style={{ margin: "4px 0px 0px 10px" }}>
+          <ProjectEditIcon>
             {isUpdatableAndDeletable ? (
               <ProjectModalEdit projectId={project_detail_list.projectId} title={project_detail_list.title} detail={project_detail_list.detail} />
             ) : (
               <LeaveProject projectId={project_detail_list.projectId} />
             )}
-          </div>
+          </ProjectEditIcon>
         </ProjectTitleWrap>
         <ProjectDetailWrap>
           <ProjectHeaderDetail>{project_detail_list.detail}</ProjectHeaderDetail>
@@ -57,15 +58,21 @@ const ProjectHeader = ({ match }) => {
 };
 
 const ProjectHeaderWrap = styled.div`
-  padding: 10px 30px;
+  padding: 1rem 1.875rem;
   width: 100%;
   display: flex;
   justify-content: space-between;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    margin: auto;
-    padding: 10px 20px;
+
+    padding: 0.5rem 1.875rem;
+  }
+`;
+
+const ProjectEditIcon = styled.div`
+  margin: 3px 0px 0px 10px;
+  @media (max-width: 768px) {
   }
 `;
 
@@ -75,44 +82,55 @@ const Left = styled.div`
 
 const Right = styled.div`
   display: flex;
+  justify-content: flex-end;
   @media (max-width: 768px) {
-    width:100%
-    margin: auto;
-    float:right;
+    width: 100%;
+
+    float: right;
     margin-left: auto;
   }
 `;
 const ProjectTitleWrap = styled.div`
   display: flex;
+  vertical-align: middle;
   @media (max-width: 768px) {
     justify-content: space-between;
     width: 100%;
     margin: auto;
-  }
-  &svg {
+    align-items: center;
   }
 `;
 const ProjectHeaderTitle = styled.p`
   font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
+  line-height: 32px;
+  margin-bottom: 4px;
+  letter-spacing: -0.03rem;
   cursor: pointer;
   color: #191919;
   &:hover {
     color: #387e4b;
   }
   @media (max-width: 900px) {
-    font-size: 20px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   @media (max-width: 768px) {
-    font-size: 18px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 24px;
   }
 `;
 const ProjectDetailWrap = styled.div`
   display: flex;
+  vertical-align: middle;
   @media (max-width: 768px) {
+    justify-content: space-between;
+    width: 100%;
+    margin: auto;
+  }
+  @media (max-width: 450px) {
     justify-content: space-between;
     width: 100%;
     margin: auto;
@@ -121,16 +139,19 @@ const ProjectDetailWrap = styled.div`
 const ProjectHeaderDetail = styled.p`
   font-weight: 400;
   color: #191919;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
+  letter-spacing: -0.03em;
+
   @media (max-width: 900px) {
-    font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   @media (max-width: 768px) {
+    margin-bottom: 8px;
     font-size: 12px;
+    line-height: 15px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

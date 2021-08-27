@@ -35,19 +35,19 @@ const MemberDropBox = (props) => {
   }, [dispatch, projectId]);
 
   return (
-    <div class="dropdown">
+    <div className="dropdown">
       <button
         ref={el}
-        class="dropbtn"
+        className="dropbtn"
         onClick={() => {
           setShow(!show);
         }}
       >
-        <IconMemberAdd fill="#767676" class="dropbtnSvg" style={{ marginRight: "5px" }} />
-        <p>멤버{countCrews}명</p>
+        <IconMemberAdd fill="#767676" className="dropbtnSvg" style={{ marginRight: "5px" }} />
+        <p>멤버 {countCrews}명</p>
       </button>
       {show ? (
-        <div class="dropdown-content">
+        <div className="dropdown-content">
           <DropdownHeader>
             <img src={user.picture} style={{ width: "40px", height: "40px", borderRadius: "20px" }} alt={user.picture} />
             <div style={{ margin: "auto 10px", textAlign: "left" }}>

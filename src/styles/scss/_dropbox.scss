@@ -1,31 +1,32 @@
 .dropbtn {
-  width: 120px;
-  height: 38px;
+  width: rem(120);
+  height: rem(36);
   background: #ededed;
   color: #767676;
   border: 1px solid #ededed;
   font-weight: 500;
-  font-size: 15.5px;
-  border-radius: 10px;
+  font-size: rem(14);
+  border-radius: rem(10);
   display: flex;
   justify-content: center;
   text-align: center;
   align-items: center;
-  margin: 5px 10px;
+  // margin: 5px 10px;
+  margin-left: rem(12);
   transition: all 0.2s ease-in-out;
 }
 .dropbtn-writing-modal {
   @extend .dropbtn;
-  background-color: #387e4b;
+  background-color: $primary;
   color: #ffffff;
 }
 
-@media all and (max-width: 600px) {
+@media all and (max-width: 768px) {
   .dropbtn {
-    width: 80px;
-    height: 30px;
-    font-size: 11px;
-    margin: 5px;
+    width: 92px;
+    height: 24px;
+    font-size: 10px;
+    line-height: 15px;
   }
   .dropbtnSvg {
     width: 15;
@@ -86,6 +87,7 @@
 .dropbtn_cmt {
   width: 30px;
   height: 30px;
+  padding: auto;
   border-radius: 5px;
 }
 
@@ -99,13 +101,15 @@
   position: absolute;
   width: 55px;
   height: 30px;
+  padding: auto;
   border-radius: 10px;
   box-shadow: 3px 3px 10px 5px rgba(0, 0, 0, 0.1);
   background: #f9f9f9;
-  border: 2px solid #9bd09c;
+  padding-top: 2px;
   margin: auto;
   justify-content: center;
   text-align: center;
+  align-items: center;
   z-index: 1;
   right: 0;
   left: auto;

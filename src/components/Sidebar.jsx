@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 /* == Library */
 import { Link } from "react-router-dom";
 import { Container, Accordion } from "react-bootstrap";
-
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
 import { actionCreators as projectActions } from "../modules/project";
@@ -16,6 +16,11 @@ import { ReactComponent as Logo } from "../styles/images/logo.svg";
 import { ReactComponent as IconBookMark } from "../styles/images/ico-bookmark.svg";
 import { ReactComponent as IconFile } from "../styles/images/ico-file.svg";
 import { ReactComponent as IconProject } from "../styles/images/ico-project.svg";
+
+import { ReactComponent as FeedbackArrow } from "../styles/images/Icon_FeedbackArrow.svg";
+import { ReactComponent as FeedBackCon } from "../styles/images/Icon_FeedBackCon.svg";
+
+import Feedback from "react-bootstrap/esm/Feedback";
 
 // * == (Sidebar) -------------------- * //
 
@@ -45,13 +50,13 @@ const Sidebar = (props) => {
           <ul className="menu">
             <li className={BookActive}>
               <Link to="/bookmark" className="menu-link">
-                <IconBookMark className="menu-icon" width="30px" height="30px" />
+                <IconBookMark className="menu-icon" width="20px" height="20px" />
                 <span className="menu-text">북마크</span>
               </Link>
             </li>
             <li className={NoteActive}>
               <Link to="/mynote" className="menu-link">
-                <IconFile className="menu-icon" width="30px" height="30px" />
+                <IconFile className="menu-icon" width="20px" height="20px" />
                 <span className="menu-text">내가 작성한 문서</span>
               </Link>
             </li>
@@ -85,9 +90,18 @@ const Sidebar = (props) => {
       <div className="footer" id="footer">
         <Container fluid>
           <div className="d-grid gap-2 button-group">
+            <a href="https://forms.gle/F4sTxqyK9pxgQiB18" style={{ textDecoration: "none" }}>
+              <FeedbackBtn>
+                <FeedBackCon />
+                <FeedbackText>
+                  <span style={{ fontWeight: "700", color: "#387E4B" }}>PandaN</span>피드백하러 가기!
+                </FeedbackText>
+                {/* <GoFeedback style={{ margin: " 0px 12px" }} /> */}
+                <FeedbackArrow style={{ marginTop: "3px" }} />
+              </FeedbackBtn>
+            </a>
             <ProjectJoin sidebar="sidebar" />
           </div>
-
           <p className="copyright">Copyright 2021 pandaN</p>
         </Container>
       </div>
@@ -95,4 +109,25 @@ const Sidebar = (props) => {
   );
 };
 
+const FeedbackBtn = styled.div`
+  width: 240px;
+  height: 48px;
+  background: #f3f3f3;
+  border-radius: 50px;
+  justfify-content: space-between;
+  padding: 10px 16px;
+  margin: 20px 0px -10px 0px;
+  cursor: pointer;
+  display: flex;
+  &:hover {
+    background: #e1ede4;
+  }
+`;
+
+const FeedbackText = styled.p`
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+  margin: auto;
+`;
 export default Sidebar;

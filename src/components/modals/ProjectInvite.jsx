@@ -25,9 +25,9 @@ const ProjectInvite = (props) => {
 
   return (
     <>
-      <div class="dropdown" onClick={() => setModalState(true)}>
-        <button class="dropbtn">
-          <IconMemberAdd class="dropbtnSvg" fill="#767676" style={{ marginRight: "5px", width: "24", height: "24" }} />
+      <div className="dropdown" onClick={() => setModalState(true)}>
+        <button className="dropbtn">
+          <IconMemberAdd className="dropbtnSvg" fill="#767676" style={{ marginRight: "5px", width: "24", height: "24" }} />
           <p>멤버 초대</p>
         </button>
       </div>
@@ -119,7 +119,7 @@ const Window = styled.div`
   animation-timing-function: ease-out;
   animation-name: ${fadeIn};
   animation-fill-mode: forwards;
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     max-width: 350px;
     max-height: 400px;
   }
@@ -133,7 +133,7 @@ const ModalHead = styled.div`
   align-items: flex-end;
   justify-content: space-between;
   margin: auto;
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     justify-content: center;
   }
 `;
@@ -148,7 +148,7 @@ const ModalTitle = styled.p`
   font-size: 22px;
   line-height: 30px;
   margin: 0 0 0 10px;
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     font-size: 20px;
     margin: 0 10px 0 10px;
   }
@@ -173,7 +173,7 @@ const P = styled.p`
   font-size: 20px;
   font-weight: 700;
   color: #387e4b;
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     font-size: 18px;
   }
 `;
@@ -191,7 +191,7 @@ const InviteCodeInput = styled.div`
 const InviteCodeText = styled.p`
   margin: auto auto auto 10px;
   font-size: 16px;
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     font-size: 14px;
   }
 `;
@@ -200,7 +200,7 @@ const CodeButton = styled.button`
   width: 96px;
   height: 48px;
   background: #e1ede4;
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     width: 48px;
   }
 `;
