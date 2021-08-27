@@ -21,6 +21,7 @@ const setDetailProject = createAction(SET_DETAIL_PROJECT, (projectDetail) => ({
 }));
 
 const setSideProject = createAction(SET_SIDE_PROJECT, (projects) => ({ projects }));
+
 const addProject = createAction(ADD_PROJECT, (project) => ({ project }));
 
 const deleteProject = createAction(DELETE_PROJECT, (projectId) => ({
@@ -180,6 +181,19 @@ const __checkProjectCrews =
     }
   };
 
+const __getGuideProject =
+  () =>
+  async (dispatch, getState, { history }) => {
+    try {
+      const data = await projectApi.postGuideProject();
+      console.log(data);
+      history.push("/projects");
+      // dispatch(setProject(data.data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
 export default handleActions(
   {
     [SET_PROJECT]: (state, action) =>
@@ -255,6 +269,7 @@ const actionCreators = {
   __inviteProject,
   __joinProject,
   __checkProjectCrews,
+  __getGuideProject,
 };
 
 export { actionCreators };

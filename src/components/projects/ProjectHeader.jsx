@@ -57,23 +57,22 @@ const ProjectHeader = ({ match }) => {
   );
 };
 
-const ProjectHeaderWrap = styled.div(...t`
-  padding: 24px 30px 22px;
+const ProjectHeaderWrap = styled.div`
+  padding: 1rem 1.875rem;
   width: 100%;
   display: flex;
   justify-content: space-between;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    margin: auto;
+
+    padding: 0.5rem 1.875rem;
   }
-`,
-);
+`;
 
 const ProjectEditIcon = styled.div`
-  margin: 6px 0px 0px 10px;
+  margin: 3px 0px 0px 10px;
   @media (max-width: 768px) {
-    margin-bottom: 12px;
   }
 `;
 
@@ -86,7 +85,7 @@ const Right = styled.div`
   justify-content: flex-end;
   @media (max-width: 768px) {
     width: 100%;
-    margin: auto;
+
     float: right;
     margin-left: auto;
   }
@@ -105,7 +104,7 @@ const ProjectHeaderTitle = styled.p`
   font-weight: bold;
   font-size: 20px;
   line-height: 32px;
-  margin-bottom: 4px;  
+  margin-bottom: 4px;
   letter-spacing: -0.03rem;
   cursor: pointer;
   color: #191919;
@@ -118,6 +117,9 @@ const ProjectHeaderTitle = styled.p`
     text-overflow: ellipsis;
   }
   @media (max-width: 768px) {
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 24px;
   }
 `;
 const ProjectDetailWrap = styled.div`
@@ -147,13 +149,12 @@ const ProjectHeaderDetail = styled.p`
     text-overflow: ellipsis;
   }
   @media (max-width: 768px) {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    line-height: 15px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-  @media (max-width: 450px) {
-    margin-bottom: 16px;
   }
 `;
 
