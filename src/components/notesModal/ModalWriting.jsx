@@ -88,6 +88,13 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     // 해당 noteId, 입력 내용 서버로 요청 보낸 후 모달창 종료, 이후 해당 프로젝트의 칸반 페이지로 이동
     dispatch(noteKanbanActions.__addNote(projectId, noteInputs));
     setModalVisible(false);
+    setNoteInputs({
+      title: "",
+      content: "",
+      deadline: "",
+      step: projectStep,
+      files: [],
+    });
     history.push(`/projects/${projectId}/kanban`); 
   };
 
