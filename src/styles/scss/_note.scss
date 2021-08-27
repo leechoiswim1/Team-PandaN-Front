@@ -88,12 +88,10 @@ $custom-background-light-gray: #F9F9F9;
 // == note: kanban - column
 // --------------------------------
 .kanban-column {
-  min-width: rem(320);
   height: inherit;
   margin-right: rem(28);
   display: flex;
   flex-direction: column;
-  white-space: nowrap;
   overflow-y: hidden;
   border-radius: rem(20);
   background-color: #f3f3f3;
