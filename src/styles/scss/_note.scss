@@ -67,9 +67,9 @@ $custom-background-light-gray: #F9F9F9;
 // == note: note container
 // --------------------------------
 .note-container {
-  width: 100%;
+  min-width: 100%;
   height: calc(100% - #{$project-header-height} - #{$inner-header-height});
-  padding: 0 rem(30) rem(40);
+  padding: 0 0 rem(40) rem(30);
   white-space: nowrap;
   overflow-x: scroll;
   overflow-y: hidden;
@@ -88,7 +88,7 @@ $custom-background-light-gray: #F9F9F9;
 // == note: kanban - column
 // --------------------------------
 .kanban-column {
-  width: rem(320);
+  min-width: rem(320);
   height: inherit;
   margin-right: rem(28);
   display: flex;

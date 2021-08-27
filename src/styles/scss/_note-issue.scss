@@ -20,7 +20,7 @@
 // --------------------------------------------------------------------------
 .note-board-container {
   width: 100%;
-  height: inherit;
+  min-height: inherit;
   padding: rem(30);
   white-space: nowrap;
   overflow-x: hidden;
@@ -31,7 +31,7 @@
 
 .note-project-board-container {
   @extend .note-board-container;
-  height: calc(100% - #{$project-header-height} - #{$inner-header-height});
+  min-height: calc(100% - #{$project-header-height} - #{$inner-header-height});
   padding: 0 rem(30) rem(40);
   @media screen and (min-width: 768px) and (max-width: 1199px) {
     height: calc(100% - #{$project-header-height} - #{$inner-header-height});
@@ -152,7 +152,7 @@
 
     td {
       vertical-align: middle;
-      height: rem(48);
+      height: rem(40);
       &:first-child {
         text-align: center;
         border-top-left-radius: rem(8);
