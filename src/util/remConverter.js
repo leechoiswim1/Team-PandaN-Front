@@ -2,7 +2,7 @@ import "../styles/scss/pandan.scss";
 import styled, { css } from "styled-components";
 
 function r(pxValue) {
-  const ratio = 20; // Set according to the project configuration ratio
+  const ratio = 16; // Set according to the project configuration ratio
 
   // for template literals
   if (Array.isArray(pxValue)) {
