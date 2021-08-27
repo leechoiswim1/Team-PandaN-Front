@@ -58,7 +58,7 @@ const ProjectHeader = ({ match }) => {
 };
 
 const ProjectHeaderWrap = styled.div(...t`
-  padding: 24px 30px 22px 50px;
+  padding: 24px 30px 22px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -66,7 +66,6 @@ const ProjectHeaderWrap = styled.div(...t`
   @media (max-width: 768px) {
     flex-direction: column;
     margin: auto;
-    padding: 18px 18px 18px 22px;
   }
 `);
 
@@ -97,9 +96,9 @@ const ProjectTitleWrap = styled.div`
 `;
 const ProjectHeaderTitle = styled.h1(...t`
   font-weight: bold;
-  font-size: 24px;
-  line-height: 36px;
-  margin-bottom: 8px;  
+  font-size: 20px;
+  line-height: 32px;
+  margin-bottom: 4px;  
   letter-spacing: -0.03rem;
   cursor: pointer;
   color: #191919;
@@ -107,14 +106,11 @@ const ProjectHeaderTitle = styled.h1(...t`
     color: #387e4b;
   }
   @media (max-width: 900px) {
-    font-size: 20px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   @media (max-width: 768px) {
-    font-size: 14px;
-    line-height: 20px;
   }
 `);
 const ProjectDetailWrap = styled.div`
@@ -129,19 +125,17 @@ const ProjectDetailWrap = styled.div`
 const ProjectHeaderDetail = styled.p(...t`
   font-weight: 400;
   color: #191919;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
   letter-spacing: -0.03em;
+
   @media (max-width: 900px) {
-    font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   @media (max-width: 768px) {
-    margin-bottom: 22px;
-    font-size: 11px;
-    line-height: 17px;
+    margin-bottom: 12px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
