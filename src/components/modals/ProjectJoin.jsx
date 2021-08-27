@@ -123,7 +123,7 @@ const EmptyProjectBtn = styled.div`
   &:hover {
     background: #ededed;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     margin-bottom: 20px;
     width: 220px;
     height: 50px;
@@ -137,7 +137,7 @@ const EmptyProjectText = styled.p`
   color: #191919;
   text-align: center;
   margin-left: 20px;
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     font-size: 15px;
   }
 `;
@@ -172,7 +172,7 @@ const Window = styled.div`
   animation-timing-function: ease-out;
   animation-name: ${fadeIn};
   animation-fill-mode: forwards;
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     max-width: 350px;
     max-height: 400px;
   }
@@ -186,7 +186,7 @@ const ModalHead = styled.div`
   align-items: flex-end;
   justify-content: space-between;
   margin: auto;
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     justify-content: center;
   }
 `;
@@ -201,7 +201,7 @@ const ModalTitle = styled.p`
   font-size: 22px;
   line-height: 30px;
   margin: 0 0 0 10px;
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     font-size: 20px;
     margin: 0 10px 0 10px;
   }
@@ -227,7 +227,7 @@ const P = styled.p`
   font-weight: 700;
   color: #387e4b;
 
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     font-size: 18px;
   }
 `;
@@ -237,6 +237,7 @@ const Input = styled.input`
   width: 100%;
   height: 48px;
   margin: 20px auto;
+  padding: 0px 10px;
   border-radius: 5px;
   border: 1px solid #ededed;
   color: #9a9a9a;
