@@ -62,9 +62,9 @@ const ProjectCardList = () => {
 
               <Footer style={{ justifyContent: "space-between", alignItems: "center" }}>
                 <div style={{ display: "flex", float: "left" }}>
-                  <Bookmark fill="#fff" stroke="#767676" style={{ width: "15px", height: "15px" }} />
+                  <Bookmark fill="#fff" stroke="#767676" style={{ width: "20px", height: "20px" }} />
                   <DetailText>{p.bookmarkCount}</DetailText>
-                  <FileText fill="#fff" stroke="#767676" style={{ width: "15px", height: "15px", marginLeft: "10px" }} />
+                  <FileText fill="#fff" stroke="#767676" style={{ width: "20px", height: "20px", marginLeft: "10px" }} />
                   <DetailText>{p.noteCount}</DetailText>
                 </div>
                 <div style={{ display: "flex" }}>
@@ -79,7 +79,7 @@ const ProjectCardList = () => {
                               <img src={c} style={{ width: "20px", height: "20px", borderRadius: "10px" }} alt="crew" />
                             ) : (
                               <img
-                                src="https://e7.pngegg.com/pngimages/287/501/png-clipart-giant-panda-emoji-coloring-book-drawing-sticker-emoji-child-face-thumbnail.png"
+                                src="https://s3.ap-northeast-2.amazonaws.com/front.blossomwhale.shop/ico-user.svg"
                                 style={{
                                   width: "20px",
                                   height: "20px",
@@ -93,7 +93,7 @@ const ProjectCardList = () => {
                       })}
                     </div>
                   </div>
-                  <div style={{ display: "fixed" }}>{crewcount > 0 ? <p>외 {crewcount}명 </p> : ""}</div>
+                  <div style={{ display: "fixed" }}>{crewcount > 0 ? <p>+{crewcount} </p> : ""}</div>
                 </div>
               </Footer>
             </Item>
