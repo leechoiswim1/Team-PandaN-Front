@@ -71,7 +71,7 @@ const ProjectHeaderWrap = styled.div`
 `;
 
 const ProjectEditIcon = styled.div`
-  margin: 6px 0px 0px 10px;
+  margin: 3px 0px 0px 10px;
   @media (max-width: 768px) {
   }
 `;
