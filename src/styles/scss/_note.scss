@@ -22,7 +22,6 @@ $custom-background-light-gray: #F9F9F9;
   align-items: center;
   justify-content: space-between;
   position: relative;
-  box-sizing: border-box;
   background-color: $custom-background-light-gray;
 
   li {
@@ -75,6 +74,10 @@ $custom-background-light-gray: #F9F9F9;
   display: flex;
   flex-direction: row;
   background-color: $custom-background-light-gray;
+
+  @media screen and (max-width: 767px) {
+    height: calc(100vh - #{$header-mobile-height} - #{$project-header-height} - #{$inner-header-height});
+  }
 }
 
 // == note: kanban - column
