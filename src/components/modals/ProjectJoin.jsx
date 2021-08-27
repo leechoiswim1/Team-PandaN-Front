@@ -92,7 +92,7 @@ to{
 `;
 const ProjectInviteBtn = styled.div`
   display: block;
-  widht: 240px;
+  width: 100%;
   height: 48px;
   background: #387e4b;
   border-radius: 10px;
