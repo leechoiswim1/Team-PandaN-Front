@@ -42,7 +42,7 @@ ${(props) => (props.type === "DONE") &&
   css`  
     background-color: #F5DAAE;
   `}
-  color: ${(props) => props.dateDiff <= -1 ? "#B00033" : "#fff"};
+  color: ${(props) => props.dateDiff <= -1 ? "#dc3545" : "#fff"};
 `
 
 export default Labels;

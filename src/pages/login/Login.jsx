@@ -1,11 +1,13 @@
 import React                      from "react";
 /* == Library - style */
 import styled                     from "styled-components";
+import { t }                      from "../../util/remConverter";
 /* == Custom - Elements */
 import KakaoButton                from "../../elements/KakaoButton";
 /* == Custom - Icon */
-import { ReactComponent as Logo } from "../../styles/images/logo.svg";
 import { ReactComponent as Panda }from "../../styles/images/img-panda-login.svg";
+import { ReactComponent as Logo }from "../../styles/images/img-logo-login.svg";
+import { ReactComponent as Slogan }from "../../styles/images/img-slogan-login.svg";
 /* == Custom - shared > OAuth setting */
 import { dev_oauthURL, oauthURL } from "../../shared/oauthenv";
 /* == Redux - actions */
@@ -19,10 +21,10 @@ const Login = ({ history }) => {
     <Wrapper>
       <Container>
         <Logo style={{marginBottom: "2.75rem"}}/>
-        <Panda style={{marginBottom: "2rem"}}/>
-        <h3>안 그래도 복잡한데,</h3>
-        <h3>일까지 복잡할 필요는 없잖아요</h3>
-        <h1>협업의 시작, <span>PandaN</span>에서 판단!</h1>
+        <Panda style={{marginBottom: "1.5rem"}}/>
+        <Slogan style={{marginBottom: "1.25rem"}}/>
+        <h1>세상에서 제일 쉬운 협업툴</h1>
+        <h1><span>PandaN</span>을 만나보세요</h1>
         {/* 로컬 테스트 */}
         <KakaoButton type="button" onClick={()=> { window.location.href = dev_oauthURL }}/>
         {/* 배포 */}
@@ -38,11 +40,14 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.3);
 `;
 
-const Container = styled.div`
-  width : 45rem;
+const Container = styled.div(...t`
+  /* width : 46.5rem; */
+  width: 744px;
+  /* height : 39.75rem; */
+  height : 636px;
   padding: 4rem;
   display: flex;
   justify-content: center;
@@ -54,10 +59,9 @@ const Container = styled.div`
   border-radius: 2.5rem;
 
   & h1 {
-    margin-top: 1rem;
-    font-weight: bold;
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
     text-align: center;
     letter-spacing: -0.03rem;
     color: #9A9A9A;
@@ -94,6 +98,6 @@ const Container = styled.div`
     line-height: 1.5rem;
   }
 }
-`;
+`);
 
 export default Login;

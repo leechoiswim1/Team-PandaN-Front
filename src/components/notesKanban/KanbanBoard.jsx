@@ -172,7 +172,7 @@ const KanbanBoard = ({ history, match }) => {
     <DragDropContext onDragEnd={(result) => onDragEnd(result, projects)}>
       {projects.map((project, index) => {
         return (
-          <div key={index}>
+          <div key={index} style={{width: "25%", minWidth: "320px"}}>
             <Droppable droppableId={String(index)}>
               {(provided, snapshot) => {
                 return ( 
