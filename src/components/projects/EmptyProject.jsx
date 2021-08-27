@@ -12,8 +12,15 @@ import PlanBetterStartEasier from "../../styles/images/PlanBetter_StartEasier.sv
 import { ReactComponent as IconGuide } from "../../styles/images/ico-guide.svg";
 
 // * == (EmptyProject) -------------------- * //
+import { useDispatch } from "react-redux";
+import { actionCreators as projectActions } from "../../modules/project";
+import { history } from "../../modules/configStore";
 
 const EmptyProject = () => {
+  const dispatch = useDispatch();
+  const getGuideProject = () => {
+    dispatch(projectActions.__getGuideProject());
+  };
   return (
     <Background>
       <CenterWrap>
@@ -26,8 +33,8 @@ const EmptyProject = () => {
           <CenterBtn>
             <ProjectJoin />
             <ProjectModal />
-            <GuideBtn className="btn-main">
-              <IconGuide/>
+            <GuideBtn className="btn-main" onClick={getGuideProject}>
+              <IconGuide />
               <span>가이드 프로젝트 참여</span>
             </GuideBtn>
           </CenterBtn>
@@ -38,14 +45,14 @@ const EmptyProject = () => {
 };
 
 const GuideBtn = styled.div`
-  background-color: #D9E9D9;  
+  background-color: #d9e9d9;
 
   @media (max-width: 768px) {
     font-size: 15px;
   }
 
   &:hover {
-    background-color: #387E4B;
+    background-color: #387e4b;
   }
 
   span {

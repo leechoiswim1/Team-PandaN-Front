@@ -32,6 +32,7 @@ export const projectApi = {
   getinviteProject: (projectId) => instance.get(`/api/projects/${projectId}/invites`),
   postJoinProject: (inviteCode) => instance.post("/api/projects/invites", inviteCode),
   getProjectCrews: (projectId) => instance.get(`/api/projects/${projectId}/crews`),
+  postGuideProject: () => instance.post("/api/projects/guide"),
 };
 
 /* == API - user */
@@ -54,7 +55,7 @@ export const noteApi = {
   /* note edit mode ; lock manager */
   checkEditmodeLocked: (noteId) => instance.get(`/api/notes/is-lock/${noteId}`),
   sendLockSignal: (noteId) => instance.post(`/api/notes/start-lock-manager/${noteId}`),
-  sendWritingSignal: (noteId) => instance.post(`/api/notes/writing/${noteId}`),  
+  sendWritingSignal: (noteId) => instance.post(`/api/notes/writing/${noteId}`),
   /* note */
   addNote: (noteId, newNote) => instance.post(`/api/notes/${noteId}`, newNote),
   editNote: (noteId, newNote) => instance.put(`/api/notes/details/${noteId}`, newNote),
