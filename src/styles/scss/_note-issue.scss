@@ -291,7 +291,7 @@
   }
 
   .cell-file-upload {
-    height: rem(160);
+    // height: rem(160);
   }
 
   .cell-align-top {
@@ -320,20 +320,20 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background-color: $primary;
+  background-color: #e1ede4;
+  color: $custom-note-gray;
   border-bottom-left-radius: rem(40);
   border-bottom-right-radius: rem(40);
   transition: all 0.2s ease-in-out;
-  color: #ffffff;
+  
   & h1 {
     font-weight: bold;
-    font-size: rem(20);
-    
+    font-size: rem(20);    
     letter-spacing: $letter-spacing;
   }
   &:hover {
-    background-color: #e1ede4;
-    color: $primary;
+    background-color: $primary;
+    color: #ffffff;
   }
   @media screen and (max-width: 767px) {
     border-bottom-left-radius: 0;
