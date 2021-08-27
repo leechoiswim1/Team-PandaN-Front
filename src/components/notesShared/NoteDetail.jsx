@@ -12,13 +12,13 @@ import { useParams } from "react-router-dom";
 
 /* == Custom - Component & Element & Icon */
 import Labels from "../../elements/Labels";
-import { ReactComponent as IconWorking } from "../../styles/images/icon-status-working.svg";
+import { ReactComponent as IconWorking } from "../../styles/images/ico-project-title.svg";
 import { ReactComponent as IconTitle } from "../../styles/images/ico-title.svg";
 import { ReactComponent as IconCalendar } from "../../styles/images/ico-calender.svg";
 import { ReactComponent as IconMember } from "../../styles/images/ico-member2.svg";
 import { ReactComponent as IconNote } from "../../styles/images/ico-note.svg";
 import { ReactComponent as IconLink } from "../../styles/images/ico-link.svg";
-import { ReactComponent as IconStatus }   from "../../styles/images/icon-status-done.svg";
+import { ReactComponent as IconStatus }   from "../../styles/images/ico-step.svg";
 
 /* == Custom - Component */
 import { ModalEditing, CommentList } from "..";
@@ -93,7 +93,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
           <DetailContent>
             <Content>
               <ContentLeft>
-                <IconWorking width="20" height="20" fill="#767676" />
+                <IconWorking width="24" height="24" fill="#767676" />
                 <MenuName>Project</MenuName>
               </ContentLeft>
               <ContentRight>
@@ -159,7 +159,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
             </Content>
             <Content>
               <ContentLeft>
-                <IconStatus width="20" height="20" fill="#767676"/>
+                <IconStatus width="24" height="24" fill="#767676"/>
                 <MenuName>상태</MenuName>
               </ContentLeft>
               <ContentRight>

@@ -10,7 +10,7 @@ import { useLocation, useParams }     from "react-router-dom";
 /* == Custom - Component & Element & Icon */
 import { ModalWrapper, FileUploader } from "..";
 import { ReactComponent as Write }    from "../../styles/images/ico-kanban-write.svg";
-import { ReactComponent as Status }   from "../../styles/images/icon-status-done.svg";
+import { ReactComponent as Status }   from "../../styles/images/ico-step.svg";
 import { ReactComponent as Close }    from "../../styles/images/ico-close.svg";
 import { ReactComponent as Title }    from "../../styles/images/ico-title.svg";
 import { ReactComponent as Calendar } from "../../styles/images/ico-calender.svg";
@@ -175,7 +175,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                 </div>
                 <div className="note-modal-tr">
                   <div className="note-modal-th">
-                    <Status width="20" height="20" fill="#767676" className="note-modal-irregular-button"/>
+                    <Status width="24" height="24" fill="#767676" className="note-modal-irregular-button"/>
                     <Form.Label>
                       상태 설정
                     </Form.Label>
