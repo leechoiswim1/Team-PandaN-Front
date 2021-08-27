@@ -24,9 +24,9 @@ const Login = ({ history }) => {
         <h3>일까지 복잡할 필요는 없잖아요</h3>
         <h1>협업의 시작, <span>PandaN</span>에서 판단!</h1>
         {/* 로컬 테스트 */}
-        <KakaoButton type="button" onClick={()=> { window.location.href = dev_oauthURL }}/>
+        {/* <KakaoButton type="button" onClick={()=> { window.location.href = dev_oauthURL }}/> */}
         {/* 배포 */}
-        {/* <KakaoButton type="button" onClick={()=> { window.location.href = oauthURL }}/> */}
+        <KakaoButton type="button" onClick={()=> { window.location.href = oauthURL }}/>
       </Container>
     </Wrapper>
   );
