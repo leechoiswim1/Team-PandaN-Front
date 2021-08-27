@@ -111,24 +111,13 @@ const ProjectInviteBtn = styled.div`
 `;
 const EmptyProjectBtn = styled.div`
   background: #F7E8BD;
-  width: 240px;
-  height: 60px;
-  display: flex;
-  cursor: pointer;
-  border-radius: 10px;
-  margin: auto;
-  padding: 15px;
-  justify-content: center;
-  align-items: center;
-  white-space: nowrap;
 
   &:hover {
-    background: #ededed;
+    color: #ffffff;
+    background: #FFCD40;
   }
   @media (max-width: 768px) {
     margin-bottom: 20px;
-    width: 220px;
-    height: 50px;
   }
 `;
 

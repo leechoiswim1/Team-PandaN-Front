@@ -38,22 +38,14 @@ const EmptyProject = () => {
 };
 
 const GuideBtn = styled.div`
-  display: flex;
-  width: 240px;
-  height: 60px;
-  font-size: 20px;
-  font-weight: 700;
-  white-space: nowrap;
-  justify-content: center;
-  align-items: center;
-  background: #D9E9D9;
-  cursor: pointer;
-  border-radius: 10px;
-  margin: auto;
-  padding: 15px;
+  background-color: #D9E9D9;  
 
   @media (max-width: 768px) {
     font-size: 15px;
+  }
+
+  &:hover {
+    background-color: #387E4B;
   }
 
   span {

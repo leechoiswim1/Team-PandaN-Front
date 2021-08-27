@@ -136,24 +136,13 @@ to{
 
 const EmptyProjectBtn = styled.div`
   background: #DEE3C2;
-  width: 240px;
-  height: 60px;
-  display: flex;
-  cursor: pointer;
-  border-radius: 10px;
-  margin: auto;
-  padding: 15px;
-  justify-content: center;
-  align-items: center;
-  white-space: nowrap;
-  
+
   &:hover {
-    background: #ededed;
+    background: #ADBE4F;
   }
+
   @media (max-width: 768px) {
     margin-bottom: 20px;
-    width: 220px;
-    height: 50px;
   }
 `;
 
