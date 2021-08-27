@@ -59,9 +59,9 @@ const __editComment =
   (commentId, comment) =>
   async (dispatch, getState, { history }) => {
     try {
-      console.log(commentId, comment);
+      // console.log(commentId, comment);
       const { data } = await commentApi.putComment(commentId, comment);
-      console.log(data);
+      // console.log(data);
       dispatch(editComment(data));
     } catch (e) {
       console.log(e);
@@ -90,7 +90,7 @@ export default handleActions(
       }),
     [EDIT_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload);
+        // console.log(action.payload);
         let idx = draft.list.findIndex((p) => p.commentId === action.payload.commentId);
         if (idx !== -1) {
           draft.list[idx].content = action.payload.content;

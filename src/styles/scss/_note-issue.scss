@@ -20,9 +20,8 @@
 // --------------------------------------------------------------------------
 .note-board-container {
   width: 100%;
-  min-height: inherit;
+  height: inherit;
   padding: rem(30);
-  white-space: nowrap;
   overflow-x: hidden;
   overflow-y: hidden;
   flex-direction: column;
@@ -30,14 +29,18 @@
 }
 
 .note-project-board-container {
-  @extend .note-board-container;
-  min-height: calc(100% - #{$project-header-height} - #{$inner-header-height});
+  width: 100%;
+  height: calc(100% - #{$project-header-height} - #{$inner-header-height});
   padding: 0 rem(30) rem(40);
+  overflow-x: hidden;
+  overflow-y: hidden;
+  flex-direction: column;
+  background-color: $custom-background-light-gray;
   @media screen and (min-width: 768px) and (max-width: 1199px) {
     height: calc(100% - #{$project-header-height} - #{$inner-header-height});
   }
   @media screen and (max-width: 767px) {
-    height: calc(100% - #{$project-header-height} - #{$inner-header-height});
+    height: calc(100% - #{$project-header-mobile-height} - #{$inner-header-height});
   }
 }
 
@@ -320,8 +323,10 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background-color: #e1ede4;
-  color: $custom-note-gray;
+  // background-color: #e1ede4;
+  // color: $custom-note-gray;
+  background-color: $primary;
+  color: #ffffff;
   border-bottom-left-radius: rem(40);
   border-bottom-right-radius: rem(40);
   transition: all 0.2s ease-in-out;
@@ -332,8 +337,10 @@
     letter-spacing: $letter-spacing;
   }
   &:hover {
-    background-color: $primary;
-    color: #ffffff;
+    // background-color: $primary;
+    // color: #ffffff;
+    background-color: #e1ede4;
+    color: $custom-note-gray;
   }
   @media screen and (max-width: 767px) {
     border-bottom-left-radius: 0;

@@ -123,7 +123,7 @@ const __getNoteDetail =
     dispatch(loading(true));
     try {
       const { data } = await noteApi.getNoteDetail(noteId);
-      console.log("노트 상세 응답",  data);
+      // console.log("노트 상세 응답",  data);
       dispatch(getNoteDetail(data));
     } catch (e) {
       console.log(e);

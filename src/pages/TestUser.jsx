@@ -25,7 +25,7 @@ const __testJoinProject =
       window.alert("프로젝트 진입 성공");
       history.push("/");
     } catch (e) {
-      console.log("실행 실패");
+      // console.log("실행 실패");
       console.log(e);
     }
   };

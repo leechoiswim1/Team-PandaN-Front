@@ -25,9 +25,9 @@ const ProjectInvite = (props) => {
 
   return (
     <>
-      <div class="dropdown" onClick={() => setModalState(true)}>
-        <button class="dropbtn">
-          <IconMemberAdd class="dropbtnSvg" fill="#767676" style={{ marginRight: "5px", width: "24", height: "24" }} />
+      <div className="dropdown" onClick={() => setModalState(true)}>
+        <button className="dropbtn">
+          <IconMemberAdd className="dropbtnSvg" fill="#767676" style={{ marginRight: "5px", width: "24", height: "24" }} />
           <p>멤버 초대</p>
         </button>
       </div>

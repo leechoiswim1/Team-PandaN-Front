@@ -87,7 +87,7 @@ const __getSearchAll =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await searchApi.getSearchAll(keyword);
-      console.log("2." + data);
+      // console.log("2." + data);
       dispatch(getSearchAll(data.noteList));
     } catch (e) {
       dispatch(deleteSearchResult());
