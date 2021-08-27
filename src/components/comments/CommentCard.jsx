@@ -56,31 +56,33 @@ const CommentCard = (props) => {
             {/* 시간 차 23시간 이상인지 ?
               format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm : 
               format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전' */}
-            <div>
-              {hourDiff < -22 ? (
-                <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "20px" }}>{updated}</p>
+            <div style={{ display: "flex" }}>
+              <div style={{ marginRight: "20px" }}>
+                {hourDiff < -22 ? (
+                  <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "20px" }}>{updated}</p>
+                ) : (
+                  <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "20px" }}>{recentlyUpdated}</p>
+                )}
+              </div>
+              {userName === writer ? (
+                <div class="dropdown_cmt">
+                  <div class="dropbtn_cmt">
+                    <IconEdit width="18px" />
+                  </div>
+                  <div class="dropdown-content_cmt">
+                    <Edit2
+                      style={{ width: "15px", cursor: "pointer" }}
+                      onClick={() => {
+                        setIsEditMode(!isEditMode);
+                      }}
+                    />
+                    <Trash2 style={{ width: "15px", marginLeft: "10px", cursor: "pointer" }} onClick={deleteComment} />
+                  </div>
+                </div>
               ) : (
-                <p style={{ fontWeight: "400", fontSize: "10px", paddingTop: "6px", marginLeft: "20px" }}>{recentlyUpdated}</p>
+                ""
               )}
             </div>
-            {userName === writer ? (
-              <div className="dropdown_cmt">
-                <div className="dropbtn_cmt">
-                  <IconEdit width="18px" />
-                </div>
-                <div className="dropdown-content_cmt">
-                  <Edit2
-                    style={{ width: "15px", cursor: "pointer" }}
-                    onClick={() => {
-                      setIsEditMode(!isEditMode);
-                    }}
-                  />
-                  <Trash2 style={{ width: "15px", marginLeft: "10px", cursor: "pointer" }} onClick={deleteComment} />
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
           </div>
         </div>
         <Comment>{content}</Comment>
