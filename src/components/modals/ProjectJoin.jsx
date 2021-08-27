@@ -100,7 +100,7 @@ const ProjectInviteBtn = styled.div`
   padding: 12px 40px;
   color: #ffffff;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
   margin-top: 2rem;
   cursor: pointer;

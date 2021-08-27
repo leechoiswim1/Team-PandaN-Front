@@ -232,17 +232,17 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
 };
 
 const CommentFisrtBox = styled.div`
-  @media (min-width: 769px) {
+  @media (min-width: 901px) {
     display: none;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     display: flex;
     flex-direction: column;
   }
 `;
 
 const CommentSecondBox = styled.div`
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     display: none;
   }
 `;
