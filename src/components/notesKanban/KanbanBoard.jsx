@@ -50,7 +50,7 @@ const KanbanBoard = ({ history, match }) => {
       const _newState = Object.values(newState);
       dispatch(noteKanbanActions.setKanbanStep(_newState)); 
 
-      console.log("이동하는 노트", draggableId, source.index)
+      // console.log("이동하는 노트", draggableId, source.index)
 
       // 스텝 이동 순서 변경 서버로 요청 보내기
       // 칸반 스텝 최상단 노트 이동할 때

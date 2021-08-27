@@ -120,7 +120,7 @@ const __editProject =
   async (dispatch, getState, { history }) => {
     try {
       const { data } = await projectApi.putProject(projectId, project);
-      console.log(data);
+      // console.log(data);
       window.alert("프로젝트가 성공적으로 수정됐습니다!🐼");
       dispatch(editProject(data));
       dispatch(__setSideProject());
@@ -133,7 +133,7 @@ const __editProject =
 const __leaveProject =
   (projectId) =>
   async (dispatch, getState, { history }) => {
-    console.log(projectId);
+    // console.log(projectId);
     try {
       const { data } = await projectApi.leaveProject(projectId);
       window.alert("프로젝트를 성공적으로 탈퇴했습니다!🐼");

@@ -52,10 +52,16 @@ const ProjectCardList = () => {
                   }}
                 >
                   <Detail style={{ color: "#9BD09C", fontWeight: "700" }}>{p.detail}</Detail>
-                  {/* 시간 차 23시간 이상인지 ?
-                    format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm : 
-                    format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전' */}
-                  {hourDiff < -22 ? <Detail>마지막 수정: {modifiedAt}</Detail> : <Detail>마지막 수정: {recentlyUpdated}</Detail>}
+                  {/* 1. 최근 노트 수정일자가 있는지(신규 생성 프로젝트는 노트 수정일자 없음) ?
+                      2. 있다면 시간 차 23시간 이상인지 ?
+                        format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm : 
+                        format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전' :
+                        수정일자가 없을 경우 아무 것도 출력하지 않음 */}
+                  {p.recentNoteUpdateDate ? hourDiff < -23 ?
+                    <Detail>마지막 수정: {modifiedAt}</Detail> :
+                    <Detail>마지막 수정: {recentlyUpdated}</Detail> :
+                    ""
+                  }
                 </div>
               </div>
               <div style={{ height: "50%" }} />
