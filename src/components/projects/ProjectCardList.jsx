@@ -128,7 +128,7 @@ const Item = styled.div`
     width: 30%;
   }
   @media (max-width: 900px) {
-    width: 50%;
+    width: 40%;
   }
   @media (max-width: 720px) {
     width: 80%;
@@ -141,7 +141,7 @@ const Item = styled.div`
 const Wrap = styled.div`
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
   margin: 20px 30px;
   box-sizing: border-box;
   display: flex;
