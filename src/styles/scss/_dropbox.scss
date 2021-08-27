@@ -87,6 +87,7 @@
 .dropbtn_cmt {
   width: 30px;
   height: 30px;
+  padding: auto;
   border-radius: 5px;
 }
 
@@ -100,13 +101,15 @@
   position: absolute;
   width: 55px;
   height: 30px;
+  padding: auto;
   border-radius: 10px;
   box-shadow: 3px 3px 10px 5px rgba(0, 0, 0, 0.1);
   background: #f9f9f9;
-  border: 2px solid #9bd09c;
+  padding-top: 2px;
   margin: auto;
   justify-content: center;
   text-align: center;
+  align-items: center;
   z-index: 1;
   right: 0;
   left: auto;
