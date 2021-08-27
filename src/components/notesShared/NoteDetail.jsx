@@ -18,7 +18,7 @@ import { ReactComponent as IconCalendar } from "../../styles/images/ico-calender
 import { ReactComponent as IconMember } from "../../styles/images/ico-member2.svg";
 import { ReactComponent as IconNote } from "../../styles/images/ico-note.svg";
 import { ReactComponent as IconLink } from "../../styles/images/ico-link.svg";
-import { ReactComponent as IconStatus }   from "../../styles/images/ico-step.svg";
+import { ReactComponent as IconStatus } from "../../styles/images/ico-step.svg";
 
 /* == Custom - Component */
 import { ModalEditing, CommentList } from "..";
@@ -32,7 +32,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
   const dispatch = useDispatch();
   const { noteId } = useParams();
 
-  const [showCmt, setShowCmt] = useState(false);
+  const [showCmt, setShowCmt] = useState(true);
   // state
   const note = useSelector((state) => state.noteKanban.detail?.detail);
   const files = useSelector((state) => state.noteKanban.detail?.files);
@@ -130,7 +130,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
             </Content>
             <Content>
               <ContentLeft>
-                <IconTitle width="24" height="24" fill="#767676"/>
+                <IconTitle width="24" height="24" fill="#767676" />
                 <MenuName>제목</MenuName>
               </ContentLeft>
               <ContentRight>
@@ -148,7 +148,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
             </Content>
             <Content>
               <ContentLeft>
-                <IconCalendar width="24" height="24" fill="#767676"/>
+                <IconCalendar width="24" height="24" fill="#767676" />
                 <MenuName>마감일</MenuName>
               </ContentLeft>
               <ContentRight>
@@ -159,7 +159,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
             </Content>
             <Content>
               <ContentLeft>
-                <IconStatus width="24" height="24" fill="#767676"/>
+                <IconStatus width="24" height="24" fill="#767676" />
                 <MenuName>상태</MenuName>
               </ContentLeft>
               <ContentRight>
@@ -173,25 +173,22 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
               </ContentLeft>
               <ContentRight style={{ verticalAlign: "top" }}>
                 <ul>
-                  {files.length !== 0 ? 
+                  {files.length !== 0 ? (
                     files.map((file, index) => (
-                    <li key={index}>
-                      {index + 1}.<a href={file.fileUrl}>{file.fileName}</a>
-                    </li>
-                  )) :
-                    <p>
-                      첨부된 파일이 없습니다.
-                    </p>
-                  }
+                      <li key={index}>
+                        {index + 1}.<a href={file.fileUrl}>{file.fileName}</a>
+                      </li>
+                    ))
+                  ) : (
+                    <p>첨부된 파일이 없습니다.</p>
+                  )}
                 </ul>
               </ContentRight>
             </Content>
             <Content style={{ border: "none" }}>
               <ContentLeftLast>
-                <IconNote width="24" height="24" fill="#767676"/> 
-                <MenuName>
-                  할 일
-                </MenuName>
+                <IconNote width="24" height="24" fill="#767676" />
+                <MenuName>할 일</MenuName>
               </ContentLeftLast>
               <ContentRight style={{ flexDirection: "column" }}>
                 <div> {note?.content}</div>
