@@ -148,7 +148,7 @@ const EmptyProjectBtn = styled.div`
   &:hover {
     background: #ededed;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     margin-bottom: 20px;
     width: 220px;
     height: 50px;
@@ -162,7 +162,7 @@ const EmptyProjectText = styled.p`
   color: #191919;
   text-align: center;
   margin-left: 20px;
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     font-size: 15px;
   }
 `;
@@ -199,10 +199,10 @@ const Window = styled.div`
   animation-fill-mode: forwards;
 
   @media (max-width: 768px) {
-    max-width: 720px;
-    max-height: 500px;
+    max-width: 600px;
+    max-height: 480px;
   }
-  @media (max-width: 400px) {
+  @media (max-width: 450px) {
     max-width: 350px;
     max-height: 500px;
   }
@@ -216,7 +216,7 @@ const ModalHead = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 0px 20px;
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     width: 80%;
     justify-content: space-between;
   }
@@ -243,7 +243,7 @@ const ModalBodyLeft = styled.div`
   margin: auto;
   height: 100%;
   width: 60%
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     width: 90%;
 `;
 
@@ -258,7 +258,7 @@ const P = styled.p`
   font-size: 20px;
   font-weight: 700;
   color: #387e4b;
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     font-size: 18px;
   }
 `;
@@ -272,7 +272,7 @@ const TextArea = styled.textarea`
   padding: 5px;
   font-color: #9a9a9a;
   border-radius: 7px;
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
     width: 340px;
   }
 `;
@@ -288,7 +288,7 @@ const ModalBodyRight = styled.div`
   box-sizing: border-box;
   width: 40%;
   border-left: 1px solid #ededed;
-  @media (max-width: 500px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;
@@ -348,7 +348,7 @@ const Item2 = styled.div`
   @media (max-width: 900px) {
     width: 50%;
   }
-  @media (max-width: 720px) {
+  @media (max-width: 768px) {
     width: 80%;
   }
   &:hover {
