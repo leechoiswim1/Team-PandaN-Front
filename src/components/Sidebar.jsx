@@ -90,16 +90,15 @@ const Sidebar = (props) => {
       <div className="footer" id="footer">
         <Container fluid>
           <div className="d-grid gap-2 button-group">
-            <a href="https://forms.gle/F4sTxqyK9pxgQiB18" style={{ textDecoration: "none" }}>
-              <FeedbackBtn>
-                <FeedBackCon />
-                <FeedbackText>
-                  <span style={{ fontWeight: "700", color: "#387E4B" }}>PandaN</span>피드백하러 가기!
-                </FeedbackText>
-                {/* <GoFeedback style={{ margin: " 0px 12px" }} /> */}
-                <FeedbackArrow style={{ marginTop: "3px" }} />
-              </FeedbackBtn>
-            </a>
+            <FeedbackBtn onClick={() => window.open("https://forms.gle/F4sTxqyK9pxgQiB18", "_blank")}>
+              <FeedBackCon />
+              <FeedbackText>
+                <span style={{ fontWeight: "700", color: "#387E4B" }}>PandaN</span>피드백하러 가기!
+              </FeedbackText>
+              {/* <GoFeedback style={{ margin: " 0px 12px" }} /> */}
+              <FeedbackArrow style={{ marginTop: "3px" }} />
+            </FeedbackBtn>
+
             <ProjectJoin sidebar="sidebar" />
           </div>
           <p className="copyright">Copyright 2021 pandaN</p>
