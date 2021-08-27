@@ -10,11 +10,11 @@ import { useLocation, useParams }     from "react-router-dom";
 /* == Custom - Component & Element & Icon */
 import { ModalWrapper, FileUploader } from "..";
 import { ReactComponent as Write }    from "../../styles/images/ico-kanban-write.svg";
-import { ReactComponent as Add }      from "../../styles/images/ico-kanban-write.svg";
+import { ReactComponent as Status }   from "../../styles/images/icon-status-done.svg";
 import { ReactComponent as Close }    from "../../styles/images/ico-close.svg";
-import { ReactComponent as Title }    from "../../styles/images/icon_title.svg";
-import { ReactComponent as Calendar } from "../../styles/images/icon_calender.svg";
-import { ReactComponent as Note }     from "../../styles/images/icon_note.svg";
+import { ReactComponent as Title }    from "../../styles/images/ico-title.svg";
+import { ReactComponent as Calendar } from "../../styles/images/ico-calender.svg";
+import { ReactComponent as Note }     from "../../styles/images/ico-note.svg";
 import { ReactComponent as Link }     from "../../styles/images/ico-link.svg";
 
 /* == Redux - actions */
@@ -132,7 +132,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
           <div className="note-modal-container">
             <div className="note-modal-header">
               <div>
-                <Add width="24" height="24" fill="#191919"/>
+                <Write width="24" height="24" fill="#191919"/>
                 <h1>할 일 만들기</h1>
               </div>
               <Close width="24" height="24" fill="#191919" className="note-modal-closer" onClick={handleCloseModal}/>
@@ -142,7 +142,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
               <div className="note-modal-table">
                 <div className="note-modal-tr">
                   <div className="note-modal-th">
-                    <Title />
+                    <Title width="24" height="24" fill="#767676"/>
                     <Form.Label>
                       제목 작성
                     </Form.Label>                  
@@ -159,7 +159,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                 </div>
                 <div className="note-modal-tr">
                   <div className="note-modal-th">
-                    <Calendar />
+                    <Calendar width="24" height="24" fill="#767676"/>
                     <Form.Label>
                       마감일 선택
                     </Form.Label>
@@ -175,7 +175,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                 </div>
                 <div className="note-modal-tr">
                   <div className="note-modal-th">
-                    <Calendar />
+                    <Status width="20" height="20" fill="#767676" className="note-modal-irregular-button"/>
                     <Form.Label>
                       상태 설정
                     </Form.Label>
@@ -208,7 +208,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                 </div>
                 <div className="note-modal-tr cell-align-top">
                   <div className="note-modal-th cell-align-top">
-                    <Note />
+                    <Note width="24" height="24" fill="#767676"/>
                     <Form.Label>
                       할 일 설명
                     </Form.Label>

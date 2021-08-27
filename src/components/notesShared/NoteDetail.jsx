@@ -13,11 +13,12 @@ import { useParams } from "react-router-dom";
 /* == Custom - Component & Element & Icon */
 import Labels from "../../elements/Labels";
 import { ReactComponent as IconWorking } from "../../styles/images/icon-status-working.svg";
-import { ReactComponent as IconTitle } from "../../styles/images/icon_title.svg";
-import { ReactComponent as IconCalendar } from "../../styles/images/icon_calender.svg";
-import { ReactComponent as IconMember } from "../../styles/images/icon_member2.svg";
-import { ReactComponent as IconNote } from "../../styles/images/icon_note.svg";
+import { ReactComponent as IconTitle } from "../../styles/images/ico-title.svg";
+import { ReactComponent as IconCalendar } from "../../styles/images/ico-calender.svg";
+import { ReactComponent as IconMember } from "../../styles/images/ico-member2.svg";
+import { ReactComponent as IconNote } from "../../styles/images/ico-note.svg";
 import { ReactComponent as IconLink } from "../../styles/images/ico-link.svg";
+import { ReactComponent as IconStatus }   from "../../styles/images/icon-status-done.svg";
 
 /* == Custom - Component */
 import { ModalEditing, CommentList } from "..";
@@ -129,7 +130,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
             </Content>
             <Content>
               <ContentLeft>
-                <IconTitle />
+                <IconTitle width="24" height="24" fill="#767676"/>
                 <MenuName>제목</MenuName>
               </ContentLeft>
               <ContentRight>
@@ -138,7 +139,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
             </Content>
             <Content>
               <ContentLeft>
-                <IconMember />
+                <IconMember width="24" height="24" fill="#767676" />
                 <MenuName>작성자</MenuName>
               </ContentLeft>
               <ContentRight>
@@ -147,7 +148,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
             </Content>
             <Content>
               <ContentLeft>
-                <IconCalendar />
+                <IconCalendar width="24" height="24" fill="#767676"/>
                 <MenuName>마감일</MenuName>
               </ContentLeft>
               <ContentRight>
@@ -158,7 +159,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
             </Content>
             <Content>
               <ContentLeft>
-                <IconCalendar />
+                <IconStatus width="20" height="20" fill="#767676"/>
                 <MenuName>상태</MenuName>
               </ContentLeft>
               <ContentRight>
@@ -172,17 +173,25 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
               </ContentLeft>
               <ContentRight style={{ verticalAlign: "top" }}>
                 <ul>
-                  {files.map((file, index) => (
-                    <List key={index}>
+                  {files.length !== 0 ? 
+                    files.map((file, index) => (
+                    <li key={index}>
                       {index + 1}.<a href={file.fileUrl}>{file.fileName}</a>
-                    </List>
-                  ))}
+                    </li>
+                  )) :
+                    <p>
+                      첨부된 파일이 없습니다.
+                    </p>
+                  }
                 </ul>
               </ContentRight>
             </Content>
             <Content style={{ border: "none" }}>
               <ContentLeftLast>
-                <IconNote /> <MenuName>할 일</MenuName>
+                <IconNote width="24" height="24" fill="#767676"/> 
+                <MenuName>
+                  할 일
+                </MenuName>
               </ContentLeftLast>
               <ContentRight style={{ flexDirection: "column" }}>
                 <div> {note?.content}</div>

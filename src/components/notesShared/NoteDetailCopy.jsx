@@ -17,10 +17,10 @@ import { ReactComponent as Write } from "../../styles/images/ico-kanban-write.sv
 import { ReactComponent as Add } from "../../styles/images/ico-kanban-write.svg";
 import { ReactComponent as Close } from "../../styles/images/ico-close.svg";
 import { ReactComponent as IconWorking } from "../../styles/images/icon-status-working.svg";
-import { ReactComponent as IconTitle } from "../../styles/images/icon_title.svg";
-import { ReactComponent as IconCalendar } from "../../styles/images/icon_calender.svg";
-import { ReactComponent as IconMember } from "../../styles/images/icon_member2.svg";
-import { ReactComponent as IconNote } from "../../styles/images/icon_note.svg";
+import { ReactComponent as IconTitle } from "../../styles/images/ico-title.svg";
+import { ReactComponent as IconCalendar } from "../../styles/images/ico-calender.svg";
+import { ReactComponent as IconMember } from "../../styles/images/ico-member2.svg";
+import { ReactComponent as IconNote } from "../../styles/images/ico-note.svg";
 import { ReactComponent as IconLink } from "../../styles/images/ico-link.svg";
 import { ReactComponent as IconComment } from "../../styles/images/icon_comment.svg";
 
