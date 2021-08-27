@@ -18,16 +18,15 @@
 .dropbtn-writing-modal {
   @extend .dropbtn;
   background-color: $primary;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
-@media all and (max-width: 600px) {
+@media all and (max-width: 768px) {
   .dropbtn {
     width: 92px;
     height: 24px;
     font-size: 10px;
     line-height: 15px;
-    
   }
   .dropbtnSvg {
     width: 15;
