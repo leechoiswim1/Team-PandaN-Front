@@ -22,7 +22,7 @@ const Login = ({ history }) => {
       <Container>
         <Logo style={{marginBottom: "2.75rem"}}/>
         <Panda style={{marginBottom: "1.5rem"}}/>
-        <Slogan style={{marginBottom: "1.25rem"}}/>
+        <StyledSlogan />
         <h1>세상에서 제일 쉬운 협업툴</h1>
         <h1><span>PandaN</span>을 만나보세요</h1>
         {/* 로컬 테스트 */}
@@ -99,5 +99,15 @@ const Container = styled.div(...t`
   }
 }
 `);
+
+const StyledSlogan = styled(Slogan)`
+  margin-bottom: 1.25rem;
+  @media screen and (min-width: 500px) and (max-width: 768px) {
+    width: 360px;
+  }
+  @media (max-width: 499px) {
+    width: 300px;
+  }
+`
 
 export default Login;
