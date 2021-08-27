@@ -106,15 +106,15 @@ const ProjectInviteBtn = styled.div`
   cursor: pointer;
   &:hover {
     background: #e1ede4;
-    color: #767676;
+    color: #387e4b;
   }
 `;
 const EmptyProjectBtn = styled.div`
-  background: #F7E8BD;
+  background: #f7e8bd;
 
   &:hover {
     color: #ffffff;
-    background: #FFCD40;
+    background: #ffcd40;
   }
   @media (max-width: 768px) {
     margin-bottom: 20px;
