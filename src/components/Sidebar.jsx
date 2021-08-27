@@ -45,13 +45,13 @@ const Sidebar = (props) => {
           <ul className="menu">
             <li className={BookActive}>
               <Link to="/bookmark" className="menu-link">
-                <IconBookMark className="menu-icon" width="30px" height="30px" />
+                <IconBookMark className="menu-icon" width="20px" height="20px" />
                 <span className="menu-text">북마크</span>
               </Link>
             </li>
             <li className={NoteActive}>
               <Link to="/mynote" className="menu-link">
-                <IconFile className="menu-icon" width="30px" height="30px" />
+                <IconFile className="menu-icon" width="20px" height="20px" />
                 <span className="menu-text">내가 작성한 문서</span>
               </Link>
             </li>
