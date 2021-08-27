@@ -601,22 +601,43 @@ $header-mobile-height: rem(70);
 
 .btn-main {
   display: flex;
-  width: 240px;
-  height: 60px;
-  font-size: 20px;
+  max-width: 255px;
+  width: 100%;
+  height: rem(50);
+  font-size: rem(20);
   font-weight: 700;
   white-space: nowrap;
   justify-content: center;
   align-items: center;
   background: #D9E9D9;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: rem(10);
   margin: auto;
-  padding: 15px;
+  padding: rem(15);
 }
 
 @media (min-width: 768px){
+  .btn-main {
+    max-width: inherit;
+    height: rem(60);
+  }
   .btn-main + .btn-main {
     margin-left: rem(24);
   }
 }
+
+@media (min-width: 1200px){
+  .btn-main {
+    max-width: inherit;
+    min-width: 255px;
+    width: 30%;
+
+    &:hover {
+      transition: .2s;
+    }
+  }
+  .btn-main + .btn-main {
+    margin-left: rem(24);
+  }
+}
+
