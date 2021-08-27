@@ -11,9 +11,9 @@ import { useLocation, useParams }     from "react-router-dom";
 import { ModalWrapper, FileUploader } from "..";
 import { ReactComponent as Add }      from "../../styles/images/ico-kanban-write.svg";
 import { ReactComponent as Close }    from "../../styles/images/ico-close.svg";
-import { ReactComponent as Title }    from "../../styles/images/icon_title.svg";
-import { ReactComponent as Calendar } from "../../styles/images/icon_calender.svg";
-import { ReactComponent as Note }     from "../../styles/images/icon_note.svg";
+import { ReactComponent as Title }    from "../../styles/images/ico-title.svg";
+import { ReactComponent as Calendar } from "../../styles/images/ico-calender.svg";
+import { ReactComponent as Note }     from "../../styles/images/ico-note.svg";
 import { ReactComponent as Link }     from "../../styles/images/ico-link.svg";
 
 /* == Axios - instance 및 api 요청 함수 */
@@ -210,7 +210,7 @@ const ModalEditing = ({ history, note, ...rest}) => {
               <div className="note-modal-table">
                 <div className="note-modal-tr">
                   <div className="note-modal-th">
-                    <Title />
+                    <Title width="24" height="24" fill="#767676"/>
                     <Form.Label>
                       제목 작성
                     </Form.Label>                  
@@ -228,7 +228,7 @@ const ModalEditing = ({ history, note, ...rest}) => {
                 </div>
                 <div className="note-modal-tr">
                   <div className="note-modal-th">
-                    <Calendar />
+                    <Calendar width="24" height="24" fill="#767676"/>
                     <Form.Label>
                       마감일 선택
                     </Form.Label>
@@ -256,7 +256,7 @@ const ModalEditing = ({ history, note, ...rest}) => {
                 </div>
                 <div className="note-modal-tr cell-align-top">
                   <div className="note-modal-th cell-align-top">
-                    <Note />
+                    <Note width="24" height="24" fill="#767676"/>
                     <Form.Label>
                       할 일 설명
                     </Form.Label>

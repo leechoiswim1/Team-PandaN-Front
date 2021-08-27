@@ -22,18 +22,18 @@ const Bookmark = ({ history, match, ...rest }) => {
   return (
     <Template match={match}>
       <div className="content" id="content">
-        <div className="note-board-container" style={{ height: "100%" }}>
-          <p style={{ fontWeight: "500" }}>
-            북마크 총 <span style={{ color: "#387E4B", fontWeight: "700", fontSize: "16px" }}>{paging.totalElements}</span>개
-          </p>
-
-          <div style={{ height: "95%" }}>
-            {bookmarkList && <IssueList history={history} notes={bookmarkList} type="bookmark" />}
-            {bookmarkList.length === 0 && <EmptyBoard type="bookmark" />}
-          </div>
-          <div style={{ height: "5%" }}>
-            <Paging paging={paging} module={noteActions.__getBookmark} isLoading={isLoading} />
-          </div>
+        <div className="note-board-container">
+          {bookmarkList.length === 0 ? 
+            <EmptyBoard type="bookmark" /> :
+            <>
+            <div>
+              <IssueList history={history} notes={bookmarkList} type="bookmark" totalElements={paging.totalElements} />
+            </div>
+            <div style={{ height: "10%" }}>
+              <Paging paging={paging} module={noteActions.__getBookmark} isLoading={isLoading} />
+            </div>
+            </>
+          }
         </div>
       </div>
     </Template>

@@ -24,7 +24,10 @@ const EmptyBoard = ({ type }) => {
   if (type === "myNote") {
     return (
       <Container>
-        <h1>전체 프로젝트에 내가 작성한 문서가 없습니다.</h1>
+        <h1>
+          전체 프로젝트에 <br/>
+          내가 작성한 문서가 없습니다.
+        </h1>
       </Container>
     );
   };
@@ -32,7 +35,10 @@ const EmptyBoard = ({ type }) => {
   if (type === "projectIssue") {
     return (
       <Container>
-        <h1>{projectTitle}에 문서가 없습니다.</h1>
+        <h1>
+          {projectTitle}에 <br/>
+          문서가 없습니다.
+        </h1>
       </Container>
     );
   };
@@ -40,7 +46,10 @@ const EmptyBoard = ({ type }) => {
   if (type === "projectMyNote") {
     return (
       <Container>
-        <h1>{projectTitle}에 내가 작성한 문서가 없습니다.</h1>
+        <h1>
+          {projectTitle}에 <br/>
+          내가 작성한 문서가 없습니다.
+        </h1>
       </Container>
     );
   };
@@ -48,10 +57,14 @@ const EmptyBoard = ({ type }) => {
 };
 
 const Container = styled.div`
+  width: 100%;
   height: 10rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  white-space: normal;
+  word-break: break-all;
+  overflow-wrap: break-word;
 
   h1 {
     font-weight: bold;
