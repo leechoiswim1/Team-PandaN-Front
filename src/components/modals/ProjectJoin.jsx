@@ -47,7 +47,7 @@ const ProjectJoin = (props) => {
       {props.sidebar === "sidebar" ? (
         <ProjectInviteBtn onClick={() => setModalState(true)}>프로젝트 초대코드 등록</ProjectInviteBtn>
       ) : (
-        <EmptyProjectBtn onClick={() => setModalState(true)}>
+        <EmptyProjectBtn onClick={() => setModalState(true)} className="btn-main">
           <InviteLetter />
           <EmptyProjectText>프로젝트 초대 코드 등록</EmptyProjectText>
         </EmptyProjectBtn>
@@ -100,7 +100,7 @@ const ProjectInviteBtn = styled.div`
   padding: 12px 40px;
   color: #ffffff;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
   margin-top: 2rem;
   cursor: pointer;
@@ -110,23 +110,14 @@ const ProjectInviteBtn = styled.div`
   }
 `;
 const EmptyProjectBtn = styled.div`
-  background: #e1ede4;
-  width: 329px;
-  height: 60px;
-  display: flex;
-  cursor: pointer;
-  border-radius: 10px;
-  margin: auto;
-  padding: auto;
-  justify-content: center;
-  align-items: center;
+  background: #F7E8BD;
+
   &:hover {
-    background: #ededed;
+    color: #ffffff;
+    background: #FFCD40;
   }
   @media (max-width: 768px) {
     margin-bottom: 20px;
-    width: 220px;
-    height: 50px;
   }
 `;
 
@@ -136,7 +127,8 @@ const EmptyProjectText = styled.p`
   font-weight: 700;
   color: #191919;
   text-align: center;
-  margin-left: 20px;
+  margin-left: 10px;
+
   @media (max-width: 768px) {
     font-size: 15px;
   }

@@ -44,7 +44,7 @@ const MemberDropBox = (props) => {
         }}
       >
         <IconMemberAdd fill="#767676" class="dropbtnSvg" style={{ marginRight: "5px" }} />
-        <p>멤버{countCrews}명</p>
+        <p>멤버 {countCrews}명</p>
       </button>
       {show ? (
         <div class="dropdown-content">

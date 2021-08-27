@@ -35,13 +35,13 @@ const ProjectHeader = ({ match }) => {
           >
             {project_detail_list.title}{" "}
           </ProjectHeaderTitle>
-          <div>
+          <ProjectEditIcon>
             {isUpdatableAndDeletable ? (
               <ProjectModalEdit projectId={project_detail_list.projectId} title={project_detail_list.title} detail={project_detail_list.detail} />
             ) : (
               <LeaveProject projectId={project_detail_list.projectId} />
             )}
-          </div>
+          </ProjectEditIcon>
         </ProjectTitleWrap>
         <ProjectDetailWrap>
           <ProjectHeaderDetail>{project_detail_list.detail}</ProjectHeaderDetail>
@@ -67,7 +67,15 @@ const ProjectHeaderWrap = styled.div(...t`
     flex-direction: column;
     margin: auto;
   }
-`);
+`,
+);
+
+const ProjectEditIcon = styled.div`
+  margin: 6px 0px 0px 10px;
+  @media (max-width: 768px) {
+    margin-bottom: 12px;
+  }
+`;
 
 const Left = styled.div`
   float: left;
@@ -77,9 +85,9 @@ const Right = styled.div`
   display: flex;
   justify-content: flex-end;
   @media (max-width: 768px) {
-    width:100%;
+    width: 100%;
     margin: auto;
-    float:right;
+    float: right;
     margin-left: auto;
   }
 `;
@@ -90,11 +98,10 @@ const ProjectTitleWrap = styled.div`
     justify-content: space-between;
     width: 100%;
     margin: auto;
-  }
-  &svg {
+    align-items: center;
   }
 `;
-const ProjectHeaderTitle = styled.h1(...t`
+const ProjectHeaderTitle = styled.p`
   font-weight: bold;
   font-size: 20px;
   line-height: 32px;
@@ -112,7 +119,7 @@ const ProjectHeaderTitle = styled.h1(...t`
   }
   @media (max-width: 768px) {
   }
-`);
+`;
 const ProjectDetailWrap = styled.div`
   display: flex;
   vertical-align: middle;
@@ -121,8 +128,13 @@ const ProjectDetailWrap = styled.div`
     width: 100%;
     margin: auto;
   }
+  @media (max-width: 450px) {
+    justify-content: space-between;
+    width: 100%;
+    margin: auto;
+  }
 `;
-const ProjectHeaderDetail = styled.p(...t`
+const ProjectHeaderDetail = styled.p`
   font-weight: 400;
   color: #191919;
   font-size: 14px;
@@ -140,6 +152,9 @@ const ProjectHeaderDetail = styled.p(...t`
     overflow: hidden;
     text-overflow: ellipsis;
   }
-`);
+  @media (max-width: 450px) {
+    margin-bottom: 16px;
+  }
+`;
 
 export default ProjectHeader;
