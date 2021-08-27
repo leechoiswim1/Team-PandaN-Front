@@ -22,7 +22,6 @@
   width: 100%;
   height: inherit;
   padding: rem(30);
-  white-space: nowrap;
   overflow-x: hidden;
   overflow-y: hidden;
   flex-direction: column;
@@ -30,14 +29,18 @@
 }
 
 .note-project-board-container {
-  @extend .note-board-container;
-  min-height: calc(100% - #{$project-header-height} - #{$inner-header-height});
+  width: 100%;
+  height: calc(100% - #{$project-header-height} - #{$inner-header-height});
   padding: 0 rem(30) rem(40);
+  overflow-x: hidden;
+  overflow-y: hidden;
+  flex-direction: column;
+  background-color: $custom-background-light-gray;
   @media screen and (min-width: 768px) and (max-width: 1199px) {
     height: calc(100% - #{$project-header-height} - #{$inner-header-height});
   }
   @media screen and (max-width: 767px) {
-    height: calc(100% - #{$project-header-height} - #{$inner-header-height});
+    height: calc(100% - #{$project-header-mobile-height} - #{$inner-header-height});
   }
 }
 
