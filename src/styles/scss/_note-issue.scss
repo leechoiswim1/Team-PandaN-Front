@@ -21,9 +21,10 @@
 .note-board-container {
   width: 100%;
   height: inherit;
+  min-height: calc(100vh - #{$header-height});
   padding: rem(30);
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   flex-direction: column;
   background-color: $custom-background-light-gray;
 }
@@ -33,7 +34,7 @@
   height: calc(100% - #{$project-header-height} - #{$inner-header-height});
   padding: 0 rem(30) rem(40);
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   flex-direction: column;
   background-color: $custom-background-light-gray;
   @media screen and (min-width: 768px) and (max-width: 1199px) {
@@ -191,6 +192,15 @@
         border-top-right-radius: rem(8);
         border-bottom-right-radius: rem(8);
       }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    thead {
+      height: rem(28);
+    }
+    tbody td {
+      height: rem(32);
     }
   }
 }
