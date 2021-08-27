@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 
 /* styled-components 및 rem 변환 모듈 */
 import styled from "styled-components";
+import { t } from "../../util/remConverter";
 
 import { actionCreators as projectActions } from "../../modules/project";
 import { useSelector, useDispatch } from "react-redux";
@@ -34,7 +35,7 @@ const ProjectHeader = ({ match }) => {
           >
             {project_detail_list.title}{" "}
           </ProjectHeaderTitle>
-          <div style={{ margin: "4px 0px 0px 10px" }}>
+          <div>
             {isUpdatableAndDeletable ? (
               <ProjectModalEdit projectId={project_detail_list.projectId} title={project_detail_list.title} detail={project_detail_list.detail} />
             ) : (
@@ -56,8 +57,8 @@ const ProjectHeader = ({ match }) => {
   );
 };
 
-const ProjectHeaderWrap = styled.div`
-  padding: 10px 30px;
+const ProjectHeaderWrap = styled.div(...t`
+  padding: 24px 30px 22px 50px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -65,9 +66,9 @@ const ProjectHeaderWrap = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
     margin: auto;
-    padding: 10px 20px;
+    padding: 18px 18px 18px 22px;
   }
-`;
+`);
 
 const Left = styled.div`
   float: left;
@@ -75,8 +76,9 @@ const Left = styled.div`
 
 const Right = styled.div`
   display: flex;
+  justify-content: flex-end;
   @media (max-width: 768px) {
-    width:100%
+    width:100%;
     margin: auto;
     float:right;
     margin-left: auto;
@@ -84,6 +86,7 @@ const Right = styled.div`
 `;
 const ProjectTitleWrap = styled.div`
   display: flex;
+  vertical-align: middle;
   @media (max-width: 768px) {
     justify-content: space-between;
     width: 100%;
@@ -92,9 +95,12 @@ const ProjectTitleWrap = styled.div`
   &svg {
   }
 `;
-const ProjectHeaderTitle = styled.p`
+const ProjectHeaderTitle = styled.h1(...t`
   font-weight: bold;
   font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 8px;  
+  letter-spacing: -0.03rem;
   cursor: pointer;
   color: #191919;
   &:hover {
@@ -107,22 +113,25 @@ const ProjectHeaderTitle = styled.p`
     text-overflow: ellipsis;
   }
   @media (max-width: 768px) {
-    font-size: 18px;
+    font-size: 14px;
+    line-height: 20px;
   }
-`;
+`);
 const ProjectDetailWrap = styled.div`
   display: flex;
+  vertical-align: middle;
   @media (max-width: 768px) {
     justify-content: space-between;
     width: 100%;
     margin: auto;
   }
 `;
-const ProjectHeaderDetail = styled.p`
+const ProjectHeaderDetail = styled.p(...t`
   font-weight: 400;
   color: #191919;
   font-size: 16px;
   line-height: 24px;
+  letter-spacing: -0.03em;
   @media (max-width: 900px) {
     font-size: 14px;
     white-space: nowrap;
@@ -130,11 +139,13 @@ const ProjectHeaderDetail = styled.p`
     text-overflow: ellipsis;
   }
   @media (max-width: 768px) {
-    font-size: 12px;
+    margin-bottom: 22px;
+    font-size: 11px;
+    line-height: 17px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-`;
+`);
 
 export default ProjectHeader;
