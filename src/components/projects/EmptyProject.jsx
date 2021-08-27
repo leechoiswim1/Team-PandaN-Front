@@ -1,10 +1,18 @@
 import React from "react";
-import styled from "styled-components";
-import { ProjectModal } from "..";
 
+import styled from "styled-components";
+
+/* == Custom - Component */
+import { ProjectModal } from "..";
 import ProjectJoin from "../modals/ProjectJoin";
+
+/* == Custom - Icon */
 import PandaEmpty from "../../styles/images/Panda_EmptyProject.svg";
 import PlanBetterStartEasier from "../../styles/images/PlanBetter_StartEasier.svg";
+import { ReactComponent as IconGuide } from "../../styles/images/ico-guide.svg";
+
+// * == (EmptyProject) -------------------- * //
+
 const EmptyProject = () => {
   return (
     <Background>
@@ -18,12 +26,40 @@ const EmptyProject = () => {
           <CenterBtn>
             <ProjectJoin />
             <ProjectModal />
+            <GuideBtn className="btn-main">
+              <IconGuide/>
+              <span>가이드 프로젝트 참여</span>
+            </GuideBtn>
           </CenterBtn>
         </CenterBox>
       </CenterWrap>
     </Background>
   );
 };
+
+const GuideBtn = styled.div`
+  display: flex;
+  width: 240px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: 700;
+  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
+  background: #D9E9D9;
+  cursor: pointer;
+  border-radius: 10px;
+  margin: auto;
+  padding: 15px;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+  }
+
+  span {
+    margin-left: 10px;
+  }
+`;
 
 const Background = styled.div`
   width: 90vw;
@@ -67,7 +103,8 @@ const PlanBetterStartEasierImg = styled.img`
 const CenterBtn = styled.div`
   display: flex;
   margin: 50px auto;
-  width: 700px;
+  // width: 700px;
+
   @media (max-width: 767px) {
     flex-direction: column;
     max-width: 250px;

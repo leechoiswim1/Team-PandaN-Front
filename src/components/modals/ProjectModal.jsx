@@ -69,7 +69,7 @@ const ProjectModal = (props) => {
           <IconAdd />
         </Item2>
       ) : (
-        <EmptyProjectBtn onClick={() => setModalState(true)}>
+        <EmptyProjectBtn onClick={() => setModalState(true)} className="btn-main">
           <Write fill="#000000" width="22" /> <EmptyProjectText>새 프로젝트 만들기</EmptyProjectText>
         </EmptyProjectBtn>
       )}
@@ -135,16 +135,18 @@ to{
 `;
 
 const EmptyProjectBtn = styled.div`
-  background: #e1ede4;
-  width: 329px;
+  background: #DEE3C2;
+  width: 240px;
   height: 60px;
   display: flex;
   cursor: pointer;
   border-radius: 10px;
   margin: auto;
-  padding: auto;
+  padding: 15px;
   justify-content: center;
   align-items: center;
+  white-space: nowrap;
+  
   &:hover {
     background: #ededed;
   }
@@ -161,7 +163,8 @@ const EmptyProjectText = styled.p`
   font-weight: 700;
   color: #191919;
   text-align: center;
-  margin-left: 20px;
+  margin-left: 10px;
+  
   @media (max-width: 768px) {
     font-size: 15px;
   }
