@@ -84,7 +84,7 @@ const ProjectModal = (props) => {
                   <ModalTitle>프로젝트 생성하기</ModalTitle>
                 </ModalHeadInner>
 
-                <CloseModal width="15px" style={{ cursor: "pointer" }} onClick={() => setModalState(false)} />
+                <CloseModal width="15px" style={{ cursor: "pointer", marginRight: "20px" }} onClick={() => setModalState(false)} />
               </ModalHead>
               <ModalBody>
                 {/* == left */}
@@ -203,7 +203,7 @@ const Window = styled.div`
     max-height: 480px;
   }
   @media (max-width: 450px) {
-    max-width: 350px;
+    width: 95%;
     max-height: 500px;
   }
 `;
@@ -215,9 +215,9 @@ const ModalHead = styled.div`
   flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
-  margin: 0px 20px;
+  margin: auto;
   @media (max-width: 768px) {
-    width: 80%;
+    width: 100%;
     justify-content: space-between;
   }
 `;
@@ -237,21 +237,28 @@ const ModalTitle = styled.p`
 const ModalBody = styled.div`
   display: flex;
   height: 65%;
+  width: 100%;
 `;
 
 const ModalBodyLeft = styled.div`
   margin: auto;
   height: 100%;
-  width: 60%
+  width: 58%;
   @media (max-width: 768px) {
-    width: 90%;
+    width: 100%;
+  }
 `;
 
 const ModalBodyLeftInner = styled.div`
   position: relative;
   box-sizing: border-box;
   height: 80%;
-  width: 100%;
+  width: 78%;
+  margin: auto;
+  @media (max-width: 768px) {
+    width: 90%;
+    margin: auto;
+  }
 `;
 
 const P = styled.p`
@@ -273,7 +280,8 @@ const TextArea = styled.textarea`
   font-color: #9a9a9a;
   border-radius: 7px;
   @media (max-width: 768px) {
-    width: 340px;
+    font-size: 15px;
+    width: 100%;
   }
 `;
 
@@ -286,20 +294,22 @@ const TextDesc = styled.p`
 const ModalBodyRight = styled.div`
   display: block;
   box-sizing: border-box;
-  width: 40%;
-  border-left: 1px solid #ededed;
+  width: 42%;
+
   @media (max-width: 768px) {
     display: none;
   }
 `;
 
 const ModalBodyRightInner = styled.div`
-  width: 85%;
-  height: 50%;
-  display: block;
+  width: 90%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  border-left: 1px solid #ededed;
   align-items: center;
-  margin: 50px auto;
+  padding: 30px 20px;
 `;
 
 const ModalBodyRightImage = styled.img`
