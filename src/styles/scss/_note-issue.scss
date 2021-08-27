@@ -323,8 +323,10 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background-color: #e1ede4;
-  color: $custom-note-gray;
+  // background-color: #e1ede4;
+  // color: $custom-note-gray;
+  background-color: $primary;
+  color: #ffffff;
   border-bottom-left-radius: rem(40);
   border-bottom-right-radius: rem(40);
   transition: all 0.2s ease-in-out;
@@ -335,8 +337,10 @@
     letter-spacing: $letter-spacing;
   }
   &:hover {
-    background-color: $primary;
-    color: #ffffff;
+    // background-color: $primary;
+    // color: #ffffff;
+    background-color: #e1ede4;
+    color: $custom-note-gray;
   }
   @media screen and (max-width: 767px) {
     border-bottom-left-radius: 0;
