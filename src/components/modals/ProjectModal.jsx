@@ -333,7 +333,7 @@ const ModalFooter = styled.div`
 
 const Item2 = styled.div`
   min-width: 250px;
-  width: 320px;
+  width: 400px;
   height: 280px;
   margin: 10px;
   border-radius: 20px;

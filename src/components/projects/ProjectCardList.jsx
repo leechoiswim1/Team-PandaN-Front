@@ -131,7 +131,7 @@ const Wrapper = styled.div`
 `;
 
 const Wrap = styled.div`
-  width: 100%;
+  width: 95%;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
@@ -144,7 +144,7 @@ const Wrap = styled.div`
 `;
 const Item = styled.div`
   min-width: 280px;
-  width: 320px;
+  width: 400px;
   height: 280px;
   margin: 10px;
   padding: 25px;
