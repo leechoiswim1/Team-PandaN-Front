@@ -61,13 +61,15 @@ const ProjectModalEdit = (props) => {
     setProDesc(e.target.value);
   };
 
+  const OpenModal = () => {
+    setProTitle(props.title);
+    setProDesc(props.detail);
+    setModalState(true);
+  };
+
   return (
     <>
-      {props.main ? (
-        <IconEdit style={{ cursor: "pointer" }} onClick={() => setModalState(true)} />
-      ) : (
-        <IconProjectEditCss fill="#9A9A9A" onClick={() => setModalState(true)} />
-      )}
+      {props.main ? <IconEdit style={{ cursor: "pointer" }} onClick={OpenModal} /> : <IconProjectEditCss fill="#9A9A9A" onClick={OpenModal} />}
 
       <ModalPortal>
         {modalState ? (

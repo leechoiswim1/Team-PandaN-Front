@@ -17,7 +17,7 @@ const ProjectMyNote = ({ history, match, ...rest }) => {
   const isLoading = useSelector((state) => state.note.is_loading);
   const paging = useSelector((state) => state.note.projectNotePaging);
   const projectTitle = useSelector((state) => state.project.detailList[0]?.title);
-  
+
   useEffect(() => {
     dispatch(noteActions.__getProjectMyNotes(projectId, paging.pageNumber, paging.size));
   }, []);
@@ -28,24 +28,25 @@ const ProjectMyNote = ({ history, match, ...rest }) => {
         <ProjectHeader match={match} />
         <ProjectMenu history={history} match={match} projectId={projectId} />
         <div className="note-project-board-container">
-          {myNote.length === 0 ? 
-            <EmptyBoard type="projectMyNote" /> :
+          {myNote.length === 0 ? (
+            <EmptyBoard type="projectMyNote" />
+          ) : (
             <>
-            <div>
-            <IssueList 
-              history={history} 
-              notes={myNote} 
-              projectId={projectId}
-              projectTitle={projectTitle} 
-              type="projectMyNote" 
-              totalElements={paging.totalElements} 
-            />
-            </div>
-            <div style={{ height: "10%", display: "flex", width: "100%", alignItems:"center", justifyContent: "center"}}>
-              <Paging paging={paging} module={noteActions.__getProjectMyNotes} isLoading={isLoading} />
-            </div>
+              <div>
+                <IssueList
+                  history={history}
+                  notes={myNote}
+                  projectId={projectId}
+                  projectTitle={projectTitle}
+                  type="projectMyNote"
+                  totalElements={paging.totalElements}
+                />
+              </div>
+              <div style={{ height: "10%", display: "flex", width: "100%", alignItems: "center", justifyContent: "center" }}>
+                <Paging paging={paging} module={noteActions.__getProjectMyNotes} isLoading={isLoading} projectId={projectId} />
+              </div>
             </>
-          }
+          )}
         </div>
       </div>
     </Template>
