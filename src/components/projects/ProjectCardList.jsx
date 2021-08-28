@@ -57,11 +57,15 @@ const ProjectCardList = () => {
                         format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm : 
                         format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전' :
                         수정일자가 없을 경우 아무 것도 출력하지 않음 */}
-                  {p.recentNoteUpdateDate ? hourDiff < -23 ?
-                    <Detail>마지막 수정: {modifiedAt}</Detail> :
-                    <Detail>마지막 수정: {recentlyUpdated}</Detail> :
+                  {p.recentNoteUpdateDate ? (
+                    hourDiff < -23 ? (
+                      <Detail>마지막 수정: {modifiedAt}</Detail>
+                    ) : (
+                      <Detail>마지막 수정: {recentlyUpdated}</Detail>
+                    )
+                  ) : (
                     ""
-                  }
+                  )}
                 </div>
               </div>
               <div style={{ height: "50%" }} />
@@ -131,7 +135,8 @@ const Item = styled.div`
     width: 40%;
   }
   @media (max-width: 720px) {
-    width: 80%;
+    width: 90%;
+    justify-content: center;
   }
   &:hover {
     border: 2px solid #fff;
@@ -146,6 +151,7 @@ const Wrap = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
 `;
 
 const Title = styled.div`
