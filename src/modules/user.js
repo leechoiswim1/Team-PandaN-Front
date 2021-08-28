@@ -101,8 +101,8 @@ const __login =
       // str 변환한 유저정보 localStorage 저장   
       localStorage.setItem("userInfo", str_userInfo);
       
-      // setCookie("TOKEN", 값, 유효기간) 
-      setCookie("TOKEN", tokenvalue, 1);           
+      // setCookie("TOKEN", 값, 유효시간 = 6시간) 
+      setCookie("TOKEN", tokenvalue, 6);           
       
       // 메인페이지 이동
       history.push("/");

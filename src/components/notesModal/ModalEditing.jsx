@@ -144,7 +144,13 @@ const ModalEditing = ({ history, note, ...rest}) => {
   const handleOpenModal = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch(__checkEditmodeLocked(noteId));  
+    setNoteModifiedInputs({
+      title: note?.title,
+      content: note?.content,
+      deadline: note?.deadline,
+      files: fileList,
+    });
+    dispatch(__checkEditmodeLocked(noteId));
   };
 
   // -----------------------------------------------------------   
@@ -175,6 +181,12 @@ const ModalEditing = ({ history, note, ...rest}) => {
 		if (fileList.length > 5 ) { window.alert("최대 5개의 파일까지 업로드 할 수 있습니다."); return; };
     // 해당 noteId, 수정된 내용 서버로 요청 보낸 후 모달창 종료
     dispatch(noteKanbanActions.__editNote(noteId, noteModifiedInputs));
+    setNoteModifiedInputs({
+      title: "",
+      content: "",
+      deadline: "",
+      files: "",
+    });
     setModalVisible(false);
   };
 
