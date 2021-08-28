@@ -142,6 +142,9 @@ const ModalEditing = ({ history, note, ...rest}) => {
   // 모달 공통 : 클릭 시 모달창 열림
   // ----------------------------------------------------------- 
   const handleOpenModal = (e) => {
+    if (e.key == "Enter") {
+      e.preventDefault();
+    };    
     e.preventDefault();
     e.stopPropagation();
     setNoteModifiedInputs({
@@ -217,8 +220,6 @@ const ModalEditing = ({ history, note, ...rest}) => {
               </div>
               <Close width="24" height="24" fill="#191919" className="note-modal-closer" onClick={handleCloseModal}/>
             </div>
-
-            <Form>
               <div className="note-modal-table">
                 <div className="note-modal-tr">
                   <div className="note-modal-th">
@@ -285,7 +286,6 @@ const ModalEditing = ({ history, note, ...rest}) => {
                   </div>
                 </div>
               </div>
-            </Form>
           </div>
             <div className="note-modal-footer-button" onClick={handleEditNote}>
             <h1>할 일 수정하기</h1>

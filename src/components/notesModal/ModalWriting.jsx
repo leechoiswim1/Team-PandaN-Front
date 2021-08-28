@@ -144,8 +144,6 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
               </div>
               <Close width="24" height="24" fill="#191919" className="note-modal-closer" onClick={handleCloseModal}/>
             </div>
-
-            <Form>
               <div className="note-modal-table">
                 <div className="note-modal-tr">
                   <div className="note-modal-th">
@@ -231,7 +229,6 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                   </div>
                 </div>
               </div>
-            </Form>
           </div>
             <div className="note-modal-footer-button" onClick={handleAddNote}>
             <h1>할 일 만들기</h1>
