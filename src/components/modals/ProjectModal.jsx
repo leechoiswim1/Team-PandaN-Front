@@ -332,10 +332,10 @@ const ModalFooter = styled.div`
 `;
 
 const Item2 = styled.div`
-  min-width: 250px;
-  width: 400px;
+  min-width: 280px;
+  width: 23%;
   height: 280px;
-  margin: 10px;
+  padding: 25px;
   border-radius: 20px;
   align-content: space-between;
   box-shadow: 0px 0px 5px rgba(25, 25, 25, 0.2);
