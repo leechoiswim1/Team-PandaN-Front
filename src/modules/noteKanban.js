@@ -167,9 +167,10 @@ const __editNote =
     const _newFileList = oldFiles.concat(newFiles)
     // 요청 바디 꾸리기
     const _newModifiedNote = {
-      content: ( modifiedNote.content === undefined ? content : modifiedNote.content ),
-      title: ( modifiedNote.title === undefined ? title : modifiedNote.title ),
-      deadline: ( modifiedNote.deadline === undefined ? deadline : modifiedNote.deadline ),
+      ...modifiedNote,
+      // content: ( modifiedNote.content === undefined ? content : modifiedNote.content ),
+      // title: ( modifiedNote.title === undefined ? title : modifiedNote.title ),
+      // deadline: ( modifiedNote.deadline === undefined ? deadline : modifiedNote.deadline ),
       files: _newFileList
     } 
     try {
