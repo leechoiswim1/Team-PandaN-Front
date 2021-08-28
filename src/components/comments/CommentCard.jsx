@@ -65,11 +65,11 @@ const CommentCard = (props) => {
                 )}
               </div>
               {userName === writer ? (
-                <div class="dropdown_cmt">
-                  <div class="dropbtn_cmt">
+                <div className="dropdown_cmt">
+                  <div className="dropbtn_cmt">
                     <IconEdit width="18px" />
                   </div>
-                  <div class="dropdown-content_cmt">
+                  <div className="dropdown-content_cmt">
                     <Edit2
                       style={{ width: "15px", cursor: "pointer" }}
                       onClick={() => {

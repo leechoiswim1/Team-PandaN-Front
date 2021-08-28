@@ -1,11 +1,11 @@
 /* setCookie
  * @param {string} name : cookie name
  * @param {*} value     : cookie value
- * @param {*} exp       : 만료시간 지정(일 단위, 1 = 1일, 현재 기본값 1일이며 배포 시 수정 예정)
+ * @param {*} exp       : 만료시간 지정(시간 단위, 1 = 1시간, 현재 기본값 6시간)
  */
-const setCookie = (name, value, exp = 1) => {
+const setCookie = (name, value, exp = 6) => {
   let date = new Date();
-  date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+  date.setTime(date.getTime() + exp * 60 * 60 * 1000);
   document.cookie = name + "=" + value + "; expires=" + date.toUTCString() + "; path=/";
 };
 
