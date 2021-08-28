@@ -12,7 +12,7 @@ $letter-spacing: -0.03rem;
 // --------------------------------
 $custom-note-black: #191919;
 $custom-note-gray: #767676;
-$custom-background-light-gray: #F9F9F9;
+$custom-background-light-gray: #f9f9f9;
 
 // == note: project menu
 // --------------------------------
@@ -86,7 +86,7 @@ $custom-background-light-gray: #F9F9F9;
 }
 .note-detail-container {
   @extend .note-container;
-  padding: 0 rem(30) rem(40) ;
+  padding: 0 rem(30) rem(40);
   @media screen and (min-width: 768px) and (max-width: 1199px) {
     height: calc(100% - #{$project-header-tab-height} - #{$inner-header-height});
   }
@@ -147,6 +147,16 @@ $custom-background-light-gray: #F9F9F9;
     user-select: none;
     white-space: nowrap;
     overflow-y: auto;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #d6d6d6;
+      border: 7px solid transparent;
+      border-top-left-radius: 50px;
+      border-bottom-right-radius: 50px;
+    }
   }
 
   .kanban-col-footer {
@@ -218,5 +228,3 @@ $custom-background-light-gray: #F9F9F9;
     background-color: #bcbcbc;
   }
 }
-
-
