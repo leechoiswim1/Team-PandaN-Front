@@ -348,10 +348,11 @@ const Item2 = styled.div`
     width: 30%;
   }
   @media (max-width: 900px) {
-    width: 50%;
+    width: 40%;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 720px) {
     width: 80%;
+    justify-content: center;
   }
   &:hover {
     background: #e1ede4;
