@@ -17,107 +17,134 @@ const ProjectCardList = () => {
         <span style={{ fontSize: "14px", fontWeight: "700", color: "#BCBCBC" }}> Total {project_list.length}</span>
       </p>
 
-      <Wrap>
-        {project_list.map((p, idx) => {
-          const crewProfiles = p.crewProfiles;
-          const crewcount = p.crewCount - 3;
+      <Wrapper>
+        <Wrap>
+          {project_list.map((p, idx) => {
+            const crewProfiles = p.crewProfiles;
+            const crewcount = p.crewCount - 3;
 
-          // project에 노트 수정일 정보가 있을 경우 현재로부터 시간 차 구하기
-          let hourDiff = p.recentNoteUpdateDate && moment(p.recentNoteUpdateDate).diff(moment(), "hours");
-          // format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm
-          const modifiedAt = moment(p.recentNoteUpdateDate).format(" YYYY. M. D hh:mm");
-          // format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전'
-          const recentlyUpdated = moment(p.recentNoteUpdateDate).fromNow();
+            // project에 노트 수정일 정보가 있을 경우 현재로부터 시간 차 구하기
+            let hourDiff = p.recentNoteUpdateDate && moment(p.recentNoteUpdateDate).diff(moment(), "hours");
+            // format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm
+            const modifiedAt = moment(p.recentNoteUpdateDate).format(" YYYY. M. D hh:mm");
+            // format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전'
+            const recentlyUpdated = moment(p.recentNoteUpdateDate).fromNow();
 
-          if (!crewProfiles) {
-            return <div></div>;
-          }
-          return (
-            <Item key={idx}>
-              <div style={{ height: "30%" }}>
-                <div style={{ justifyContent: "space-between", display: "flex" }}>
-                  <Title
+            if (!crewProfiles) {
+              return <div></div>;
+            }
+            return (
+              <Item key={idx}>
+                <div style={{ height: "30%" }}>
+                  <div style={{ justifyContent: "space-between", display: "flex" }}>
+                    <Title
+                      onClick={() => {
+                        history.push(`/projects/${p.projectId}/kanban`);
+                      }}
+                    >
+                      {p.title}
+                    </Title>
+                    {p.isUpdatableAndDeletable ? <ProjectModalEdit main="main" projectId={p.projectId} title={p.title} detail={p.detail} /> : ""}
+                  </div>
+                  <div
+                    style={{ marginTop: "15px", cursor: "pointer" }}
                     onClick={() => {
                       history.push(`/projects/${p.projectId}/kanban`);
                     }}
                   >
-                    {p.title}
-                  </Title>
-                  {p.isUpdatableAndDeletable ? <ProjectModalEdit main="main" projectId={p.projectId} title={p.title} detail={p.detail} /> : ""}
-                </div>
-                <div
-                  style={{ marginTop: "15px", cursor: "pointer" }}
-                  onClick={() => {
-                    history.push(`/projects/${p.projectId}/kanban`);
-                  }}
-                >
-                  <Detail style={{ color: "#9BD09C", fontWeight: "700" }}>{p.detail}</Detail>
-                  {/* 1. 최근 노트 수정일자가 있는지(신규 생성 프로젝트는 노트 수정일자 없음) ?
+                    <Detail style={{ color: "#9BD09C", fontWeight: "700" }}>{p.detail}</Detail>
+                    {/* 1. 최근 노트 수정일자가 있는지(신규 생성 프로젝트는 노트 수정일자 없음) ?
                       2. 있다면 시간 차 23시간 이상인지 ?
                         format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm : 
                         format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전' :
                         수정일자가 없을 경우 아무 것도 출력하지 않음 */}
-                  {p.recentNoteUpdateDate ? (
-                    hourDiff < -23 ? (
-                      <Detail>마지막 수정: {modifiedAt}</Detail>
+                    {p.recentNoteUpdateDate ? (
+                      hourDiff < -23 ? (
+                        <Detail>마지막 수정: {modifiedAt}</Detail>
+                      ) : (
+                        <Detail>마지막 수정: {recentlyUpdated}</Detail>
+                      )
                     ) : (
-                      <Detail>마지막 수정: {recentlyUpdated}</Detail>
-                    )
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
-              <div style={{ height: "50%" }} />
-
-              <Footer style={{ justifyContent: "space-between", alignItems: "center" }}>
-                <div style={{ display: "flex", float: "left" }}>
-                  <Bookmark fill="#fff" stroke="#767676" style={{ width: "20px", height: "20px" }} />
-                  <DetailText>{p.bookmarkCount}</DetailText>
-                  <FileText fill="#fff" stroke="#767676" style={{ width: "20px", height: "20px", marginLeft: "10px" }} />
-                  <DetailText>{p.noteCount}</DetailText>
-                </div>
-                <div style={{ display: "flex" }}>
-                  <div style={{ width: "60px", height: "20px" }}>
-                    <div style={{ width: "20px", height: "20px", display: "flex" }}>
-                      {crewProfiles.map((c, idx) => {
-                        const http = c.substring(0, 4);
-
-                        return (
-                          <React.Fragment key={idx}>
-                            {http === "http" ? (
-                              <img src={c} style={{ width: "20px", height: "20px", borderRadius: "10px" }} alt="crew" />
-                            ) : (
-                              <img
-                                src="https://s3.ap-northeast-2.amazonaws.com/front.blossomwhale.shop/ico-user.svg"
-                                style={{
-                                  width: "20px",
-                                  height: "20px",
-                                  borderRadius: "10px",
-                                }}
-                                alt="crew"
-                              />
-                            )}
-                          </React.Fragment>
-                        );
-                      })}
-                    </div>
+                      ""
+                    )}
                   </div>
-                  <div style={{ display: "fixed" }}>{crewcount > 0 ? <p>+{crewcount} </p> : ""}</div>
                 </div>
-              </Footer>
-            </Item>
-          );
-        })}
-        <ProjectModal main="main" />
-      </Wrap>
+                <div style={{ height: "50%" }} />
+
+                <Footer style={{ justifyContent: "space-between", alignItems: "center" }}>
+                  <div style={{ display: "flex", float: "left" }}>
+                    <Bookmark fill="#fff" stroke="#767676" style={{ width: "20px", height: "20px" }} />
+                    <DetailText>{p.bookmarkCount}</DetailText>
+                    <FileText fill="#fff" stroke="#767676" style={{ width: "20px", height: "20px", marginLeft: "10px" }} />
+                    <DetailText>{p.noteCount}</DetailText>
+                  </div>
+                  <div style={{ display: "flex" }}>
+                    <div style={{ width: "60px", height: "20px" }}>
+                      <div style={{ width: "20px", height: "20px", display: "flex" }}>
+                        {crewProfiles.map((c, idx) => {
+                          const http = c.substring(0, 4);
+
+                          return (
+                            <React.Fragment key={idx}>
+                              {http === "http" ? (
+                                <img src={c} style={{ width: "20px", height: "20px", borderRadius: "10px" }} alt="crew" />
+                              ) : (
+                                <img
+                                  src="https://s3.ap-northeast-2.amazonaws.com/front.blossomwhale.shop/ico-user.svg"
+                                  style={{
+                                    width: "20px",
+                                    height: "20px",
+                                    borderRadius: "10px",
+                                  }}
+                                  alt="crew"
+                                />
+                              )}
+                            </React.Fragment>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    <div style={{ display: "fixed" }}>{crewcount > 0 ? <p>+{crewcount} </p> : ""}</div>
+                  </div>
+                </Footer>
+              </Item>
+            );
+          })}
+          <ProjectModal main="main" />
+        </Wrap>
+      </Wrapper>
     </>
   );
 };
 
+const Wrapper = styled.div`
+  margin: 20px 30px;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  @media (max-width: 720px) {
+    width: 100%;
+    margin: auto;
+    justify-content: center;
+  }
+`;
+
+const Wrap = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  overflow-x: hidden;
+  @media (max-width: 720px) {
+    width: 90%;
+    justify-content: center;
+  }
+`;
 const Item = styled.div`
   min-width: 280px;
-  width: 370px;
+  width: 320px;
   height: 280px;
   margin: 10px;
   padding: 25px;
@@ -135,23 +162,12 @@ const Item = styled.div`
     width: 40%;
   }
   @media (max-width: 720px) {
-    width: 90%;
+    width: 80%;
     justify-content: center;
   }
   &:hover {
     border: 2px solid #fff;
   }
-`;
-
-const Wrap = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  margin: 20px 30px;
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
 `;
 
 const Title = styled.div`
