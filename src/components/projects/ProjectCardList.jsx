@@ -137,6 +137,9 @@ const Wrap = styled.div`
   flex-wrap: wrap;
   align-content: flex-start;
   overflow-x: hidden;
+  gap: 20px;
+  padding: 10px;
+  margin: auto;
   @media (max-width: 720px) {
     width: 90%;
     justify-content: center;
@@ -144,9 +147,8 @@ const Wrap = styled.div`
 `;
 const Item = styled.div`
   min-width: 280px;
-  width: 400px;
+  width: 23%;
   height: 280px;
-  margin: 10px;
   padding: 25px;
   background-color: #fff;
   overflow: hidden;
