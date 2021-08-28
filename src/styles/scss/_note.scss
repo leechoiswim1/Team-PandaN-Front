@@ -1,8 +1,8 @@
 // == layout
 // --------------------------------
 $project-header-height: rem(92);
-$project-header-tab-height: 99px; //tab
-$project-header-mobile-height: 128px; //mobile
+$project-header-tab-height: 90px; //tab
+$project-header-mobile-height: 93px; //mobile
 $inner-header-height: rem(56);
 // == text
 // --------------------------------
@@ -69,6 +69,7 @@ $custom-background-light-gray: #F9F9F9;
 .note-container {
   width: 100%;
   height: calc(100% - #{$project-header-height} - #{$inner-header-height});
+  min-height: calc(100% - #{$project-header-height} - #{$inner-header-height});
   padding: 0 0 rem(40) rem(30);
   overflow-x: scroll;
   overflow-y: hidden;
@@ -86,6 +87,12 @@ $custom-background-light-gray: #F9F9F9;
 .note-detail-container {
   @extend .note-container;
   padding: 0 rem(30) rem(40) ;
+  @media screen and (min-width: 768px) and (max-width: 1199px) {
+    height: calc(100% - #{$project-header-tab-height} - #{$inner-header-height});
+  }
+  @media screen and (max-width: 767px) {
+    height: calc(100% - #{$project-header-mobile-height} - #{$inner-header-height});
+  }
 }
 
 // == note: kanban - column

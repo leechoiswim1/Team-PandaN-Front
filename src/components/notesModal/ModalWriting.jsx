@@ -224,7 +224,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
                     <Form.Control 
                       placeholder="할 일에 대한 설명을 추가해 주세요."
                       as="textarea"
-                      style={{ height: "10rem" }}
+                      className="note-modal-textarea"
                       onChange={(e)=> {setNoteInputs({...noteInputs, content: e.target.value})
                     }}
                     />
