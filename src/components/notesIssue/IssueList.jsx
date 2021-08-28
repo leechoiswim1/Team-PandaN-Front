@@ -57,7 +57,7 @@ const IssueList = ({ history, notes, type, projectId, ...rest }) => {
               <th>
                 <Storage fill="#767676" width="20" height="20" />
               </th>
-              <th>NO.</th>
+              <th>NO</th>
               <th>제목</th>
               <th>{rest.type === "bookmark" || rest.type === "myNote" ? "프로젝트" : ""}</th>
               <th>{rest.type === "bookmark" ? "작성자" : "마지막 수정"}</th>
