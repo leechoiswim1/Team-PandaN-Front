@@ -101,7 +101,11 @@ const Sidebar = (props) => {
 
             <ProjectJoin sidebar="sidebar" />
           </div>
-          <p className="copyright">Copyright 2021 pandaN</p>
+          <A href="https://github.com/Team-PandaN" target="_blank">
+            <p className="copyright">Copyright 2021
+              <span style={{fontWeight: "bold"}}> PandaN</span>
+            </p>
+          </A>
         </Container>
       </div>
     </nav>
@@ -129,4 +133,11 @@ const FeedbackText = styled.p`
   font-weight: 500;
   margin: auto;
 `;
+
+const A = styled.a`
+  text-decoration: none;
+  p:hover{
+    color: #387E4B;
+  }
+`
 export default Sidebar;

@@ -2,7 +2,6 @@ import React, { useEffect, useCallback, useState } from "react";
 /* == Library - style */
 import styled from "styled-components";
 import { t } from "../../util/remConverter";
-import _ from "lodash";
 /* == Custom - Component */
 import { Template, IssueList, EmptyBoard } from "../../components";
 /* == Redux - actions */
