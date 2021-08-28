@@ -45,7 +45,7 @@ const CommentList = (props) => {
             {comment_list.map((comment, index) => {
               return (
               <React.Fragment key={index}>
-                <CommentCard  {...comment} />;)
+                <CommentCard  {...comment} />
               </React.Fragment>
             )})}
             <div ref={commentsEndRef} />
