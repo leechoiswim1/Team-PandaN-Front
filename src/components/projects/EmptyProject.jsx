@@ -1,6 +1,7 @@
 import React from "react";
 
 import styled from "styled-components";
+import _ from "lodash";
 
 /* == Custom - Component */
 import { ProjectModal } from "..";
@@ -18,9 +19,11 @@ import { history } from "../../modules/configStore";
 
 const EmptyProject = () => {
   const dispatch = useDispatch();
-  const getGuideProject = () => {
+  
+  const getGuideProject = _.debounce(() => {
     dispatch(projectActions.__getGuideProject());
-  };
+  }, 100);
+
   return (
     <Background>
       <CenterWrap>
