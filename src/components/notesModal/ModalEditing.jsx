@@ -265,6 +265,7 @@ const ModalEditing = ({ history, note, ...rest}) => {
                     <Form.Control 
                       placeholder="할 일에 대한 설명을 추가해 주세요."
                       as="textarea"
+                      className="note-modal-textarea"
                       defaultValue={note?.content}
                       style={{ height: "10rem" }}
                       onChange={(e)=> {setNoteModifiedInputs({...noteModifiedInputs, content: e.target.value})}}
