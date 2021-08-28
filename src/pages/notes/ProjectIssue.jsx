@@ -28,24 +28,25 @@ const ProjectIssue = ({ history, match, ...rest }) => {
         <ProjectHeader match={match} />
         <ProjectMenu history={history} match={match} projectId={projectId} />
         <div className="note-project-board-container">
-          {issueNotes.length === 0 ? 
-            <EmptyBoard type="projectIssue" /> :
+          {issueNotes.length === 0 ? (
+            <EmptyBoard type="projectIssue" />
+          ) : (
             <>
-            <div>
-              <IssueList 
-                history={history} 
-                notes={issueNotes} 
-                projectId={projectId}  
-                projectTitle={projectTitle}
-                type="projectIssue"
-                totalElements={paging.totalElements} 
-              />
-            </div>
-            <div style={{ height: "10%", display: "flex", width: "100%", alignItems:"center", justifyContent: "center"}}>
-              <Paging paging={paging} module={noteActions.__getProjectIssue} isLoading={isLoading} />
-            </div>
+              <div>
+                <IssueList
+                  history={history}
+                  notes={issueNotes}
+                  projectId={projectId}
+                  projectTitle={projectTitle}
+                  type="projectIssue"
+                  totalElements={paging.totalElements}
+                />
+              </div>
+              <div style={{ height: "10%", display: "flex", width: "100%", alignItems: "center", justifyContent: "center" }}>
+                <Paging paging={paging} module={noteActions.__getProjectIssue} isLoading={isLoading} projectId={projectId} />
+              </div>
             </>
-          }
+          )}
         </div>
       </div>
     </Template>
