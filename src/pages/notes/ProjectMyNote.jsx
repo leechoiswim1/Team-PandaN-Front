@@ -19,7 +19,7 @@ const ProjectMyNote = ({ history, match, ...rest }) => {
   const projectTitle = useSelector((state) => state.project.detailList[0]?.title);
 
   useEffect(() => {
-    dispatch(noteActions.__getProjectMyNotes(projectId, paging.pageNumber, paging.size));
+    dispatch(noteActions.__getProjectMyNotes(projectId, 1, paging.size));
   }, []);
 
   return (

@@ -135,10 +135,10 @@ to{
 `;
 
 const EmptyProjectBtn = styled.div`
-  background: #DEE3C2;
+  background: #dee3c2;
 
   &:hover {
-    background: #ADBE4F;
+    background: #adbe4f;
   }
 
   @media (max-width: 768px) {
@@ -153,7 +153,7 @@ const EmptyProjectText = styled.p`
   color: #191919;
   text-align: center;
   margin-left: 10px;
-  
+
   @media (max-width: 768px) {
     font-size: 15px;
   }
@@ -333,9 +333,9 @@ const ModalFooter = styled.div`
 
 const Item2 = styled.div`
   min-width: 280px;
-  width: 370px;
+  width: 23%;
   height: 280px;
-  margin: 10px;
+  padding: 25px;
   border-radius: 20px;
   align-content: space-between;
   box-shadow: 0px 0px 5px rgba(25, 25, 25, 0.2);
@@ -348,10 +348,11 @@ const Item2 = styled.div`
     width: 30%;
   }
   @media (max-width: 900px) {
-    width: 50%;
+    width: 40%;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 720px) {
     width: 80%;
+    justify-content: center;
   }
   &:hover {
     background: #e1ede4;
