@@ -13,7 +13,9 @@ const instance = axios.create({
 /* == Axios - interceptor for sending accessToken */
 instance.interceptors.request.use((config) => {
   const TOKEN = document.cookie.split("=")[1];
-  config.headers["TOKEN"] = TOKEN;
+  if (TOKEN) {
+    config.headers["TOKEN"] = TOKEN;
+  }
   config.headers["Access-Control-Allow-Origin"] = "*";
   config.headers["Access-Control-Allow-Headers"] = "Content-Type";
   config.headers["Content-Type"] = "application/json";
