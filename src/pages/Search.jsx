@@ -38,10 +38,12 @@ const Search = ({ history, match }) => {
     }
   }, [dispatch, q, category]);
 
+  const searchCategory = category === "all" ? "전체" : category === "bookmark" ? "북마크" : "내가 작성한 문서";
+
   return (
     <Template match={match}>
       <Container fluid>
-        <h1 className="mt-20 mb-30">검색결과</h1>
+        <h1 className="mt-20 mb-30">{searchCategory} 검색결과</h1>
         <h2 className="mt-20 mb-30">
           "{q}"에 대한 검색결과
           <small>
@@ -51,24 +53,23 @@ const Search = ({ history, match }) => {
           </small>
         </h2>
 
-          <div className="table-responsive">
-            <table className="table note-issue-table">
-              <thead>
-                <tr>
-                  <th>문서제목</th>
-                  <th>프로젝트명</th>
-                  <th>작성자</th>
-                  <th>작성날짜</th>
-                  <th>상태</th>
-                </tr>
-              </thead>
-              <tbody>
-              { searchResult && <SearchList history={history} searchResult={searchResult}/> } 
-              { searchResult?.length === 0 && <EmptySearch/> }
-              </tbody>
-            </table>
-          </div>
-        
+        <div className="table-responsive">
+          <table className="table note-issue-table">
+            <thead>
+              <tr>
+                <th>문서제목</th>
+                <th>프로젝트명</th>
+                <th>작성자</th>
+                <th>작성날짜</th>
+                <th>상태</th>
+              </tr>
+            </thead>
+            <tbody>
+              {searchResult && <SearchList history={history} searchResult={searchResult} />}
+              {searchResult?.length === 0 && <EmptySearch />}
+            </tbody>
+          </table>
+        </div>
       </Container>
     </Template>
   );
