@@ -25,7 +25,7 @@ const ProjectList = () => {
           history.push("/");
         }}
       >
-        더보기 +
+        전체 프로젝트 보기 +
       </MoreButton>
     </>
   );
@@ -43,7 +43,7 @@ const ProjectSideList = styled.div`
   }
 `;
 const MoreButton = styled.div`
-  width: 100px;
+  width: 150px;
   height: 30px;
   background: #ededed;
   border: none;
