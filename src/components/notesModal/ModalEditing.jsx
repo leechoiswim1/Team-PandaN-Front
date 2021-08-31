@@ -127,8 +127,12 @@ const ModalEditing = ({ history, note, ...rest}) => {
     };
 
   // * == 모달 창이 열려있을 때 해당 간격으로 __sendWritingSignal 호출
+  let flag = 0;
   useInterval(() => {
     dispatch(__sendWritingSignal(noteId));
+    flag++;
+    let now = new Date();
+    console.log(flag, "신호 보냄", now);
   }, ( modalVisible ) ? 3000 : null);
 
   /**
