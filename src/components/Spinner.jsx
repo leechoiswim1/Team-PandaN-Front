@@ -21,7 +21,7 @@ const Spinner = (props) => {
         </SpinnerBG>
       ) : (
         <SpinnerInner>
-          <ClipLoader color="#E1EDE4" size="40" />
+          <ClipLoader color="#387E4B" size="40" />
         </SpinnerInner>
       )}
     </React.Fragment>
@@ -50,7 +50,7 @@ const SpinnerInner = styled.div`
   justify-content: center;
   align-items: center;
   left: 50%;
-  top: 45%;
+  top: 50%;
   transform: translate(-50%, -50%);
 `;
 
