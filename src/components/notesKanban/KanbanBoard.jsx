@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 /* == Library - style */
 import styled, { css, keyframes } from "styled-components";
 import { t } from "../../util/remConverter";
-
+import { AlertTriangle } from "react-feather";
 /* == Library - drag & drop */
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
@@ -31,7 +31,7 @@ const KanbanBoard = ({ history, match }) => {
     if (ToastStatus) {
       setTimeout(() => {
         setToastStatus(false);
-      }, 1000);
+      }, 1500);
     }
   }, [ToastStatus]);
   const onDragEnd = (result, projects) => {
@@ -218,7 +218,10 @@ const KanbanBoard = ({ history, match }) => {
     <DragDropContext onDragEnd={(result) => onDragEnd(result, projects)}>
       {ToastStatus ? (
         <div style={{ height: "100%", width: "100%" }}>
-          <Toast>새로고침이 필요합니다🙄</Toast>
+          <Toast show={"show"}>
+            <AlertTriangle style={{ marginRight: "7px" }} />
+            새로고침이 필요합니다.
+          </Toast>
         </div>
       ) : (
         ""
@@ -268,6 +271,13 @@ to{
     opacity:1;
 }
 `;
+const fadeOut = keyframes`
+from {
+  opacity:1; }
+to{
+    opacity:0;
+}
+`;
 
 const Toast = styled.div`
   position: absolute;
@@ -285,9 +295,22 @@ const Toast = styled.div`
   align-items: center;
   font-size: 16px;
   font-weight: 700;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-out;
-  animation-name: ${fadeIn};
+  // animation-duration: 0.3s;
+  // animation-timing-function: ease-out;
+  visibility: ${(props) => (props.show ? "visible" : "hidden")};
+  animation: ${(props) =>
+    props.show
+      ? css`
+          ${fadeIn} 0.5s, ${fadeOut} 0.5s 1.0s
+        `
+      : ""};
+
+  -webkit-animation: ${(props) =>
+    props.show
+      ? css`
+          ${fadeIn} 0.5s, ${fadeOut} 0.5s 1.0s
+        `
+      : ""};
   animation-fill-mode: forwards;
 `;
 
