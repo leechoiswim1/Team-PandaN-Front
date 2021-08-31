@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 
 /* == Library - Style / Bootstrap / Icon */
+import styled, { css, keyframes }     from "styled-components";
 import { Form }                       from "react-bootstrap";
-import { Edit2 }                      from "react-feather";
+import { Edit2, AlertTriangle }       from "react-feather";
 
 /* == Library - route */
 import { useLocation, useParams }     from "react-router-dom";
@@ -48,6 +49,32 @@ const ModalEditing = ({ history, note, ...rest}) => {
       }
     }, [delay]);
   };
+
+  // -----------------------------------------------------------
+  const [sameUser, setSameUser] = useState(false);
+  const [anotherUser, setAnotherUser] = useState(false);
+  const [writer, setWriter] = useState("");
+  // -----------------------------------------------------------
+    // toast 1.
+    useEffect(() => {
+      if (sameUser) {
+        setTimeout(() => {
+          setSameUser(false);
+        }, 1500);
+      }
+    }, [sameUser]);
+
+     // toast 2.
+     useEffect(() => {
+      if (anotherUser) {
+        setTimeout(() => {
+          setAnotherUser(false);
+        }, 1500);
+      }
+    }, [anotherUser]);
+  // -----------------------------------------------------------
+
+
   // -----------------------------------------------------------
   // * == subscribe state
   // ----------------------------------------------------------- 
@@ -63,6 +90,7 @@ const ModalEditing = ({ history, note, ...rest}) => {
     deadline: note?.deadline,
     files: fileList,
   });
+  
   // -----------------------------------------------------------
   // * == functions : request to REST API
   // -----------------------------------------------------------   
@@ -126,10 +154,16 @@ const ModalEditing = ({ history, note, ...rest}) => {
         } 
         // case 2. 잠겼을 경우
         else {
-          //case 2-1 : 동일한 사용자가 창을 껐다가 다시 진입 시도할 때
-          if ( sameUser ) { window.alert("잠시 뒤에 시도해 주세요."); return; }
+          // //case 2-1 : 동일한 사용자가 창을 껐다가 다시 진입 시도할 때
+          // if ( sameUser ) { window.alert("잠시 뒤에 시도해 주세요."); return; }
+          // // case 2-2 : 다른 사용자가 작성 중일 때
+          // else { window.alert(`${writer}님이 글을 수정 중입니다. 잠시 뒤에 시도해 주세요.`); return; }
+  // -----------------------------------------------------------
+          // case 2-1 : 동일한 사용자가 창을 껐다가 다시 진입 시도할 때
+          if ( sameUser ) { setSameUser(true); return; }
           // case 2-2 : 다른 사용자가 작성 중일 때
-          else { window.alert(`${writer}님이 글을 수정 중입니다. 잠시 뒤에 시도해 주세요.`); return; }
+          else { setAnotherUser(true); setWriter(writer); return; }
+  // -----------------------------------------------------------
         }
       } catch (e) {
         console.log(e);
@@ -293,8 +327,81 @@ const ModalEditing = ({ history, note, ...rest}) => {
         </div>
         </ModalWrapper>
       }
+      {/* ---------------------------------------------------------------- */}
+      {/* toast 1 -------------------------------------------------------- */}
+      {/* ---------------------------------------------------------------- */}
+      { sameUser ? (  
+          <Toast show={"show"}>
+            <AlertTriangle style={{ marginRight: "7px" }} />
+            창이 잠겼습니다. 잠시 뒤에 시도해 주세요.
+          </Toast>        
+      ) : (
+        ""
+      )}
+      {/* ---------------------------------------------------------------- */}
+      {/* toast 2 -------------------------------------------------------- */}
+      {/* ---------------------------------------------------------------- */}
+      { anotherUser ? (        
+          <Toast show={"show"}>
+            <AlertTriangle style={{ marginRight: "7px" }} />
+            {writer}님이 글을 수정 중입니다. 잠시 뒤에 시도해 주세요.
+          </Toast>        
+      ) : (
+        ""
+      )}
     </>
   )
 }
 
 export default ModalEditing;
+
+const fadeIn = keyframes`
+from {
+  opacity:0; }
+to{
+    opacity:1;
+}
+`;
+const fadeOut = keyframes`
+from {
+  opacity:1; }
+to{
+    opacity:0;
+}
+`;
+
+const Toast = styled.div`
+  padding: 0 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 20px;
+  min-width: 250px;
+  height: 70px;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background: #387e4b;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  // animation-duration: 0.3s;
+  // animation-timing-function: ease-out;
+  visibility: ${(props) => (props.show ? "visible" : "hidden")};
+  animation: ${(props) =>
+    props.show
+      ? css`
+          ${fadeIn} 0.5s, ${fadeOut} 0.5s 1.0s
+        `
+      : ""};
+
+  -webkit-animation: ${(props) =>
+    props.show
+      ? css`
+          ${fadeIn} 0.5s, ${fadeOut} 0.5s 1.0s
+        `
+      : ""};
+  animation-fill-mode: forwards;
+`;
