@@ -10,7 +10,7 @@ import Spinner from "./Spinner.jsx";
 import Paging from "./Paging";
 
 /* Modal */
-import Modals from "./modals/Modals";
+
 import ProjectModal from "./modals/ProjectModal";
 import ProjectModalEdit from "./modals/ProjectModalEdit";
 import ProjectInvite from "./modals/ProjectInvite";
@@ -46,7 +46,6 @@ import EmptyBoard from "./notesIssue/EmptyBoard";
 
 /* == Note - detail */
 import NoteDetail from "./notesShared/NoteDetail";
-import NoteDetailCopy from "./notesShared/NoteDetailCopy";
 
 /* == Note - detail - Comment */
 import CommentCard from "./comments/CommentCard";
@@ -66,7 +65,6 @@ export {
   Spinner,
   Paging,
   /* == Modal */
-  Modals,
   ProjectModal,
   ProjectModalEdit,
   ProjectInvite,
@@ -96,7 +94,6 @@ export {
   EmptyBoard,
   /* == Note - detail */
   NoteDetail,
-  NoteDetailCopy,
   /* == Note - detail - Comment */
   CommentCard,
   CommentList,

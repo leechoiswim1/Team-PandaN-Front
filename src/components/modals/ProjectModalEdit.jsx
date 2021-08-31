@@ -168,7 +168,7 @@ const fadeIn = keyframes`
 from {
   opacity:0; }
 to{
-    opaciry:1;
+    opacity:1;
 }
 `;
 const Background = styled.div`
@@ -294,12 +294,12 @@ const TextDesc = styled.p`
 `;
 
 const ModalBodyRight = styled.div`
-display: block;
-box-sizing: border-box;
-width: 42%;
+  display: block;
+  box-sizing: border-box;
+  width: 42%;
 
-@media (max-width: 768px) {
-  display: none;
+  @media (max-width: 768px) {
+    display: none;
 `;
 
 const ModalBodyRightInner = styled.div`
