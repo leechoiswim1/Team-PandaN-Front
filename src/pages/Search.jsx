@@ -41,8 +41,8 @@ const Search = ({ history, match }) => {
 
   return (
     <>
-      <Spinner visible={is_loading} />
       <Template match={match}>
+        <Spinner visible={is_loading} />
         <div className="content" id="content">
           <div className="note-board-container">
             <div className="table-responsive">
