@@ -35,19 +35,6 @@ const KanbanBoard = ({ history, match }) => {
     }
   }, [ToastStatus]);
 
-  const __editKanbanStep =
-    (noteId, position) =>
-    async (dispatch, getState, { history }) => {
-      try {
-        const { data } = await noteApi.editKanbanStep(noteId, position);
-        console.log(data);
-        // dispatch(editKanbanStep(data.projects));
-      } catch (e) {
-        console.log(e);
-        setToastStatus(true);
-      }
-    };
-
   const onDragEnd = (result, projects) => {
     const __editKanbanStep =
       (noteId, position) =>
