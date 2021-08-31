@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Bookmark, FileText } from "react-feather";
 import { useSelector } from "react-redux";
 import { history } from "../../modules/configStore";
-import { ProjectModal, ProjectModalEdit, LeaveProject } from "..";
+import { ProjectModal, ProjectModalEdit } from "..";
 
 const ProjectCardList = () => {
   const project_list = useSelector((state) => state.project.list);
@@ -69,9 +69,19 @@ const ProjectCardList = () => {
                     )}
                   </div>
                 </div>
-                <div style={{ height: "50%" }} />
+                <div
+                  style={{ height: "50%", cursor: "pointer" }}
+                  onClick={() => {
+                    history.push(`/projects/${p.projectId}/kanban`);
+                  }}
+                />
 
-                <Footer style={{ justifyContent: "space-between", alignItems: "center" }}>
+                <Footer
+                  style={{ justifyContent: "space-between", alignItems: "center", cursor: "pointer" }}
+                  onClick={() => {
+                    history.push(`/projects/${p.projectId}/kanban`);
+                  }}
+                >
                   <div style={{ display: "flex", float: "left" }}>
                     <Bookmark fill="#fff" stroke="#767676" style={{ width: "20px", height: "20px" }} />
                     <DetailText>{p.bookmarkCount}</DetailText>
@@ -169,6 +179,9 @@ const Item = styled.div`
   }
   &:hover {
     border: 2px solid #fff;
+    div:first-child {
+      color: #387e4b;
+    }
   }
 `;
 
@@ -183,9 +196,6 @@ const Title = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  &:hover {
-    color: #387e4b;
-  }
 `;
 const Detail = styled.div`
   font-size: 1rem;

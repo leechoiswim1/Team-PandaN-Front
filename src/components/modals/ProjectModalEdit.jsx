@@ -69,7 +69,11 @@ const ProjectModalEdit = (props) => {
 
   return (
     <>
-      {props.main ? <IconEdit style={{ cursor: "pointer" }} onClick={OpenModal} /> : <IconProjectEditCss fill="#9A9A9A" onClick={OpenModal} />}
+      {props.main ? (
+        <IconEdit width="22" height="22" style={{ cursor: "pointer" }} onClick={OpenModal} />
+      ) : (
+        <IconProjectEditCss fill="#9A9A9A" onClick={OpenModal} />
+      )}
 
       <ModalPortal>
         {modalState ? (
@@ -87,7 +91,7 @@ const ProjectModalEdit = (props) => {
                 {/* == left */}
                 <ModalBodyLeft>
                   <ModalBodyLeftInner>
-                    <P>프로젝트 이름</P>
+                    <ProjectText>프로젝트 이름</ProjectText>
                     <TextArea
                       style={{ height: "7vh" }}
                       type="text"
@@ -96,7 +100,7 @@ const ProjectModalEdit = (props) => {
                       defaultValue={title}
                       maxLength="30"
                     />
-                    <P>프로젝트 내용 (선택사항)</P>
+                    <ProjectText>프로젝트 내용 (선택사항)</ProjectText>
 
                     <TextArea type="text" placeholder="프로젝트 내용" onChange={changeProDesc} defaultValue={detail} maxLength="50" />
                     <TextDesc>팀원들이 작업환경에 대해 쉽게 알 수 있도록 수정해주세요.</TextDesc>
@@ -107,9 +111,8 @@ const ProjectModalEdit = (props) => {
                 <ModalBodyRight>
                   <ModalBodyRightInner>
                     <ModalBodyRightImage src={modalSideImage} alt="modalSideImage" />
-                    <TextDesc>
-                      협업을 하기 위해, 협업툴을 배우는 시간은 그만! 😂 <TextDesc></TextDesc>세상에서 제일 쉬운 협업툴 PandaN을 만나보세요!
-                    </TextDesc>
+                    <TextDesc>협업을 하기 위해, 협업툴을 배우는 시간은 그만! 😂</TextDesc>{" "}
+                    <TextDesc>세상에서 제일 쉬운 협업툴 PandaN을 만나보세요!</TextDesc>
                   </ModalBodyRightInner>
                 </ModalBodyRight>
               </ModalBody>
@@ -260,7 +263,7 @@ const ModalBodyLeftInner = styled.div`
     margin: auto;
   }
 `;
-const P = styled.p`
+const ProjectText = styled.p`
   font-size: 20px;
   font-weight: 700;
   color: #387e4b;
