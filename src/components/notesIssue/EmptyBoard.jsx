@@ -1,7 +1,6 @@
-import React  from "react";
+import React from "react";
 /* == Library - style */
 import styled from "styled-components";
-import { t }  from "../../util/remConverter";
 /* == Redux - actions */
 import { useSelector } from "react-redux";
 
@@ -19,41 +18,40 @@ const EmptyBoard = ({ type }) => {
         <h1>북마크에 담은 문서가 없습니다.</h1>
       </Container>
     );
-  };
+  }
 
   if (type === "myNote") {
     return (
       <Container>
         <h1>
-          전체 프로젝트에 <br/>
+          전체 프로젝트에 <br />
           내가 작성한 문서가 없습니다.
         </h1>
       </Container>
     );
-  };
+  }
 
   if (type === "projectIssue") {
     return (
       <Container>
         <h1>
-          {projectTitle}에 <br/>
+          {projectTitle}에 <br />
           문서가 없습니다.
         </h1>
       </Container>
     );
-  };
+  }
 
   if (type === "projectMyNote") {
     return (
       <Container>
         <h1>
-          {projectTitle}에 <br/>
+          {projectTitle}에 <br />
           내가 작성한 문서가 없습니다.
         </h1>
       </Container>
     );
-  };
-  
+  }
 };
 
 const Container = styled.div`
@@ -73,6 +71,6 @@ const Container = styled.div`
     color: #767676;
     text-align: center;
   }
-` 
+`;
 
 export default EmptyBoard;

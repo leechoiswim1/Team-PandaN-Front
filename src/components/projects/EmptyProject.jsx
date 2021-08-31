@@ -3,10 +3,6 @@ import React from "react";
 import styled from "styled-components";
 import _ from "lodash";
 
-/* == Custom - Component */
-import { ProjectModal } from "..";
-import ProjectJoin from "../modals/ProjectJoin";
-
 /* == Custom - Icon */
 import PandaEmpty from "../../styles/images/Panda_EmptyProject.svg";
 import PlanBetterStartEasier from "../../styles/images/PlanBetter_StartEasier.svg";
@@ -15,7 +11,6 @@ import { ReactComponent as IconGuide } from "../../styles/images/ico-guide.svg";
 // * == (EmptyProject) -------------------- * //
 import { useDispatch } from "react-redux";
 import { actionCreators as projectActions } from "../../modules/project";
-import { history } from "../../modules/configStore";
 
 const EmptyProject = () => {
   const dispatch = useDispatch();
@@ -34,8 +29,6 @@ const EmptyProject = () => {
             세상에서 제일 쉬운 협업툴 <span style={{ color: "#387E4B", fontWeight: "700" }}>PandaN</span>으로 프로젝트를 관리하세요!
           </CenterText>
           <CenterBtn>
-            {/* <ProjectJoin />
-            <ProjectModal /> */}
             <GuideBtn className="btn-main" onClick={getGuideProject}>
               <IconGuide />
               <p>

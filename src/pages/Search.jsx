@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 /* == Library - style */
-import styled from "styled-components";
-import { t } from "../util/remConverter";
-import { Container, InputGroup, FormControl, Badge, Button } from "react-bootstrap";
+import { Badge } from "react-bootstrap";
 
 /* == Custom - Icon */
-import { ReactComponent as IconSearch } from "../styles/images/ico-search.svg";
 
 /* == Custom - Component */
 import { Template, SearchList, EmptySearch, Spinner } from "../components";

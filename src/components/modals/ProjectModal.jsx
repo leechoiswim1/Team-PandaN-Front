@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import ModalPortal from "../../util/ModalPotal";
 
 import { actionCreators as projectActions } from "../../modules/project";
 import { useDispatch } from "react-redux";
 import { history } from "../../modules/configStore";
-import { t } from "../../util/remConverter";
 import { ReactComponent as IconProjectAdd } from "../../styles/images/ico-project-add.svg";
 import { ReactComponent as Write } from "../../styles/images/ico-kanban-write.svg";
 import { ReactComponent as IconAdd } from "../../styles/images/Icon_AddProject.svg";
@@ -129,7 +128,7 @@ const fadeIn = keyframes`
 from {
   opacity:0; }
 to{
-    opaciry:1;
+    opacity:1;
 }
 `;
 

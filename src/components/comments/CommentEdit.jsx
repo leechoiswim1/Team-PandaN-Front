@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { actionCreators as commentActions } from "../../modules/comment";
 
 const CommentEdit = (props) => {
-  const { commentId, content, writer } = props.props;
+  const { commentId, content } = props.props;
   const dispatch = useDispatch();
   const [modifiedComment, setModifiedComment] = useState(content);
   const [isEditMode, setIsEditMode] = useState(props.isEditMode);

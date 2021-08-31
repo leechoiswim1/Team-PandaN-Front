@@ -2,8 +2,6 @@ import React from "react";
 
 /* == Library - style */
 import styled from "styled-components";
-import { t } from "../../util/remConverter";
-import { Container, InputGroup, FormControl, Badge, Button } from "react-bootstrap";
 
 /* == Library - date */
 import moment from "moment";
