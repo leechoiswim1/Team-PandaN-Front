@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 /* == Library */
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { t } from "../util/remConverter";
 import { Container, Col, Row, Button, Dropdown, InputGroup, FormControl } from "react-bootstrap";
@@ -10,6 +11,7 @@ import { Container, Col, Row, Button, Dropdown, InputGroup, FormControl } from "
 import { ChevronDown } from "react-feather";
 
 /* == Custom - Icon */
+import { ReactComponent as Logo } from "../styles/images/logo-white.svg";
 import { ReactComponent as IconSearch } from "../styles/images/ico-search.svg";
 
 /* == Custom - Image */
@@ -80,6 +82,10 @@ const Header = (props) => {
       <Container fluid>
         <Row>
           <Col className="header-right">
+            <Link to="/" className="sidebar-logo">
+              {/* <Logo className="logo" /> */}
+            </Link>
+
             {/* == 검색창 */}
             <div className="search-group">
               <InputGroup>
@@ -94,7 +100,6 @@ const Header = (props) => {
                     <option value="bookmark">북마크 검색</option>
                     <option value="mynote">내가 작성한 문서 검색</option>
                   </select>
-                  <ChevronDown className="icoArrow"/>
                 </div>
 
                 <FormControl 
@@ -132,7 +137,6 @@ const Header = (props) => {
                       <option value="bookmark">북마크 검색</option>
                       <option value="mynote">내가 작성한 문서 검색</option>
                     </select>
-                    <ChevronDown className="icoArrow"/>
                   </div>
 
                   <FormControl 
