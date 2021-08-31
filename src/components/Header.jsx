@@ -42,16 +42,20 @@ const Header = (props) => {
   // * == (검색) 유효성 검사 및 검색결과 페이지 이동
   // -------------------------------
   const searchfunction = () => {
-    if (keyword === undefined && searchFilter === "") {
-      // case 1. 검색분류를 선택하지 않고 검색어를 입력하지 않았을 경우
-      alert("검색분류와 검색어를 선택 및 입력하세요!");
+    if (keyword === undefined) {
+      // case 1. 검색어를 입력하지 않았을 경우
+      alert(" 검색어를 입력하세요!");
       return;
-    } else if (keyword !== undefined && searchFilter === "") {
-      // case 2. 검색분류를 선택하지 않았을 경우
-      alert("검색분류를 선택하세요!");
+    } else if (keyword === "" && searchFilter === "bookmark") {
+      // case 2. 북마크에 검색어를 입력하지않았을 경우
+      alert("검색어를 입력하세요!");
       return;
-    } else if (keyword == undefined && searchFilter !== "") {
-      // case 3. 검색어를 입력하지 않았을 경우
+    } else if (keyword === "" && searchFilter === "mynote") {
+      // case 3. mynote에검색어를 입력하지않았을 경우
+      alert("검색어를 입력하세요!");
+      return;
+    } else if (keyword === "" && searchFilter === "all") {
+      // case 3. All에검색어를 입력하지않았을 경우
       alert("검색어를 입력하세요!");
       return;
     }

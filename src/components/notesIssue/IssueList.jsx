@@ -32,25 +32,21 @@ const IssueList = ({ history, notes, type, projectId, ...rest }) => {
     <>
       <div className="table-responsive">
         <p style={{ fontWeight: "500" }}>
-          { type === "bookmark" && "북마크 " }
-          { type === "myNote" && "내가 작성한 문서 " }
-          { type === "projectIssue" && `[${rest.projectTitle}]의 문서 ` }
-          { type === "projectMyNote" && `[${rest.projectTitle}]에 내가 작성한 문서 ` }
-          총
-          <span style={{ color: "#387E4B", fontWeight: "700", fontSize: "16px", margin: "0px 4px"}}>
-            {rest.totalElements}
-          </span>
-          개
+          {type === "bookmark" && "북마크 "}
+          {type === "myNote" && "내가 작성한 문서 "}
+          {type === "projectIssue" && `[${rest.projectTitle}]의 문서 `}
+          {type === "projectMyNote" && `[${rest.projectTitle}]에 내가 작성한 문서 `}총
+          <span style={{ color: "#387E4B", fontWeight: "700", fontSize: "16px", margin: "0px 4px" }}>{rest.totalElements}</span>개
         </p>
         <table className="table note-issue-table">
           <colgroup className="note-issue-colgroup">
-            <col width="7%"/>
-            <col width="7%"/>
+            <col width="7%" />
+            <col width="7%" />
             <col />
             <col />
-            <col width="20%"/>
-            <col width="20%"/>
-            <col width="5%"/>
+            <col width="20%" />
+            <col width="20%" />
+            <col width="5%" />
           </colgroup>
           <thead>
             <tr>
@@ -70,19 +66,19 @@ const IssueList = ({ history, notes, type, projectId, ...rest }) => {
               return (
                 <tr key={index}>
                   <IssueCard
-                  history={history}
-                  index={index}
-                  projectId={note.projectId ? note.projectId : projectId}
-                  projectTitle={note.projectTitle}
-                  noteId={note.noteId}
-                  title={note.title}
-                  content={note.content}
-                  writer={note.writer}
-                  deadline={note.deadline}
-                  createdAt={note.createdAt}
-                  step={note.step}
-                  type={type}
-                />
+                    history={history}
+                    index={index}
+                    projectId={note.projectId ? note.projectId : projectId}
+                    projectTitle={note.projectTitle}
+                    noteId={note.noteId}
+                    title={note.title}
+                    content={note.content}
+                    writer={note.writer}
+                    deadline={note.deadline}
+                    createdAt={note.createdAt}
+                    step={note.step}
+                    type={type}
+                  />
                 </tr>
               );
             })}
