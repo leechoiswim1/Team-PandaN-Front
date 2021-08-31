@@ -1,10 +1,10 @@
 /**
  * --------------------------------------------------------------------------
  * Redux Module: search.js
-  * 기능 (검색)
-    * [전체] - 노트 제목 검색
-    * [북마크] - 내가 북마크한 모든 북마크 중 북마크 제목 검색
-    * [내가 작성한 문서] - 노트 제목 검색
+ * 기능 (검색)
+ * [전체] - 노트 제목 검색
+ * [북마크] - 내가 북마크한 모든 북마크 중 북마크 제목 검색
+ * [내가 작성한 문서] - 노트 제목 검색
  * --------------------------------------------------------------------------
  */
 
@@ -18,7 +18,8 @@ import { searchApi } from "../shared/api";
  */
 
 const initialState = {
-	list: null,
+  list: null,
+  is_loading: false,
 };
 
 /**
@@ -28,20 +29,20 @@ const initialState = {
  */
 
 /* == [Search] Result: 노트 검색 결과 */
-const GET_SEARCH_LIST =  "search/GET_SEARCH_LIST";
+const GET_SEARCH_LIST = "search/GET_SEARCH_LIST";
 
 /* == [Search] All: 노트 제목 검색 */
-const GET_SEARCH_ALL =  "search/GET_SEARCH_ALL";
+const GET_SEARCH_ALL = "search/GET_SEARCH_ALL";
 
 /* == [Search] BookMark: 내가 북마크한 모든 북마크 중 북마크 제목 검색 */
-const GET_SEARCH_BOOKMARK =  "search/GET_SEARCH_BOOKMARK";
+const GET_SEARCH_BOOKMARK = "search/GET_SEARCH_BOOKMARK";
 
 /* == [Search] MyNote: 노트 제목 검색 */
-const GET_SEARCH_MYNOTE =  "search/GET_SEARCH_MYNOTE";
+const GET_SEARCH_MYNOTE = "search/GET_SEARCH_MYNOTE";
 
 /* == [Search] deleteResult: 검색결과 삭제 */
-const DELETE_SEARCH_RESULT =  "search/DELETE_SEARCH_RESULT";
-
+const DELETE_SEARCH_RESULT = "search/DELETE_SEARCH_RESULT";
+const LOADING = "LOADING";
 /**
  * ------------------------------------------------------------------------
  * action creator
@@ -49,19 +50,21 @@ const DELETE_SEARCH_RESULT =  "search/DELETE_SEARCH_RESULT";
  */
 
 /* == [Search] Result: 노트 검색 결과 */
-const getSearchList = createAction(GET_SEARCH_LIST, searchResult => ({searchResult}));
+const getSearchList = createAction(GET_SEARCH_LIST, (searchResult) => ({ searchResult }));
 
 /* == [Search] All: 노트 제목 검색 */
-const getSearchAll = createAction(GET_SEARCH_ALL, (searchAll) => ({searchAll}));
+const getSearchAll = createAction(GET_SEARCH_ALL, (searchAll) => ({ searchAll }));
 
 /* == [Search] BookMark: 내가 북마크한 모든 북마크 중 북마크 제목 검색 */
-const getSearchBookmark = createAction(GET_SEARCH_BOOKMARK, searchBookmark => ({searchBookmark}));
+const getSearchBookmark = createAction(GET_SEARCH_BOOKMARK, (searchBookmark) => ({ searchBookmark }));
 
 /* == [Search] MyNote: 노트 제목 검색 */
-const getSearchMynote = createAction(GET_SEARCH_MYNOTE, searchMynote => ({searchMynote}));
+const getSearchMynote = createAction(GET_SEARCH_MYNOTE, (searchMynote) => ({ searchMynote }));
 
 /* == [Search] deleteResult: 검색결과 삭제 */
 const deleteSearchResult = createAction(DELETE_SEARCH_RESULT, () => ({}));
+
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 /**
  * ------------------------------------------------------------------------
@@ -74,6 +77,7 @@ const __getSearchList =
   (keyword) =>
   async (dispatch, getState, { history }) => {
     try {
+      dispatch(loading(true));
       const { data } = await searchApi.getSearchList(keyword);
       dispatch(getSearchList(data));
     } catch (e) {
@@ -86,6 +90,7 @@ const __getSearchAll =
   (keyword) =>
   async (dispatch, getState, { history }) => {
     try {
+      dispatch(loading(true));
       const { data } = await searchApi.getSearchAll(keyword);
       // console.log("2." + data);
       dispatch(getSearchAll(data.noteList));
@@ -100,6 +105,7 @@ const __getSearchBookmark =
   (keyword) =>
   async (dispatch, getState, { history }) => {
     try {
+      dispatch(loading(true));
       const { data } = await searchApi.getSearchBookmark(keyword);
       dispatch(getSearchBookmark(data.noteList));
     } catch (e) {
@@ -113,6 +119,7 @@ const __getSearchMynote =
   (keyword) =>
   async (dispatch, getState, { history }) => {
     try {
+      dispatch(loading(true));
       const { data } = await searchApi.getSearchMynote(keyword);
       dispatch(getSearchMynote(data.noteList));
     } catch (e) {
@@ -129,38 +136,43 @@ const __getSearchMynote =
 
 const search = handleActions(
   {
-    [GET_SEARCH_LIST]: (state, action) => {     
+    [GET_SEARCH_LIST]: (state, action) => {
       return {
         ...state,
-        list: action.payload.searchResult
+        list: action.payload.searchResult,
+        is_loading: false,
       };
     },
-    [GET_SEARCH_ALL]: (state, action) => {    
+    [GET_SEARCH_ALL]: (state, action) => {
       return {
         ...state,
-        list: action.payload.searchAll
+        list: action.payload.searchAll,
+        is_loading: false,
       };
     },
-    [GET_SEARCH_BOOKMARK]: (state, action) => {     
+    [GET_SEARCH_BOOKMARK]: (state, action) => {
       return {
         ...state,
-        list: action.payload.searchBookmark
+        list: action.payload.searchBookmark,
+        is_loading: false,
       };
     },
-    [GET_SEARCH_MYNOTE]: (state, action) => {     
+    [GET_SEARCH_MYNOTE]: (state, action) => {
       return {
         ...state,
-        list: action.payload.searchMynote
+        list: action.payload.searchMynote,
+        is_loading: false,
       };
     },
-    [DELETE_SEARCH_RESULT]: (state, action) => {   
+    [DELETE_SEARCH_RESULT]: (state, action) => {
       return {
         ...state,
         list: [],
+        is_loading: false,
       };
     },
   },
-  initialState, 
+  initialState,
 );
 
 /**
@@ -171,7 +183,7 @@ const search = handleActions(
 
 export const searchActions = {
   __getSearchList,
-  __getSearchAll, 
+  __getSearchAll,
   __getSearchBookmark,
   __getSearchMynote,
 };

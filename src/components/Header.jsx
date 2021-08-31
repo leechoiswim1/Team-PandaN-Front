@@ -58,7 +58,12 @@ const Header = (props) => {
       // case 3. All에검색어를 입력하지않았을 경우
       alert("검색어를 입력하세요!");
       return;
+    } else if (keyword === "%" || keyword === "#" || keyword === "?" || keyword === "*" || keyword === "*") {
+      // case 3. 유효하지 않은 특수문자 입력한 경우
+      alert("유효하지않은 검색어입니다!");
+      return;
     }
+
     // 검색결과 페이지로 이동
     history.push(`/search/${searchFilter}/${keyword}`);
   };
