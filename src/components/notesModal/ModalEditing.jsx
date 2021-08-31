@@ -176,7 +176,7 @@ const ModalEditing = ({ history, note, ...rest}) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (noteModifiedInputs.title === "")    {window.alert("할 일을 입력하세요."); return;};
+    if (noteModifiedInputs.title === "")    {window.alert("제목을 입력하세요."); return;};
     if (noteModifiedInputs.content === "")  {window.alert("할 일에 대한 설명을 추가하세요."); return;};
     if (noteModifiedInputs.deadline === "") {window.alert("마감일을 입력하세요."); return;};
 

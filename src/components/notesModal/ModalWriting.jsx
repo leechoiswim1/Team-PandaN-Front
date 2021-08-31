@@ -40,7 +40,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     title: "",
     content: "",
     deadline: "",
-    step: projectStep,
+    step: projectStep ? projectStep : "",
     files: [],
   });
 
@@ -74,7 +74,7 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest}) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (noteInputs.title === "")    {window.alert("할 일을 입력하세요."); return;};
+    if (noteInputs.title === "")    {window.alert("제목을 입력하세요."); return;};
     if (noteInputs.content === "")  {window.alert("할 일에 대한 설명을 추가하세요."); return;};
     if (noteInputs.step === "")     {window.alert("할 일의 상태를 설정하세요."); return;};
     if (noteInputs.deadline === "") {window.alert("마감일을 입력하세요."); return;};
