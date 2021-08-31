@@ -26,14 +26,16 @@ const CommentCard = (props) => {
     }
   };
 
-  const modifiedAtEdit = moment(modifiedAt).format(" YYYY. M. D HH:mm:ss");
+  const modifiedAtEditv1 = moment(modifiedAt).format("YYYY. M. D HH:mm:ss");
+  const modifiedAtEditv2 = new Date(modifiedAtEditv1);
+  modifiedAtEditv2.setSeconds(modifiedAtEditv2.getSeconds() - 2);
 
   // project에 노트 수정일 정보가 있을 경우 현재로부터 시간 차 구하기
   let hourDiff = modifiedAt && moment(modifiedAt).diff(moment(), "hours");
   // format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm
   const updated = moment(modifiedAt).format(" YYYY. M. D hh:mm");
   // format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전'
-  const recentlyUpdated = moment(modifiedAtEdit).fromNow();
+  const recentlyUpdated = moment(modifiedAtEditv2).fromNow();
 
   // const createdAt = moment(modifiedAt).format(" YYYY. M. D hh:mm:ss");
 
