@@ -120,7 +120,6 @@ const Header = (props) => {
                 <InputGroup>
                   <div className="search-select-group">
                     <select className="search-select-box" defaultValue={category && category} onChange={(e) => setSearchFilter(e.target.value)}>
-                      <option value="">선택</option>
                       <option value="all">전체</option>
                       <option value="bookmark">북마크 검색</option>
                       <option value="mynote">내가 작성한 문서 검색</option>
