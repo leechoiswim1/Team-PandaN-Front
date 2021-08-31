@@ -20,14 +20,16 @@ import { searchActions } from "../../modules/search";
 const EmptySearch = ({ history, searchResult }) => {
   const dispatch = useDispatch();
   console.log(searchResult);
-  
+
   return (
     <>
       <tr>
-        <td colspan="5"><p>검색결과가 없습니다.</p></td>
+        <td colSpan="5">
+          <p>검색결과가 없습니다.</p>
+        </td>
       </tr>
     </>
   );
-}
+};
 
 export default EmptySearch;
