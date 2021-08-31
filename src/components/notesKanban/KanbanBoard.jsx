@@ -1,7 +1,7 @@
 import React, { useEffect, useState }   from "react";
 
 /* == Library - style */
-import styled, { css }                  from "styled-components";
+import styled, { css, keyframes }       from "styled-components";
 import { t }                            from "../../util/remConverter";
 
 /* == Library - drag & drop */
@@ -23,6 +23,28 @@ import { fileActions }                  from "../../modules/file";
 const KanbanBoard = ({ history, match }) => {
   const dispatch = useDispatch();
   /* == function */
+
+  useEffect(() => {
+    if (ToastStatus) {
+      setTimeout(() => {
+        setToastStatus(false);
+      }, 1500);
+    }
+  }, [ToastStatus]);
+
+  const __editKanbanStep =
+      (noteId, position) =>
+      async (dispatch, getState, { history }) => {
+        try {
+          const { data } = await noteApi.editKanbanStep(noteId, position);
+          console.log(data);
+          // dispatch(editKanbanStep(data.projects));
+        } catch (e) {
+          console.log(e);
+          setToastStatus(true);
+        }
+      };
+
   const onDragEnd = (result, projects) => {
     const { source, destination, draggableId } = result;
     // droppable 영역 밖에다 떨어뜨렸을 경우, 시작한 위치로 돌아올 경우
@@ -170,6 +192,16 @@ const KanbanBoard = ({ history, match }) => {
 
   return (
     <DragDropContext onDragEnd={(result) => onDragEnd(result, projects)}>
+      {ToastStatus ? (
+        <div style={{ height: "100%", width: "100%" }}>
+          <Toast show={"show"}>
+            <AlertTriangle style={{ marginRight: "7px" }} />
+            다른 사람이 수정 중입니다. 새로고침 해주세요.
+          </Toast>
+        </div>
+      ) : (
+        ""
+      )}
       {projects.map((project, index) => {
         return (
           <div key={index} style={{width: "25%", minWidth: "320px"}}>
@@ -215,6 +247,57 @@ const KanbanBoard = ({ history, match }) => {
     </DragDropContext>
   );
 };
+
+const fadeIn = keyframes`
+from {
+  opacity:0; }
+to{
+    opacity:1;
+}
+`;
+const fadeOut = keyframes`
+from {
+  opacity:1; }
+to{
+    opacity:0;
+}
+`;
+
+const Toast = styled.div`
+  padding: 0 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 20px;
+  min-width: 250px;
+  height: 70px;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background: #387e4b;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  // animation-duration: 0.3s;
+  // animation-timing-function: ease-out;
+  visibility: ${(props) => (props.show ? "visible" : "hidden")};
+  animation: ${(props) =>
+    props.show
+      ? css`
+          ${fadeIn} 0.5s, ${fadeOut} 0.5s 1.0s
+        `
+      : ""};
+
+  -webkit-animation: ${(props) =>
+    props.show
+      ? css`
+          ${fadeIn} 0.5s, ${fadeOut} 0.5s 1.0s
+        `
+      : ""};
+  animation-fill-mode: forwards;
+`;
 
 const Badge = styled.div`
 ${(props) => (props.type === "STORAGE") && 
