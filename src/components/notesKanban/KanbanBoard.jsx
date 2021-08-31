@@ -34,6 +34,20 @@ const KanbanBoard = ({ history, match }) => {
       }, 1500);
     }
   }, [ToastStatus]);
+
+  const __editKanbanStep =
+      (noteId, position) =>
+      async (dispatch, getState, { history }) => {
+        try {
+          const { data } = await noteApi.editKanbanStep(noteId, position);
+          console.log(data);
+          // dispatch(editKanbanStep(data.projects));
+        } catch (e) {
+          console.log(e);
+          setToastStatus(true);
+        }
+      };
+
   const onDragEnd = (result, projects) => {
     const __editKanbanStep =
       (noteId, position) =>
@@ -220,7 +234,7 @@ const KanbanBoard = ({ history, match }) => {
         <div style={{ height: "100%", width: "100%" }}>
           <Toast show={"show"}>
             <AlertTriangle style={{ marginRight: "7px" }} />
-            새로고침이 필요합니다.
+            다른 사람이 수정 중입니다. 새로고침 해주세요.
           </Toast>
         </div>
       ) : (
@@ -280,6 +294,7 @@ to{
 `;
 
 const Toast = styled.div`
+  padding: 0 24px;
   position: absolute;
   top: 50%;
   left: 50%;
