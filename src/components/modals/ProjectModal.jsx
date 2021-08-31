@@ -102,9 +102,8 @@ const ProjectModal = (props) => {
                 <ModalBodyRight>
                   <ModalBodyRightInner>
                     <ModalBodyRightImage src={modalSideImage} alt="modalSideImage" />
-                    <TextDesc>
-                      협업을 하기 위해, 협업툴을 배우는 시간은 그만! 😂 <TextDesc></TextDesc>세상에서 제일 쉬운 협업툴 PandaN을 만나보세요!
-                    </TextDesc>
+                    <TextDesc>협업을 하기 위해, 협업툴을 배우는 시간은 그만! 😂</TextDesc>{" "}
+                    <TextDesc>세상에서 제일 쉬운 협업툴 PandaN을 만나보세요!</TextDesc>
                   </ModalBodyRightInner>
                 </ModalBodyRight>
               </ModalBody>

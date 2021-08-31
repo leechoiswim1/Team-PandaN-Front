@@ -19,7 +19,7 @@ import { history } from "../../modules/configStore";
 
 const EmptyProject = () => {
   const dispatch = useDispatch();
-  
+
   const getGuideProject = _.debounce(() => {
     dispatch(projectActions.__getGuideProject());
   }, 100);
@@ -34,11 +34,13 @@ const EmptyProject = () => {
             세상에서 제일 쉬운 협업툴 <span style={{ color: "#387E4B", fontWeight: "700" }}>PandaN</span>으로 프로젝트를 관리하세요!
           </CenterText>
           <CenterBtn>
-            <ProjectJoin />
-            <ProjectModal />
+            {/* <ProjectJoin />
+            <ProjectModal /> */}
             <GuideBtn className="btn-main" onClick={getGuideProject}>
               <IconGuide />
-              <span>가이드 프로젝트 참여</span>
+              <p>
+                세상에서 제일 쉽게 <span>PandaN</span>하기!
+              </p>
             </GuideBtn>
           </CenterBtn>
         </CenterBox>
@@ -51,15 +53,35 @@ const GuideBtn = styled.div`
   background-color: #d9e9d9;
 
   @media (max-width: 768px) {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   &:hover {
     background-color: #387e4b;
   }
 
-  span {
+  p {
     margin-left: 10px;
+  }
+  span {
+    color: #387e4b;
+  }
+
+  &:hover {
+    span {
+      color: #ffffff;
+    }
+    svg {
+      animation: spin 7s linear infinite;
+      animation-delay: 0;
+      @keyframes spin {
+      from {
+          transform: rotate(0);
+      }
+      to {
+          transform: rotate(360deg);
+      }
+    }
   }
 `;
 
@@ -104,14 +126,11 @@ const PlanBetterStartEasierImg = styled.img`
 `;
 const CenterBtn = styled.div`
   display: flex;
-  margin: 50px auto;
-  // width: 700px;
+  margin: 25px auto;
 
   @media (max-width: 767px) {
-    flex-direction: column;
     max-width: 250px;
-    max-height: 150px;
-    margin: auto;
+    margin: 12px;
   }
 `;
 const CenterText = styled.div`

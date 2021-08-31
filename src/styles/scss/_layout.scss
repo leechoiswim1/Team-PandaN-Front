@@ -635,7 +635,6 @@ $header-mobile-height: rem(70);
   }
 }
 
-
 .btn-main {
   display: flex;
   max-width: 255px;
@@ -646,14 +645,14 @@ $header-mobile-height: rem(70);
   white-space: nowrap;
   justify-content: center;
   align-items: center;
-  background: #D9E9D9;
+  background: #d9e9d9;
   cursor: pointer;
   border-radius: rem(10);
   margin: auto;
   padding: rem(15);
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
   .btn-main {
     max-width: inherit;
     height: rem(60);
@@ -663,18 +662,17 @@ $header-mobile-height: rem(70);
   }
 }
 
-@media (min-width: 1200px){
+@media (min-width: 1200px) {
   .btn-main {
     max-width: inherit;
-    min-width: 255px;
+    min-width: 500px;
     width: 30%;
 
     &:hover {
-      transition: .2s;
+      transition: 0.2s;
     }
   }
   .btn-main + .btn-main {
     margin-left: rem(24);
   }
 }
-
