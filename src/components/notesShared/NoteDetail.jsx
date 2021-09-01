@@ -28,7 +28,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { noteKanbanActions } from "../../modules/noteKanban";
 
 // * == ( note detail ) -------------------- * //
-const NoteDetail = ({ history, match, projectId, ...rest }) => {
+const NoteDetail = React.memo(({ history, match, projectId, ...rest }) => {
   const dispatch = useDispatch();
   const { noteId } = useParams();
 
@@ -47,7 +47,6 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
 
   const deadline = note?.deadline ? moment(note.deadline).format("YYYY. M. D") : "";
   const createdAt = moment(note?.createdAt).format("YYYY. M. D");
-  const modifiedAt = moment(note?.modifiedAt).format("YYYY. M. D");
 
   let dateDiff = note?.deadline ? moment(note.deadline).diff(moment(), "days") : "";
 
@@ -235,7 +234,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
       </BottomButton>
     </div>
   );
-};
+});
 
 const CommentFisrtBox = styled.div`
   @media (min-width: 901px) {

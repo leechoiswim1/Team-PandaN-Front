@@ -3,7 +3,7 @@ import React from "react";
 /* == Library */
 import { NavLink } from "react-router-dom";
 
-const ProjectMenu = ({ history, match, projectId, ...rest }) => {
+const ProjectMenu = React.memo(({ history, match, projectId, ...rest }) => {
   return (
     <div className="project-menu">
       {/* project menu */}
@@ -28,6 +28,6 @@ const ProjectMenu = ({ history, match, projectId, ...rest }) => {
       </nav>
     </div>
   );
-};
+});
 
 export default ProjectMenu;
