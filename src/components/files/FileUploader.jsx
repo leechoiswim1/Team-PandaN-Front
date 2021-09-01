@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React													from "react";
 /* == Library - style */
-import styled 												from "styled-components";
 import { Form } 											from "react-bootstrap";
 /* == Library - AWS SDK */
 import AWS 														from "aws-sdk";
@@ -9,7 +8,6 @@ import { aws_region, aws_poolId } 		from "../../shared/oauthenv";
 import { FilePreviewer } 							from "..";
 /* == Redux - actions */
 import { useSelector, useDispatch }   from "react-redux";
-import { fileActions } 								from "../../modules/file";
 import { noteKanbanActions } 					from '../../modules/noteKanban';
 
 // * == ( Note - modal - File Uploader ) -------------------- * //
