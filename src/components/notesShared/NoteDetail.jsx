@@ -28,7 +28,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { noteKanbanActions } from "../../modules/noteKanban";
 
 // * == ( note detail ) -------------------- * //
-const NoteDetail = ({ history, match, projectId, ...rest }) => {
+const NoteDetail = React.memo(({ history, match, projectId, ...rest }) => {
   const dispatch = useDispatch();
   const { noteId } = useParams();
 
@@ -195,7 +195,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
                 <MenuName>할 일</MenuName>
               </ContentLeftLast>
               <ContentRight style={{ flexDirection: "column" }}>
-                <div> {note?.content}</div>
+                <div>{note?.content}</div>
               </ContentRight>
             </Content>
           </DetailContent>
@@ -239,7 +239,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
       </BottomButton>
     </div>
   );
-};
+});
 
 const CommentFisrtBox = styled.div`
   @media (min-width: 901px) {

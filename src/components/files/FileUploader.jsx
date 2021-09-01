@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React													from "react";
 /* == Library - style */
-import styled 												from "styled-components";
 import { Form } 											from "react-bootstrap";
 /* == Library - AWS SDK */
 import AWS 														from "aws-sdk";
@@ -9,7 +8,6 @@ import { aws_region, aws_poolId } 		from "../../shared/oauthenv";
 import { FilePreviewer } 							from "..";
 /* == Redux - actions */
 import { useSelector, useDispatch }   from "react-redux";
-import { fileActions } 								from "../../modules/file";
 import { noteKanbanActions } 					from '../../modules/noteKanban';
 
 // * == ( Note - modal - File Uploader ) -------------------- * //
@@ -37,16 +35,19 @@ const FileUploader = (props) => {
 		// 파일 선택 취소 시
 		if (!file) {
 			alert("선택한 파일이 없습니다.");
+			e.target.value = "";
 			return;
 		}
 		// 파일 용량 초과 시
 		if (file.size > 3000000) {
 			alert("3MB 이하의 파일만 업로드 할 수 있습니다.");
+			e.target.value = "";
 			return;
 		}
 		// 파일 최대 첨부 개수 초과 시
-		if (fileList.length - 1 > 5 ) {
+		if (fileList.length > 4 ) {
 			alert("최대 5개의 파일까지 업로드 할 수 있습니다.");
+			e.target.value = "";
 			return;
 		}
 

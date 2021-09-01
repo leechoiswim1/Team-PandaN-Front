@@ -1,8 +1,29 @@
-import { createAction, handleActions } from "redux-actions";
-import { noteApi } from "../shared/api";
-import { produce } from "immer";
+/**
+ * --------------------------------------------------------------------------
+ * Redux Module: noteKanban.js
+  * 기능 (노트 - 칸반 / 노트 CRUD / 노트 상세 / 북마크 / 파일 업로드 미리보기 관련)
+ * --------------------------------------------------------------------------
+ */
 
-/* == Notes - initial state */
+/**
+ * --------------------------------------------------------------------------
+ * import
+    * [Library] redux-actions
+    * [Library] immer
+    * [Custom] api: axios instance 및 api 요청 함수
+ * --------------------------------------------------------------------------
+ */
+
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import { noteApi } from "../shared/api";
+
+/**
+ * --------------------------------------------------------------------------
+ * initial state
+ * --------------------------------------------------------------------------
+ */
+
 const initialState = {
   kanban: [
     {
@@ -45,57 +66,75 @@ const initialState = {
   sameUser: "",
 };
 
-/* == action */
-/* project - kanban */
-const GET_KANBAN_NOTES = "note_kanban/GET_KANBAN_NOTES";
-const SET_KANBAN_STEP = "note_kanban/SET_KANBAN_STEP";
-const EDIT_KANBAN_STEP = "note_kanban/GET_KANBAN_NOTES";
-/* note - CRUD / detail */
-const ADD_NOTE = "note_kanban/ADD_NOTE";
-const GET_NOTE_DETAIL = "note_detail/GET_NOTE_DETAIL";
-const EDIT_NOTE = "note_detail/EDIT_NOTE";
-const DELETE_NOTE = "note_detail/DELETE_NOTE";
+/**
+ * --------------------------------------------------------------------------
+ * action
+ * --------------------------------------------------------------------------
+ */
+
+/* project - kanban ------------------------------------------------------ */
+const GET_KANBAN_NOTES  = "note_kanban/GET_KANBAN_NOTES";
+const SET_KANBAN_STEP   = "note_kanban/SET_KANBAN_STEP";
+const EDIT_KANBAN_STEP  = "note_kanban/GET_KANBAN_NOTES";
+/* note - CRUD / detail -------------------------------------------------- */
+const ADD_NOTE          = "note_kanban/ADD_NOTE";
+const GET_NOTE_DETAIL   = "note_detail/GET_NOTE_DETAIL";
+const EDIT_NOTE         = "note_detail/EDIT_NOTE";
+const DELETE_NOTE       = "note_detail/DELETE_NOTE";
 const SET_MODIFIED_NOTE = "note_detail/SET_MODIFIED_NOTE";
-/* bookmark - add / delete */
-const ADD_BOOKMARK = "note_bookmark/ADD_BOOKMARK";
-const DELETE_BOOKMARK = "note_bookmark/DELETE_BOOKMARK";
-/* file preview - add / delete */
-const SET_PREVIEW = "note_file/SET_PREVIEW";
-const RESET_PREVIEW = "note_file/RESET_PREVIEW";
-const DELETE_PREVIEW = "note_file/DELETE_PREVIEW";
-const SET_LIST_PREVIEW = "note_file/SET_LIST_PREVIEW";
-/* loading - for spinner */
-const LOADING = "note_kanban/LOADING";
+/* bookmark - add / delete ----------------------------------------------- */
+const ADD_BOOKMARK      = "note_bookmark/ADD_BOOKMARK";
+const DELETE_BOOKMARK   = "note_bookmark/DELETE_BOOKMARK";
+/* file preview - add / delete ------------------------------------------- */
+const SET_PREVIEW       = "note_file/SET_PREVIEW";
+const RESET_PREVIEW     = "note_file/RESET_PREVIEW";
+const DELETE_PREVIEW    = "note_file/DELETE_PREVIEW";
+const SET_LIST_PREVIEW  = "note_file/SET_LIST_PREVIEW";
+/* loading - for spinner ------------------------------------------------- */
+const LOADING           = "note_kanban/LOADING";
+/* ----------------------------------------------------------------------- */
 
-/* == action creator */
-/* project - kanban */
-const getKanbanNotes = createAction(GET_KANBAN_NOTES, (kanbanNotes) => ({ kanbanNotes }));
-const setKanbanStep = createAction(SET_KANBAN_STEP, (newState) => ({ newState }));
-const editKanbanStep = createAction(EDIT_KANBAN_STEP, (noteId) => ({ noteId }));
-/* note - CRUD / detail */
-const addNote = createAction(ADD_NOTE, (newNote) => ({ newNote }));
-const getNoteDetail = createAction(GET_NOTE_DETAIL, (note) => ({ note }));
-const editNote = createAction(EDIT_NOTE, (noteId) => ({ noteId }));
-const deleteNote = createAction(DELETE_NOTE, (noteId) => ({ noteId }));
+/**
+ * --------------------------------------------------------------------------
+ * action creator
+ * --------------------------------------------------------------------------
+ */
+
+/* project - kanban ------------------------------------------------------ */
+const getKanbanNotes  = createAction(GET_KANBAN_NOTES, (kanbanNotes) => ({ kanbanNotes }));
+const setKanbanStep   = createAction(SET_KANBAN_STEP, (newState) => ({ newState }));
+const editKanbanStep  = createAction(EDIT_KANBAN_STEP, (noteId) => ({ noteId }));
+/* note - CRUD / detail -------------------------------------------------- */
+const addNote         = createAction(ADD_NOTE, (newNote) => ({ newNote }));
+const getNoteDetail   = createAction(GET_NOTE_DETAIL, (note) => ({ note }));
+const editNote        = createAction(EDIT_NOTE, (noteId) => ({ noteId }));
+const deleteNote      = createAction(DELETE_NOTE, (noteId) => ({ noteId }));
 const setModifiedNote = createAction(SET_MODIFIED_NOTE, (detail, files) => ({ detail, files }));
-/* bookmark - add / delete */
-const addBookmark = createAction(ADD_BOOKMARK, (noteId) => ({ noteId }));
-const deleteBookmark = createAction(DELETE_BOOKMARK, (noteId) => ({ noteId }));
-/* file preview - add / delete */
-const setPreview = createAction(SET_PREVIEW, (fileName, awsFileName, fileUrl) => ({ fileName, awsFileName, fileUrl }));
-const resetPreview = createAction(RESET_PREVIEW, () => ({}));
-const deletePreview = createAction(DELETE_PREVIEW, (fileUrl) => ({ fileUrl }));
-const setListPreview = createAction(SET_LIST_PREVIEW, (fileList) => ({ fileList }));
+/* bookmark - add / delete ----------------------------------------------- */
+const addBookmark     = createAction(ADD_BOOKMARK, (noteId) => ({ noteId }));
+const deleteBookmark  = createAction(DELETE_BOOKMARK, (noteId) => ({ noteId }));
+/* file preview - add / delete ------------------------------------------- */
+const setPreview      = createAction(SET_PREVIEW, (fileName, awsFileName, fileUrl) => ({ fileName, awsFileName, fileUrl }));
+const resetPreview    = createAction(RESET_PREVIEW, () => ({}));
+const deletePreview   = createAction(DELETE_PREVIEW, (fileUrl) => ({ fileUrl }));
+const setListPreview  = createAction(SET_LIST_PREVIEW, (fileList) => ({ fileList }));
+/* loading - for spinner ------------------------------------------------- */
+const loading         = createAction(LOADING, (isLoading) => ({ isLoading }));
+/* ----------------------------------------------------------------------- */
 
-const loading = createAction(LOADING, (isLoading) => ({ isLoading }));
+/**
+ * --------------------------------------------------------------------------
+ * middleware thunk function
+  * 비고: 함수명 앞 __ REST API 요청 미들웨어
+ * --------------------------------------------------------------------------
+ */
 
-/* == thunk function */
-/* kanban */
+/* project - kanban ------------------------------------------------------ */
 const __getKanbanNotes =
   (projectId) =>
   async (dispatch, getState, { history }) => {
-    dispatch(loading(true));
     try {
+      dispatch(loading(true));
       const { data } = await noteApi.getKanbanNotes(projectId);
       dispatch(getKanbanNotes(data.projects));
     } catch (e) {
@@ -103,12 +142,12 @@ const __getKanbanNotes =
     }
   };
 
-/* note - detail */
+/* note - detail --------------------------------------------------------- */
 const __getNoteDetail =
   (noteId) =>
   async (dispatch, getState, { history }) => {
-    dispatch(loading(true));
     try {
+      dispatch(loading(true));
       const { data } = await noteApi.getNoteDetail(noteId);
       // console.log("노트 상세 응답",  data);
       dispatch(getNoteDetail(data));
@@ -117,7 +156,7 @@ const __getNoteDetail =
     }
   };
 
-/* note - CRUD */
+/* note - CRUD ----------------------------------------------------------- */
 const __addNote =
   (projectId, newNote) =>
   async (dispatch, getState, { history }) => {
@@ -180,6 +219,7 @@ const __deleteNote =
     }
   };
 
+/* bookmark - add / delete ----------------------------------------------- */  
 const __addBookmark =
   (noteId) =>
   async (dispatch, getState, { history }) => {
@@ -202,7 +242,12 @@ const __deleteBookmark =
     }
   };
 
-/* == reducer */
+/**
+ * --------------------------------------------------------------------------
+ * reducer
+ * --------------------------------------------------------------------------
+ */
+
 const noteKanban = handleActions(
   {
     [SET_KANBAN_STEP]: (state, action) => {
@@ -318,7 +363,12 @@ const noteKanban = handleActions(
   initialState,
 );
 
-/* == export actions */
+/**
+ * --------------------------------------------------------------------------
+ * export actions
+ * --------------------------------------------------------------------------
+ */
+
 export const noteKanbanActions = {
   /* project - kanban */
   __getKanbanNotes,

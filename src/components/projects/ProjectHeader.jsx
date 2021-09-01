@@ -10,7 +10,7 @@ import { history } from "../../modules/configStore";
 
 import { ProjectModalEdit, ProjectInvite, ModalWriting, LeaveProject, MemberDropBox } from "..";
 
-const ProjectHeader = ({ match }) => {
+const ProjectHeader = React.memo(({ match }) => {
   const dispatch = useDispatch();
   const projectId = match.params.projectId;
 
@@ -55,7 +55,7 @@ const ProjectHeader = ({ match }) => {
       </Right>
     </ProjectHeaderWrap>
   );
-};
+});
 
 const ProjectHeaderWrap = styled.div`
   padding: 1rem 1.875rem;

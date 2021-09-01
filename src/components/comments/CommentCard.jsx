@@ -10,7 +10,7 @@ import { Edit2, Trash2 } from "react-feather";
 
 import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edit.svg";
 
-const CommentCard = (props) => {
+const CommentCard = React.memo((props) => {
   const { commentId, content, writer, modifiedAt, writerProfileImg } = props;
   const dispatch = useDispatch();
   const [isEditMode, setIsEditMode] = useState(false);
@@ -85,7 +85,7 @@ const CommentCard = (props) => {
       {isEditMode ? <CommentEdit props={props} isEditMode /> : ""}
     </Card>
   );
-};
+});
 
 const Card = styled.div`
   width: 90%;
