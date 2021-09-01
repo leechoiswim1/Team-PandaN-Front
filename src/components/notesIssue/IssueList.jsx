@@ -1,20 +1,8 @@
 import React from "react";
-/* == Library - date */
-import moment from "moment";
-/* == Library - router */
-import { Link } from "react-router-dom";
-/* == Library - icon */
-import { Bookmark } from "react-feather";
-/* == Custom - icon */
-import IconSteps from "../../elements/IconSteps";
+
 /* == Custom - elements */
-import Labels from "../../elements/Labels";
 import { ReactComponent as Storage } from "../../styles/images/icon-status-todolist.svg";
 import { ReactComponent as IconBookMark } from "../../styles/images/ico-bookmark.svg";
-
-/* == Redux - actions */
-import { useDispatch } from "react-redux";
-import { noteActions } from "../../modules/note";
 
 /* == Custom - Component */
 import { IssueCard } from "..";

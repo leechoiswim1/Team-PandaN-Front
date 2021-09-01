@@ -8,6 +8,7 @@ const Spinner = (props) => {
   if (!props.visible) {
     return <></>;
   }
+
   return (
     <React.Fragment>
       {props.Home === "Home" ? (

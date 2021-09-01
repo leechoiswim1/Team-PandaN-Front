@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from "react";
 /* == Library - style */
 import styled from "styled-components";
-import { t } from "../../util/remConverter";
-import { Form, Button } from "react-bootstrap";
 import { CommentCard, CommentInput } from "..";
 import { actionCreators as commentActions } from "../../modules/comment";
 import { useSelector, useDispatch } from "react-redux";
@@ -44,10 +42,11 @@ const CommentList = React.memo((props) => {
           <CardWrap>
             {comment_list.map((comment, index) => {
               return (
-              <React.Fragment key={index}>
-                <CommentCard  {...comment} />
-              </React.Fragment>
-            )})}
+                <React.Fragment key={index}>
+                  <CommentCard {...comment} />
+                </React.Fragment>
+              );
+            })}
             <div ref={commentsEndRef} />
           </CardWrap>
 

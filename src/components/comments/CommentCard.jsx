@@ -25,8 +25,9 @@ const CommentCard = React.memo((props) => {
       return;
     }
   };
-
+  //서버 시간 차이로 인한 댓글 시간 오류로 초까지만 사용
   const modifiedAtEditv1 = moment(modifiedAt).format("YYYY. M. D HH:mm:ss");
+  // 항상 -2 초를 하여 몇초 후 오류를 개선
   const modifiedAtEditv2 = new Date(modifiedAtEditv1);
   modifiedAtEditv2.setSeconds(modifiedAtEditv2.getSeconds() - 2);
 
@@ -37,23 +38,13 @@ const CommentCard = React.memo((props) => {
   // format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전'
   const recentlyUpdated = moment(modifiedAtEditv2).fromNow();
 
-  // const createdAt = moment(modifiedAt).format(" YYYY. M. D hh:mm:ss");
-
-  var writerProfileImg1 = "" + writerProfileImg;
-  const http = writerProfileImg1.substring(0, 4);
-
-  const userProfileImage =
-    http === "http"
-      ? writerProfileImg
-      : "https://e7.pngegg.com/pngimages/287/501/png-clipart-giant-panda-emoji-coloring-book-drawing-sticker-emoji-child-face-thumbnail.png";
-
   return (
     <Card>
       <div>
         <div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>
-              <img src={userProfileImage} alt="userProfileImage" style={{ width: "25px", height: "25px", borderRadius: "12.5px" }} />
+              <img src={writerProfileImg} alt="userProfileImage" style={{ width: "25px", height: "25px", borderRadius: "12.5px" }} />
 
               <span style={{ margin: "0 5px", fontWeight: "600", fontSize: "16px" }}>{writer}</span>
             </div>

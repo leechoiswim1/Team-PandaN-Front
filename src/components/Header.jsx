@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 /* == Library */
 import { Link } from "react-router-dom";
-import styled, { css } from "styled-components";
-import { t } from "../util/remConverter";
 import { Container, Col, Row, Button, Dropdown, InputGroup, FormControl } from "react-bootstrap";
 
-/* == Library - Icon (react-feather) */
-// https://feathericons.com/
-import { ChevronDown } from "react-feather";
-
 /* == Custom - Icon */
-import { ReactComponent as Logo } from "../styles/images/logo-white.svg";
 import { ReactComponent as IconSearch } from "../styles/images/ico-search.svg";
 
 /* == Custom - Image */
@@ -20,7 +13,6 @@ import { ReactComponent as IconProfile } from "../styles/images/ico-profile.svg"
 /* == Redux - actions */
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../modules/user";
-import { searchActions } from "../modules/search";
 import { history } from "../modules/configStore";
 import { useParams } from "react-router-dom";
 
@@ -181,14 +173,5 @@ const Header = (props) => {
     </header>
   );
 };
-
-// const DropdownDivider = styled.hr`
-//   width: 90%;
-//   height: 1px;
-//   background: #ededed;
-//   @media (max-width: 400px) {
-//     width: 100%;
-//   }
-// `;
 
 export default Header;

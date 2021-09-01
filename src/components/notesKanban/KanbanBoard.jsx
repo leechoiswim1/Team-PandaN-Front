@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 /* == Library - style */
 import styled, { css, keyframes } from "styled-components";
-import { t } from "../../util/remConverter";
 import { AlertTriangle } from "react-feather";
 /* == Library - drag & drop */
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
@@ -11,7 +10,6 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { KanbanList, ModalWriting } from "..";
 
 /* == Custom - Icon */
-import { ReactComponent as Write } from "../../styles/images/ico-kanban-write.svg";
 import IconSteps from "../../elements/IconSteps";
 
 /* == Axios - instance 및 api 요청 함수 */
