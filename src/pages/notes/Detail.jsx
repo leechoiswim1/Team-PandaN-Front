@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 // * == ( note - Detail ) -------------------- * //
 const Detail = React.memo(({ history, match, ...rest }) => {
   const projectId = match.params.projectId;
-  const isLoading = useSelector((state) => state.noteKanban.is_loading);
+  const isLoading = useSelector((state) => state.noteKanban.isLoading);
   return (
     <Template match={match}>
       <Spinner visible={isLoading} />

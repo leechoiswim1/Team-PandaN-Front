@@ -133,8 +133,8 @@ const loading         = createAction(LOADING, (isLoading) => ({ isLoading }));
 const __getKanbanNotes =
   (projectId) =>
   async (dispatch, getState, { history }) => {
-    dispatch(loading(true));
     try {
+      dispatch(loading(true));
       const { data } = await noteApi.getKanbanNotes(projectId);
       dispatch(getKanbanNotes(data.projects));
     } catch (e) {
@@ -159,8 +159,8 @@ const __getKanbanNotes =
 const __getNoteDetail =
   (noteId) =>
   async (dispatch, getState, { history }) => {
-    dispatch(loading(true));
     try {
+      dispatch(loading(true));
       const { data } = await noteApi.getNoteDetail(noteId);
       // console.log("노트 상세 응답",  data);
       dispatch(getNoteDetail(data));
