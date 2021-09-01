@@ -190,7 +190,7 @@ const NoteDetail = React.memo(({ history, match, projectId, ...rest }) => {
                 <MenuName>할 일</MenuName>
               </ContentLeftLast>
               <ContentRight style={{ flexDirection: "column" }}>
-                <div> {note?.content}</div>
+                <div>{note?.content}</div>
               </ContentRight>
             </Content>
           </DetailContent>
