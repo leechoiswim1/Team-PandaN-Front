@@ -218,6 +218,18 @@
   top: 50%;
   transform: translateY(-50%);
   margin: 0 auto;
+  animation: fadeIn 2s;
+  animation-fill-mode: forwards;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
   .note-modal-container {
     width: inherit;
@@ -355,10 +367,10 @@
   border-bottom-left-radius: rem(40);
   border-bottom-right-radius: rem(40);
   transition: all 0.2s ease-in-out;
-  
+
   & h1 {
     font-weight: bold;
-    font-size: rem(20);    
+    font-size: rem(20);
     letter-spacing: $letter-spacing;
   }
   &:hover {
@@ -622,7 +634,6 @@
     align-items: center;
     justify-content: space-between;
   }
-
 
   & .note-detail-tr:last-child .note-detail-th {
     border-bottom: 0;
