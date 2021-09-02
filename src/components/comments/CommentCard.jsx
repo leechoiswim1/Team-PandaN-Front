@@ -15,7 +15,7 @@ import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edi
 import { actionCreators as commentActions } from "../../modules/comment";
 import { useSelector, useDispatch } from "react-redux";
 
-const CommentCard = (props) => {
+const CommentCard = React.memo((props) => {
   const { commentId, content, writer, modifiedAt, writerProfileImg } = props;
   const dispatch = useDispatch();
   const userName = useSelector((state) => state.user.name);
@@ -91,7 +91,7 @@ const CommentCard = (props) => {
       {isEditMode ? <CommentEdit props={props} isEditMode /> : ""}
     </Card>
   );
-};
+});
 
 const Card = styled.div`
   width: 90%;

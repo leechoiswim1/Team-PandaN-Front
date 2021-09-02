@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 /* == Library - style */
 import styled from "styled-components";
 
@@ -8,9 +8,9 @@ import { Template, ProjectHeader, ProjectMenu, NoteDetail, Spinner } from "../..
 import { useSelector } from "react-redux";
 
 // * == ( note - Detail ) -------------------- * //
-const Detail = ({ history, match, ...rest }) => {
+const Detail = React.memo(({ history, match, ...rest }) => {
   const projectId = match.params.projectId;
-  const isLoading = useSelector((state) => state.noteKanban.is_loading);
+  const isLoading = useSelector((state) => state.noteKanban.isLoading);
   return (
     <Template match={match}>
       <Spinner visible={isLoading} />
@@ -27,7 +27,7 @@ const Detail = ({ history, match, ...rest }) => {
       </div>
     </Template>
   );
-};
+});
 
 const DetailInner = styled.div`
   width: 100%;

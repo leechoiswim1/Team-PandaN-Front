@@ -22,6 +22,18 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
+/* == Axios - interceptor for catching 403 error */
+instance.interceptors.response.use((response) => {
+  return response;
+}, (error) => {
+  if(error.response.status === 403) {
+    let date = new Date("2020-01-01");
+	  document.cookie = "TOKEN=; expires=" + date + "; path=/";
+    window.location.replace("/login");    
+  };
+  return Promise.reject(error);
+});
+
 /* == API - project */
 export const projectApi = {
   getProject: () => instance.get("/api/projects"),

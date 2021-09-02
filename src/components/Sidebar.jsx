@@ -24,7 +24,7 @@ import { Link } from "react-router-dom";
 
 // * == (Sidebar) -------------------- * //
 
-const Sidebar = (props) => {
+const Sidebar = React.memo((props) => {
   const project_side_list = useSelector((state) => state.project.sideList);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -111,7 +111,7 @@ const Sidebar = (props) => {
       </div>
     </nav>
   );
-};
+});
 
 const FeedbackBtn = styled.div`
   width: 240px;

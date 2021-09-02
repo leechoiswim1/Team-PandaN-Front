@@ -11,7 +11,7 @@ import { actionCreators as projectActions } from "../../modules/project";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../../modules/configStore";
 
-const ProjectHeader = ({ match }) => {
+const ProjectHeader = React.memo(({ match }) => {
   const dispatch = useDispatch();
   const projectId = match.params.projectId;
   const project_detail_list = useSelector((state) => state.project.detailList[0]);
@@ -56,7 +56,7 @@ const ProjectHeader = ({ match }) => {
       </Right>
     </ProjectHeaderWrap>
   );
-};
+});
 
 const ProjectHeaderWrap = styled.div`
   padding: 1rem 1.875rem;

@@ -11,7 +11,7 @@ import { noteKanbanActions } from "../../modules/noteKanban";
 const Kanban = ({ history, match, ...rest }) => {
   const dispatch = useDispatch();
   const projectId = match.params.projectId;
-  const isLoading = useSelector((state) => state.noteKanban.is_loading);
+  const isLoading = useSelector((state) => state.noteKanban.isLoading);
   useEffect(() => {
     dispatch(noteKanbanActions.__getKanbanNotes(projectId));
   }, [projectId]);
