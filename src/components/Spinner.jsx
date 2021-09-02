@@ -1,9 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
+
+/* == Library - style */
 import styled from "styled-components";
+
+/* == Library  */
+import PropTypes from "prop-types";
 import { PropagateLoader, ClipLoader } from "react-spinners";
+
+/* == Custom - Icon */
 import PandaSpinner from "../styles/images/Panda_Spinner.svg";
 import Loading from "../styles/images/Loading.svg";
+
 const Spinner = (props) => {
   if (!props.visible) {
     return <></>;

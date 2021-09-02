@@ -1,22 +1,27 @@
 import React, { useState } from "react";
+
+/* == Library */
 import moment from "moment";
+
 /* == Library - style */
 import styled from "styled-components";
 import CommentEdit from "./CommentEdit";
 
+/* == Custom - Icon */
+import { Edit2, Trash2 } from "react-feather";
+import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edit.svg";
+
+/* == Redux - actions */
 import { actionCreators as commentActions } from "../../modules/comment";
 import { useSelector, useDispatch } from "react-redux";
-import { Edit2, Trash2 } from "react-feather";
-
-import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edit.svg";
 
 const CommentCard = React.memo((props) => {
   const { commentId, content, writer, modifiedAt, writerProfileImg } = props;
   const dispatch = useDispatch();
+  const userName = useSelector((state) => state.user.name);
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const userName = useSelector((state) => state.user.name);
-
+  /* == function */
   const deleteComment = () => {
     if (window.confirm("정말로 댓글을 지우시겠습니까?😲") === true) {
       dispatch(commentActions.__deleteComment(commentId));
@@ -25,6 +30,7 @@ const CommentCard = React.memo((props) => {
       return;
     }
   };
+
   //서버 시간 차이로 인한 댓글 시간 오류로 초까지만 사용
   const modifiedAtEditv1 = moment(modifiedAt).format("YYYY. M. D HH:mm:ss");
   // 항상 -2 초를 하여 몇초 후 오류를 개선

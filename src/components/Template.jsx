@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 
 /* == Library */
-
 import { Button, Collapse } from "react-bootstrap";
-
-/* == Library - Icon (react-feather) */
-// https://feathericons.com/
-import { AlignRight } from "react-feather";
 
 /* == Custom - Component */
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+
+/* == Library - Icon (react-feather) */
+// https://feathericons.com/
+import { AlignRight } from "react-feather";
 
 // * == (Template) -------------------- * //
 

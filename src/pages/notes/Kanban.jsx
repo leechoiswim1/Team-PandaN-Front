@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 
 /* == Custom - Component */
 import { Template, ProjectHeader, ProjectMenu, KanbanBoard, Spinner } from "../../components";
+
 /* == Redux - actions */
 import { useSelector, useDispatch } from "react-redux";
 import { noteKanbanActions } from "../../modules/noteKanban";

@@ -1,7 +1,12 @@
 import React, { useEffect, useRef } from "react";
+
 /* == Library - style */
 import styled from "styled-components";
+
+/* == Custom - Component */
 import { CommentCard, CommentInput } from "..";
+
+/* == Redux - actions */
 import { actionCreators as commentActions } from "../../modules/comment";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -11,7 +16,7 @@ const CommentList = React.memo((props) => {
   const comment_list = useSelector((state) => state.comment.list);
   const noteId = match.params.noteId;
   const comment = props.comment;
-
+  /* == function */
   useEffect(() => {
     dispatch(commentActions.__getCommentList(noteId));
   }, []);

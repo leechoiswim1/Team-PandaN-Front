@@ -3,10 +3,12 @@ import React, { useEffect, useState, useRef } from "react";
 /* == Library - style */
 import styled from "styled-components";
 
-import { actionCreators as projectActions } from "../../modules/project";
-import { useDispatch, useSelector } from "react-redux";
-
+/* == Custom - Icon */
 import { ReactComponent as IconMemberAdd } from "../../styles/images/icon_AddMember2.svg";
+
+/* == Redux - actions */
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as projectActions } from "../../modules/project";
 
 const MemberDropBox = (props) => {
   const dispatch = useDispatch();
@@ -17,12 +19,14 @@ const MemberDropBox = (props) => {
 
   const el = useRef(null);
   const [show, setShow] = useState(false);
+
+  /* == function */
+  //드롭박스 외 클릭시 창이 꺼짐.
   const handleClose = (e) => {
     if (el.current && !el.current.contains(e.target)) {
       setShow(false);
     }
   };
-
   useEffect(() => {
     window.addEventListener("click", handleClose);
     return () => {

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+
 /* == Library - style */
 import styled from "styled-components";
 
+/* == Redux - actions */
 import { useDispatch } from "react-redux";
 import { actionCreators as commentActions } from "../../modules/comment";
 
@@ -9,7 +11,7 @@ const CommentInput = (props) => {
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
   const noteId = props.match.params.noteId;
-
+  /* == function */
   const CreateComment = () => {
     if (comment === "") {
       window.alert("댓글을 입력해주세요!");
