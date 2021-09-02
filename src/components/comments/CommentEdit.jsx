@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+
 /* == Library - style */
 import styled from "styled-components";
 
+/* == Redux - actions */
 import { useDispatch } from "react-redux";
 import { actionCreators as commentActions } from "../../modules/comment";
 
@@ -10,6 +12,7 @@ const CommentEdit = (props) => {
   const dispatch = useDispatch();
   const [modifiedComment, setModifiedComment] = useState(content);
   const [isEditMode, setIsEditMode] = useState(props.isEditMode);
+  /* == function */
   const editComment = () => {
     if (modifiedComment === "") {
       window.alert("댓글을 입력해주세요!");

@@ -1,8 +1,12 @@
 import React, { useState, useCallback } from "react";
-import styled from "styled-components";
-import { useDispatch } from "react-redux";
 
+/* == Library - style */
+import styled from "styled-components";
+
+/* == Custom - Component */
 import Spinner from "./Spinner";
+/* == Redux - actions */
+import { useDispatch } from "react-redux";
 
 const Paging = (props) => {
   const dispatch = useDispatch();
@@ -13,7 +17,7 @@ const Paging = (props) => {
     start: 0,
     end: 10,
   });
-
+  /* == function */
   const nextPage = () => {
     if (!isEnd) {
       setPage({

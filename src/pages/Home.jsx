@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 
 /* components & elements */
-import { Template, ProjectCardList, EmptyProject } from "../components";
+import { Template, ProjectCardList, EmptyProject, Spinner } from "../components";
+
+/* == Redux - actions */
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as projectActions } from "../modules/project";
-import { Spinner } from "../components";
-
-// import { Container, Row, Col, Button, Alert, Breadcrumb, Card, Form } from 'react-bootstrap';
 
 const Home = ({ history, match }) => {
   const is_loading = useSelector((state) => state.project.is_loading);

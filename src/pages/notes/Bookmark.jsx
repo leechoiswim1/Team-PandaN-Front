@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 
 /* == Custom - Component */
-import { Template, IssueList, EmptyBoard } from "../../components";
+import { Template, IssueList, EmptyBoard, Paging } from "../../components";
 /* == Redux - actions */
 import { useSelector, useDispatch } from "react-redux";
 import { noteActions } from "../../modules/note";
-import { Paging } from "../../components";
 
 // * == ( Bookmark - Note ) -------------------- * //
 const Bookmark = ({ history, match, ...rest }) => {

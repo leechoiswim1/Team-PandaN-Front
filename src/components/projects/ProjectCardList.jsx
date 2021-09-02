@@ -1,11 +1,21 @@
 import React from "react";
+
+/* == Library - style */
+import styled from "styled-components";
+
+/* == Library -*/
 import moment from "moment";
 import "moment/locale/ko";
-import styled from "styled-components";
+
+/* == Custom - Component */
+import { ProjectModal, ProjectModalEdit } from "..";
+
+/* == Custom - Icon */
 import { Bookmark, FileText } from "react-feather";
+
+/* == Redux - actions */
 import { useSelector } from "react-redux";
 import { history } from "../../modules/configStore";
-import { ProjectModal, ProjectModalEdit } from "..";
 
 const ProjectCardList = () => {
   const project_list = useSelector((state) => state.project.list);

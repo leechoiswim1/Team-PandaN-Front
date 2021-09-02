@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import ModalPortal from "../../util/ModalPotal";
 
-/* == Library */
+/* == Library - style */
 import styled, { keyframes } from "styled-components";
 
-/* == Custom - Component */
-import { actionCreators as projectActions } from "../../modules/project";
-
-import { useDispatch } from "react-redux";
-import { history } from "../../modules/configStore";
+/* == Library -  */
+import ModalPortal from "../../util/ModalPotal";
 
 /* == Custom - Icon */
 import { ReactComponent as IconProjectEdit } from "../../styles/images/icon-project-edit.svg";
 import { ReactComponent as IconEdit } from "../../styles/images/icon-comment-edit.svg";
 import { ReactComponent as CloseModal } from "../../styles/images/Icon_ModalClose.svg";
 import modalSideImage from "../../styles/images/modalSideImage.PNG";
+
+/* == Redux - actions */
+import { actionCreators as projectActions } from "../../modules/project";
+import { useDispatch } from "react-redux";
+import { history } from "../../modules/configStore";
 
 const ProjectModalEdit = (props) => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const ProjectModalEdit = (props) => {
   const [ProDesc, setProDesc] = useState(detail);
   const [modalState, setModalState] = useState(false);
 
+  /* == function */
   const deleteProject = () => {
     if (window.confirm("정말로 프로젝트를 지우시겠습니까?😲") === true) {
       dispatch(projectActions.__deleteProject(id));

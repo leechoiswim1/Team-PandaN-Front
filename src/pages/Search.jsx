@@ -3,8 +3,6 @@ import React, { useEffect } from "react";
 /* == Library - style */
 import { Badge } from "react-bootstrap";
 
-/* == Custom - Icon */
-
 /* == Custom - Component */
 import { Template, SearchList, EmptySearch, Spinner } from "../components";
 
@@ -20,11 +18,8 @@ const Search = ({ history, match }) => {
   const { category, q } = useParams();
   const is_loading = useSelector((state) => state.search.is_loading);
   const searchResult = useSelector((state) => state.search.list);
-  const searchKeyword = useSelector((state) => state.search.keyword);
-  // console.log("3." + searchKeyword);
-  console.log(is_loading);
+
   useEffect(() => {
-    // dispatch(searchActions.__getSearchAll(keywordParams.q));
     if (category === "all") {
       dispatch(searchActions.__getSearchAll(q));
     } else if (category === "bookmark") {

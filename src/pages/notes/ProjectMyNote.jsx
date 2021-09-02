@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 
 /* == Custom - Component */
-import { Template, ProjectHeader, ProjectMenu, IssueList, EmptyBoard } from "../../components";
-import { Paging } from "../../components";
+import { Template, ProjectHeader, ProjectMenu, IssueList, EmptyBoard, Paging } from "../../components";
+
 /* == Redux - actions */
 import { useSelector, useDispatch } from "react-redux";
 import { noteActions } from "../../modules/note";

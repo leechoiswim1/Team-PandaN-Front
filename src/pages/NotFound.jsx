@@ -1,11 +1,16 @@
 import React from "react";
+/* == Library - style */
 import styled from "styled-components";
-import { history } from "../modules/configStore";
 
+/* == Custom - Icon */
 import PandaNotFound from "../styles/images/Panda_NotFound.svg";
 import PageNotFound from "../styles/images/Page_Not_Found.svg";
 import WrongRequest from "../styles/images/WrongRequest.svg";
 import { ReactComponent as GoHome } from "../styles/images/Icon_NotFoundHome.svg";
+
+/* == Redux  */
+import { history } from "../modules/configStore";
+
 const NotFound = () => {
   return (
     <>

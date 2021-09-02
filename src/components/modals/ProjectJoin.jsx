@@ -1,14 +1,19 @@
 import { React, useState } from "react";
-import ModalPortal from "../../util/ModalPotal";
 
+/* == Library - style */
 import styled, { keyframes } from "styled-components";
 
+/* == Library -  */
+import ModalPortal from "../../util/ModalPotal";
+
+/* == Custom - Icon */
+import { ReactComponent as InviteLetter } from "../../styles/images/icon_InviteLetter.svg";
+import { ReactComponent as CloseModal } from "../../styles/images/Icon_ModalClose.svg";
+
+/* == Redux - actions */
 import { actionCreators as projectActions } from "../../modules/project";
 import { useDispatch } from "react-redux";
 import { history } from "../../modules/configStore";
-
-import { ReactComponent as InviteLetter } from "../../styles/images/icon_InviteLetter.svg";
-import { ReactComponent as CloseModal } from "../../styles/images/Icon_ModalClose.svg";
 
 const ProjectJoin = (props) => {
   const dispatch = useDispatch();
@@ -17,6 +22,8 @@ const ProjectJoin = (props) => {
   const [InviteCode, setInviteCode] = useState("");
 
   const inviteCode = { inviteCode: InviteCode };
+
+  /* == function */
   const JoinProject = () => {
     if (InviteCode === "") {
       window.alert("초대 코드를 입력해주세요!");

@@ -1,22 +1,30 @@
 import React, { useState } from "react";
+
+/* == Library - style */
 import styled, { keyframes } from "styled-components";
+
+/* == Library -  */
 import ModalPortal from "../../util/ModalPotal";
 
-import { actionCreators as projectActions } from "../../modules/project";
-import { useDispatch } from "react-redux";
-import { history } from "../../modules/configStore";
+/* == Custom - Icon */
 import { ReactComponent as IconProjectAdd } from "../../styles/images/ico-project-add.svg";
 import { ReactComponent as Write } from "../../styles/images/ico-kanban-write.svg";
 import { ReactComponent as IconAdd } from "../../styles/images/Icon_AddProject.svg";
 import { ReactComponent as CloseModal } from "../../styles/images/Icon_ModalClose.svg";
 import modalSideImage from "../../styles/images/modalSideImage.PNG";
+
+/* == Redux - actions */
+import { actionCreators as projectActions } from "../../modules/project";
+import { useDispatch } from "react-redux";
+import { history } from "../../modules/configStore";
+
 const ProjectModal = (props) => {
   const dispatch = useDispatch();
-
   const [ProTitle, setProTitle] = useState("");
   const [ProDesc, setProDesc] = useState("");
   const [modalState, setModalState] = useState(false);
 
+  /* == function */
   const CreateProject = () => {
     if (ProTitle === "") {
       window.alert("프로젝트 이름을 입력해주세요!");

@@ -70,10 +70,6 @@ const Header = (props) => {
   };
 
   //
-  // * == (검색) Bootstrap Collapse
-  // -------------------------------
-  const [open, setOpen] = useState(false);
-  //
   // * == (프로필) 사용자 프로필 기본 이미지
   // -------------------------------
   const userImage = user.picture == "http://52.78.204.238/image/profileDefaultImg.jpg" ? <IconProfile /> : user.picture;

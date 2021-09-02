@@ -2,20 +2,21 @@ import React, { useEffect } from "react";
 
 /* styled-components 및 rem 변환 모듈 */
 import styled from "styled-components";
-import { t } from "../../util/remConverter";
 
+/* == Custom - Component */
+import { ProjectModalEdit, ProjectInvite, ModalWriting, LeaveProject, MemberDropBox } from "..";
+
+/* == Redux - actions */
 import { actionCreators as projectActions } from "../../modules/project";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../../modules/configStore";
 
-import { ProjectModalEdit, ProjectInvite, ModalWriting, LeaveProject, MemberDropBox } from "..";
-
 const ProjectHeader = ({ match }) => {
   const dispatch = useDispatch();
   const projectId = match.params.projectId;
-
   const project_detail_list = useSelector((state) => state.project.detailList[0]);
 
+  /* == function */
   useEffect(() => {
     dispatch(projectActions.__setDetailProject(projectId));
   }, [dispatch, projectId]);

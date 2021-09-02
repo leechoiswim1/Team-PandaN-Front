@@ -1,15 +1,20 @@
 import { React, useState, useEffect } from "react";
 
-import { CopyToClipboard } from "react-copy-to-clipboard";
+/* == Library - style */
 import styled, { keyframes } from "styled-components";
 
+/* == Library - */
 import ModalPortal from "../../util/ModalPotal";
-import { useDispatch, useSelector } from "react-redux";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
+/* == Custom - Icon */
 import { actionCreators as projectActions } from "../../modules/project";
 import { ReactComponent as IconMemberAdd } from "../../styles/images/icon_AddOneMember.svg";
 import { ReactComponent as IconCopyCode } from "../../styles/images/icon-content-copy.svg";
 import { ReactComponent as CloseModal } from "../../styles/images/Icon_ModalClose.svg";
+
+/* == Redux - actions */
+import { useDispatch, useSelector } from "react-redux";
 
 const ProjectInvite = (props) => {
   const dispatch = useDispatch();
@@ -19,6 +24,7 @@ const ProjectInvite = (props) => {
 
   const inviteCode = useSelector((state) => state.project.inviteCodeList.inviteCode);
 
+  /* == function */
   useEffect(() => {
     dispatch(projectActions.__inviteProject(projectId));
   }, [dispatch, projectId]);

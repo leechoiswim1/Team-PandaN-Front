@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 
-/* == Library */
-import { Link } from "react-router-dom";
-import { Container, Accordion } from "react-bootstrap";
+/* == Library - style */
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
 
-import { actionCreators as projectActions } from "../modules/project";
+/* == Library */
+import { Container, Accordion } from "react-bootstrap";
 
 /* == Custom - Component */
 import { ProjectList, ProjectModal, ProjectJoin } from ".";
@@ -16,9 +14,13 @@ import { ReactComponent as Logo } from "../styles/images/logo.svg";
 import { ReactComponent as IconBookMark } from "../styles/images/ico-bookmark.svg";
 import { ReactComponent as IconFile } from "../styles/images/ico-file.svg";
 import { ReactComponent as IconProject } from "../styles/images/ico-project.svg";
-
 import { ReactComponent as FeedbackArrow } from "../styles/images/Icon_FeedbackArrow.svg";
 import { ReactComponent as FeedBackCon } from "../styles/images/Icon_FeedBackCon.svg";
+
+/* == Redux - actions */
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as projectActions } from "../modules/project";
+import { Link } from "react-router-dom";
 
 // * == (Sidebar) -------------------- * //
 

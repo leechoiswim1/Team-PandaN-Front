@@ -6,14 +6,6 @@ import styled from "styled-components";
 /* == Library - date */
 import moment from "moment";
 
-/* == Custom - Icon */
-
-/* == Custom - Component */
-
-/* == Redux - actions */
-
-// * == ( SearchList ) -------------------- * //
-
 const SearchList = ({ history, searchResult }) => {
   const createdAt = moment(searchResult.createdAt).format("YYYY년 M월 D일");
 
