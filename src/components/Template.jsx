@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
 /* == Library */
-import styled, { css } from "styled-components";
-import { t } from "../util/remConverter";
+
 import { Button, Collapse } from "react-bootstrap";
 
 /* == Library - Icon (react-feather) */

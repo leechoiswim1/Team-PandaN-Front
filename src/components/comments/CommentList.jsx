@@ -1,13 +1,11 @@
 import React, { useEffect, useRef } from "react";
 /* == Library - style */
 import styled from "styled-components";
-import { t } from "../../util/remConverter";
-import { Form, Button } from "react-bootstrap";
 import { CommentCard, CommentInput } from "..";
 import { actionCreators as commentActions } from "../../modules/comment";
 import { useSelector, useDispatch } from "react-redux";
 
-const CommentList = (props) => {
+const CommentList = React.memo((props) => {
   const { history, match, projectId } = props;
   const dispatch = useDispatch();
   const comment_list = useSelector((state) => state.comment.list);
@@ -44,10 +42,11 @@ const CommentList = (props) => {
           <CardWrap>
             {comment_list.map((comment, index) => {
               return (
-              <React.Fragment key={index}>
-                <CommentCard  {...comment} />
-              </React.Fragment>
-            )})}
+                <React.Fragment key={index}>
+                  <CommentCard {...comment} />
+                </React.Fragment>
+              );
+            })}
             <div ref={commentsEndRef} />
           </CardWrap>
 
@@ -60,7 +59,7 @@ const CommentList = (props) => {
       )}
     </>
   );
-};
+});
 
 const Wrapper = styled.div`
   position: sticky;

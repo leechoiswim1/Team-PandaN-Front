@@ -78,6 +78,7 @@ const __getSearchList =
   async (dispatch, getState, { history }) => {
     try {
       dispatch(loading(true));
+
       const { data } = await searchApi.getSearchList(keyword);
       dispatch(getSearchList(data));
     } catch (e) {
@@ -169,6 +170,12 @@ const search = handleActions(
         ...state,
         list: [],
         is_loading: false,
+      };
+    },
+    [LOADING]: (state, action) => {
+      return {
+        ...state,
+        is_loading: action.payload.is_loading,
       };
     },
   },

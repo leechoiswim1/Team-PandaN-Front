@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-/* == Library - style */
-import styled from "styled-components";
-import { t } from "../../util/remConverter";
+import React, { useEffect } from "react";
+
 /* == Custom - Component */
 import { Template, ProjectHeader, ProjectMenu, KanbanBoard, Spinner } from "../../components";
 /* == Redux - actions */
@@ -12,7 +10,7 @@ import { noteKanbanActions } from "../../modules/noteKanban";
 const Kanban = ({ history, match, ...rest }) => {
   const dispatch = useDispatch();
   const projectId = match.params.projectId;
-  const isLoading = useSelector((state) => state.noteKanban.is_loading);
+  const isLoading = useSelector((state) => state.noteKanban.isLoading);
   useEffect(() => {
     dispatch(noteKanbanActions.__getKanbanNotes(projectId));
   }, [projectId]);

@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-/* == Library - style */
-import styled from "styled-components";
-import { t } from "../../util/remConverter";
+import React, { useEffect } from "react";
+
 /* == Custom - Component */
 import { Template, ProjectHeader, ProjectMenu, IssueList, EmptyBoard } from "../../components";
 import { Paging } from "../../components";

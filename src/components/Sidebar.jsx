@@ -20,11 +20,9 @@ import { ReactComponent as IconProject } from "../styles/images/ico-project.svg"
 import { ReactComponent as FeedbackArrow } from "../styles/images/Icon_FeedbackArrow.svg";
 import { ReactComponent as FeedBackCon } from "../styles/images/Icon_FeedBackCon.svg";
 
-import Feedback from "react-bootstrap/esm/Feedback";
-
 // * == (Sidebar) -------------------- * //
 
-const Sidebar = (props) => {
+const Sidebar = React.memo((props) => {
   const project_side_list = useSelector((state) => state.project.sideList);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -102,15 +100,16 @@ const Sidebar = (props) => {
             <ProjectJoin sidebar="sidebar" />
           </div>
           <A href="https://github.com/Team-PandaN" target="_blank">
-            <p className="copyright">Copyright 2021
-              <span style={{fontWeight: "bold"}}> PandaN</span>
+            <p className="copyright">
+              Copyright 2021
+              <span style={{ fontWeight: "bold" }}> PandaN</span>
             </p>
           </A>
         </Container>
       </div>
     </nav>
   );
-};
+});
 
 const FeedbackBtn = styled.div`
   width: 240px;
@@ -136,8 +135,8 @@ const FeedbackText = styled.p`
 
 const A = styled.a`
   text-decoration: none;
-  p:hover{
-    color: #387E4B;
+  p:hover {
+    color: #387e4b;
   }
-`
+`;
 export default Sidebar;

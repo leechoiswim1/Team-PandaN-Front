@@ -28,7 +28,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { noteKanbanActions } from "../../modules/noteKanban";
 
 // * == ( note detail ) -------------------- * //
-const NoteDetail = ({ history, match, projectId, ...rest }) => {
+const NoteDetail = React.memo(({ history, match, projectId, ...rest }) => {
   const dispatch = useDispatch();
   const { noteId } = useParams();
 
@@ -47,7 +47,11 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
 
   const deadline = note?.deadline ? moment(note.deadline).format("YYYY. M. D") : "";
   const createdAt = moment(note?.createdAt).format("YYYY. M. D");
-  const modifiedAt = moment(note?.modifiedAt).format("YYYY. M. D");
+  //서버 시간 차이로 인한 댓글 시간 오류로 초까지만 사용
+  const modifiedAt = moment(note?.modifiedAt).format("YYYY. M. D HH:mm:ss");
+  // 항상 -2 초를 하여 몇초 후 오류를 개선
+  const modifiedAtEdit = new Date(modifiedAt);
+  modifiedAtEdit.setSeconds(modifiedAtEdit.getSeconds() - 2);
 
   let dateDiff = note?.deadline ? moment(note.deadline).diff(moment(), "days") : "";
 
@@ -56,7 +60,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
   // format 1, 수정한 지 하루 경과했을 경우 : YYYY.MM.DD hh:mm
   const updated = moment(note?.modifiedAt).format(" YYYY. M. D hh:mm");
   // format 2, 수정한 지 하루 이내일 경우 : 'n 분 전, n 시간 전'
-  const recentlyUpdated = moment(note?.modifiedAt).fromNow();
+  const recentlyUpdated = moment(modifiedAtEdit).fromNow();
 
   /*
    * Function - delete note
@@ -191,14 +195,14 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
                 <MenuName>할 일</MenuName>
               </ContentLeftLast>
               <ContentRight style={{ flexDirection: "column" }}>
-                <div> {note?.content}</div>
+                <div>{note?.content}</div>
               </ContentRight>
             </Content>
           </DetailContent>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <LastContent>
               <div>최초 작성일 : {createdAt}</div>
-              <div>{hourDiff < -22 ? <p>{updated}</p> : <p>마지막 수정: {recentlyUpdated}</p>}</div>
+              <div>{hourDiff < -22 ? <p>마지막 수정:{updated}</p> : <p>마지막 수정: {recentlyUpdated}</p>}</div>
             </LastContent>
             <CommentFisrtBox>
               <CommentList comment={showCmt} history={history} match={match} projectId={projectId} />
@@ -235,7 +239,7 @@ const NoteDetail = ({ history, match, projectId, ...rest }) => {
       </BottomButton>
     </div>
   );
-};
+});
 
 const CommentFisrtBox = styled.div`
   @media (min-width: 901px) {

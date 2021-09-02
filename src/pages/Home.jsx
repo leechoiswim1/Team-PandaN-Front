@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-/* styled-components 및 rem 변환 모듈 */
-import styled, { css } from "styled-components";
-import { t } from "../util/remConverter";
+
 /* components & elements */
 import { Template, ProjectCardList, EmptyProject } from "../components";
 import { useSelector, useDispatch } from "react-redux";

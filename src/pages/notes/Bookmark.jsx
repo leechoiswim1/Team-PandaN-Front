@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-/* == Library - style */
-import styled from "styled-components";
-import { t } from "../../util/remConverter";
+
 /* == Custom - Component */
 import { Template, IssueList, EmptyBoard } from "../../components";
 /* == Redux - actions */

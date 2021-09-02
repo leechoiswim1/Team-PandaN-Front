@@ -69,8 +69,10 @@ const ProjectJoin = (props) => {
               <ModalBody>
                 <ModalBodyInner>
                   <P>받은 초대 코드 등록하기 </P>
-                  <Input style={{}} placeholder="초대코드를 입력해주세요!" onChange={changeInviteCode} />
-                  <p>협업을 위해 받은 초대 코드를 등록하세요! 만약, 초대 코드가 없다면 코드를 생성하세요.</p>
+                  <Input placeholder="초대코드를 입력해주세요!" onChange={changeInviteCode} />
+                  <p style={{ fontSize: "14px", wordBreak: "keep-all" }}>
+                    협업을 위해 받은 초대 코드를 등록하세요! <br></br>만약, 초대 코드가 없다면 코드를 생성하세요.
+                  </p>
                 </ModalBodyInner>
               </ModalBody>
               <ModalFooter onClick={JoinProject}>프로젝트 참여하기</ModalFooter>
@@ -87,7 +89,7 @@ const fadeIn = keyframes`
 from {
   opacity:0; }
 to{
-    opaciry:1;
+    opacity:1;
 }
 `;
 const ProjectInviteBtn = styled.div`
@@ -212,6 +214,14 @@ const ModalBodyInner = styled.div`
   box-sizing: border-box;
   margin: auto;
   padding-bottom: 10px;
+  br {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    br {
+      display: block;
+    }
+  }
 `;
 
 const P = styled.p`

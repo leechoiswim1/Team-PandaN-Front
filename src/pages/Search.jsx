@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 /* == Library - style */
-import styled from "styled-components";
-import { t } from "../util/remConverter";
-import { Container, InputGroup, FormControl, Badge, Button } from "react-bootstrap";
+import { Badge } from "react-bootstrap";
 
 /* == Custom - Icon */
-import { ReactComponent as IconSearch } from "../styles/images/ico-search.svg";
 
 /* == Custom - Component */
 import { Template, SearchList, EmptySearch, Spinner } from "../components";
@@ -41,8 +38,8 @@ const Search = ({ history, match }) => {
 
   return (
     <>
-      <Spinner visible={is_loading} />
       <Template match={match}>
+        <Spinner visible={is_loading} />
         <div className="content" id="content">
           <div className="note-board-container">
             <div className="table-responsive">
