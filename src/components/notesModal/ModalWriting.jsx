@@ -91,6 +91,15 @@ const ModalWriting = ({ history, projectStep, modalType, ...rest }) => {
       return;
     }
 
+    let blank_pattern = /^\s+|\s+$/g;
+    if (noteInputs.title.replace( blank_pattern, "" ) === "" ||
+      noteInputs.content.replace( blank_pattern, "" ) === "" ||
+      noteInputs.step.replace( blank_pattern, "" ) === "" ||
+      noteInputs.deadline.replace( blank_pattern, "" ) === "" ){
+      window.alert("공백이 아닌 유효한 값을 입력하세요.");
+      return;
+    }
+
     // 파일 최대 첨부 개수 초과 시
     if (fileList.length > 5) {
       alert("최대 5개의 파일까지 업로드 할 수 있습니다.");
