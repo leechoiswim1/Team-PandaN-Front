@@ -62,7 +62,23 @@ __Team PandaN__ 의 프론트엔드 저장소입니다.
 ### 👨‍👧‍👧 개발 목표
 - 사용자 경험 향상
   - 반응형웹 적용: 모바일에서도 사용자가 서비스를 이용할 수 있도록 사용자 편의성 향상
-  - Single Page Application : 페이지 이동 시 깜빡거림과 끊김 없는 자연스러운 사용자 경험 제공, 필요한 데이터만 갱신하여 로딩 성능 개선
+    ![image](https://github.com/Team-PandaN/Team-PandaN-Front/blob/master/img_readme/responsive_project.gif)
+    ![image](https://github.com/Team-PandaN/Team-PandaN-Front/blob/master/img_readme/responsive_kanban.gif)  
+  - 페이지 이동 시 깜빡거림과 끊김 없는 자연스러운 사용자 경험 제공, 필요한 데이터만 갱신하여 로딩 성능 개선
+    - react-router Link / NavLink 사용
+    - 페이지네이션 useCallback 사용
+    - 댓글 등 리렌더링 필요 없는 컴포넌트 React.memo 사용
 - 개발 생산성 향상
   - 유지 보수 고려한, 확장 가능한 개발 환경 구축
 
+### 👨‍👧‍👧 개발 일지
+- 칸반의 일정 노트 drag and drop
+
+  ![image](https://github.com/Team-PandaN/Team-PandaN-Front/blob/master/img_readme/kanban.gif)
+- 칸반 일정 노트의 순서 저장 : linked list 사용
+
+  ![image](https://github.com/Team-PandaN/Team-PandaN-Front/blob/master/img_readme/linkedlist.gif)
+- 글 수정 동시에 하지 못하도록 잠금
+
+  ![image](https://github.com/Team-PandaN/Team-PandaN-Front/blob/master/img_readme/editmodal.gif)
+- [노션 개발 일지](https://www.notion.so/pandan/PandaN-dbfc9f6fbd7f4fc8a25556490a61e813)  
