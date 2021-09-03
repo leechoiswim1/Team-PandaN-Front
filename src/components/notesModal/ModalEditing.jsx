@@ -133,7 +133,7 @@ const ModalEditing = ({ history, note, ...rest }) => {
     dispatch(__sendWritingSignal(noteId));
     flag++;
     let now = new Date();
-    console.log(flag, "신호 보냄", now);
+    console.log(flag, "신호 보냄, 3초 간격", now);
   }, ( modalVisible ) ? 3000 : null);
 
   /**
@@ -235,6 +235,13 @@ const ModalEditing = ({ history, note, ...rest }) => {
       window.alert("마감일을 입력하세요.");
       return;
     }
+    let blank_pattern = /^\s+|\s+$/g;
+    if (noteModifiedInputs.title.replace( blank_pattern, "" ) === "" ||
+      noteModifiedInputs.content.replace( blank_pattern, "" ) === "" ||
+      noteModifiedInputs.deadline.replace( blank_pattern, "" ) === "" ){
+      window.alert("공백이 아닌 유효한 값을 입력하세요.");
+      return;
+    }
 
     // 파일 최대 첨부 개수 초과 시
     if (fileList.length > 5) {
@@ -292,6 +299,9 @@ const ModalEditing = ({ history, note, ...rest }) => {
                         setNoteModifiedInputs({ ...noteModifiedInputs, title: e.target.value });
                       }}
                     />
+                    <div className="note-file-uploader">
+				              <p>제목은 최대 255자까지 입력 가능합니다.</p>
+                    </div>
                   </div>
                 </div>
                 <div className="note-modal-tr">

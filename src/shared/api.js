@@ -2,7 +2,7 @@ import axios from "axios";
 
 /* == Axios - instance */
 const instance = axios.create({
-  baseURL: "http://blossomwhale.shop",
+  baseURL: "https://web27.shop/",
   headers: {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Content-Type",

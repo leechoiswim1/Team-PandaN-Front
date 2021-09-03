@@ -26,9 +26,9 @@ const Login = ({ history }) => {
         <h1>세상에서 제일 쉬운 협업툴</h1>
         <h1><span>PandaN</span>을 만나보세요</h1>
         {/* 로컬 테스트 */}
-        <KakaoButton type="button" onClick={()=> { window.location.href = dev_oauthURL }}/>
+        {/* <KakaoButton type="button" onClick={()=> { window.location.href = dev_oauthURL }}/> */}
         {/* 배포 */}
-        {/* <KakaoButton type="button" onClick={()=> { window.location.href = oauthURL }}/> */}
+        <KakaoButton type="button" onClick={()=> { window.location.href = oauthURL }}/>
       </Container>
     </Wrapper>
   );
