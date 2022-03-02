@@ -11,7 +11,6 @@ __Team PandaN__ 의 프론트엔드 저장소입니다.
 
 🔗  [사이트](https://pandan.link)  
 🔗  [시연 영상(Youtube)](https://youtu.be/kXbPpu10uTA)  
-🔗  [팀 노션 페이지](https://www.notion.so/pandan/PandaN-dbfc9f6fbd7f4fc8a25556490a61e813)  
 
 ## 🐼 프로젝트 소개
 
@@ -81,4 +80,4 @@ __Team PandaN__ 의 프론트엔드 저장소입니다.
 - 글 수정 동시에 하지 못하도록 잠금
 
   ![image](https://github.com/Team-PandaN/Team-PandaN-Front/blob/master/img_readme/editmodal.gif)
-- [노션 개발 일지](https://www.notion.so/pandan/PandaN-dbfc9f6fbd7f4fc8a25556490a61e813)  
+
